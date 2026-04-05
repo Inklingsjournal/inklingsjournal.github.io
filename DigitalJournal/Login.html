@@ -109,53 +109,99 @@ const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFz
 const SESSION_KEY   = "inklings_session";
 const SESSION_HOURS = 24;
 
-function saveSession(email, name){sessionStorage.setItem(SESSION_KEY,JSON.stringify({email,name,expiry:Date.now()+SESSION_HOURS*3600000}));}
-function getSession(){try{const s=JSON.parse(sessionStorage.getItem(SESSION_KEY)||‘null’);if(!s||Date.now()>s.expiry){sessionStorage.removeItem(SESSION_KEY);return null;}return s;}catch{return null;}}
+function saveSession(email, name){
+sessionStorage.setItem(SESSION_KEY, JSON.stringify({
+email, name, expiry: Date.now() + SESSION_HOURS * 3600000
+}));
+}
+function getSession(){
+try {
+const s = JSON.parse(sessionStorage.getItem(SESSION_KEY) || ‘null’);
+if (!s || Date.now() > s.expiry) { sessionStorage.removeItem(SESSION_KEY); return null; }
+return s;
+} catch { return null; }
+}
 
-window.addEventListener(‘load’,()=>{const s=getSession();if(s)showSuccess(s.name,s.email);});
-
-async function login(){
-const emailEl=document.getElementById(‘emailInput’);
-const passEl=document.getElementById(‘passkeyInput’);
-const btn=document.getElementById(‘loginBtn’);
-const email=emailEl.value.trim().toLowerCase();
-const passkey=passEl.value.trim();
-emailEl.classList.remove(‘error’);passEl.classList.remove(‘error’);
-document.getElementById(‘errorBanner’).classList.remove(‘show’);
-if(!email){showFieldError(emailEl,“Please enter your email address.”);return;}
-if(!passkey){showFieldError(passEl,“Please enter your passkey.”);return;}
-btn.disabled=true;btn.classList.add(‘loading’);
-try{
-const res=await fetch(`${SUPABASE_URL}/rest/v1/rpc/validate_login`,{
-method:“POST”,
-headers:{“Content-Type”:“application/json”,“apikey”:SUPABASE_ANON,“Authorization”:`Bearer ${SUPABASE_ANON}`},
-body:JSON.stringify({p_email:email,p_passkey:passkey})
+window.addEventListener(‘load’, () => {
+const s = getSession();
+if (s) showSuccess(s.name, s.email);
 });
-if(!res.ok)throw new Error(`HTTP ${res.status}`);
-const data=await res.json();
-btn.disabled=false;btn.classList.remove(‘loading’);
-if(data.success){saveSession(email,data.name||””);showSuccess(data.name||””,email);}
-else{emailEl.classList.add(‘error’);passEl.classList.add(‘error’);showBannerError(data.message||“Incorrect email or passkey.”);}
-}catch(err){
-btn.disabled=false;btn.classList.remove(‘loading’);
-showBannerError(“Connection error. Please check your internet and try again.”);
+
+async function login() {
+const emailEl = document.getElementById(‘emailInput’);
+const passEl  = document.getElementById(‘passkeyInput’);
+const btn     = document.getElementById(‘loginBtn’);
+
+const email   = emailEl.value.trim().toLowerCase();
+const passkey = passEl.value.trim();
+
+// Reset errors
+emailEl.classList.remove(‘error’);
+passEl.classList.remove(‘error’);
+document.getElementById(‘errorBanner’).classList.remove(‘show’);
+
+if (!email)   { showFieldError(emailEl, “Please enter your email address.”); return; }
+if (!passkey) { showFieldError(passEl,  “Please enter your passkey.”); return; }
+
+btn.disabled = true;
+btn.classList.add(‘loading’);
+
+try {
+const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/validate_login`, {
+method:  “POST”,
+mode:    “cors”,
+headers: {
+“Content-Type”:  “application/json”,
+“apikey”:        SUPABASE_ANON,
+“Authorization”: `Bearer ${SUPABASE_ANON}`,
+“Accept”:        “application/json”,
+“Prefer”:        “return=representation”
+},
+body: JSON.stringify({ p_email: email, p_passkey: passkey })
+});
+
+```
+const text = await res.text();
+let data;
+try { data = JSON.parse(text); } catch(e) { throw new Error("Bad response: " + text); }
+
+btn.disabled = false;
+btn.classList.remove('loading');
+
+if (data && data.success) {
+  saveSession(email, data.name || "");
+  showSuccess(data.name || "", email);
+} else {
+  emailEl.classList.add('error');
+  passEl.classList.add('error');
+  showBannerError((data && data.message) ? data.message : "Incorrect email or passkey.");
+}
+```
+
+} catch(err) {
+btn.disabled = false;
+btn.classList.remove(‘loading’);
+showBannerError(“Error: “ + err.message);
 }
 }
 
-function showFieldError(el,msg){el.classList.add(‘error’);showBannerError(msg);el.focus();}
-function showBannerError(msg){document.getElementById(‘errorText’).textContent=msg;document.getElementById(‘errorBanner’).classList.add(‘show’);}
-function showSuccess(name,email){
+function showFieldError(el, msg) { el.classList.add(‘error’); showBannerError(msg); el.focus(); }
+function showBannerError(msg) {
+document.getElementById(‘errorText’).textContent = msg;
+document.getElementById(‘errorBanner’).classList.add(‘show’);
+}
+function showSuccess(name, email) {
 document.getElementById(‘viewLogin’).classList.remove(‘active’);
 document.getElementById(‘viewSuccess’).classList.add(‘active’);
-if(name)document.getElementById(‘successName’).textContent=name;
-document.getElementById(‘openBtn’).href=`./Code.html?e=${encodeURIComponent(email)}`;
+if (name) document.getElementById(‘successName’).textContent = name;
+document.getElementById(‘openBtn’).href = `./Code.html?e=${encodeURIComponent(email)}`;
 }
-function toggleEye(){
-const inp=document.getElementById(‘passkeyInput’);
-inp.type=inp.type===‘password’?‘text’:‘password’;
-document.getElementById(‘eyeIcon’).innerHTML=inp.type===‘text’
-?’<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>’
-:’<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>’;
+function toggleEye() {
+const inp = document.getElementById(‘passkeyInput’);
+inp.type = inp.type === ‘password’ ? ‘text’ : ‘password’;
+document.getElementById(‘eyeIcon’).innerHTML = inp.type === ‘text’
+? ‘<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>’
+: ‘<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>’;
 }
 </script>
 
