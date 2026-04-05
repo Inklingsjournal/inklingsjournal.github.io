@@ -212,8 +212,8 @@ border-bottom:1px solid rgba(115,129,94,0.18);
 .author-left { background:var(–sage); padding:5rem; display:flex; flex-direction:column; justify-content:center; }
 .author-right { background:var(–cream); padding:5rem; display:flex; flex-direction:column; justify-content:center; }
 .author-name { font-family:‘Cormorant Garamond’,serif; font-size:2.8rem; font-weight:300; color:var(–gold-light); margin-bottom:0.4rem; }
-.author-cred { font-size:0.7rem; letter-spacing:0.16em; text-transform:uppercase; color:var(–ink); margin-bottom:2.5rem; }
-.author-bio { font-size:0.9rem; font-weight:300; color:var(–ink); line-height:1.95; margin-bottom:1rem; }
+.author-cred { font-size:0.7rem; letter-spacing:0.16em; text-transform:uppercase; color:var(–cream); margin-bottom:2.5rem; }
+.author-bio { font-size:0.9rem; font-weight:300; color:var(–cream); line-height:1.95; margin-bottom:1rem; }
 .author-values { display:flex; flex-wrap:wrap; gap:0.6rem; margin-top:2rem; }
 .author-value { font-size:0.68rem; font-weight:400; letter-spacing:0.1em; text-transform:uppercase; color:var(–cream); border:1px solid rgba(232,213,163,0.4); padding:0.4rem 0.9rem; }
 .author-brand-name { font-family:‘Cormorant Garamond’,serif; font-size:1.5rem; font-weight:400; color:var(–ink); margin-bottom:0.8rem; }
@@ -834,7 +834,6 @@ footer { padding:3rem 1.8rem 2rem; }
 </footer>
 
 <script>
-// Fade-up animations
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
@@ -848,7 +847,6 @@ document.querySelectorAll('.fade-up').forEach((el, i) => {
   obs.observe(el);
 });
 
-// Chapter tabs
 function showCh(n) {
   document.querySelectorAll('.chapter-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.ctab').forEach(t => t.classList.remove('active'));
