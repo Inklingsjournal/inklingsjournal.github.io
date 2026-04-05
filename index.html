@@ -839,6 +839,41 @@ footer { padding:3rem 1.8rem 2rem; }
   </div>
 </footer>
 
+<a href="#" id="back-top" style="
+  position:fixed;
+  bottom:2rem;
+  right:2rem;
+  width:42px;
+  height:42px;
+  background:var(--sage);
+  color:var(--cream);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 0.3s ease, transform 0.3s ease;
+  z-index:99;
+  text-decoration:none;
+">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+    <path d="M12 19V5M5 12l7-7 7 7"/>
+  </svg>
+</a>
+
+<script>
+  const btn = document.getElementById('back-top');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+      btn.style.opacity = '1';
+      btn.style.pointerEvents = 'auto';
+    } else {
+      btn.style.opacity = '0';
+      btn.style.pointerEvents = 'none';
+    }
+  });
+</script>
+
 <script>
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => {
