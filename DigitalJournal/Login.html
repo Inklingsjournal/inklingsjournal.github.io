@@ -7,638 +7,156 @@
 <title>Inklings Journal — Login</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    -cream: #f6f1e9;
-    -parchment: #ede6d4;
-    -parchment-dark: #e0d8c8;
-    -sage: #7a8c6e;
-    -sage-light: #a8b89a;
-    -sage-pale: #d6dece;
-    -sage-dark: #4f6247;
-    -warm-brown: #6b5c47;
-    -ink: #2a2a28;
-    -ink-light: #7a7a74;
-    -line: #d8d0c4;
-    -white: #fdfaf5;
-    -gold: #b89a5c;
-    -error: #c0614a;
-    -success: #4f6247;
-  }
-
-- { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-font-family: ‘Jost’, sans-serif;
-background: var(–cream);
-color: var(–ink);
-min-height: 100vh;
-display: flex;
-align-items: center;
-justify-content: center;
-padding: 24px;
-position: relative;
-overflow: hidden;
-}
-
-/* Background decorative rings */
-.bg-ring {
-position: fixed;
-border-radius: 50%;
-border: 1px solid var(–sage-pale);
-opacity: 0.45;
-pointer-events: none;
-}
-.bg-ring-1 { width: 560px; height: 560px; top: -180px; right: -180px; }
-.bg-ring-2 { width: 380px; height: 380px; top: -80px; right: -80px; }
-.bg-ring-3 { width: 420px; height: 420px; bottom: -160px; left: -160px; }
-.bg-ring-4 { width: 240px; height: 240px; bottom: -60px; left: -60px; }
-
-.card {
-background: var(–white);
-border: 1px solid var(–line);
-border-radius: 24px;
-padding: 52px 48px;
-max-width: 460px;
-width: 100%;
-position: relative;
-box-shadow: 0 24px 64px rgba(79,98,71,0.09), 0 4px 16px rgba(0,0,0,0.04);
-animation: rise 0.5s cubic-bezier(.4,0,.2,1);
-z-index: 1;
-}
-
-@keyframes rise {
-from { opacity: 0; transform: translateY(24px); }
-to   { opacity: 1; transform: translateY(0); }
-}
-
-.card-top-line {
-position: absolute;
-top: 0; left: 48px; right: 48px;
-height: 2px;
-background: linear-gradient(90deg, transparent, var(–sage-light), var(–gold), var(–sage-light), transparent);
-border-radius: 0 0 2px 2px;
-}
-
-/* ── LOGO ── */
-.logo-wrap { margin-bottom: 36px; }
-.logo {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 30px;
-font-weight: 300;
-color: var(–sage-dark);
-letter-spacing: 0.02em;
-display: block;
-line-height: 1;
-margin-bottom: 5px;
-}
-.logo em { font-style: italic; color: var(–gold); }
-.tagline {
-font-size: 9.5px;
-letter-spacing: 0.2em;
-text-transform: uppercase;
-color: var(–sage-light);
-font-weight: 400;
-}
-
-/* ── VIEWS ── */
-.view { display: none; }
-.view.active { display: block; animation: fadeUp 0.35s cubic-bezier(.4,0,.2,1); }
-
-@keyframes fadeUp {
-from { opacity: 0; transform: translateY(10px); }
-to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ── FORM ── */
-.view-title {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 34px;
-font-weight: 300;
-color: var(–ink);
-line-height: 1.2;
-margin-bottom: 8px;
-}
-.view-title em { font-style: italic; color: var(–sage-dark); }
-
-.view-sub {
-font-size: 13px;
-color: var(–ink-light);
-line-height: 1.75;
-font-weight: 300;
-margin-bottom: 32px;
-}
-
-.field { margin-bottom: 18px; }
-
-.field-label {
-font-size: 9.5px;
-letter-spacing: 0.18em;
-text-transform: uppercase;
-color: var(–sage);
-font-weight: 500;
-margin-bottom: 8px;
-display: block;
-}
-
-.field-input {
-width: 100%;
-border: 1px solid var(–line);
-border-radius: 10px;
-background: var(–cream);
-font-family: ‘Jost’, sans-serif;
-font-size: 14px;
-font-weight: 300;
-color: var(–ink);
-padding: 13px 16px;
-outline: none;
-transition: all 0.25s;
--webkit-appearance: none;
-}
-.field-input:focus {
-border-color: var(–sage-light);
-background: var(–white);
-box-shadow: 0 0 0 3px rgba(122,140,110,0.12);
-}
-.field-input.error {
-border-color: var(–error);
-box-shadow: 0 0 0 3px rgba(192,97,74,0.1);
-animation: shake 0.35s ease;
-}
-.field-input::placeholder { color: var(–line); }
-
-/* Passkey field with show/hide toggle */
-.passkey-wrap { position: relative; }
-.passkey-wrap .field-input { padding-right: 46px; letter-spacing: 0.04em; }
-.toggle-eye {
-position: absolute;
-right: 14px;
-top: 50%;
-transform: translateY(-50%);
-background: none;
-border: none;
-cursor: pointer;
-color: var(–ink-light);
-padding: 4px;
-display: flex;
-align-items: center;
-transition: color 0.2s;
-}
-.toggle-eye:hover { color: var(–sage-dark); }
-
-@keyframes shake {
-0%,100% { transform: translateX(0); }
-25% { transform: translateX(-7px); }
-75% { transform: translateX(7px); }
-}
-
-.error-banner {
-display: flex;
-align-items: flex-start;
-gap: 10px;
-background: rgba(192,97,74,0.08);
-border: 1px solid rgba(192,97,74,0.2);
-border-radius: 8px;
-padding: 12px 14px;
-margin-bottom: 18px;
-font-size: 12.5px;
-color: var(–error);
-line-height: 1.55;
-font-weight: 300;
-opacity: 0;
-transform: translateY(-4px);
-transition: all 0.25s;
-pointer-events: none;
-}
-.error-banner.show {
-opacity: 1;
-transform: translateY(0);
-pointer-events: auto;
-}
-.error-icon { flex-shrink: 0; margin-top: 1px; }
-
-.submit-btn {
-width: 100%;
-background: var(–sage-dark);
-color: white;
-border: none;
-border-radius: 10px;
-padding: 15px;
-font-family: ‘Jost’, sans-serif;
-font-size: 12.5px;
-font-weight: 400;
-letter-spacing: 0.12em;
-text-transform: uppercase;
-cursor: pointer;
-transition: all 0.25s;
-margin-top: 8px;
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 8px;
-position: relative;
-overflow: hidden;
-}
-.submit-btn:hover:not(:disabled) {
-background: var(–ink);
-transform: translateY(-1px);
-box-shadow: 0 8px 20px rgba(79,98,71,0.2);
-}
-.submit-btn:active:not(:disabled) { transform: translateY(0); }
-.submit-btn:disabled { opacity: 0.65; cursor: not-allowed; }
-
-.btn-spinner {
-width: 16px; height: 16px;
-border: 2px solid rgba(255,255,255,0.3);
-border-top-color: white;
-border-radius: 50%;
-animation: spin 0.7s linear infinite;
-display: none;
-}
-.submit-btn.loading .btn-text { display: none; }
-.submit-btn.loading .btn-spinner { display: block; }
-
-@keyframes spin { to { transform: rotate(360deg); } }
-
-.help-row {
-text-align: center;
-margin-top: 24px;
-font-size: 11.5px;
-color: var(–ink-light);
-font-weight: 300;
-line-height: 1.7;
-}
-.help-row a {
-color: var(–sage-dark);
-text-decoration: none;
-font-weight: 400;
-}
-.help-row a:hover { text-decoration: underline; }
-
-.divider-or {
-display: flex;
-align-items: center;
-gap: 12px;
-margin: 24px 0;
-}
-.divider-or::before, .divider-or::after {
-content: ‘’; flex: 1; height: 1px; background: var(–line);
-}
-.divider-or span {
-font-size: 10px;
-color: var(–ink-light);
-letter-spacing: 0.1em;
-font-weight: 300;
-}
-
-.buy-btn {
-width: 100%;
-background: transparent;
-color: var(–sage-dark);
-border: 1px solid var(–sage-light);
-border-radius: 10px;
-padding: 14px;
-font-family: ‘Jost’, sans-serif;
-font-size: 12.5px;
-font-weight: 400;
-letter-spacing: 0.06em;
-cursor: pointer;
-transition: all 0.25s;
-text-decoration: none;
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 8px;
-}
-.buy-btn:hover {
-background: var(–parchment);
-border-color: var(–sage);
-}
-.price-pill {
-background: var(–parchment-dark);
-border-radius: 20px;
-padding: 2px 10px;
-font-size: 11px;
-color: var(–warm-brown);
-font-weight: 400;
-}
-
-/* ── SUCCESS VIEW ── */
-.success-icon-wrap {
-width: 60px; height: 60px;
-border-radius: 50%;
-background: var(–sage-pale);
-display: flex;
-align-items: center;
-justify-content: center;
-margin: 0 auto 20px;
-font-size: 26px;
-animation: pop 0.45s cubic-bezier(.4,0,.2,1);
-}
-@keyframes pop {
-from { transform: scale(0.5); opacity: 0; }
-to   { transform: scale(1); opacity: 1; }
-}
-
-.success-title {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 34px;
-font-weight: 300;
-color: var(–ink);
-text-align: center;
-margin-bottom: 8px;
-}
-.success-title em { font-style: italic; color: var(–sage-dark); }
-
-.success-name {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 20px;
-color: var(–gold);
-font-style: italic;
-text-align: center;
-margin-bottom: 6px;
-}
-
-.success-sub {
-font-size: 13px;
-color: var(–ink-light);
-font-weight: 300;
-line-height: 1.75;
-text-align: center;
-margin-bottom: 32px;
-}
-
-.open-btn {
-display: block;
-width: 100%;
-background: var(–sage-dark);
-color: white;
-border: none;
-border-radius: 10px;
-padding: 15px;
-font-family: ‘Jost’, sans-serif;
-font-size: 12.5px;
-font-weight: 400;
-letter-spacing: 0.12em;
-text-transform: uppercase;
-cursor: pointer;
-transition: all 0.25s;
-text-decoration: none;
-text-align: center;
-}
-.open-btn:hover {
-background: var(–ink);
-transform: translateY(-1px);
-}
-
-.back-site {
-display: block;
-text-align: center;
-margin-top: 16px;
-font-size: 11.5px;
-color: var(–ink-light);
-text-decoration: none;
-font-weight: 300;
-transition: color 0.2s;
-}
-.back-site:hover { color: var(–sage-dark); }
-
-@media (max-width: 500px) {
-.card { padding: 40px 28px; border-radius: 18px; }
-.view-title, .success-title { font-size: 28px; }
-}
+:root{--cream:#f6f1e9;--parchment:#ede6d4;--parchment-dark:#e0d8c8;--sage:#7a8c6e;--sage-light:#a8b89a;--sage-pale:#d6dece;--sage-dark:#4f6247;--warm-brown:#6b5c47;--ink:#2a2a28;--ink-light:#7a7a74;--line:#d8d0c4;--white:#fdfaf5;--gold:#b89a5c;--error:#c0614a;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;overflow:hidden;position:relative;}
+.ring{position:fixed;border-radius:50%;border:1px solid var(--sage-pale);opacity:.4;pointer-events:none;}
+.r1{width:580px;height:580px;top:-200px;right:-200px;}.r2{width:360px;height:360px;top:-80px;right:-80px;}.r3{width:440px;height:440px;bottom:-180px;left:-180px;}.r4{width:220px;height:220px;bottom:-60px;left:-60px;}
+.card{background:var(--white);border:1px solid var(--line);border-radius:24px;padding:52px 48px;max-width:460px;width:100%;position:relative;z-index:1;box-shadow:0 24px 64px rgba(79,98,71,.09),0 4px 16px rgba(0,0,0,.04);animation:rise .5s cubic-bezier(.4,0,.2,1);}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.top-line{position:absolute;top:0;left:48px;right:48px;height:2px;background:linear-gradient(90deg,transparent,var(--sage-light),var(--gold),var(--sage-light),transparent);border-radius:0 0 2px 2px;}
+.logo-wrap{margin-bottom:36px;}.logo{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:300;color:var(--sage-dark);letter-spacing:.02em;display:block;line-height:1;margin-bottom:5px;}.logo em{font-style:italic;color:var(--gold);}
+.tagline{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--sage-light);font-weight:400;}
+.view{display:none;}.view.active{display:block;animation:fadeUp .35s cubic-bezier(.4,0,.2,1);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.view-title{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;color:var(--ink);line-height:1.2;margin-bottom:8px;}.view-title em{font-style:italic;color:var(--sage-dark);}
+.view-sub{font-size:13px;color:var(--ink-light);line-height:1.75;font-weight:300;margin-bottom:28px;}
+.field{margin-bottom:16px;}.field-label{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--sage);font-weight:500;margin-bottom:8px;display:block;}
+.field-input{width:100%;border:1px solid var(--line);border-radius:10px;background:var(--cream);font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--ink);padding:13px 16px;outline:none;transition:all .25s;-webkit-appearance:none;}
+.field-input:focus{border-color:var(--sage-light);background:var(--white);box-shadow:0 0 0 3px rgba(122,140,110,.12);}
+.field-input.error{border-color:var(--error);box-shadow:0 0 0 3px rgba(192,97,74,.1);animation:shake .35s ease;}
+.field-input::placeholder{color:var(--line);}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+.pass-wrap{position:relative;}.pass-wrap .field-input{padding-right:46px;}
+.eye-btn{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--ink-light);padding:4px;display:flex;align-items:center;transition:color .2s;}.eye-btn:hover{color:var(--sage-dark);}
+.error-banner{display:flex;align-items:flex-start;gap:10px;background:rgba(192,97,74,.08);border:1px solid rgba(192,97,74,.2);border-radius:8px;padding:12px 14px;margin-bottom:16px;font-size:12.5px;color:var(--error);line-height:1.55;font-weight:300;opacity:0;transform:translateY(-4px);transition:all .25s;pointer-events:none;}
+.error-banner.show{opacity:1;transform:translateY(0);pointer-events:auto;}
+.submit-btn{width:100%;background:var(--sage-dark);color:white;border:none;border-radius:10px;padding:15px;font-family:'Jost',sans-serif;font-size:12.5px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .25s;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px;}
+.submit-btn:hover:not(:disabled){background:var(--ink);transform:translateY(-1px);box-shadow:0 8px 20px rgba(79,98,71,.2);}
+.submit-btn:disabled{opacity:.65;cursor:not-allowed;}
+.spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;animation:spin .7s linear infinite;display:none;}
+.submit-btn.loading .btn-text{display:none;}.submit-btn.loading .spinner{display:block;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.divider-or{display:flex;align-items:center;gap:12px;margin:24px 0;}
+.divider-or::before,.divider-or::after{content:'';flex:1;height:1px;background:var(--line);}
+.divider-or span{font-size:10px;color:var(--ink-light);letter-spacing:.1em;font-weight:300;}
+.buy-btn{width:100%;background:transparent;color:var(--sage-dark);border:1px solid var(--sage-light);border-radius:10px;padding:14px;font-family:'Jost',sans-serif;font-size:12.5px;font-weight:400;letter-spacing:.06em;cursor:pointer;transition:all .25s;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:8px;}
+.buy-btn:hover{background:var(--parchment);border-color:var(--sage);}
+.price-pill{background:var(--parchment-dark);border-radius:20px;padding:2px 10px;font-size:11px;color:var(--warm-brown);font-weight:400;}
+.help-row{text-align:center;margin-top:20px;font-size:11.5px;color:var(--ink-light);font-weight:300;line-height:1.7;}
+.help-row a{color:var(--sage-dark);text-decoration:none;font-weight:400;}.help-row a:hover{text-decoration:underline;}
+.success-icon{width:60px;height:60px;border-radius:50%;background:var(--sage-pale);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:26px;animation:pop .45s cubic-bezier(.4,0,.2,1);}
+@keyframes pop{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+.success-title{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;color:var(--ink);text-align:center;margin-bottom:6px;}.success-title em{font-style:italic;color:var(--sage-dark);}
+.success-name{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);font-style:italic;text-align:center;margin-bottom:8px;}
+.success-sub{font-size:13px;color:var(--ink-light);font-weight:300;line-height:1.75;text-align:center;margin-bottom:28px;}
+.open-btn{display:block;width:100%;background:var(--sage-dark);color:white;border:none;border-radius:10px;padding:15px;font-family:'Jost',sans-serif;font-size:12.5px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .25s;text-decoration:none;text-align:center;}
+.open-btn:hover{background:var(--ink);transform:translateY(-1px);}
+.back-link{display:block;text-align:center;margin-top:14px;font-size:11.5px;color:var(--ink-light);text-decoration:none;font-weight:300;}.back-link:hover{color:var(--sage-dark);}
+@media(max-width:500px){.card{padding:40px 28px;border-radius:18px;}.view-title,.success-title{font-size:28px;}}
 </style>
-
 </head>
 <body>
-
-<!-- Background rings -->
-
-<div class="bg-ring bg-ring-1"></div>
-<div class="bg-ring bg-ring-2"></div>
-<div class="bg-ring bg-ring-3"></div>
-<div class="bg-ring bg-ring-4"></div>
-
+<div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div><div class="ring r4"></div>
 <div class="card">
-  <div class="card-top-line"></div>
-
+  <div class="top-line"></div>
   <div class="logo-wrap">
     <span class="logo">Ink<em>lings</em></span>
     <span class="tagline">Your inner world, in words</span>
   </div>
-
-  <!-- ── LOGIN VIEW ── -->
-
   <div class="view active" id="viewLogin">
     <h2 class="view-title">Welcome<br><em>back.</em></h2>
-    <p class="view-sub">Enter the email and passkey from your purchase confirmation to access your journal.</p>
-
-```
-<div class="error-banner" id="errorBanner">
-  <span class="error-icon">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-  </span>
-  <span id="errorText">Incorrect email or passkey. Please check and try again.</span>
-</div>
-
-<div class="field">
-  <label class="field-label" for="emailInput">Email Address</label>
-  <input
-    class="field-input"
-    id="emailInput"
-    type="email"
-    placeholder="you@example.com"
-    autocomplete="email"
-    inputmode="email"
-  >
-</div>
-
-<div class="field">
-  <label class="field-label" for="passkeyInput">Passkey</label>
-  <div class="passkey-wrap">
-    <input
-      class="field-input"
-      id="passkeyInput"
-      type="password"
-      placeholder="Enter your passkey"
-      autocomplete="current-password"
-      onkeydown="if(event.key==='Enter') submitLogin()"
-    >
-    <button class="toggle-eye" onclick="togglePasskey()" type="button" aria-label="Show passkey">
-      <svg id="eyeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-        <circle cx="12" cy="12" r="3"/>
-      </svg>
+    <p class="view-sub">Enter the email and passkey from your purchase confirmation email.</p>
+    <div class="error-banner" id="errorBanner">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span id="errorText">Incorrect email or passkey.</span>
+    </div>
+    <div class="field">
+      <label class="field-label" for="emailInput">Email Address</label>
+      <input class="field-input" id="emailInput" type="email" placeholder="you@example.com" autocomplete="email" inputmode="email">
+    </div>
+    <div class="field">
+      <label class="field-label" for="passkeyInput">Passkey</label>
+      <div class="pass-wrap">
+        <input class="field-input" id="passkeyInput" type="password" placeholder="e.g. INK-A3F7-X9K2" autocomplete="current-password" onkeydown="if(event.key==='Enter')login()">
+        <button class="eye-btn" onclick="toggleEye()" type="button">
+          <svg id="eyeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+    </div>
+    <button class="submit-btn" id="loginBtn" onclick="login()">
+      <span class="btn-text">Access My Journal</span>
+      <div class="spinner"></div>
     </button>
+    <div class="divider-or"><span>don't have access yet?</span></div>
+    <a class="buy-btn" href="https://rzp.io/YOUR_PAYMENT_LINK" target="_blank">
+      ✦ Get Inklings Journal <span class="price-pill">₹ ___</span>
+    </a>
+    <p class="help-row">Purchased but no email? <a href="mailto:hello@inklingsjournal.com">Contact support</a></p>
   </div>
-</div>
-
-<button class="submit-btn" id="loginBtn" onclick="submitLogin()">
-  <span class="btn-text">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;vertical-align:-2px"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-    Access My Journal
-  </span>
-  <div class="btn-spinner"></div>
-</button>
-
-<div class="divider-or"><span>don't have access yet?</span></div>
-
-<!-- ★ REPLACE href WITH YOUR RAZORPAY PAYMENT LINK ★ -->
-<a class="buy-btn" href="https://rzp.io/rzp/Inklingsjournal" target="_blank">
-  ✦ Get Inklings Journal
-  <span class="price-pill">₹ ___</span>
-</a>
-
-<p class="help-row">
-  Purchased but no email? <a href="mailto:hello@inklingsjournal.com">Contact support</a>
-</p>
-```
-
-  </div>
-
-  <!-- ── SUCCESS VIEW ── -->
-
   <div class="view" id="viewSuccess">
-    <div class="success-icon-wrap">✦</div>
+    <div class="success-icon">✦</div>
     <h2 class="success-title">You're <em>in.</em></h2>
     <div class="success-name" id="successName"></div>
     <p class="success-sub">Your journal is ready. Take your time, move at your own pace, and write honestly.</p>
-    <a class="open-btn" href="./Code.html">Open My Journal →</a>
-    <a class="back-site" href="https://www.inklingsjournal.com">← Back to inklingsjournal.com</a>
+    <a class="open-btn" href="./Code.html" id="openBtn">Open My Journal →</a>
+    <a class="back-link" href="https://www.inklingsjournal.com">← Back to inklingsjournal.com</a>
   </div>
-
 </div>
-
 <script>
-  // ══════════════════════════════════════════════════
-  // ★ PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE
-  // (you'll get this after deploying the Apps Script)
-  // ══════════════════════════════════════════════════
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyjSkGwATeLnhJEmpOWDO9wFjplLRJyzOmgc4z-cGTnQpn0UWMlh7_E3oZH2tc-M0w62Q/exec";
+const SUPABASE_URL  = "https://vqpyeebiornuymohbicz.supabase.co";
+const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZxcHllZWJpb3JudXltb2hiaWN6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0MTU1NDcsImV4cCI6MjA5MDk5MTU0N30.7XFzJu3JVJxE-GW4qsqKVbRkjq-KZIi1BUqcNtETKKM";
+const SESSION_KEY   = "inklings_session";
+const SESSION_HOURS = 24;
 
-  // Session duration in hours (0 = until browser closes)
-  const SESSION_HOURS = 24;
+function saveSession(email, name){sessionStorage.setItem(SESSION_KEY,JSON.stringify({email,name,expiry:Date.now()+SESSION_HOURS*3600000}));}
+function getSession(){try{const s=JSON.parse(sessionStorage.getItem(SESSION_KEY)||‘null’);if(!s||Date.now()>s.expiry){sessionStorage.removeItem(SESSION_KEY);return null;}return s;}catch{return null;}}
 
-  // ══════════════════════════════════════════════════
+window.addEventListener(‘load’,()=>{const s=getSession();if(s)showSuccess(s.name,s.email);});
 
-  // Check existing session on load
-  window.addEventListener('load', () => {
-    if (hasValidSession()) showSuccess(getSession().name || "");
-  });
+async function login(){
+const emailEl=document.getElementById(‘emailInput’);
+const passEl=document.getElementById(‘passkeyInput’);
+const btn=document.getElementById(‘loginBtn’);
+const email=emailEl.value.trim().toLowerCase();
+const passkey=passEl.value.trim();
+emailEl.classList.remove(‘error’);passEl.classList.remove(‘error’);
+document.getElementById(‘errorBanner’).classList.remove(‘show’);
+if(!email){showFieldError(emailEl,“Please enter your email address.”);return;}
+if(!passkey){showFieldError(passEl,“Please enter your passkey.”);return;}
+btn.disabled=true;btn.classList.add(‘loading’);
+try{
+const res=await fetch(`${SUPABASE_URL}/rest/v1/rpc/validate_login`,{
+method:“POST”,
+headers:{“Content-Type”:“application/json”,“apikey”:SUPABASE_ANON,“Authorization”:`Bearer ${SUPABASE_ANON}`},
+body:JSON.stringify({p_email:email,p_passkey:passkey})
+});
+if(!res.ok)throw new Error(`HTTP ${res.status}`);
+const data=await res.json();
+btn.disabled=false;btn.classList.remove(‘loading’);
+if(data.success){saveSession(email,data.name||””);showSuccess(data.name||””,email);}
+else{emailEl.classList.add(‘error’);passEl.classList.add(‘error’);showBannerError(data.message||“Incorrect email or passkey.”);}
+}catch(err){
+btn.disabled=false;btn.classList.remove(‘loading’);
+showBannerError(“Connection error. Please check your internet and try again.”);
+}
+}
 
-  function hasValidSession() {
-    try {
-      const s = JSON.parse(sessionStorage.getItem('inklings_session') || 'null');
-      if (!s) return false;
-      if (SESSION_HOURS > 0 && Date.now() > s.expiry) {
-        sessionStorage.removeItem('inklings_session');
-        return false;
-      }
-      return true;
-    } catch { return false; }
-  }
-
-  function getSession() {
-    try { return JSON.parse(sessionStorage.getItem('inklings_session') || '{}'); } catch { return {}; }
-  }
-
-  function saveSession(name) {
-    const expiry = SESSION_HOURS > 0 ? Date.now() + SESSION_HOURS * 3600000 : Infinity;
-    sessionStorage.setItem('inklings_session', JSON.stringify({ name, expiry, at: Date.now() }));
-  }
-
-  function togglePasskey() {
-    const inp = document.getElementById('passkeyInput');
-    const icon = document.getElementById('eyeIcon');
-    if (inp.type === 'password') {
-      inp.type = 'text';
-      icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>';
-    } else {
-      inp.type = 'password';
-      icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
-    }
-  }
-
-  function submitLogin() {
-    const emailEl   = document.getElementById('emailInput');
-    const passEl    = document.getElementById('passkeyInput');
-    const btn       = document.getElementById('loginBtn');
-    const errBanner = document.getElementById('errorBanner');
-
-    const email   = emailEl.value.trim().toLowerCase();
-    const passkey = passEl.value.trim();
-
-    // Clear errors
-    emailEl.classList.remove('error');
-    passEl.classList.remove('error');
-    errBanner.classList.remove('show');
-
-    // Basic validation
-    if (!email) { showError(emailEl, "Please enter your email."); return; }
-    if (!passkey) { showError(passEl, "Please enter your passkey."); return; }
-
-    // Loading state
-    btn.disabled = true;
-    btn.classList.add('loading');
-
-    // Call Google Apps Script
-    const cb = 'cb_' + Date.now();
-    window[cb] = function(data) {
-      delete window[cb];
-      document.getElementById('scriptTag') && document.getElementById('scriptTag').remove();
-      btn.disabled = false;
-      btn.classList.remove('loading');
-
-      if (data.success) {
-        saveSession(data.name || "");
-        showSuccess(data.name || "");
-      } else {
-        showBannerError(data.message || "Incorrect email or passkey.");
-        emailEl.classList.add('error');
-        passEl.classList.add('error');
-      }
-    };
-
-    // Timeout fallback
-    const timeout = setTimeout(() => {
-      delete window[cb];
-      btn.disabled = false;
-      btn.classList.remove('loading');
-      showBannerError("Connection timed out. Please try again.");
-    }, 10000);
-
-    const script = document.createElement('script');
-    script.id = 'scriptTag';
-    script.src = `${SCRIPT_URL}?email=${encodeURIComponent(email)}&passkey=${encodeURIComponent(passkey)}&callback=${cb}`;
-    script.onerror = () => {
-      clearTimeout(timeout);
-      delete window[cb];
-      btn.disabled = false;
-      btn.classList.remove('loading');
-      showBannerError("Could not connect. Please check your internet and try again.");
-    };
-    document.head.appendChild(script);
-  }
-
-  function showError(el, msg) {
-    el.classList.add('error');
-    showBannerError(msg);
-    el.focus();
-  }
-
-  function showBannerError(msg) {
-    const banner = document.getElementById('errorBanner');
-    document.getElementById('errorText').textContent = msg;
-    banner.classList.add('show');
-  }
-
-  function showSuccess(name) {
-    document.getElementById('viewLogin').classList.remove('active');
-    const sv = document.getElementById('viewSuccess');
-    sv.classList.add('active');
-    if (name) {
-      document.getElementById('successName').textContent = name;
-    }
-  }
+function showFieldError(el,msg){el.classList.add(‘error’);showBannerError(msg);el.focus();}
+function showBannerError(msg){document.getElementById(‘errorText’).textContent=msg;document.getElementById(‘errorBanner’).classList.add(‘show’);}
+function showSuccess(name,email){
+document.getElementById(‘viewLogin’).classList.remove(‘active’);
+document.getElementById(‘viewSuccess’).classList.add(‘active’);
+if(name)document.getElementById(‘successName’).textContent=name;
+document.getElementById(‘openBtn’).href=`./Code.html?e=${encodeURIComponent(email)}`;
+}
+function toggleEye(){
+const inp=document.getElementById(‘passkeyInput’);
+inp.type=inp.type===‘password’?‘text’:‘password’;
+document.getElementById(‘eyeIcon’).innerHTML=inp.type===‘text’
+?’<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>’
+:’<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>’;
+}
 </script>
 
 </body>
