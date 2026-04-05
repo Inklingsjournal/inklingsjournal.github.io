@@ -1,1 +1,478 @@
+<!DOCTYPE html>
 
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inklings Journal — Access</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f6f1e9;
+    --parchment: #ede6d4;
+    --sage: #7a8c6e;
+    --sage-light: #a8b89a;
+    --sage-pale: #d6dece;
+    --sage-dark: #4f6247;
+    --warm-brown: #6b5c47;
+    --ink: #2a2a28;
+    --ink-light: #7a7a74;
+    --line: #d8d0c4;
+    --white: #fdfaf5;
+    --gold: #b89a5c;
+    --error: #c0614a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+font-family: ‘Jost’, sans-serif;
+background: var(–cream);
+color: var(–ink);
+min-height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 24px;
+position: relative;
+overflow: hidden;
+}
+
+/* Background rings */
+body::before, body::after {
+content: ‘’;
+position: fixed;
+border-radius: 50%;
+border: 1px solid var(–sage-pale);
+opacity: 0.5;
+pointer-events: none;
+}
+body::before {
+width: 600px; height: 600px;
+top: -200px; right: -200px;
+}
+body::after {
+width: 400px; height: 400px;
+bottom: -150px; left: -150px;
+}
+
+.card {
+background: var(–white);
+border: 1px solid var(–line);
+border-radius: 20px;
+padding: 52px 48px;
+max-width: 440px;
+width: 100%;
+position: relative;
+box-shadow: 0 24px 64px rgba(79,98,71,0.08);
+animation: rise 0.5s cubic-bezier(.4,0,.2,1);
+}
+
+@keyframes rise {
+from { opacity: 0; transform: translateY(20px); }
+to   { opacity: 1; transform: translateY(0); }
+}
+
+.card-accent {
+position: absolute;
+top: 0; left: 40px; right: 40px;
+height: 2px;
+background: linear-gradient(90deg, transparent, var(–sage-light), transparent);
+border-radius: 0 0 2px 2px;
+}
+
+.logo {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 28px;
+font-weight: 300;
+color: var(–sage-dark);
+letter-spacing: 0.02em;
+margin-bottom: 4px;
+display: block;
+}
+.logo em { font-style: italic; color: var(–gold); }
+
+.tagline {
+font-size: 10px;
+letter-spacing: 0.18em;
+text-transform: uppercase;
+color: var(–sage-light);
+font-weight: 400;
+margin-bottom: 36px;
+display: block;
+}
+
+/* ── GATE VIEW ── */
+#gateView h2 {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 32px;
+font-weight: 300;
+color: var(–ink);
+line-height: 1.2;
+margin-bottom: 10px;
+}
+#gateView h2 em { font-style: italic; color: var(–sage-dark); }
+
+#gateView p {
+font-size: 13px;
+color: var(–ink-light);
+line-height: 1.75;
+font-weight: 300;
+margin-bottom: 32px;
+}
+
+.field-label {
+font-size: 9.5px;
+letter-spacing: 0.16em;
+text-transform: uppercase;
+color: var(–sage);
+font-weight: 500;
+margin-bottom: 8px;
+display: block;
+}
+
+.code-input {
+width: 100%;
+border: 1px solid var(–line);
+border-radius: 10px;
+background: var(–cream);
+font-family: ‘Jost’, sans-serif;
+font-size: 15px;
+font-weight: 300;
+color: var(–ink);
+padding: 14px 16px;
+outline: none;
+transition: all 0.25s;
+letter-spacing: 0.08em;
+margin-bottom: 6px;
+}
+.code-input:focus {
+border-color: var(–sage-light);
+background: var(–white);
+box-shadow: 0 0 0 3px rgba(122,140,110,0.1);
+}
+.code-input.error {
+border-color: var(–error);
+box-shadow: 0 0 0 3px rgba(192,97,74,0.1);
+animation: shake 0.35s ease;
+}
+
+@keyframes shake {
+0%,100% { transform: translateX(0); }
+25% { transform: translateX(-6px); }
+75% { transform: translateX(6px); }
+}
+
+.error-msg {
+font-size: 11px;
+color: var(–error);
+margin-bottom: 16px;
+min-height: 16px;
+font-weight: 300;
+opacity: 0;
+transition: opacity 0.2s;
+}
+.error-msg.show { opacity: 1; }
+
+.unlock-btn {
+width: 100%;
+background: var(–sage-dark);
+color: white;
+border: none;
+border-radius: 10px;
+padding: 15px;
+font-family: ‘Jost’, sans-serif;
+font-size: 13px;
+font-weight: 400;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+cursor: pointer;
+transition: all 0.25s;
+margin-bottom: 28px;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 8px;
+}
+.unlock-btn:hover { background: var(–ink); transform: translateY(-1px); }
+.unlock-btn:active { transform: translateY(0); }
+.unlock-btn.loading { opacity: 0.7; pointer-events: none; }
+
+.divider-line {
+display: flex;
+align-items: center;
+gap: 12px;
+margin-bottom: 24px;
+}
+.divider-line::before, .divider-line::after {
+content: ‘’; flex: 1; height: 1px; background: var(–line);
+}
+.divider-line span {
+font-size: 10px;
+color: var(–ink-light);
+letter-spacing: 0.1em;
+font-weight: 300;
+}
+
+.buy-btn {
+width: 100%;
+background: transparent;
+color: var(–sage-dark);
+border: 1px solid var(–sage-light);
+border-radius: 10px;
+padding: 14px;
+font-family: ‘Jost’, sans-serif;
+font-size: 13px;
+font-weight: 400;
+letter-spacing: 0.06em;
+cursor: pointer;
+transition: all 0.25s;
+text-decoration: none;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 8px;
+}
+.buy-btn:hover {
+background: var(–parchment);
+border-color: var(–sage);
+}
+
+.price-tag {
+display: inline-flex;
+align-items: center;
+background: var(–parchment);
+border-radius: 20px;
+padding: 4px 12px;
+font-size: 11px;
+color: var(–warm-brown);
+font-weight: 400;
+margin-left: 6px;
+letter-spacing: 0.04em;
+}
+
+.help-text {
+text-align: center;
+font-size: 11px;
+color: var(–ink-light);
+font-weight: 300;
+margin-top: 20px;
+line-height: 1.6;
+}
+.help-text a {
+color: var(–sage);
+text-decoration: none;
+}
+.help-text a:hover { text-decoration: underline; }
+
+/* ── SUCCESS VIEW ── */
+#successView { display: none; text-align: center; }
+
+.success-icon {
+width: 56px; height: 56px;
+border-radius: 50%;
+background: var(–sage-pale);
+display: flex;
+align-items: center;
+justify-content: center;
+margin: 0 auto 20px;
+font-size: 24px;
+animation: pop 0.4s cubic-bezier(.4,0,.2,1);
+}
+@keyframes pop {
+from { transform: scale(0.6); opacity: 0; }
+to   { transform: scale(1); opacity: 1; }
+}
+
+#successView h2 {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 30px;
+font-weight: 300;
+color: var(–ink);
+margin-bottom: 8px;
+}
+#successView h2 em { font-style: italic; color: var(–sage-dark); }
+
+#successView p {
+font-size: 13px;
+color: var(–ink-light);
+font-weight: 300;
+line-height: 1.7;
+margin-bottom: 28px;
+}
+
+.enter-btn {
+width: 100%;
+background: var(–sage-dark);
+color: white;
+border: none;
+border-radius: 10px;
+padding: 15px;
+font-family: ‘Jost’, sans-serif;
+font-size: 13px;
+font-weight: 400;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+cursor: pointer;
+transition: all 0.25s;
+text-decoration: none;
+display: block;
+}
+.enter-btn:hover { background: var(–ink); }
+
+@media (max-width: 480px) {
+.card { padding: 40px 28px; }
+}
+</style>
+
+</head>
+<body>
+
+<div class="card">
+  <div class="card-accent"></div>
+
+<span class="logo">Ink<em>lings</em></span>
+<span class="tagline">Your inner world, in words</span>
+
+  <!-- GATE VIEW -->
+
+  <div id="gateView">
+    <h2>Welcome<br><em>back.</em></h2>
+    <p>Enter your access code from your purchase confirmation email to open your journal.</p>
+
+```
+<label class="field-label" for="codeInput">Access Code</label>
+<input
+  class="code-input"
+  id="codeInput"
+  type="text"
+  placeholder="e.g. INK-XXXX-XXXX"
+  autocomplete="off"
+  autocapitalize="characters"
+  spellcheck="false"
+  onkeydown="if(event.key==='Enter') unlock()"
+>
+<div class="error-msg" id="errorMsg">That code doesn't match. Please check your email.</div>
+
+<button class="unlock-btn" onclick="unlock()" id="unlockBtn">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+  Unlock Journal
+</button>
+
+<div class="divider-line"><span>or</span></div>
+
+<!-- ★ REPLACE href WITH YOUR RAZORPAY PAYMENT LINK ★ -->
+<a class="buy-btn" href="https://rzp.io/YOUR_PAYMENT_LINK" target="_blank" id="buyBtn">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+  Get the Journal
+  <span class="price-tag">₹ ___</span>
+</a>
+
+<p class="help-text">
+  Purchased but no code? <a href="mailto:your@email.com" id="supportLink">Contact support</a>
+</p>
+```
+
+  </div>
+
+  <!-- SUCCESS VIEW -->
+
+  <div id="successView">
+    <div class="success-icon">✦</div>
+    <h2>You're <em>in.</em></h2>
+    <p>Your journal is ready. Take your time, move at your own pace, and write honestly.</p>
+    <a class="enter-btn" href="./journal.html">Open My Journal →</a>
+  </div>
+</div>
+
+<script>
+  // ══════════════════════════════════════════
+  // CONFIGURATION — edit these values
+  // ══════════════════════════════════════════
+
+  // Add as many codes as you need.
+  // Generate random ones at: https://www.random.org/strings/
+  // Format suggestion: INK-XXXX-XXXX
+  const VALID_CODES = [
+    "INK-DEMO-2025",   // ← replace with your real codes
+    "INK-TEST-0001",
+    // "INK-ABCD-1234",
+    // "INK-EFGH-5678",
+  ];
+
+  // How many days access lasts (set to 0 for forever)
+  const ACCESS_DAYS = 0;
+
+  // ══════════════════════════════════════════
+
+  // Check if already unlocked on load
+  window.addEventListener('load', () => {
+    if (isUnlocked()) showSuccess();
+    // Auto-fill code from URL ?code=XXX (from Razorpay redirect)
+    const params = new URLSearchParams(window.location.search);
+    const urlCode = params.get('code');
+    if (urlCode) {
+      document.getElementById('codeInput').value = urlCode.toUpperCase();
+      unlock();
+    }
+  });
+
+  function isUnlocked() {
+    try {
+      const stored = localStorage.getItem('inklings_access');
+      if (!stored) return false;
+      const { code, expiry } = JSON.parse(stored);
+      if (!VALID_CODES.includes(code)) return false;
+      if (expiry && Date.now() > expiry) { localStorage.removeItem('inklings_access'); return false; }
+      return true;
+    } catch { return false; }
+  }
+
+  function unlock() {
+    const input = document.getElementById('codeInput');
+    const code = input.value.trim().toUpperCase();
+    const btn = document.getElementById('unlockBtn');
+    const err = document.getElementById('errorMsg');
+
+    // Clear previous error
+    input.classList.remove('error');
+    err.classList.remove('show');
+
+    if (!code) {
+      showError(input, err, 'Please enter your access code.');
+      return;
+    }
+
+    btn.classList.add('loading');
+    btn.textContent = 'Checking...';
+
+    // Small delay for UX feel
+    setTimeout(() => {
+      if (VALID_CODES.includes(code)) {
+        const expiry = ACCESS_DAYS > 0 ? Date.now() + ACCESS_DAYS * 86400000 : null;
+        localStorage.setItem('inklings_access', JSON.stringify({ code, expiry, grantedAt: Date.now() }));
+        showSuccess();
+      } else {
+        btn.classList.remove('loading');
+        btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Unlock Journal`;
+        showError(input, err, 'That code doesn\'t match. Please check your email.');
+      }
+    }, 600);
+  }
+
+  function showError(input, err, msg) {
+    input.classList.add('error');
+    err.textContent = msg;
+    err.classList.add('show');
+    input.focus();
+  }
+
+  function showSuccess() {
+    document.getElementById('gateView').style.display = 'none';
+    const sv = document.getElementById('successView');
+    sv.style.display = 'block';
+    sv.style.animation = 'rise 0.4s cubic-bezier(.4,0,.2,1)';
+  }
+</script>
+
+</body>
+</html>
