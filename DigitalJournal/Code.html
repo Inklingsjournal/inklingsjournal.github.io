@@ -298,6 +298,7 @@ body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--i
 .reminder-ta::placeholder { color: var(--warm-brown-light); font-style: italic; }
 
 /* RESPONSIVE */
+  #collage-img-box:hover { border-color: var(--sage-light); background: var(--parchment); }
 @media(max-width:768px){
 .sidebar { position: fixed; left: 0; top: 0; height: 100vh; transform: translateX(-100%); }
 .sidebar.open { transform: translateX(0); }
@@ -422,50 +423,88 @@ body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--i
     </div>
   </div>
 
-  <!-- WELCOME -->
-
+    <!-- WELCOME -->
   <div class="page active" id="page-welcome">
-    <div class="welcome-hero">
-      <span class="welcome-leaf">🌿</span>
-      <h1 class="page-title" style="font-size:50px;text-align:center">Your inner world,<br><em>in words.</em></h1>
-      <p class="welcome-sub">A guided space for self-reflection, mindfulness, and intentional living — curated by a clinical psychologist. Move through three interconnected practices at your own pace.</p>
+    <div style="padding:8px 0 28px">
+      <p style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--sage);font-weight:500;margin-bottom:14px">Welcome to</p>
+      <h1 class="page-title" style="font-size:52px;margin-bottom:6px">Inklings <em>Journal</em></h1>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:var(--sage-dark);margin-bottom:24px">Curated by a Clinical Psychologist</p>
+      <p style="font-size:13.5px;color:var(--ink-light);line-height:1.85;font-weight:300;max-width:500px">You carry so much within you — stories, emotions, questions, quiet longings. This journal was created to help you understand yourself with ease, clarity, and intention. There is no perfect place to begin. Just start.</p>
     </div>
-    <div class="welcome-cards">
-      <div class="welcome-card" onclick="showPage('ch1-early',document.querySelector('[data-page=ch1-early]'))">
-        <div class="welcome-card-icon">🪞</div>
-        <div class="welcome-card-title">Reflective Journal</div>
-        <div class="welcome-card-desc">Explore your roots, inner roles, and what shapes who you are.</div>
+    <div class="divider"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:32px">
+      <div style="background:var(--white);border:1px solid var(--line-light);border-radius:12px;padding:22px 18px;cursor:pointer;transition:all .25s;border-top:3px solid var(--sage-light)" onclick="showPage('ch1-early',document.querySelector('[data-page=ch1-early]'))">
+        <p style="font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--sage);font-weight:500;margin-bottom:8px">Part I</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--sage-dark);margin-bottom:10px;font-weight:400">Reflective Journal</p>
+        <p style="font-size:11.5px;color:var(--ink-light);line-height:1.65;margin-bottom:12px">6 chapters exploring your roots, present life, inner world, and future. Guided prompts to deepen self-awareness at your own pace.</p>
+        <p style="font-size:10px;color:var(--sage);font-weight:500;letter-spacing:.04em">Begin Ch. 1 →</p>
       </div>
-      <div class="welcome-card" onclick="showPage('grounding',document.querySelector('[data-page=grounding]'))">
-        <div class="welcome-card-icon">🌊</div>
-        <div class="welcome-card-title">Mindfulness</div>
-        <div class="welcome-card-desc">Track emotions, cultivate gratitude, and practice self-compassion.</div>
+      <div style="background:var(--white);border:1px solid var(--line-light);border-radius:12px;padding:22px 18px;cursor:pointer;transition:all .25s;border-top:3px solid var(--sage)" onclick="showPage('grounding',document.querySelector('[data-page=grounding]'))">
+        <p style="font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--sage);font-weight:500;margin-bottom:8px">Part II</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--sage-dark);margin-bottom:10px;font-weight:400">Mindfulness Journal</p>
+        <p style="font-size:11.5px;color:var(--ink-light);line-height:1.65;margin-bottom:12px">Grounding techniques, emotion compass, emotional safety collage, and a daily mood and gratitude tracker.</p>
+        <p style="font-size:10px;color:var(--sage);font-weight:500;letter-spacing:.04em">Begin Part II →</p>
       </div>
-      <div class="welcome-card" onclick="showPage('circle-control',document.querySelector('[data-page=circle-control]'))">
-        <div class="welcome-card-icon">🎯</div>
-        <div class="welcome-card-title">Intention Planner</div>
-        <div class="welcome-card-desc">Align your daily actions with your deeper purpose.</div>
+      <div style="background:var(--white);border:1px solid var(--line-light);border-radius:12px;padding:22px 18px;cursor:pointer;transition:all .25s;border-top:3px solid var(--sage-dark)" onclick="showPage('circle-control',document.querySelector('[data-page=circle-control]'))">
+        <p style="font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--sage);font-weight:500;margin-bottom:8px">Part III</p>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--sage-dark);margin-bottom:10px;font-weight:400">Intention Planner</p>
+        <p style="font-size:11.5px;color:var(--ink-light);line-height:1.65;margin-bottom:12px">Circle of control, big and small intentions, and a daily planner to align your actions with deeper purpose.</p>
+        <p style="font-size:10px;color:var(--sage);font-weight:500;letter-spacing:.04em">Begin Part III →</p>
       </div>
     </div>
-    <div class="welcome-quote">This is not about fixing yourself. It is about understanding, honouring, and integrating the many parts of who you are.</div>
-    <div style="text-align:center"><button class="start-btn" onclick="showPage('how-to-use',document.querySelector('[data-page=how-to-use]'))">Begin your journey →</button></div>
+    <div style="background:var(--parchment);border-radius:12px;padding:20px 26px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--ink-mid);line-height:1.6;font-weight:300">"You do not need to follow this journal in order. Begin with the part that resonates with your current needs. Let it support your natural rhythm."</p>
+      <button class="start-btn" style="white-space:nowrap;flex-shrink:0" onclick="showPage('how-to-use',document.querySelector('[data-page=how-to-use]'))">How to use →</button>
+    </div>
   </div>
 
-  <!-- HOW TO USE -->
-
+    <!-- HOW TO USE -->
   <div class="page" id="page-how-to-use">
     <div class="section-tag">Getting Started</div>
     <h1 class="page-title">How to <em>Use This Journal</em></h1>
-    <p class="page-intro">This journal is flexible. It is meant to support you on days when you feel inspired, and on days when you feel stuck. Use it in the way you need, not the way you think you should.</p>
+    <p class="page-intro">This journal is flexible. Use it when you feel inspired and when you feel stuck. There is no right order — only what you need right now.</p>
     <div class="divider"></div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
-      <div class="chapter-banner"><p><strong style="color:var(--sage-dark);font-size:11px;letter-spacing:.08em;text-transform:uppercase">Choose What You Need</strong><br>Use the reflective section when you need insight, mindfulness when you feel overwhelmed, and the planner when you want structure.</p></div>
-      <div class="chapter-banner"><p><strong style="color:var(--sage-dark);font-size:11px;letter-spacing:.08em;text-transform:uppercase">Move at Your Own Pace</strong><br>Skip prompts, revisit sections, or stay with one question for days. There is no right order.</p></div>
-      <div class="chapter-banner"><p><strong style="color:var(--sage-dark);font-size:11px;letter-spacing:.08em;text-transform:uppercase">Create a Ritual</strong><br>Pair journaling with your tea, music, or a quiet moment to make it a natural part of your day.</p></div>
-      <div class="chapter-banner"><p><strong style="color:var(--sage-dark);font-size:11px;letter-spacing:.08em;text-transform:uppercase">Let Go of Perfection</strong><br>A single sentence is just as valuable as three pages. Showing up is what matters.</p></div>
+    <div style="margin-bottom:28px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+        <div style="background:var(--sage-dark);color:white;border-radius:20px;padding:4px 12px;font-size:9px;letter-spacing:.16em;text-transform:uppercase;font-weight:500">Part I</div>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--ink);font-weight:400">Reflective Journal</p>
+      </div>
+      <p style="font-size:13px;color:var(--ink-light);line-height:1.8;margin-bottom:14px;font-weight:300">Work through 6 chapters at your own pace. Each chapter explores a different layer of your story — your roots, your present, your inner world, and your future. Every chapter ends with a Reflection Pause to integrate what you have explored.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+        <div style="background:var(--white);border:1px solid var(--line-light);border-radius:8px;padding:12px 14px"><p style="font-size:9.5px;color:var(--sage-dark);font-weight:500;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">How to start</p><p style="font-size:11.5px;color:var(--ink-light);line-height:1.6">Begin at Ch.1 or jump to the chapter that feels most relevant to you today.</p></div>
+        <div style="background:var(--white);border:1px solid var(--line-light);border-radius:8px;padding:12px 14px"><p style="font-size:9.5px;color:var(--sage-dark);font-weight:500;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">Your pace</p><p style="font-size:11.5px;color:var(--ink-light);line-height:1.6">Stay with one prompt for days if needed. Revisit sections as you grow.</p></div>
+        <div style="background:var(--white);border:1px solid var(--line-light);border-radius:8px;padding:12px 14px"><p style="font-size:9.5px;color:var(--sage-dark);font-weight:500;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">Mark complete</p><p style="font-size:11.5px;color:var(--ink-light);line-height:1.6">Mark each section done when ready. Your progress is tracked in the sidebar.</p></div>
+      </div>
     </div>
-    <div style="margin-top:20px;font-size:13px;color:var(--ink-light);line-height:1.8;font-style:italic;border-left:2px solid var(--sage-pale);padding-left:16px">Above all, use this space with gentleness and trust. Your process will unfold exactly as it needs to.</div>
+    <div class="divider"></div>
+    <div style="margin-bottom:28px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+        <div style="background:var(--sage);color:white;border-radius:20px;padding:4px 12px;font-size:9px;letter-spacing:.16em;text-transform:uppercase;font-weight:500">Part II</div>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--ink);font-weight:400">Mindfulness Journal</p>
+      </div>
+      <p style="font-size:13px;color:var(--ink-light);line-height:1.8;margin-bottom:14px;font-weight:300">Use this section to slow down and ground yourself. It helps you check in with your emotions, practice daily gratitude, and build emotional awareness. Research shows that mood tracking and gratitude practices improve emotional regulation and reduce stress over time.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+        <div style="background:var(--white);border:1px solid var(--line-light);border-radius:8px;padding:12px 14px"><p style="font-size:9.5px;color:var(--sage-dark);font-weight:500;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">When overwhelmed</p><p style="font-size:11.5px;color:var(--ink-light);line-height:1.6">Start with Grounding (5-4-3-2-1) to anchor yourself before journaling.</p></div>
+        <div style="background:var(--white);border:1px solid var(--line-light);border-radius:8px;padding:12px 14px"><p style="font-size:9.5px;color:var(--sage-dark);font-weight:500;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">Daily use</p><p style="font-size:11.5px;color:var(--ink-light);line-height:1.6">Open Mood &amp; Gratitude each morning. Pick a date on the calendar and fill it in.</p></div>
+        <div style="background:var(--white);border:1px solid var(--line-light);border-radius:8px;padding:12px 14px"><p style="font-size:9.5px;color:var(--sage-dark);font-weight:500;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">Bigger picture</p><p style="font-size:11.5px;color:var(--ink-light);line-height:1.6">Do the Emotion Compass once a week to spot patterns in how you feel.</p></div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div style="margin-bottom:28px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+        <div style="background:var(--warm-brown);color:white;border-radius:20px;padding:4px 12px;font-size:9px;letter-spacing:.16em;text-transform:uppercase;font-weight:500">Part III</div>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--ink);font-weight:400">Intention Planner</p>
+      </div>
+      <p style="font-size:13px;color:var(--ink-light);line-height:1.8;margin-bottom:14px;font-weight:300">This section helps you move forward with clarity and purpose. Set small, achievable daily goals and define a focus area rather than trying to do everything at once. Studies suggest that writing down goals significantly increases the likelihood of achieving them.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+        <div style="background:var(--white);border:1px solid var(--line-light);border-radius:8px;padding:12px 14px"><p style="font-size:9.5px;color:var(--sage-dark);font-weight:500;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">Start here</p><p style="font-size:11.5px;color:var(--ink-light);line-height:1.6">Fill in Circle of Control and Big &amp; Small Intentions first — do this once.</p></div>
+        <div style="background:var(--white);border:1px solid var(--line-light);border-radius:8px;padding:12px 14px"><p style="font-size:9.5px;color:var(--sage-dark);font-weight:500;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">Daily planner</p><p style="font-size:11.5px;color:var(--ink-light);line-height:1.6">Open Intention Planner each morning. Select today's date and set your 3 intentions.</p></div>
+        <div style="background:var(--white);border:1px solid var(--line-light);border-radius:8px;padding:12px 14px"><p style="font-size:9.5px;color:var(--sage-dark);font-weight:500;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">Keystone habit</p><p style="font-size:11.5px;color:var(--ink-light);line-height:1.6">Pair a new habit with one you already enjoy to build consistency naturally.</p></div>
+      </div>
+    </div>
+    <div style="background:var(--gold-light);border:1px solid var(--gold);border-radius:10px;padding:14px 20px;font-size:12.5px;color:var(--warm-brown);line-height:1.75"><strong>A gentle reminder:</strong> If you feel overwhelmed at any point, pause. Use the Grounding Technique in Part II. Return when you are ready. There is no rush.</div>
   </div>
+
 
   <!-- CH1: EARLY IMPRESSIONS -->
 
@@ -829,18 +868,27 @@ body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--i
     <div class="complete-bar" id="complete-ch6-offload"><span class="complete-bar-text">Mark this section complete when you're ready</span><button class="complete-btn" onclick="markComplete('ch6-offload')">Mark complete</button></div>
   </div>
 
-  <!-- CH6: SELF COMPASSION -->
-
+    <!-- CH6: SELF COMPASSION -->
   <div class="page" id="page-ch6-compassion">
     <div class="section-tag">Chapter 6 · Reflective Exercises</div>
     <h1 class="page-title">Self-Compassion <em>Exercise</em></h1>
-    <p class="page-intro">Start by taking a few deep breaths. Picture someone who radiates warmth, kindness, and understanding — your Compassionate Partner, a figure who supports you unconditionally.</p>
+    <p class="page-intro">Start by taking a few deep breaths. We are practicing creating an inner image of kindness and compassion. Now, picture someone who radiates warmth, kindness, and understanding. This is your Compassionate Partner, a figure who supports you unconditionally.</p>
     <div class="divider"></div>
     <div class="name-row"><span class="name-lbl">Name them</span><input type="text" class="name-inp" id="ch6-com-name" placeholder="Give your compassionate partner a name..."></div>
     <div class="prompt-block">
       <p class="prompt-q">Describe them: gender, physical appearance, facial expressions, tone of their voice, body posture and other details you can imagine.</p>
-      <textarea class="journal-area" id="ch6-com1" placeholder="Build this person with care..." rows="7"></textarea>
+      <textarea class="journal-area" id="ch6-com1" placeholder="Build this person with care..." rows="6"></textarea>
     </div>
+    <div class="divider"></div>
+    <div class="prompt-block">
+      <p class="prompt-q">Now, imagine this compassionate figure offering you an object as a gift that makes you feel calmer and safe. What is this object?</p>
+      <textarea class="journal-area" id="ch6-com2" placeholder="Describe the object they offer you..." rows="3"></textarea>
+    </div>
+    <div class="prompt-block">
+      <p class="prompt-q">While giving it to you, they speak to you as your well-wisher. What do they say to you about your challenges, qualities, and future? How does it make you feel? Write it below.</p>
+      <textarea class="journal-area" id="ch6-com3" placeholder="Their words to you..." rows="6"></textarea>
+    </div>
+    <div style="background:var(--sage-pale);border-radius:10px;padding:14px 18px;font-size:13px;color:var(--sage-dark);font-style:italic;line-height:1.75;margin-bottom:24px">Let their kindness fully sink in. Return to this space whenever self-judgement arises.</div>
     <div class="complete-bar" id="complete-ch6-compassion"><span class="complete-bar-text">Mark this section complete when you're ready</span><button class="complete-btn" onclick="markComplete('ch6-compassion')">Mark complete</button></div>
   </div>
 
@@ -959,18 +1007,36 @@ body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--i
     <div class="complete-bar" id="complete-emotion-compass"><span class="complete-bar-text">Mark this section complete when you're ready</span><button class="complete-btn" onclick="markComplete('emotion-compass')">Mark complete</button></div>
   </div>
 
-  <!-- EMOTIONAL SAFETY COLLAGE -->
-
+    <!-- EMOTIONAL SAFETY COLLAGE -->
   <div class="page" id="page-emotional-collage">
     <div class="section-tag">Part II · Mindfulness</div>
     <h1 class="page-title">Emotional Safety <em>Collage</em></h1>
     <p class="page-intro">Let's create a space you can come to whenever you feel overwhelmed. Close your eyes and visualise a happy place, memory, person, colour, or texture that uplifts you. Select the words below that feel like safety to you.</p>
     <div class="divider"></div>
-    <div class="collage-grid" id="collage-grid"></div>
+    <div style="display:flex;gap:20px;margin-bottom:28px;align-items:flex-start">
+      <div style="flex-shrink:0">
+        <div id="collage-img-box" onclick="document.getElementById('collage-img-input').click()" style="width:160px;height:160px;border:1.5px dashed var(--line);border-radius:12px;background:var(--white);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;transition:all .2s;overflow:hidden;position:relative">
+          <img id="collage-img-preview" src="" style="display:none;width:100%;height:100%;object-fit:cover;border-radius:11px;cursor:pointer" onclick="openCollageImg(event)">
+          <div id="collage-img-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:6px">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--line)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <p style="font-size:10px;color:var(--ink-light);text-align:center;line-height:1.4;font-weight:300">Add image of<br>something that<br>makes you feel safe</p>
+          </div>
+        </div>
+        <input type="file" id="collage-img-input" accept="image/*" style="display:none" onchange="loadCollageImg(this)">
+        <p style="font-size:9px;color:var(--sage-light);text-align:center;margin-top:6px;letter-spacing:.06em">Tap to add image</p>
+      </div>
+      <div style="flex:1">
+        <div class="collage-grid" id="collage-grid" style="margin:0"></div>
+      </div>
+    </div>
+    <div id="collage-lightbox" onclick="closeCollageImg()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:999;align-items:center;justify-content:center;cursor:zoom-out">
+      <img id="collage-lightbox-img" src="" style="max-width:90vw;max-height:90vh;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.4)">
+    </div>
     <div class="prompt-block"><p class="prompt-q">Describe your safe place in detail — colours, textures, sounds, smells. Who is present? What does your body feel like here?</p><textarea class="journal-area" id="col-q1" placeholder="The felt sense of safety..." rows="5"></textarea></div>
     <div class="prompt-block"><p class="prompt-q">Add affirmations, quotes, or lines that remind you of goodness. What small part of this safety can you bring into your daily life?</p><textarea class="journal-area" id="col-q2" placeholder="A ritual, an object, a practice..." rows="4"></textarea></div>
     <div class="complete-bar" id="complete-emotional-collage"><span class="complete-bar-text">Mark this section complete when you're ready</span><button class="complete-btn" onclick="markComplete('emotional-collage')">Mark complete</button></div>
   </div>
+
 
   <!-- MOOD & GRATITUDE — calendar-based -->
 
@@ -1067,7 +1133,11 @@ body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--i
 (function(){
   try {
     const s = JSON.parse(sessionStorage.getItem('inklings_session') || 'null');
-    if (!s || Date.now() > s.expiry) { sessionStorage.removeItem('inklings_session'); window.location.href = './Login.html'; }
+    if (!s || Date.now() > s.expiry) {
+      sessionStorage.removeItem('inklings_session');
+      const email = new URLSearchParams(window.location.search).get('e');
+      window.location.href = './Login.html' + (email ? '?e=' + encodeURIComponent(email) : '');
+    }
   } catch(e) { window.location.href = './Login.html'; }
 })();
 
@@ -1162,6 +1232,7 @@ document.addEventListener('click', e => { if (e.target.classList.contains('colla
 // COMPLETE
 const completed = JSON.parse(localStorage.getItem('inklings_completed') || '{}');
 function markComplete(id) {
+if (!confirm('Mark this section as complete?\n\nNote: this cannot be undone once confirmed.')) return;
 completed[id] = true;
 localStorage.setItem('inklings_completed', JSON.stringify(completed));
 const bar = document.getElementById('complete-' + id);
@@ -1186,6 +1257,12 @@ const ROLES = [
 { icon:'⚔️', name:'The Warrior', desc:'The fighter and protector, standing up for what\'s right, overcoming challenges, and showing resilience.' },
 { icon:'👑', name:'The Ruler', desc:'The leader and organiser, bringing order, control, and stability to situations.' },
 { icon:'📖', name:'The Sage', desc:'The thinker and teacher, seeking wisdom, truth, and deep understanding of life.' },
+{ icon:'🔮', name:'The Magician', desc:'The visionary and transformer, turning ideas into reality and inspiring change in others.' },
+{ icon:'🤝', name:'The Everyman', desc:'The relatable and down-to-earth person, valuing belonging, community, and authenticity.' },
+{ icon:'🃏', name:'The Jester', desc:'The playful and fun-loving spirit, using humour, spontaneity, and joy to make life lighter.' },
+{ icon:'⚡', name:'The Outlaw', desc:'The rebel and rule-breaker, challenging traditions and pushing for change.' },
+{ icon:'🤲', name:'The Caregiver', desc:'The nurturer and helper, always looking out for others with kindness and generosity.' },
+{ icon:'🌸', name:'The Innocent', desc:'The optimist and dreamer, believing in goodness, simplicity, and a better world.' },
 ];
 function buildRolesTable() {
 const tbody = document.getElementById('roles-tbody');
@@ -1402,6 +1479,30 @@ localStorage.setItem('inklings_streak', JSON.stringify(sd));
 document.getElementById('streak-badge').style.display = 'inline-flex';
 document.getElementById('streak-count').textContent = sd.days.length;
 }
+function loadCollageImg(input) {
+  if (!input.files || !input.files[0]) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const preview = document.getElementById('collage-img-preview');
+    const placeholder = document.getElementById('collage-img-placeholder');
+    preview.src = e.target.result;
+    preview.style.display = 'block';
+    placeholder.style.display = 'none';
+    try { localStorage.setItem('inklings_collage_img', e.target.result); } catch(err) {}
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+function openCollageImg(e) {
+  e.stopPropagation();
+  const src = document.getElementById('collage-img-preview').src;
+  if (!src) return;
+  document.getElementById('collage-lightbox-img').src = src;
+  document.getElementById('collage-lightbox').style.display = 'flex';
+}
+function closeCollageImg() {
+  document.getElementById('collage-lightbox').style.display = 'none';
+}
+
 
 // INIT
 document.addEventListener('DOMContentLoaded', () => {
@@ -1416,6 +1517,15 @@ attachStaticSave();
 document.getElementById('grp-ch1').classList.add('open');
 const sd = JSON.parse(localStorage.getItem('inklings_streak') || '{"days":[]}');
 if (sd.days.length > 0) { document.getElementById('streak-badge').style.display = 'inline-flex'; document.getElementById('streak-count').textContent = sd.days.length; }
+try {
+  const savedImg = localStorage.getItem('inklings_collage_img');
+  if (savedImg) {
+    const preview = document.getElementById('collage-img-preview');
+    const placeholder = document.getElementById('collage-img-placeholder');
+    if (preview) { preview.src = savedImg; preview.style.display = 'block'; }
+    if (placeholder) placeholder.style.display = 'none';
+  }
+} catch(e) {}
 });
 </script>
 
