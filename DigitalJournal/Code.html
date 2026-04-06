@@ -1072,178 +1072,178 @@ body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--i
 })();
 
 function signOut() {
-if (confirm(‘Are you sure you want to sign out?’)) { sessionStorage.removeItem(‘inklings_session’); window.location.href = ‘./Login.html’; }
+if (confirm('Are you sure you want to sign out?')) { sessionStorage.removeItem('inklings_session'); window.location.href = './Login.html'; }
 }
 
 // PAGE NAVIGATION
 const PAGES = [
-‘welcome’,‘how-to-use’,
-‘ch1-early’,‘ch1-family’,‘ch1-moments’,‘ch1-pause’,
-‘ch2-today’,‘ch2-strengths’,‘ch2-joys’,‘ch2-pause’,
-‘ch3-roles’,‘ch3-understanding’,‘ch3-ideal’,‘ch3-shadow’,‘ch3-pause’,
-‘ch4-dreams’,‘ch4-vision’,‘ch4-success’,‘ch4-legacy’,‘ch4-pause’,
-‘ch5-insights’,‘ch5-story’,‘ch5-turning’,‘ch5-final’,
-‘ch6-offload’,‘ch6-compassion’,‘ch6-letter-partner’,‘ch6-child’,‘ch6-letter-younger’,‘ch6-attachment’,‘ch6-secure’,‘ch6-critic’,
-‘grounding’,‘emotion-compass’,‘emotional-collage’,‘mood-journal’,
-‘circle-control’,‘big-small’,‘intention-planner’
+'welcome','how-to-use',
+'ch1-early','ch1-family','ch1-moments','ch1-pause',
+'ch2-today','ch2-strengths','ch2-joys','ch2-pause',
+'ch3-roles','ch3-understanding','ch3-ideal','ch3-shadow','ch3-pause',
+'ch4-dreams','ch4-vision','ch4-success','ch4-legacy','ch4-pause',
+'ch5-insights','ch5-story','ch5-turning','ch5-final',
+'ch6-offload','ch6-compassion','ch6-letter-partner','ch6-child','ch6-letter-younger','ch6-attachment','ch6-secure','ch6-critic',
+'grounding','emotion-compass','emotional-collage','mood-journal',
+'circle-control','big-small','intention-planner'
 ];
 const BC = {
-‘welcome’:‘Welcome’,‘how-to-use’:‘How to Use’,
-‘ch1-early’:‘Ch.1 · Early Impressions’,‘ch1-family’:‘Ch.1 · Family Dynamics’,‘ch1-moments’:‘Ch.1 · Defining Moments’,‘ch1-pause’:‘Ch.1 · Reflection Pause’,
-‘ch2-today’:‘Ch.2 · Your Life Today’,‘ch2-strengths’:‘Ch.2 · Strengths & Challenges’,‘ch2-joys’:‘Ch.2 · Everyday Joys’,‘ch2-pause’:‘Ch.2 · Reflection Pause’,
-‘ch3-roles’:‘Ch.3 · Inner Roles’,‘ch3-understanding’:‘Ch.3 · Understanding Roles’,‘ch3-ideal’:‘Ch.3 · Idealised Self’,‘ch3-shadow’:‘Ch.3 · Shadow Self’,‘ch3-pause’:‘Ch.3 · Reflection Pause’,
-‘ch4-dreams’:‘Ch.4 · Dreams & Fears’,‘ch4-vision’:‘Ch.4 · Vision of Possibility’,‘ch4-success’:‘Ch.4 · Success & Beliefs’,‘ch4-legacy’:‘Ch.4 · Legacy & Purpose’,‘ch4-pause’:‘Ch.4 · Reflection Pause’,
-‘ch5-insights’:‘Ch.5 · Insights Gained’,‘ch5-story’:‘Ch.5 · Your Story’,‘ch5-turning’:‘Ch.5 · Turning the Page’,‘ch5-final’:‘Ch.5 · Final Reflection’,
-‘ch6-offload’:‘Ch.6 · Offloading Space’,‘ch6-compassion’:‘Ch.6 · Self-Compassion’,‘ch6-letter-partner’:‘Ch.6 · Compassionate Partner’,‘ch6-child’:‘Ch.6 · Child Self’,‘ch6-letter-younger’:‘Ch.6 · Younger Self’,‘ch6-attachment’:‘Ch.6 · Attachment’,‘ch6-secure’:‘Ch.6 · Secure Self’,‘ch6-critic’:‘Ch.6 · Inner Critic’,
-‘grounding’:‘Grounding Technique’,‘emotion-compass’:‘Emotion Compass’,‘emotional-collage’:‘Emotional Safety Collage’,‘mood-journal’:‘Mood & Gratitude’,
-‘circle-control’:‘Circle of Control’,‘big-small’:‘Big & Small Intentions’,‘intention-planner’:‘Intention Planner’
+'welcome':'Welcome','how-to-use':'How to Use',
+'ch1-early':'Ch.1 · Early Impressions','ch1-family':'Ch.1 · Family Dynamics','ch1-moments':'Ch.1 · Defining Moments','ch1-pause':'Ch.1 · Reflection Pause',
+'ch2-today':'Ch.2 · Your Life Today','ch2-strengths':'Ch.2 · Strengths & Challenges','ch2-joys':'Ch.2 · Everyday Joys','ch2-pause':'Ch.2 · Reflection Pause',
+'ch3-roles':'Ch.3 · Inner Roles','ch3-understanding':'Ch.3 · Understanding Roles','ch3-ideal':'Ch.3 · Idealised Self','ch3-shadow':'Ch.3 · Shadow Self','ch3-pause':'Ch.3 · Reflection Pause',
+'ch4-dreams':'Ch.4 · Dreams & Fears','ch4-vision':'Ch.4 · Vision of Possibility','ch4-success':'Ch.4 · Success & Beliefs','ch4-legacy':'Ch.4 · Legacy & Purpose','ch4-pause':'Ch.4 · Reflection Pause',
+'ch5-insights':'Ch.5 · Insights Gained','ch5-story':'Ch.5 · Your Story','ch5-turning':'Ch.5 · Turning the Page','ch5-final':'Ch.5 · Final Reflection',
+'ch6-offload':'Ch.6 · Offloading Space','ch6-compassion':'Ch.6 · Self-Compassion','ch6-letter-partner':'Ch.6 · Compassionate Partner','ch6-child':'Ch.6 · Child Self','ch6-letter-younger':'Ch.6 · Younger Self','ch6-attachment':'Ch.6 · Attachment','ch6-secure':'Ch.6 · Secure Self','ch6-critic':'Ch.6 · Inner Critic',
+'grounding':'Grounding Technique','emotion-compass':'Emotion Compass','emotional-collage':'Emotional Safety Collage','mood-journal':'Mood & Gratitude',
+'circle-control':'Circle of Control','big-small':'Big & Small Intentions','intention-planner':'Intention Planner'
 };
-let currentPage = ‘welcome’;
+let currentPage = 'welcome';
 
 function showPage(id, el) {
-document.querySelectorAll(’.page’).forEach(p => p.classList.remove(‘active’));
-document.querySelectorAll(’.nav-item’).forEach(n => n.classList.remove(‘active’));
-const pg = document.getElementById(‘page-’ + id);
-if (pg) pg.classList.add(‘active’);
-if (el) el.classList.add(‘active’);
+document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+const pg = document.getElementById('page-' + id);
+if (pg) pg.classList.add('active');
+if (el) el.classList.add('active');
 currentPage = id;
-document.getElementById(‘breadcrumb’).textContent = BC[id] || id;
-document.querySelector(’.main’).scrollTop = 0;
-if (window.innerWidth < 768) document.getElementById(‘sidebar’).classList.remove(‘open’);
+document.getElementById('breadcrumb').textContent = BC[id] || id;
+document.querySelector('.main').scrollTop = 0;
+if (window.innerWidth < 768) document.getElementById('sidebar').classList.remove('open');
 }
-function navigateNext() { const i = PAGES.indexOf(currentPage); if (i < PAGES.length-1) { const n = PAGES[i+1]; showPage(n, document.querySelector(’[data-page=”’+n+’”]’)); } }
-function navigatePrev() { const i = PAGES.indexOf(currentPage); if (i > 0) { const n = PAGES[i-1]; showPage(n, document.querySelector(’[data-page=”’+n+’”]’)); } }
-function toggleGroup(id) { document.getElementById(id).classList.toggle(‘open’); }
-function toggleSidebar() { document.getElementById(‘sidebar’).classList.toggle(‘open’); }
+function navigateNext() { const i = PAGES.indexOf(currentPage); if (i < PAGES.length-1) { const n = PAGES[i+1]; showPage(n, document.querySelector('[data-page="'+n+'"]')); } }
+function navigatePrev() { const i = PAGES.indexOf(currentPage); if (i > 0) { const n = PAGES[i-1]; showPage(n, document.querySelector('[data-page="'+n+'"]')); } }
+function toggleGroup(id) { document.getElementById(id).classList.toggle('open'); }
+function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
 
 // STATIC SAVE (all pages except daily journal)
 let saveTimer;
 function triggerSave() {
-const dot = document.getElementById(‘save-dot’), lbl = document.getElementById(‘save-label’);
-dot.className = ‘save-dot saving’; lbl.textContent = ‘Saving…’;
+const dot = document.getElementById('save-dot'), lbl = document.getElementById('save-label');
+dot.className = 'save-dot saving'; lbl.textContent = 'Saving…';
 clearTimeout(saveTimer);
 saveTimer = setTimeout(() => {
 const data = {};
-document.querySelectorAll(’[id]’).forEach(el => {
-if (el.matches(‘textarea’) || el.matches(‘input[type=text]’)) data[el.id] = el.value;
-if (el.matches(‘input[type=range]’)) data[el.id] = el.value;
-if (el.matches(‘input[type=checkbox]’)) data[el.id] = el.checked;
+document.querySelectorAll('[id]').forEach(el => {
+if (el.matches('textarea') || el.matches('input[type=text]')) data[el.id] = el.value;
+if (el.matches('input[type=range]')) data[el.id] = el.value;
+if (el.matches('input[type=checkbox]')) data[el.id] = el.checked;
 });
-try { localStorage.setItem(‘inklings_static’, JSON.stringify(data)); } catch(e) {}
-dot.className = ‘save-dot saved’; lbl.textContent = ‘All saved’;
+try { localStorage.setItem('inklings_static', JSON.stringify(data)); } catch(e) {}
+dot.className = 'save-dot saved'; lbl.textContent = 'All saved';
 updateProgress();
 }, 1500);
 }
 
 function loadStaticData() {
 try {
-const saved = JSON.parse(localStorage.getItem(‘inklings_static’) || ‘{}’);
+const saved = JSON.parse(localStorage.getItem('inklings_static') || '{}');
 Object.keys(saved).forEach(id => {
 const el = document.getElementById(id);
 if (!el) return;
-if (el.matches(‘textarea’) || el.matches(‘input[type=text]’)) el.value = saved[id];
-else if (el.matches(‘input[type=range]’)) el.value = saved[id];
-else if (el.matches(‘input[type=checkbox]’)) el.checked = saved[id];
+if (el.matches('textarea') || el.matches('input[type=text]')) el.value = saved[id];
+else if (el.matches('input[type=range]')) el.value = saved[id];
+else if (el.matches('input[type=checkbox]')) el.checked = saved[id];
 });
 } catch(e) {}
 }
 
 function attachStaticSave() {
-document.querySelectorAll(‘textarea[id], input[type=text][id], input[type=range][id]’).forEach(el => {
-if (!el.closest(’#mood-entry-form’) && !el.closest(’#planner-entry-form’)) el.addEventListener(‘input’, triggerSave);
+document.querySelectorAll('textarea[id], input[type=text][id], input[type=range][id]').forEach(el => {
+if (!el.closest('#mood-entry-form') && !el.closest('#planner-entry-form')) el.addEventListener('input', triggerSave);
 });
-document.querySelectorAll(‘input[type=checkbox][id]’).forEach(el => {
-if (!el.closest(’#planner-entry-form’)) el.addEventListener(‘change’, triggerSave);
+document.querySelectorAll('input[type=checkbox][id]').forEach(el => {
+if (!el.closest('#planner-entry-form')) el.addEventListener('change', triggerSave);
 });
 // Collage chips
-document.addEventListener(‘click’, e => { if (e.target.classList.contains(‘collage-chip’)) triggerSave(); });
+document.addEventListener('click', e => { if (e.target.classList.contains('collage-chip')) triggerSave(); });
 }
 
 // COMPLETE
-const completed = JSON.parse(localStorage.getItem(‘inklings_completed’) || ‘{}’);
+const completed = JSON.parse(localStorage.getItem('inklings_completed') || '{}');
 function markComplete(id) {
 completed[id] = true;
-localStorage.setItem(‘inklings_completed’, JSON.stringify(completed));
-const bar = document.getElementById(‘complete-’ + id);
-if (bar) { bar.classList.add(‘done’); bar.querySelector(’.complete-bar-text’).textContent = ‘✦ Complete — well done.’; const btn = bar.querySelector(’.complete-btn’); btn.textContent = ‘✓ Done’; btn.classList.add(‘done’); }
-const navEl = document.querySelector(’[data-page=”’+id+’”]’);
-if (navEl) navEl.classList.add(‘done’);
+localStorage.setItem('inklings_completed', JSON.stringify(completed));
+const bar = document.getElementById('complete-' + id);
+if (bar) { bar.classList.add('done'); bar.querySelector('.complete-bar-text').textContent = '✦ Complete — well done.'; const btn = bar.querySelector('.complete-btn'); btn.textContent = '✓ Done'; btn.classList.add('done'); }
+const navEl = document.querySelector('[data-page="'+id+'"]');
+if (navEl) navEl.classList.add('done');
 updateProgress();
 }
 function restoreCompleted() { Object.keys(completed).forEach(id => markComplete(id)); }
 function updateProgress() {
 const total = Object.keys(BC).length, done = Object.keys(completed).length;
 const pct = Math.round((done/total)*100);
-document.getElementById(‘progress-fill’).style.width = pct + ‘%’;
-document.getElementById(‘progress-pct’).textContent = pct + ‘%’;
+document.getElementById('progress-fill').style.width = pct + '%';
+document.getElementById('progress-pct').textContent = pct + '%';
 }
 
 // INNER ROLES TABLE
 const ROLES = [
-{ icon:‘💡’, name:‘The Creator’, desc:‘The artist and innovator, driven to bring new ideas to life and make something meaningful.’ },
-{ icon:‘🌹’, name:‘The Lover’, desc:‘The romantic and connector, focused on deep relationships, passion, and emotional bonds.’ },
-{ icon:‘🔍’, name:‘The Explorer’, desc:‘The adventurer and seeker, always searching for new experiences, self-discovery, and freedom.’ },
-{ icon:‘⚔️’, name:‘The Warrior’, desc:‘The fighter and protector, standing up for what's right, overcoming challenges, and showing resilience.’ },
-{ icon:‘👑’, name:‘The Ruler’, desc:‘The leader and organiser, bringing order, control, and stability to situations.’ },
-{ icon:‘📖’, name:‘The Sage’, desc:‘The thinker and teacher, seeking wisdom, truth, and deep understanding of life.’ },
+{ icon:'💡', name:'The Creator', desc:'The artist and innovator, driven to bring new ideas to life and make something meaningful.' },
+{ icon:'🌹', name:'The Lover', desc:'The romantic and connector, focused on deep relationships, passion, and emotional bonds.' },
+{ icon:'🔍', name:'The Explorer', desc:'The adventurer and seeker, always searching for new experiences, self-discovery, and freedom.' },
+{ icon:'⚔️', name:'The Warrior', desc:'The fighter and protector, standing up for what\'s right, overcoming challenges, and showing resilience.' },
+{ icon:'👑', name:'The Ruler', desc:'The leader and organiser, bringing order, control, and stability to situations.' },
+{ icon:'📖', name:'The Sage', desc:'The thinker and teacher, seeking wisdom, truth, and deep understanding of life.' },
 ];
 function buildRolesTable() {
-const tbody = document.getElementById(‘roles-tbody’);
+const tbody = document.getElementById('roles-tbody');
 if (!tbody) return;
 ROLES.forEach((role, ri) => {
-const tr = document.createElement(‘tr’);
+const tr = document.createElement('tr');
 tr.innerHTML = `<td><div class="role-name"><span>${role.icon}</span>${role.name}</div></td><td><div class="role-desc">${role.desc}</div></td><td><div class="star-rating" id="stars-${ri}">${[1,2,3,4,5].map(s=>`<span class="star" data-r="${ri}" data-v="${s}">★</span>`).join('')}</div></td>`;
 tbody.appendChild(tr);
 });
-document.querySelectorAll(’.star’).forEach(s => {
-s.addEventListener(‘click’, function() {
+document.querySelectorAll('.star').forEach(s => {
+s.addEventListener('click', function() {
 const r = this.dataset.r, v = parseInt(this.dataset.v);
-document.querySelectorAll(`[data-r="${r}"]`).forEach((st,i) => st.classList.toggle(‘filled’, i < v));
+document.querySelectorAll(`[data-r="${r}"]`).forEach((st,i) => st.classList.toggle('filled', i < v));
 triggerSave();
 });
-s.addEventListener(‘mouseover’, function() { const r=this.dataset.r,v=parseInt(this.dataset.v); document.querySelectorAll(`[data-r="${r}"]`).forEach((st,i)=>{st.style.color=i<v?‘var(--gold)’:‘var(--line)’;}); });
-s.addEventListener(‘mouseout’, function() { const r=this.dataset.r; document.querySelectorAll(`[data-r="${r}"]`).forEach(st=>{st.style.color=st.classList.contains(‘filled’)?‘var(--gold)’:‘var(--line)’;}); });
+s.addEventListener('mouseover', function() { const r=this.dataset.r,v=parseInt(this.dataset.v); document.querySelectorAll(`[data-r="${r}"]`).forEach((st,i)=>{st.style.color=i<v?'var(--gold)':'var(--line)';}); });
+s.addEventListener('mouseout', function() { const r=this.dataset.r; document.querySelectorAll(`[data-r="${r}"]`).forEach(st=>{st.style.color=st.classList.contains('filled')?'var(--gold)':'var(--line)';}); });
 });
 }
 
 // COLLAGE CHIPS
-const SAFETY_WORDS = [‘Warmth’,‘Stillness’,‘Safety’,‘Belonging’,‘Softness’,‘Roots’,‘Breath’,‘Presence’,‘Gentleness’,‘Comfort’,‘Trust’,‘Home’,‘Ease’,‘Flow’,‘Groundedness’,‘Calm’,‘Silence’,‘Nature’,‘Music’,‘Light’,‘Ritual’,‘Laughter’,‘Touch’,‘Memory’,‘Acceptance’,‘Courage’];
+const SAFETY_WORDS = ['Warmth','Stillness','Safety','Belonging','Softness','Roots','Breath','Presence','Gentleness','Comfort','Trust','Home','Ease','Flow','Groundedness','Calm','Silence','Nature','Music','Light','Ritual','Laughter','Touch','Memory','Acceptance','Courage'];
 function buildCollage() {
-const grid = document.getElementById(‘collage-grid’);
+const grid = document.getElementById('collage-grid');
 if (!grid) return;
 SAFETY_WORDS.forEach(word => {
-const chip = document.createElement(‘div’);
-chip.className = ‘collage-chip’; chip.textContent = word;
-chip.addEventListener(‘click’, function() { this.classList.toggle(‘selected’); triggerSave(); });
+const chip = document.createElement('div');
+chip.className = 'collage-chip'; chip.textContent = word;
+chip.addEventListener('click', function() { this.classList.toggle('selected'); triggerSave(); });
 grid.appendChild(chip);
 });
 }
 
 // CALENDAR SYSTEM
-const MONTHS = [‘January’,‘February’,‘March’,‘April’,‘May’,‘June’,‘July’,‘August’,‘September’,‘October’,‘November’,‘December’];
-const WDAYS = [‘Sunday’,‘Monday’,‘Tuesday’,‘Wednesday’,‘Thursday’,‘Friday’,‘Saturday’];
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const WDAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 const calSt = {
 mood: { y: new Date().getFullYear(), m: new Date().getMonth(), sel: null },
 planner: { y: new Date().getFullYear(), m: new Date().getMonth(), sel: null }
 };
 
-function fmtDate(y, m, d) { return y + ‘-’ + String(m+1).padStart(2,‘0’) + ‘-’ + String(d).padStart(2,‘0’); }
+function fmtDate(y, m, d) { return y + '-' + String(m+1).padStart(2,'0') + '-' + String(d).padStart(2,'0'); }
 function todayStr() { const t = new Date(); return fmtDate(t.getFullYear(), t.getMonth(), t.getDate()); }
 
 function renderCal(type) {
 const st = calSt[type];
 const { y, m } = st;
-document.getElementById(type+’-cal-title’).innerHTML = MONTHS[m] + ’ <span>’ + y + ‘</span>’;
-const grid = document.getElementById(type+’-cal-grid’);
-grid.innerHTML = ‘’;
+document.getElementById(type+'-cal-title').innerHTML = MONTHS[m] + ' <span>' + y + '</span>';
+const grid = document.getElementById(type+'-cal-grid');
+grid.innerHTML = '';
 const firstDay = new Date(y, m, 1).getDay();
 const offset = firstDay === 0 ? 6 : firstDay - 1;
 const daysInMonth = new Date(y, m+1, 0).getDate();
 const daysInPrev = new Date(y, m, 0).getDate();
 const today = todayStr();
-const pfx = type + ‘_’ + y + ‘-’ + String(m+1).padStart(2,‘0’);
+const pfx = type + '_' + y + '-' + String(m+1).padStart(2,'0');
 const ct = Object.keys(localStorage).filter(k => k.startsWith(pfx)).length;
-document.getElementById(type+’-entry-ct’).textContent = ct + (ct===1?’ entry’:’ entries’) + ’ this month’;
+document.getElementById(type+'-entry-ct').textContent = ct + (ct===1?' entry':' entries') + ' this month';
 for (let i = offset-1; i >= 0; i--) grid.appendChild(makeCell(type, y, m-1, daysInPrev-i, today, true));
 for (let d = 1; d <= daysInMonth; d++) grid.appendChild(makeCell(type, y, m, d, today, false));
 const total = offset + daysInMonth, rem = total%7===0 ? 0 : 7-(total%7);
@@ -1254,12 +1254,12 @@ function makeCell(type, year, month, day, today, isOther) {
 const ry = month < 0 ? year-1 : month > 11 ? year+1 : year;
 const rm = ((month%12)+12)%12;
 const ds = fmtDate(ry, rm, day);
-const hasEntry = localStorage.getItem(type+’_’+ds) !== null;
+const hasEntry = localStorage.getItem(type+'_'+ds) !== null;
 const isToday = ds === today, isSel = calSt[type].sel === ds;
-const cell = document.createElement(‘div’);
-cell.className = ‘cal-cell’ + (isOther?’ cal-other’:’’) + (isToday?’ cal-today’:’’) + (isSel?’ cal-sel’:’’) + (hasEntry?’ cal-has’:’’);
-cell.innerHTML = ‘<span>’ + day + ‘</span><div class="cal-dot"></div>’;
-if (!isOther) cell.addEventListener(‘click’, () => { calSt[type].sel = ds; renderCal(type); openEntry(type, ds); });
+const cell = document.createElement('div');
+cell.className = 'cal-cell' + (isOther?' cal-other':'') + (isToday?' cal-today':'') + (isSel?' cal-sel':'') + (hasEntry?' cal-has':'');
+cell.innerHTML = '<span>' + day + '</span><div class="cal-dot"></div>';
+if (!isOther) cell.addEventListener('click', () => { calSt[type].sel = ds; renderCal(type); openEntry(type, ds); });
 return cell;
 }
 
@@ -1271,27 +1271,27 @@ renderCal(type);
 }
 
 function openEntry(type, ds) {
-const [y,m,d] = ds.split(’-’).map(Number);
+const [y,m,d] = ds.split('-').map(Number);
 const dt = new Date(y, m-1, d);
-document.getElementById(type+’-entry-wday’).textContent = WDAYS[dt.getDay()];
-document.getElementById(type+’-entry-date’).innerHTML = d + ’ <span>’ + MONTHS[m-1] + ‘</span> ’ + y;
-const saved = localStorage.getItem(type+’_’+ds);
-const badge = document.getElementById(type+’-entry-badge’);
-badge.textContent = saved ? ‘✦ Existing entry’ : ‘✦ New entry’;
-badge.className = ‘entry-badge ’ + (saved ? ‘exist-e’ : ‘new-e’);
-const selTxt = document.getElementById(type+’-cal-selected’);
-if (selTxt) selTxt.textContent = WDAYS[dt.getDay()] + ‘, ’ + MONTHS[m-1] + ’ ’ + d;
-document.getElementById(type+’-cal-wrap’).style.display = ‘none’;
-const form = document.getElementById(type+’-entry-form’);
-form.style.display = ‘block’;
-if (type === ‘mood’) loadMoodEntry(ds, saved);
-if (type === ‘planner’) loadPlannerEntry(ds, saved);
+document.getElementById(type+'-entry-wday').textContent = WDAYS[dt.getDay()];
+document.getElementById(type+'-entry-date').innerHTML = d + ' <span>' + MONTHS[m-1] + '</span> ' + y;
+const saved = localStorage.getItem(type+'_'+ds);
+const badge = document.getElementById(type+'-entry-badge');
+badge.textContent = saved ? '✦ Existing entry' : '✦ New entry';
+badge.className = 'entry-badge ' + (saved ? 'exist-e' : 'new-e');
+const selTxt = document.getElementById(type+'-cal-selected');
+if (selTxt) selTxt.textContent = WDAYS[dt.getDay()] + ', ' + MONTHS[m-1] + ' ' + d;
+document.getElementById(type+'-cal-wrap').style.display = 'none';
+const form = document.getElementById(type+'-entry-form');
+form.style.display = 'block';
+if (type === 'mood') loadMoodEntry(ds, saved);
+if (type === 'planner') loadPlannerEntry(ds, saved);
 attachDailySave(type, ds);
 }
 
 function closeEntry(type) {
-document.getElementById(type+’-cal-wrap’).style.display = ‘block’;
-document.getElementById(type+’-entry-form’).style.display = ‘none’;
+document.getElementById(type+'-cal-wrap').style.display = 'block';
+document.getElementById(type+'-entry-form').style.display = 'none';
 calSt[type].sel = null;
 renderCal(type);
 }
@@ -1299,19 +1299,19 @@ renderCal(type);
 // MOOD ENTRY
 function loadMoodEntry(ds, savedJson) {
 const data = savedJson ? JSON.parse(savedJson) : {};
-[‘m-feeling’,‘m-thoughts’,‘m-elevate’,‘m-grat1’,‘m-grat2’,‘m-grat3’,‘m-affirmation’,‘m-remember’].forEach(id => {
-const key = id.replace(‘m-’,’’); const el = document.getElementById(id);
-if (el) el.value = data[key] || ‘’;
+['m-feeling','m-thoughts','m-elevate','m-grat1','m-grat2','m-grat3','m-affirmation','m-remember'].forEach(id => {
+const key = id.replace('m-',''); const el = document.getElementById(id);
+if (el) el.value = data[key] || '';
 });
-const dots = document.getElementById(‘m-intensity’);
-dots.innerHTML = ‘’;
+const dots = document.getElementById('m-intensity');
+dots.innerHTML = '';
 for (let i = 1; i <= 10; i++) {
-const dot = document.createElement(‘div’);
-dot.className = ‘int-dot’ + (i <= (data.intensity||0) ? ’ on’ : ‘’);
+const dot = document.createElement('div');
+dot.className = 'int-dot' + (i <= (data.intensity||0) ? ' on' : '');
 dot.dataset.v = i;
-dot.addEventListener(‘click’, function() {
+dot.addEventListener('click', function() {
 const v = parseInt(this.dataset.v);
-dots.querySelectorAll(’.int-dot’).forEach((d,idx) => d.classList.toggle(‘on’, idx < v));
+dots.querySelectorAll('.int-dot').forEach((d,idx) => d.classList.toggle('on', idx < v));
 saveMoodEntry(ds);
 });
 dots.appendChild(dot);
@@ -1320,102 +1320,102 @@ dots.appendChild(dot);
 
 function getMoodData() {
 return {
-feeling: document.getElementById(‘m-feeling’).value,
-intensity: document.getElementById(‘m-intensity’).querySelectorAll(’.int-dot.on’).length,
-thoughts: document.getElementById(‘m-thoughts’).value,
-elevate: document.getElementById(‘m-elevate’).value,
-grat1: document.getElementById(‘m-grat1’).value,
-grat2: document.getElementById(‘m-grat2’).value,
-grat3: document.getElementById(‘m-grat3’).value,
-affirmation: document.getElementById(‘m-affirmation’).value,
-remember: document.getElementById(‘m-remember’).value
+feeling: document.getElementById('m-feeling').value,
+intensity: document.getElementById('m-intensity').querySelectorAll('.int-dot.on').length,
+thoughts: document.getElementById('m-thoughts').value,
+elevate: document.getElementById('m-elevate').value,
+grat1: document.getElementById('m-grat1').value,
+grat2: document.getElementById('m-grat2').value,
+grat3: document.getElementById('m-grat3').value,
+affirmation: document.getElementById('m-affirmation').value,
+remember: document.getElementById('m-remember').value
 };
 }
 
 function saveMoodEntry(ds) {
-localStorage.setItem(‘mood_’ + ds, JSON.stringify(getMoodData()));
-renderCal(‘mood’); updateStreak();
+localStorage.setItem('mood_' + ds, JSON.stringify(getMoodData()));
+renderCal('mood'); updateStreak();
 }
 
 // PLANNER ENTRY
 function loadPlannerEntry(ds, savedJson) {
 const data = savedJson ? JSON.parse(savedJson) : {};
-[‘health’,‘chores’,‘career’,‘spirit’,‘rel’,‘relax’,‘hobby’,‘other’].forEach(k => { const el = document.getElementById(‘p-’+k); if (el) el.checked = data[‘chk_’+k] || false; });
-const sl = document.getElementById(‘p-prod’); if (sl) sl.value = data.prod || 5;
-[‘1’,‘2’,‘3’].forEach(n => { const el = document.getElementById(‘p-int’+n); if (el) el.value = data[‘int’+n] || ‘’; });
-[‘p-keystone’,‘p-reward’,‘p-reminder’].forEach(id => { const el = document.getElementById(id); if (el) el.value = data[id.replace(‘p-’,’’)] || ‘’; });
-const tg = document.getElementById(‘p-time-grid’); tg.innerHTML = ‘’;
-[‘6:00’,‘7:00’,‘8:00’,‘9:00’,‘10:00’,‘11:00’,‘12:00’,‘13:00’,‘14:00’,‘15:00’,‘16:00’,‘17:00’,‘18:00’,‘19:00’,‘20:00’,‘21:00’,‘22:00’,‘23:00’].forEach((h, i) => {
-const row = document.createElement(‘div’); row.className = ‘time-row’;
-const inp = document.createElement(‘input’); inp.type = ‘text’; inp.className = ‘time-inp’; inp.placeholder = ‘—’;
-inp.value = (data.tb && data.tb[i]) || ‘’;
-inp.addEventListener(‘input’, () => savePlannerEntry(ds));
-row.innerHTML = ‘<span class="time-lbl">’ + h + ‘</span>’; row.appendChild(inp); tg.appendChild(row);
+['health','chores','career','spirit','rel','relax','hobby','other'].forEach(k => { const el = document.getElementById('p-'+k); if (el) el.checked = data['chk_'+k] || false; });
+const sl = document.getElementById('p-prod'); if (sl) sl.value = data.prod || 5;
+['1','2','3'].forEach(n => { const el = document.getElementById('p-int'+n); if (el) el.value = data['int'+n] || ''; });
+['p-keystone','p-reward','p-reminder'].forEach(id => { const el = document.getElementById(id); if (el) el.value = data[id.replace('p-','')] || ''; });
+const tg = document.getElementById('p-time-grid'); tg.innerHTML = '';
+['6:00','7:00','8:00','9:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00'].forEach((h, i) => {
+const row = document.createElement('div'); row.className = 'time-row';
+const inp = document.createElement('input'); inp.type = 'text'; inp.className = 'time-inp'; inp.placeholder = '—';
+inp.value = (data.tb && data.tb[i]) || '';
+inp.addEventListener('input', () => savePlannerEntry(ds));
+row.innerHTML = '<span class="time-lbl">' + h + '</span>'; row.appendChild(inp); tg.appendChild(row);
 });
 }
 
 function getPlannerData() {
 const d = {};
-[‘health’,‘chores’,‘career’,‘spirit’,‘rel’,‘relax’,‘hobby’,‘other’].forEach(k => { const el = document.getElementById(‘p-’+k); d[‘chk_’+k] = el ? el.checked : false; });
-d.prod = document.getElementById(‘p-prod’)?.value || 5;
-[‘1’,‘2’,‘3’].forEach(n => { d[‘int’+n] = document.getElementById(‘p-int’+n)?.value || ‘’; });
-d.keystone = document.getElementById(‘p-keystone’)?.value || ‘’;
-d.reward = document.getElementById(‘p-reward’)?.value || ‘’;
-d.reminder = document.getElementById(‘p-reminder’)?.value || ‘’;
-d.tb = Array.from(document.getElementById(‘p-time-grid’)?.querySelectorAll(’.time-inp’) || []).map(i => i.value);
+['health','chores','career','spirit','rel','relax','hobby','other'].forEach(k => { const el = document.getElementById('p-'+k); d['chk_'+k] = el ? el.checked : false; });
+d.prod = document.getElementById('p-prod')?.value || 5;
+['1','2','3'].forEach(n => { d['int'+n] = document.getElementById('p-int'+n)?.value || ''; });
+d.keystone = document.getElementById('p-keystone')?.value || '';
+d.reward = document.getElementById('p-reward')?.value || '';
+d.reminder = document.getElementById('p-reminder')?.value || '';
+d.tb = Array.from(document.getElementById('p-time-grid')?.querySelectorAll('.time-inp') || []).map(i => i.value);
 return d;
 }
 
 function savePlannerEntry(ds) {
-localStorage.setItem(‘planner_’ + ds, JSON.stringify(getPlannerData()));
-renderCal(‘planner’); updateStreak();
+localStorage.setItem('planner_' + ds, JSON.stringify(getPlannerData()));
+renderCal('planner'); updateStreak();
 }
 
 // ATTACH DAILY SAVE WITH DEBOUNCE
 const dTimers = {};
 function attachDailySave(type, ds) {
-const form = document.getElementById(type+’-entry-form’);
-const dot = document.getElementById(type===‘mood’ ? ‘m-save-ind’ : ‘p-save-ind’);
-const lbl = document.getElementById(type===‘mood’ ? ‘m-save-lbl’ : ‘p-save-lbl’);
-form.querySelectorAll(‘input[type=text], textarea, input[type=range]’).forEach(el => {
-el.addEventListener(‘input’, () => {
-dot.className = ‘save-ind saving’; lbl.textContent = ‘Saving…’;
+const form = document.getElementById(type+'-entry-form');
+const dot = document.getElementById(type==='mood' ? 'm-save-ind' : 'p-save-ind');
+const lbl = document.getElementById(type==='mood' ? 'm-save-lbl' : 'p-save-lbl');
+form.querySelectorAll('input[type=text], textarea, input[type=range]').forEach(el => {
+el.addEventListener('input', () => {
+dot.className = 'save-ind saving'; lbl.textContent = 'Saving…';
 clearTimeout(dTimers[type]);
 dTimers[type] = setTimeout(() => {
-if (type === ‘mood’) saveMoodEntry(ds);
-if (type === ‘planner’) savePlannerEntry(ds);
-dot.className = ‘save-ind’; lbl.textContent = ‘All saved’;
+if (type === 'mood') saveMoodEntry(ds);
+if (type === 'planner') savePlannerEntry(ds);
+dot.className = 'save-ind'; lbl.textContent = 'All saved';
 }, 2000);
 });
 });
-form.querySelectorAll(‘input[type=checkbox]’).forEach(el => {
-el.addEventListener(‘change’, () => { if (type === ‘planner’) savePlannerEntry(ds); });
+form.querySelectorAll('input[type=checkbox]').forEach(el => {
+el.addEventListener('change', () => { if (type === 'planner') savePlannerEntry(ds); });
 });
 }
 
 // STREAK
 function updateStreak() {
 const t = todayStr();
-const sd = JSON.parse(localStorage.getItem(‘inklings_streak’) || ‘{“days”:[]}’);
+const sd = JSON.parse(localStorage.getItem('inklings_streak') || '{"days":[]}');
 if (!sd.days.includes(t)) sd.days.push(t);
-localStorage.setItem(‘inklings_streak’, JSON.stringify(sd));
-document.getElementById(‘streak-badge’).style.display = ‘inline-flex’;
-document.getElementById(‘streak-count’).textContent = sd.days.length;
+localStorage.setItem('inklings_streak', JSON.stringify(sd));
+document.getElementById('streak-badge').style.display = 'inline-flex';
+document.getElementById('streak-count').textContent = sd.days.length;
 }
 
 // INIT
-document.addEventListener(‘DOMContentLoaded’, () => {
+document.addEventListener('DOMContentLoaded', () => {
 buildRolesTable();
 buildCollage();
-renderCal(‘mood’);
-renderCal(‘planner’);
+renderCal('mood');
+renderCal('planner');
 restoreCompleted();
 loadStaticData();
 updateProgress();
 attachStaticSave();
-document.getElementById(‘grp-ch1’).classList.add(‘open’);
-const sd = JSON.parse(localStorage.getItem(‘inklings_streak’) || ‘{“days”:[]}’);
-if (sd.days.length > 0) { document.getElementById(‘streak-badge’).style.display = ‘inline-flex’; document.getElementById(‘streak-count’).textContent = sd.days.length; }
+document.getElementById('grp-ch1').classList.add('open');
+const sd = JSON.parse(localStorage.getItem('inklings_streak') || '{"days":[]}');
+if (sd.days.length > 0) { document.getElementById('streak-badge').style.display = 'inline-flex'; document.getElementById('streak-count').textContent = sd.days.length; }
 });
 </script>
 
