@@ -1067,7 +1067,11 @@ body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--i
 (function(){
   try {
     const s = JSON.parse(sessionStorage.getItem('inklings_session') || 'null');
-    if (!s || Date.now() > s.expiry) { sessionStorage.removeItem('inklings_session'); window.location.href = './Login.html'; }
+    if (!s || Date.now() > s.expiry) {
+      sessionStorage.removeItem('inklings_session');
+      const email = new URLSearchParams(window.location.search).get('e');
+      window.location.href = './Login.html' + (email ? '?e=' + encodeURIComponent(email) : '');
+    }
   } catch(e) { window.location.href = './Login.html'; }
 })();
 
