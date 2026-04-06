@@ -1232,8 +1232,8 @@ document.addEventListener('click', e => { if (e.target.classList.contains('colla
 // COMPLETE
 const completed = JSON.parse(localStorage.getItem('inklings_completed') || '{}');
 function markComplete(id) {
-  if (!confirm('Mark this section as complete?\n\nNote: this cannot be undone once confirmed.')) return;
-  completed[id] = true;
+if (!confirm('Mark this section as complete?\n\nNote: this cannot be undone once confirmed.')) return;
+completed[id] = true;
 localStorage.setItem('inklings_completed', JSON.stringify(completed));
 const bar = document.getElementById('complete-' + id);
 if (bar) { bar.classList.add('done'); bar.querySelector('.complete-bar-text').textContent = '✦ Complete — well done.'; const btn = bar.querySelector('.complete-btn'); btn.textContent = '✓ Done'; btn.classList.add('done'); }
@@ -1251,25 +1251,25 @@ document.getElementById('progress-pct').textContent = pct + '%';
 
 // INNER ROLES TABLE
 const ROLES = [
-  { name:'The Creator', desc:'The artist and innovator, driven to bring new ideas to life and make something meaningful.' },
-  { name:'The Lover', desc:'The romantic and connector, focused on deep relationships, passion, and emotional bonds.' },
-  { name:'The Explorer', desc:'The adventurer and seeker, always searching for new experiences, self-discovery, and freedom.' },
-  { name:'The Warrior', desc:'The fighter and protector, standing up for what\'s right, overcoming challenges, and showing resilience.' },
-  { name:'The Ruler', desc:'The leader and organiser, bringing order, control, and stability to situations.' },
-  { name:'The Sage', desc:'The thinker and teacher, seeking wisdom, truth, and deep understanding of life.' },
-  { name:'The Magician', desc:'The visionary and transformer, turning ideas into reality and inspiring change in others.' },
-  { name:'The Everyman', desc:'The relatable and down-to-earth person, valuing belonging, community, and authenticity.' },
-  { name:'The Jester', desc:'The playful and fun-loving spirit, using humour, spontaneity, and joy to make life lighter.' },
-  { name:'The Outlaw', desc:'The rebel and rule-breaker, challenging traditions and pushing for change.' },
-  { name:'The Caregiver', desc:'The nurturer and helper, always looking out for others with kindness and generosity.' },
-  { name:'The Innocent', desc:'The optimist and dreamer, believing in goodness, simplicity, and a better world.' },
+{ icon:'💡', name:'The Creator', desc:'The artist and innovator, driven to bring new ideas to life and make something meaningful.' },
+{ icon:'🌹', name:'The Lover', desc:'The romantic and connector, focused on deep relationships, passion, and emotional bonds.' },
+{ icon:'🔍', name:'The Explorer', desc:'The adventurer and seeker, always searching for new experiences, self-discovery, and freedom.' },
+{ icon:'⚔️', name:'The Warrior', desc:'The fighter and protector, standing up for what\'s right, overcoming challenges, and showing resilience.' },
+{ icon:'👑', name:'The Ruler', desc:'The leader and organiser, bringing order, control, and stability to situations.' },
+{ icon:'📖', name:'The Sage', desc:'The thinker and teacher, seeking wisdom, truth, and deep understanding of life.' },
+{ icon:'🔮', name:'The Magician', desc:'The visionary and transformer, turning ideas into reality and inspiring change in others.' },
+{ icon:'🤝', name:'The Everyman', desc:'The relatable and down-to-earth person, valuing belonging, community, and authenticity.' },
+{ icon:'🃏', name:'The Jester', desc:'The playful and fun-loving spirit, using humour, spontaneity, and joy to make life lighter.' },
+{ icon:'⚡', name:'The Outlaw', desc:'The rebel and rule-breaker, challenging traditions and pushing for change.' },
+{ icon:'🤲', name:'The Caregiver', desc:'The nurturer and helper, always looking out for others with kindness and generosity.' },
+{ icon:'🌸', name:'The Innocent', desc:'The optimist and dreamer, believing in goodness, simplicity, and a better world.' },
 ];
 function buildRolesTable() {
 const tbody = document.getElementById('roles-tbody');
 if (!tbody) return;
 ROLES.forEach((role, ri) => {
 const tr = document.createElement('tr');
-tr.innerHTML = `<td><div class="role-name">${role.name}</div></td>
+tr.innerHTML = `<td><div class="role-name"><span>${role.icon}</span>${role.name}</div></td><td><div class="role-desc">${role.desc}</div></td><td><div class="star-rating" id="stars-${ri}">${[1,2,3,4,5].map(s=>`<span class="star" data-r="${ri}" data-v="${s}">★</span>`).join('')}</div></td>`;
 tbody.appendChild(tr);
 });
 document.querySelectorAll('.star').forEach(s => {
@@ -1506,29 +1506,26 @@ function closeCollageImg() {
 
 // INIT
 document.addEventListener('DOMContentLoaded', () => {
-  buildRolesTable();
-  buildCollage();
-  renderCal('mood');
-  renderCal('planner');
-  restoreCompleted();
-  loadStaticData();
-  updateProgress();
-  attachStaticSave();
-  document.getElementById('grp-ch1').classList.add('open');
-  const sd = JSON.parse(localStorage.getItem('inklings_streak') || '{"days":[]}');
-  if (sd.days.length > 0) {
-    document.getElementById('streak-badge').style.display = 'inline-flex';
-    document.getElementById('streak-count').textContent = sd.days.length;
+buildRolesTable();
+buildCollage();
+renderCal('mood');
+renderCal('planner');
+restoreCompleted();
+loadStaticData();
+updateProgress();
+attachStaticSave();
+document.getElementById('grp-ch1').classList.add('open');
+const sd = JSON.parse(localStorage.getItem('inklings_streak') || '{"days":[]}');
+if (sd.days.length > 0) { document.getElementById('streak-badge').style.display = 'inline-flex'; document.getElementById('streak-count').textContent = sd.days.length; }
+try {
+  const savedImg = localStorage.getItem('inklings_collage_img');
+  if (savedImg) {
+    const preview = document.getElementById('collage-img-preview');
+    const placeholder = document.getElementById('collage-img-placeholder');
+    if (preview) { preview.src = savedImg; preview.style.display = 'block'; }
+    if (placeholder) placeholder.style.display = 'none';
   }
-  try {
-    const savedImg = localStorage.getItem('inklings_collage_img');
-    if (savedImg) {
-      const preview = document.getElementById('collage-img-preview');
-      const placeholder = document.getElementById('collage-img-placeholder');
-      if (preview) { preview.src = savedImg; preview.style.display = 'block'; }
-      if (placeholder) placeholder.style.display = 'none';
-    }
-  } catch(e) {}
+} catch(e) {}
 });
 </script>
 
