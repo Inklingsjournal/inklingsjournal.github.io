@@ -92,7 +92,7 @@ border-bottom:1px solid rgba(115,129,94,0.18);
 .marquee-track { display:inline-flex; animation:marquee 24s linear infinite; }
 @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 .m-item { font-size:0.68rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(248,247,242,0.8); padding:0 2.2rem; border-right:1px solid rgba(248,247,242,0.2); }
-.m-item strong { font-weight:500; color:var(–cream); }
+.m-item strong { font-weight:500; color:var(--cream); }
 
 /* SHARED */
 .sec { padding:6rem 6rem; }
@@ -112,7 +112,7 @@ border-bottom:1px solid rgba(115,129,94,0.18);
 
 /* BRAND SECTION */
 .brand-grid { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; }
-.brand-quote { font-family:‘Cormorant Garamond’,serif; font-size:1.9rem; font-weight:300; font-style:italic; line-height:1.45; color:var(--ink); margin-bottom:2rem; border-left:3px solid var(–sage); padding-left:1.8rem; }
+.brand-quote { font-family:‘Cormorant Garamond’,serif; font-size:1.9rem; font-weight:300; font-style:italic; line-height:1.45; color:var(--ink); margin-bottom:2rem; border-left:3px solid var(--sage); padding-left:1.8rem; }
 .brand-body { font-size:0.9rem; font-weight:300; color:var(--ink-muted); line-height:1.95; }
 .brand-body p { margin-bottom:1rem; }
 .brand-pillars { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1px; margin-top:2.5rem; }
@@ -132,9 +132,9 @@ border-bottom:1px solid rgba(115,129,94,0.18);
 .days-left { background:var(--parchment); padding:6rem; display:flex; flex-direction:column; justify-content:center; }
 .days-right { background:var(--sage-dark); padding:6rem; display:flex; flex-direction:column; justify-content:center; }
 .days-list { list-style:none; margin-top:2rem; }
-.days-list li { font-family:‘Cormorant Garamond’,serif; font-size:1.28rem; font-weight:400; font-style:italic; color:var(–ink); padding:1rem 0; border-bottom:1px solid rgba(115,129,94,0.18); display:flex; align-items:center; gap:1rem; transition:color 0.25s; }
+.days-list li { font-family:‘Cormorant Garamond’,serif; font-size:1.28rem; font-weight:400; font-style:italic; color:var(--ink); padding:1rem 0; border-bottom:1px solid rgba(115,129,94,0.18); display:flex; align-items:center; gap:1rem; transition:color 0.25s; }
 .days-list li:hover { color:var(--sage); }
-.days-list li::before { content:’’; width:6px; height:6px; border-radius:50%; background:var(–sage-light); flex-shrink:0; }
+.days-list li::before { content:’’; width:6px; height:6px; border-radius:50%; background:var(--sage-light); flex-shrink:0; }
 .days-quote { font-family:‘Cormorant Garamond’,serif; font-size:1.6rem; font-weight:300; font-style:italic; color:var(--gold-light); line-height:1.5; margin-bottom:1.5rem; }
 .days-attr { font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:rgba(232,213,163,0.55); margin-bottom:3rem; }
 .days-feats { display:flex; flex-direction:column; gap:1rem; }
@@ -152,7 +152,7 @@ border-bottom:1px solid rgba(115,129,94,0.18);
 .part-method { font-size:0.68rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--sage); margin-bottom:1.2rem; font-weight:500; }
 .part-desc { font-size:0.87rem; font-weight:300; color:var(--ink-muted); line-height:1.85; margin-bottom:1.5rem; }
 .part-chapters { list-style:none; }
-.part-chapters li { font-size:0.8rem; font-weight:300; color:var(--ink-muted); padding:0.35rem 0; border-bottom:1px solid var(–parchment); display:flex; align-items:center; gap:0.6rem; }
+.part-chapters li { font-size:0.8rem; font-weight:300; color:var(--ink-muted); padding:0.35rem 0; border-bottom:1px solid var(--parchment); display:flex; align-items:center; gap:0.6rem; }
 .part-chapters li::before { content:‘○’; color:var(--sage-light); font-size:0.65rem; }
 
 /* FULL CONTENTS */
@@ -171,8 +171,8 @@ border-bottom:1px solid rgba(115,129,94,0.18);
 
 /* CHAPTER TABS */
 .chapter-tabs { display:flex; flex-wrap:wrap; gap:0; margin-bottom:0; }
-.ctab { padding:0.9rem 1.6rem; font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; font-weight:400; color:var(--ink-muted); background:var(–parchment); border:none; cursor:pointer; transition:all 0.25s; border-bottom:2px solid transparent; }
-.ctab.active,.ctab:hover { background:var(–cream); color:var(--sage); border-bottom-color:var(--sage); }
+.ctab { padding:0.9rem 1.6rem; font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; font-weight:400; color:var(--ink-muted); background:var(--parchment); border:none; cursor:pointer; transition:all 0.25s; border-bottom:2px solid transparent; }
+.ctab.active,.ctab:hover { background:var(--cream); color:var(--sage); border-bottom-color:var(--sage); }
 .chapter-panel { display:none; }
 .chapter-panel.active { display:grid; grid-template-columns:1fr 1fr; }
 .ch-text { padding:3.5rem; background:var(--cream); }
@@ -181,7 +181,7 @@ border-bottom:1px solid rgba(115,129,94,0.18);
 .ch-text p { font-size:0.9rem; font-weight:300; color:var(--ink-muted); line-height:1.9; margin-bottom:1rem; }
 .ch-prompts { padding:3.5rem; background:var(--parchment); }
 .ch-prompts h4 { font-size:0.68rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--sage); margin-bottom:1.5rem; font-weight:500; }
-.prompt-card { background:var(--cream); padding:1.2rem 1.4rem; margin-bottom:0.8rem; font-family:‘Cormorant Garamond’,serif; font-size:1.02rem; font-style:italic; color:var(–ink); line-height:1.5; border-left:2px solid var(–sage-light); }
+.prompt-card { background:var(--cream); padding:1.2rem 1.4rem; margin-bottom:0.8rem; font-family:‘Cormorant Garamond’,serif; font-size:1.02rem; font-style:italic; color:var(--ink); line-height:1.5; border-left:2px solid var(--sage-light); }
 
 /* THE METHOD */
 .method-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:3.5rem; }
@@ -208,7 +208,7 @@ border-bottom:1px solid rgba(115,129,94,0.18);
 .for-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:2px; margin-top:3.5rem; }
 .for-card { background:var(--cream); padding:2.8rem 2.5rem; transition:background 0.3s; position:relative; overflow:hidden; }
 .for-card:hover { background:var(--parchment); }
-.for-card::after { content:’’; position:absolute; bottom:0; left:0; right:0; height:2px; background:var(–sage); transform:scaleX(0); transform-origin:left; transition:transform 0.4s; }
+.for-card::after { content:’’; position:absolute; bottom:0; left:0; right:0; height:2px; background:var(--sage); transform:scaleX(0); transform-origin:left; transition:transform 0.4s; }
 .for-card:hover::after { transform:scaleX(1); }
 .for-icon { font-size:2rem; margin-bottom:1.2rem; display:block; }
 .for-title { font-family:‘Cormorant Garamond’,serif; font-size:1.35rem; font-weight:500; color:var(--ink); margin-bottom:0.6rem; }
@@ -236,7 +236,7 @@ border-bottom:1px solid rgba(115,129,94,0.18);
 /* PRICING */
 .pricing-layout { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start; margin-top:4rem; }
 .pricing-card { background:var(--cream); border:1px solid rgba(115,129,94,0.22); padding:3.5rem; position:relative; }
-.pricing-badge { position:absolute; top:-1px; left:50%; transform:translateX(-50%); background:var(–sage); color:var(--cream); font-size:0.62rem; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; padding:0.38rem 1.2rem; white-space:nowrap; }
+.pricing-badge { position:absolute; top:-1px; left:50%; transform:translateX(-50%); background:var(--sage); color:var(--cream); font-size:0.62rem; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; padding:0.38rem 1.2rem; white-space:nowrap; }
 .price-amount { font-family:‘Cormorant Garamond’,serif; font-size:4.5rem; font-weight:300; color:var(--ink); line-height:1; margin-bottom:0.3rem; }
 .price-amount sup { font-size:1.6rem; vertical-align:super; }
 .price-note { font-size:0.75rem; color:var(--ink-muted); letter-spacing:0.08em; margin-bottom:2.5rem; }
