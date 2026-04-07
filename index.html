@@ -268,6 +268,52 @@ footer{padding:44px 24px 28px;}
 .product-mockups{grid-template-columns:1fr;}
 .mockup-card.tall{grid-row:span 1;}
 }
+
+  /* ── BACK TO TOP ── */
+#back-to-top {
+  position: fixed;
+  bottom: 36px;
+  right: 36px;
+  z-index: 200;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 1px solid var(--line-light);
+  box-shadow: 0 4px 18px rgba(42,42,40,.10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: opacity .35s ease, transform .35s ease, background .2s, border-color .2s, box-shadow .2s;
+}
+#back-to-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+#back-to-top:hover {
+  background: var(--sage-dark);
+  border-color: var(--sage-dark);
+  box-shadow: 0 8px 24px rgba(79,98,71,.22);
+}
+#back-to-top:hover svg {
+  stroke: white;
+}
+#back-to-top svg {
+  stroke: var(--sage-dark);
+  transition: stroke .2s;
+  display: block;
+}
+
+@media(max-width:860px) {
+  #back-to-top { bottom: 24px; right: 20px; }
+}
+
+  
 </style>
 
 </head>
@@ -715,7 +761,22 @@ function goToSubstack() {
   var url = email ? base + '&email=' + encodeURIComponent(email) : base;
   window.open(url, '_blank');
 }
+// Back to top visibility
+const btt = document.getElementById('back-to-top');
+window.addEventListener('scroll', () => {
+  btt.classList.toggle('visible', window.scrollY > 400);
+});
+
+    
 </script>
 
+  <!-- ── BACK TO TOP ── -->
+<button id="back-to-top" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="18 15 12 9 6 15"/>
+  </svg>
+</button>
+
+  
 </body>
 </html>
