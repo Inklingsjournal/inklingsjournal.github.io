@@ -658,35 +658,36 @@ footer{padding:44px 24px 28px;}
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+  
+  <script>
 // Nav scroll
-const navbar = document.getElementById(‘navbar’);
-window.addEventListener(‘scroll’, () => { navbar.classList.toggle(‘scrolled’, window.scrollY > 20); });
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 20); });
 
 // Mobile menu
-function toggleMenu() { document.getElementById(‘mobile-menu’).classList.toggle(‘open’); }
-document.addEventListener(‘click’, e => {
-if (!e.target.closest(’#hamburger’) && !e.target.closest(’#mobile-menu’))
-document.getElementById(‘mobile-menu’).classList.remove(‘open’);
+function toggleMenu() { document.getElementById('mobile-menu').classList.toggle('open'); }
+document.addEventListener('click', e => {
+  if (!e.target.closest('#hamburger') && !e.target.closest('#mobile-menu'))
+    document.getElementById('mobile-menu').classList.remove('open');
 });
 
 // FAQ
 function toggleFaq(btn) {
-const item = btn.closest(’.faq-item’);
-const isOpen = item.classList.contains(‘open’);
-document.querySelectorAll(’.faq-item’).forEach(i => i.classList.remove(‘open’));
-if (!isOpen) item.classList.add(‘open’);
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
 }
 
 // Scroll reveal
 const observer = new IntersectionObserver(entries => {
-entries.forEach(e => { if (e.isIntersecting) e.target.classList.add(‘visible’); });
-}, { threshold: 0, rootMargin: '0px 0px -40px 0px'});
-document.querySelectorAll(’.reveal’).forEach(el => observer.observe(el));
- 
-  //fallback:show any reveal elements already in or near the viewport
-  function revealInView() {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Fallback: show any reveal elements already in or near the viewport
+function revealInView() {
   document.querySelectorAll('.reveal').forEach(el => {
     if (!el.classList.contains('visible')) {
       const r = el.getBoundingClientRect();
@@ -694,17 +695,17 @@ document.querySelectorAll(’.reveal’).forEach(el => observer.observe(el));
     }
   });
 }
-  window.addEventListener('load', revealInView);
-  window.addEventListener('resize', revealInView);
+window.addEventListener('load', revealInView);
+window.addEventListener('resize', revealInView);
 
 // Smooth scroll offset for fixed nav
-document.querySelectorAll(‘a[href^=”#”]’).forEach(a => {
-a.addEventListener(‘click’, e => {
-const target = document.querySelector(a.getAttribute(‘href’));
-if (!target) return;
-e.preventDefault();
-window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 78, behavior: ‘smooth’ });
-});
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (!target) return;
+    e.preventDefault();
+    window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 78, behavior: 'smooth' });
+  });
 });
 
 // Subscribe -> Substack
@@ -714,7 +715,6 @@ function goToSubstack() {
   var url = email ? base + '&email=' + encodeURIComponent(email) : base;
   window.open(url, '_blank');
 }
-
 </script>
 
 </body>
