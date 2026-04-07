@@ -682,8 +682,19 @@ if (!isOpen) item.classList.add(‘open’);
 // Scroll reveal
 const observer = new IntersectionObserver(entries => {
 entries.forEach(e => { if (e.isIntersecting) e.target.classList.add(‘visible’); });
-}, { threshold: 0.08 });
+}, { threshold: 0, rootMargin: '0px 0px -40px 0px'});
 document.querySelectorAll(’.reveal’).forEach(el => observer.observe(el));
+ 
+  //fallback:show any reveal elements already in or near the viewport
+  function revealInView() {
+        if (!el.classList.contains('visible)) {
+                                   const r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight + 60) el.classList.add('visible');
+  }
+  });
+  }
+  window.addEventListener('load', revealInView);
+  window.addEventListener('resize', revealInView);
 
 // Smooth scroll offset for fixed nav
 document.querySelectorAll(‘a[href^=”#”]’).forEach(a => {
