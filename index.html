@@ -762,9 +762,9 @@ function goToSubstack() {
   window.open(url, '_blank');
 }
 // Back to top visibility
-const btt = document.getElementById('back-to-top');
 window.addEventListener('scroll', () => {
-  btt.classList.toggle('visible', window.scrollY > 400);
+  const btt = document.getElementById('back-to-top');
+  if (btt) btt.classList.toggle('visible', window.scrollY > 400);
 });
 
     
