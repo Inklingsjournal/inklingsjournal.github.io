@@ -687,12 +687,13 @@ document.querySelectorAll(’.reveal’).forEach(el => observer.observe(el));
  
   //fallback:show any reveal elements already in or near the viewport
   function revealInView() {
-        if (!el.classList.contains('visible)) {
-                                   const r = el.getBoundingClientRect();
-        if (r.top < window.innerHeight + 60) el.classList.add('visible');
-  }
+  document.querySelectorAll('.reveal').forEach(el => {
+    if (!el.classList.contains('visible')) {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight + 60) el.classList.add('visible');
+    }
   });
-  }
+}
   window.addEventListener('load', revealInView);
   window.addEventListener('resize', revealInView);
 
