@@ -2011,77 +2011,77 @@ const ROLES = [
 ];
 
 const COLLAGE_WORDS = [
-‘stillness’,‘warm light’,‘safety’,‘belonging’,‘softness’,‘morning tea’,
-‘open skies’,‘being held’,‘laughter’,‘music’,‘forests’,‘the ocean’,
-‘home’,‘gentle words’,‘creativity’,‘sunshine’,‘deep sleep’,‘trusted friends’,
-‘silence’,‘movement’,‘childhood’,‘colour’,‘candlelight’,‘fresh air’,
+'stillness','warm light','safety','belonging','softness','morning tea',
+'open skies','being held','laughter','music','forests','the ocean',
+'home','gentle words','creativity','sunshine','deep sleep','trusted friends',
+'silence','movement','childhood','colour','candlelight','fresh air',
 ];
 
-const MONTHS = [‘January’,‘February’,‘March’,‘April’,‘May’,‘June’,‘July’,‘August’,‘September’,‘October’,‘November’,‘December’];
-const WDAYS = [‘Sunday’,‘Monday’,‘Tuesday’,‘Wednesday’,‘Thursday’,‘Friday’,‘Saturday’];
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const WDAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
 // ══ PAGE NAVIGATION ══
 const PAGES = [
-‘welcome’,‘how-to-use’,
-‘part1-intro’,‘grounding’,‘emotion-compass’,‘emotional-collage’,‘compassion-figure’,‘part1-pause’,
-‘part2-intro’,
-‘ch1-early’,‘ch1-family’,‘ch1-moments’,‘ch1-pause’,
-‘ch2-today’,‘ch2-fills’,‘ch2-joys’,‘ch3-roles’,‘ch3-ideal’,‘ch3-shadow’,‘ch2-pause’,
-‘ch6-offload’,‘ch6-critic’,‘ch6-child’,‘ch6-letter-younger’,‘ch6-attachment’,‘ch6-pause’,
-‘ch4-dreams’,‘ch4-vision’,‘ch4-success’,‘ch4-legacy’,‘ch4-pause’,
-‘ch5-insights’,‘ch5-final’,
-‘part3-intro’,’closing’,’circle-control’,’big-small’,’mood-journal’,’intention-planner’
+'welcome','how-to-use',
+'part1-intro','grounding','emotion-compass','emotional-collage','compassion-figure','part1-pause',
+'part2-intro',
+'ch1-early','ch1-family','ch1-moments','ch1-pause',
+'ch2-today','ch2-fills','ch2-joys','ch3-roles','ch3-ideal','ch3-shadow','ch2-pause',
+'ch6-offload','ch6-critic','ch6-child','ch6-letter-younger','ch6-attachment','ch6-pause',
+'ch4-dreams','ch4-vision','ch4-success','ch4-legacy','ch4-pause',
+'ch5-insights','ch5-final',
+'part3-intro','closing','circle-control','big-small','mood-journal','intention-planner'
 ];
 
 const BREADCRUMBS = {
-“welcome”:“Welcome”,“how-to-use”:“How to use this journal”,
-“part1-intro”:“Part I · Introduction”,“grounding”:“Ground yourself first”,
-“emotion-compass”:“How are you, really?”,“emotional-collage”:“Your safe place”,
-“compassion-figure”:“Your compassionate voice”,“part1-pause”:“Before you move on”,
-“part2-intro”:“Part II · Introduction”,
-“ch1-early”:“Early impressions”,“ch1-family”:“Family and love”,“ch1-moments”:“A moment that stayed”,
-“ch1-pause”:“Before you move on”,
-“ch2-today”:“Your life today”,“ch2-fills”:“What fills and drains you”,“ch2-joys”:“Small joys”,
-“ch3-roles”:“The roles you play”,“ch3-ideal”:“A version you admire”,“ch3-shadow”:“The hard-to-show part”,
-“ch2-pause”:“Before you move on”,
-“ch6-offload”:“Say the thing you haven’t said”,“ch6-critic”:“That voice in your head”,
-“ch6-child”:“Meeting your younger self”,“ch6-letter-younger”:“A letter to the child you were”,
-“ch6-attachment”:“How you love and let people in”,“ch6-pause”:“Before you move on”,
-“ch4-dreams”:“Dreams and what stops them”,“ch4-vision”:“Your ideal day”,
-“ch4-success”:“What success really means”,“ch4-legacy”:“What you want to matter”,
-“ch4-pause”:“Before you move on”,
-“ch5-insights”:“What this taught me”,
-“ch5-final”:“My full story”,
-“part3-intro”:“Part III · Introduction”,“closing”:“A note to carry with you”,
-“circle-control”:“What is in my hands”,
-“big-small”:”Big and small intentions”,
-“mood-journal”:”Mood and gratitude”,”intention-planner”:”Intention planner”
+"welcome":"Welcome","how-to-use":"How to use this journal",
+"part1-intro":"Part I · Introduction","grounding":"Ground yourself first",
+"emotion-compass":"How are you, really?","emotional-collage":"Your safe place",
+"compassion-figure":"Your compassionate voice","part1-pause":"Before you move on",
+"part2-intro":"Part II · Introduction",
+"ch1-early":"Early impressions","ch1-family":"Family and love","ch1-moments":"A moment that stayed",
+"ch1-pause":"Before you move on",
+"ch2-today":"Your life today","ch2-fills":"What fills and drains you","ch2-joys":"Small joys",
+"ch3-roles":"The roles you play","ch3-ideal":"A version you admire","ch3-shadow":"The hard-to-show part",
+"ch2-pause":"Before you move on",
+"ch6-offload":"Say the thing you haven't said","ch6-critic":"That voice in your head",
+"ch6-child":"Meeting your younger self","ch6-letter-younger":"A letter to the child you were",
+"ch6-attachment":"How you love and let people in","ch6-pause":"Before you move on",
+"ch4-dreams":"Dreams and what stops them","ch4-vision":"Your ideal day",
+"ch4-success":"What success really means","ch4-legacy":"What you want to matter",
+"ch4-pause":"Before you move on",
+"ch5-insights":"What this taught me",
+"ch5-final":"My full story",
+"part3-intro":"Part III · Introduction","closing":"A note to carry with you",
+"circle-control":"What is in my hands",
+"big-small":"Big and small intentions",
+"mood-journal":"Mood and gratitude","intention-planner":"Intention planner"
 };
 
 // Completable pages (excludes calendars which are always open)
-const COMPLETABLE = PAGES.filter(p => ![‘mood-journal’,’intention-planner’,’part2-intro’,’part3-intro’].includes(p));
+const COMPLETABLE = PAGES.filter(p => !['mood-journal','intention-planner','part2-intro','part3-intro'].includes(p));
 
-let currentPage = ‘welcome’;
+let currentPage = 'welcome';
 
 function showPage(id, el) {
-document.querySelectorAll(’.page’).forEach(p => p.classList.remove(‘active’));
-document.querySelectorAll(’.nav-item’).forEach(n => n.classList.remove(‘active’));
-const pg = document.getElementById(‘page-’ + id);
-if (pg) pg.classList.add(‘active’);
-if (el) el.classList.add(‘active’);
+document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+const pg = document.getElementById('page-' + id);
+if (pg) pg.classList.add('active');
+if (el) el.classList.add('active');
 currentPage = id;
-document.getElementById(‘breadcrumb’).textContent = BREADCRUMBS[id] || id;
-document.querySelector(’.main’).scrollTo(0, 0);
+document.getElementById('breadcrumb').textContent = BREADCRUMBS[id] || id;
+document.querySelector('.main').scrollTo(0, 0);
 // close mobile sidebar
-document.getElementById(‘sidebar’).classList.remove(‘open’);
-document.getElementById(‘overlay’).classList.remove(‘active’);
+document.getElementById('sidebar').classList.remove('open');
+document.getElementById('overlay').classList.remove('active');
 }
 
 function navigateNext() {
 const i = PAGES.indexOf(currentPage);
 if (i < PAGES.length - 1) {
 const n = PAGES[i + 1];
-showPage(n, document.querySelector(’[data-page=”’ + n + ‘”]’));
+showPage(n, document.querySelector('[data-page="' + n + '"]'));
 }
 }
 
@@ -2089,34 +2089,34 @@ function navigatePrev() {
 const i = PAGES.indexOf(currentPage);
 if (i > 0) {
 const n = PAGES[i - 1];
-showPage(n, document.querySelector(’[data-page=”’ + n + ‘”]’));
+showPage(n, document.querySelector('[data-page="' + n + '"]'));
 }
 }
 
 function toggleGroup(id) {
-document.getElementById(id).classList.toggle(‘open’);
+document.getElementById(id).classList.toggle('open');
 }
 
 function toggleSidebar() {
-const sb = document.getElementById(‘sidebar’);
-const ov = document.getElementById(‘overlay’);
-sb.classList.toggle(‘open’);
-ov.classList.toggle(‘active’);
+const sb = document.getElementById('sidebar');
+const ov = document.getElementById('overlay');
+sb.classList.toggle('open');
+ov.classList.toggle('active');
 }
 
 // ══ COMPLETE ══
 function markComplete(id) {
-const bar = document.getElementById(‘complete-’ + id);
+const bar = document.getElementById('complete-' + id);
 if (!bar) return;
-bar.classList.add(‘done’);
-bar.querySelector(’.complete-bar-text’).textContent = ‘✓ Section complete — moving to next page…’;
-bar.querySelector(’.complete-btn’).classList.add(‘done’);
-bar.querySelector(’.complete-btn’).textContent = ‘Complete ✓’;
-const navEl = document.querySelector(’[data-page=”’ + id + ‘”]’);
-if (navEl) navEl.classList.add(‘done’);
-const completed = JSON.parse(localStorage.getItem(‘inklings_completed’) || ‘[]’);
+bar.classList.add('done');
+bar.querySelector('.complete-bar-text').textContent = '✓ Section complete — moving to next page…';
+bar.querySelector('.complete-btn').classList.add('done');
+bar.querySelector('.complete-btn').textContent = 'Complete ✓';
+const navEl = document.querySelector('[data-page="' + id + '"]');
+if (navEl) navEl.classList.add('done');
+const completed = JSON.parse(localStorage.getItem('inklings_completed') || '[]');
 if (!completed.includes(id)) completed.push(id);
-localStorage.setItem(‘inklings_completed’, JSON.stringify(completed));
+localStorage.setItem('inklings_completed', JSON.stringify(completed));
 updateProgress();
 updateStreak();
 // auto-advance to next page after 1.2s
@@ -2124,50 +2124,50 @@ setTimeout(() => navigateNext(), 1200);
 }
 
 function restoreCompleted() {
-const completed = JSON.parse(localStorage.getItem(‘inklings_completed’) || ‘[]’);
+const completed = JSON.parse(localStorage.getItem('inklings_completed') || '[]');
 completed.forEach(id => {
-const bar = document.getElementById(‘complete-’ + id);
+const bar = document.getElementById('complete-' + id);
 if (bar) {
-bar.classList.add(‘done’);
-bar.querySelector(’.complete-bar-text’).textContent = ‘✓ Section complete’;
-const btn = bar.querySelector(’.complete-btn’);
-btn.classList.add(‘done’);
-btn.textContent = ‘Complete ✓’;
+bar.classList.add('done');
+bar.querySelector('.complete-bar-text').textContent = '✓ Section complete';
+const btn = bar.querySelector('.complete-btn');
+btn.classList.add('done');
+btn.textContent = 'Complete ✓';
 }
-const navEl = document.querySelector(’[data-page=”’ + id + ‘”]’);
-if (navEl) navEl.classList.add(‘done’);
+const navEl = document.querySelector('[data-page="' + id + '"]');
+if (navEl) navEl.classList.add('done');
 });
 }
 
 function updateProgress() {
-const completed = JSON.parse(localStorage.getItem(‘inklings_completed’) || ‘[]’);
+const completed = JSON.parse(localStorage.getItem('inklings_completed') || '[]');
 const pct = Math.round((completed.length / COMPLETABLE.length) * 100);
-document.getElementById(‘progress-pct’).textContent = pct + ‘%’;
-document.getElementById(‘progress-fill’).style.width = pct + ‘%’;
+document.getElementById('progress-pct').textContent = pct + '%';
+document.getElementById('progress-fill').style.width = pct + '%';
 }
 
 // ══ ROLES TABLE ══
 function buildRolesTable() {
-const tbody = document.getElementById(‘roles-tbody’);
+const tbody = document.getElementById('roles-tbody');
 if (!tbody) return;
-const saved = JSON.parse(localStorage.getItem(‘inklings_roles’) || ‘{}’);
+const saved = JSON.parse(localStorage.getItem('inklings_roles') || '{}');
 ROLES.forEach((role, ri) => {
-const tr = document.createElement(‘tr’);
+const tr = document.createElement('tr');
 const stars = [1,2,3,4,5].map(s =>
 `<span class="star ${(saved[ri]||0) >= s ? 'filled' : ''}" data-ri="${ri}" data-s="${s}">★</span>`
-).join(’’);
+).join('');
 tr.innerHTML = `<td><div class="role-name">${role.name}</div></td> <td><div class="role-desc">${role.desc}</div></td> <td><div class="star-rating" id="stars-${ri}">${stars}</div></td>`;
 tbody.appendChild(tr);
 });
-tbody.addEventListener(‘click’, e => {
-if (e.target.classList.contains(‘star’)) {
+tbody.addEventListener('click', e => {
+if (e.target.classList.contains('star')) {
 const ri = parseInt(e.target.dataset.ri);
 const s = parseInt(e.target.dataset.s);
-const saved2 = JSON.parse(localStorage.getItem(‘inklings_roles’) || ‘{}’);
+const saved2 = JSON.parse(localStorage.getItem('inklings_roles') || '{}');
 saved2[ri] = s;
-localStorage.setItem(‘inklings_roles’, JSON.stringify(saved2));
+localStorage.setItem('inklings_roles', JSON.stringify(saved2));
 document.querySelectorAll(`#stars-${ri} .star`).forEach((st, i) => {
-st.classList.toggle(‘filled’, i < s);
+st.classList.toggle('filled', i < s);
 });
 }
 });
@@ -2175,19 +2175,19 @@ st.classList.toggle(‘filled’, i < s);
 
 // ══ COLLAGE ══
 function buildCollage() {
-const grid = document.getElementById(‘collage-grid’);
+const grid = document.getElementById('collage-grid');
 if (!grid) return;
-const saved = JSON.parse(localStorage.getItem(‘inklings_collage’) || ‘[]’);
+const saved = JSON.parse(localStorage.getItem('inklings_collage') || '[]');
 COLLAGE_WORDS.forEach(w => {
-const chip = document.createElement(‘div’);
-chip.className = ‘collage-chip’ + (saved.includes(w) ? ’ selected’ : ‘’);
+const chip = document.createElement('div');
+chip.className = 'collage-chip' + (saved.includes(w) ? ' selected' : '');
 chip.textContent = w;
 chip.onclick = () => {
-chip.classList.toggle(‘selected’);
-const s = JSON.parse(localStorage.getItem(‘inklings_collage’) || ‘[]’);
+chip.classList.toggle('selected');
+const s = JSON.parse(localStorage.getItem('inklings_collage') || '[]');
 const idx = s.indexOf(w);
 if (idx > -1) s.splice(idx, 1); else s.push(w);
-localStorage.setItem(‘inklings_collage’, JSON.stringify(s));
+localStorage.setItem('inklings_collage', JSON.stringify(s));
 };
 grid.appendChild(chip);
 });
@@ -2196,41 +2196,41 @@ grid.appendChild(chip);
 // ══ STATIC SAVE (debounced) ══
 let saveTimer;
 function triggerSave() {
-const dot = document.getElementById(‘save-dot’);
-const lbl = document.getElementById(‘save-label’);
-dot.className = ‘save-dot saving’;
-lbl.textContent = ‘Saving…’;
+const dot = document.getElementById('save-dot');
+const lbl = document.getElementById('save-label');
+dot.className = 'save-dot saving';
+lbl.textContent = 'Saving…';
 clearTimeout(saveTimer);
 saveTimer = setTimeout(() => {
 saveStaticData();
-dot.className = ‘save-dot’;
-lbl.textContent = ‘All saved’;
+dot.className = 'save-dot';
+lbl.textContent = 'All saved';
 }, 600);
 }
 
 function saveStaticData() {
 const data = {};
-document.querySelectorAll(‘textarea[id], input[type=text][id], input[type=text].g-inp[id], input[type=text].ca-inp[id], input[type=text].ec-body-inp[id], input[type=text].zone-input[id], input[type=text].fd-inp[id], input[type=text].intent-inp[id], input[type=text].ks-inp[id], input[type=text].wk-ta[id]’).forEach(el => {
+document.querySelectorAll('textarea[id], input[type=text][id], input[type=text].g-inp[id], input[type=text].ca-inp[id], input[type=text].ec-body-inp[id], input[type=text].zone-input[id], input[type=text].fd-inp[id], input[type=text].intent-inp[id], input[type=text].ks-inp[id], input[type=text].wk-ta[id]').forEach(el => {
 if (el.id) data[el.id] = el.value;
 });
 // also grab inputs
-document.querySelectorAll(‘input[type=text][id]’).forEach(el => {
+document.querySelectorAll('input[type=text][id]').forEach(el => {
 if (el.id) data[el.id] = el.value;
 });
-localStorage.setItem(‘inklings_static’, JSON.stringify(data));
+localStorage.setItem('inklings_static', JSON.stringify(data));
 }
 
 function loadStaticData() {
-const data = JSON.parse(localStorage.getItem(‘inklings_static’) || ‘{}’);
+const data = JSON.parse(localStorage.getItem('inklings_static') || '{}');
 Object.entries(data).forEach(([id, val]) => {
 const el = document.getElementById(id);
-if (el && el.tagName !== ‘SELECT’) el.value = val;
+if (el && el.tagName !== 'SELECT') el.value = val;
 });
 }
 
 function attachStaticSave() {
-document.querySelectorAll(‘textarea, input[type=text]’).forEach(el => {
-el.addEventListener(‘input’, triggerSave);
+document.querySelectorAll('textarea, input[type=text]').forEach(el => {
+el.addEventListener('input', triggerSave);
 });
 }
 
@@ -2240,23 +2240,23 @@ mood: { y: new Date().getFullYear(), m: new Date().getMonth(), sel: null },
 planner: { y: new Date().getFullYear(), m: new Date().getMonth(), sel: null }
 };
 
-function fmtDate(y, m, d) { return y + ‘-’ + String(m+1).padStart(2,‘0’) + ‘-’ + String(d).padStart(2,‘0’); }
+function fmtDate(y, m, d) { return y + '-' + String(m+1).padStart(2,'0') + '-' + String(d).padStart(2,'0'); }
 function todayStr() { const t = new Date(); return fmtDate(t.getFullYear(), t.getMonth(), t.getDate()); }
 
 function renderCal(type) {
 const st = calSt[type];
 const { y, m } = st;
-document.getElementById(type + ‘-cal-title’).innerHTML = MONTHS[m] + ’ <span>’ + y + ‘</span>’;
-const grid = document.getElementById(type + ‘-cal-grid’);
-grid.innerHTML = ‘’;
+document.getElementById(type + '-cal-title').innerHTML = MONTHS[m] + ' <span>' + y + '</span>';
+const grid = document.getElementById(type + '-cal-grid');
+grid.innerHTML = '';
 const firstDay = new Date(y, m, 1).getDay();
 const offset = firstDay === 0 ? 6 : firstDay - 1;
 const daysInMonth = new Date(y, m+1, 0).getDate();
 const daysInPrev = new Date(y, m, 0).getDate();
 const today = todayStr();
-const pfx = type + ‘_’ + y + ‘-’ + String(m+1).padStart(2,‘0’);
+const pfx = type + '_' + y + '-' + String(m+1).padStart(2,'0');
 const ct = Object.keys(localStorage).filter(k => k.startsWith(pfx)).length;
-document.getElementById(type + ‘-entry-ct’).textContent = ct + (ct === 1 ? ’ entry’ : ’ entries’) + ’ this month’;
+document.getElementById(type + '-entry-ct').textContent = ct + (ct === 1 ? ' entry' : ' entries') + ' this month';
 for (let i = offset-1; i >= 0; i--) grid.appendChild(makeCell(type, y, m-1, daysInPrev-i, today, true));
 for (let d = 1; d <= daysInMonth; d++) grid.appendChild(makeCell(type, y, m, d, today, false));
 const total = offset + daysInMonth, rem = total % 7 === 0 ? 0 : 7 - (total % 7);
@@ -2267,18 +2267,18 @@ function makeCell(type, year, month, day, today, isOther) {
 const ry = month < 0 ? year-1 : month > 11 ? year+1 : year;
 const rm = ((month % 12) + 12) % 12;
 const ds = fmtDate(ry, rm, day);
-const hasEntry = localStorage.getItem(type + ‘_’ + ds) !== null;
+const hasEntry = localStorage.getItem(type + '_' + ds) !== null;
 const isToday = ds === today, isSel = calSt[type].sel === ds;
 const isFuture = ds > today;
-const cell = document.createElement(‘div’);
-cell.className = ‘cal-cell’
-+ (isOther || isFuture ? ’ cal-other’ : ‘’)
-+ (isToday ? ’ cal-today’ : ‘’)
-+ (isSel ? ’ cal-sel’ : ‘’)
-+ (hasEntry ? ’ cal-has’ : ‘’)
-+ (isFuture ? ’ cal-future’ : ‘’);
-cell.innerHTML = ‘<span>’ + day + ‘</span><div class="cal-dot"></div>’;
-if (!isOther && !isFuture) cell.addEventListener(‘click’, () => { calSt[type].sel = ds; renderCal(type); openEntry(type, ds); });
+const cell = document.createElement('div');
+cell.className = 'cal-cell'
++ (isOther || isFuture ? ' cal-other' : '')
++ (isToday ? ' cal-today' : '')
++ (isSel ? ' cal-sel' : '')
++ (hasEntry ? ' cal-has' : '')
++ (isFuture ? ' cal-future' : '');
+cell.innerHTML = '<span>' + day + '</span><div class="cal-dot"></div>';
+if (!isOther && !isFuture) cell.addEventListener('click', () => { calSt[type].sel = ds; renderCal(type); openEntry(type, ds); });
 return cell;
 }
 
@@ -2290,27 +2290,27 @@ renderCal(type);
 }
 
 function openEntry(type, ds) {
-const [y, m, d] = ds.split(’-’).map(Number);
+const [y, m, d] = ds.split('-').map(Number);
 const dt = new Date(y, m-1, d);
-document.getElementById(type === ‘mood’ ? ‘m-entry-wday’ : ‘p-entry-wday’).textContent = WDAYS[dt.getDay()];
-const dateEl = document.getElementById(type === ‘mood’ ? ‘m-entry-date’ : ‘p-entry-date’);
-dateEl.innerHTML = d + ’ <span>’ + MONTHS[m-1] + ’</span> ’ + y;
-const saved = localStorage.getItem(type + ‘_’ + ds);
-const badge = document.getElementById(type === ‘mood’ ? ‘m-entry-badge’ : ‘p-entry-badge’);
-badge.textContent = saved ? ‘✦ Existing entry’ : ‘✦ New entry’;
-badge.className = ’entry-badge ’ + (saved ? ‘exist-e’ : ‘new-e’);
-const selTxt = document.getElementById(type + ‘-cal-selected’);
-if (selTxt) selTxt.textContent = WDAYS[dt.getDay()] + ’, ’ + MONTHS[m-1] + ’ ’ + d;
-document.getElementById(type + ‘-cal-wrap’).style.display = ‘none’;
-document.getElementById(type + ‘-entry-form’).style.display = ‘block’;
-if (type === ‘mood’) loadMoodEntry(ds, saved);
-if (type === ‘planner’) loadPlannerEntry(ds, saved);
+document.getElementById(type === 'mood' ? 'm-entry-wday' : 'p-entry-wday').textContent = WDAYS[dt.getDay()];
+const dateEl = document.getElementById(type === 'mood' ? 'm-entry-date' : 'p-entry-date');
+dateEl.innerHTML = d + ' <span>' + MONTHS[m-1] + '</span> ' + y;
+const saved = localStorage.getItem(type + '_' + ds);
+const badge = document.getElementById(type === 'mood' ? 'm-entry-badge' : 'p-entry-badge');
+badge.textContent = saved ? '✦ Existing entry' : '✦ New entry';
+badge.className = 'entry-badge ' + (saved ? 'exist-e' : 'new-e');
+const selTxt = document.getElementById(type + '-cal-selected');
+if (selTxt) selTxt.textContent = WDAYS[dt.getDay()] + ', ' + MONTHS[m-1] + ' ' + d;
+document.getElementById(type + '-cal-wrap').style.display = 'none';
+document.getElementById(type + '-entry-form').style.display = 'block';
+if (type === 'mood') loadMoodEntry(ds, saved);
+if (type === 'planner') loadPlannerEntry(ds, saved);
 attachDailySave(type, ds);
 }
 
 function closeEntry(type) {
-document.getElementById(type + ‘-cal-wrap’).style.display = ‘’;
-document.getElementById(type + ‘-entry-form’).style.display = ‘none’;
+document.getElementById(type + '-cal-wrap').style.display = '';
+document.getElementById(type + '-entry-form').style.display = 'none';
 calSt[type].sel = null;
 renderCal(type);
 }
@@ -2318,20 +2318,20 @@ renderCal(type);
 // ── MOOD ──
 function loadMoodEntry(ds, savedJson) {
 const data = savedJson ? JSON.parse(savedJson) : {};
-[‘m-feeling’,‘m-thoughts’,‘m-elevate’,‘m-grat1’,‘m-grat2’,‘m-grat3’,‘m-affirmation’,‘m-remember’].forEach(id => {
-const key = id.replace(‘m-’, ‘’);
+['m-feeling','m-thoughts','m-elevate','m-grat1','m-grat2','m-grat3','m-affirmation','m-remember'].forEach(id => {
+const key = id.replace('m-', '');
 const el = document.getElementById(id);
-if (el) el.value = data[key] || ‘’;
+if (el) el.value = data[key] || '';
 });
-const dots = document.getElementById(‘m-intensity’);
-dots.innerHTML = ‘’;
+const dots = document.getElementById('m-intensity');
+dots.innerHTML = '';
 for (let i = 1; i <= 10; i++) {
-const dot = document.createElement(‘div’);
-dot.className = ‘int-dot’ + (i <= (data.intensity || 0) ? ’ on’ : ‘’);
+const dot = document.createElement('div');
+dot.className = 'int-dot' + (i <= (data.intensity || 0) ? ' on' : '');
 dot.dataset.v = i;
-dot.addEventListener(‘click’, function() {
+dot.addEventListener('click', function() {
 const v = parseInt(this.dataset.v);
-dots.querySelectorAll(’.int-dot’).forEach((d, idx) => d.classList.toggle(‘on’, idx < v));
+dots.querySelectorAll('.int-dot').forEach((d, idx) => d.classList.toggle('on', idx < v));
 saveMoodEntry(ds);
 });
 dots.appendChild(dot);
@@ -2340,47 +2340,47 @@ dots.appendChild(dot);
 
 function getMoodData() {
 return {
-feeling: document.getElementById(‘m-feeling’).value,
-intensity: document.getElementById(‘m-intensity’).querySelectorAll(’.int-dot.on’).length,
-thoughts: document.getElementById(‘m-thoughts’).value,
-elevate: document.getElementById(‘m-elevate’).value,
-grat1: document.getElementById(‘m-grat1’).value,
-grat2: document.getElementById(‘m-grat2’).value,
-grat3: document.getElementById(‘m-grat3’).value,
-affirmation: document.getElementById(‘m-affirmation’).value,
-remember: document.getElementById(‘m-remember’).value
+feeling: document.getElementById('m-feeling').value,
+intensity: document.getElementById('m-intensity').querySelectorAll('.int-dot.on').length,
+thoughts: document.getElementById('m-thoughts').value,
+elevate: document.getElementById('m-elevate').value,
+grat1: document.getElementById('m-grat1').value,
+grat2: document.getElementById('m-grat2').value,
+grat3: document.getElementById('m-grat3').value,
+affirmation: document.getElementById('m-affirmation').value,
+remember: document.getElementById('m-remember').value
 };
 }
 
 function saveMoodEntry(ds) {
-localStorage.setItem(‘mood_’ + ds, JSON.stringify(getMoodData()));
-renderCal(‘mood’); updateStreak();
+localStorage.setItem('mood_' + ds, JSON.stringify(getMoodData()));
+renderCal('mood'); updateStreak();
 }
 
 // ── PLANNER ──
 function loadPlannerEntry(ds, savedJson) {
 const data = savedJson ? JSON.parse(savedJson) : {};
-[‘health’,‘chores’,‘career’,‘spirit’,‘rel’,‘relax’,‘hobby’,‘other’].forEach(k => {
-const el = document.getElementById(‘p-’ + k);
-if (el) el.checked = data[‘chk_’ + k] || false;
+['health','chores','career','spirit','rel','relax','hobby','other'].forEach(k => {
+const el = document.getElementById('p-' + k);
+if (el) el.checked = data['chk_' + k] || false;
 });
-const sl = document.getElementById(‘p-prod’);
+const sl = document.getElementById('p-prod');
 if (sl) sl.value = data.prod || 5;
-[‘1’,‘2’,‘3’].forEach(n => { const el = document.getElementById(‘p-int’ + n); if (el) el.value = data[‘int’ + n] || ‘’; });
-[‘p-keystone’,‘p-reward’,‘p-reminder’,‘p-eod’].forEach(id => {
+['1','2','3'].forEach(n => { const el = document.getElementById('p-int' + n); if (el) el.value = data['int' + n] || ''; });
+['p-keystone','p-reward','p-reminder','p-eod'].forEach(id => {
 const el = document.getElementById(id);
-if (el) el.value = data[id.replace(‘p-’, ‘’)] || ‘’;
+if (el) el.value = data[id.replace('p-', '')] || '';
 });
-const tg = document.getElementById(‘p-time-grid’);
-tg.innerHTML = ‘’;
-[‘6:00’,‘7:00’,‘8:00’,‘9:00’,‘10:00’,‘11:00’,‘12:00’,‘13:00’,‘14:00’,‘15:00’,‘16:00’,‘17:00’,‘18:00’,‘19:00’,‘20:00’,‘21:00’,‘22:00’,‘23:00’].forEach((h, i) => {
-const row = document.createElement(‘div’);
-row.className = ‘time-row’;
-const inp = document.createElement(‘input’);
-inp.type = ‘text’; inp.className = ‘time-inp’; inp.placeholder = ‘—’;
-inp.value = (data.tb && data.tb[i]) || ‘’;
-inp.addEventListener(‘input’, () => savePlannerEntry(ds));
-row.innerHTML = ‘<span class="time-lbl">’ + h + ‘</span>’;
+const tg = document.getElementById('p-time-grid');
+tg.innerHTML = '';
+['6:00','7:00','8:00','9:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00'].forEach((h, i) => {
+const row = document.createElement('div');
+row.className = 'time-row';
+const inp = document.createElement('input');
+inp.type = 'text'; inp.className = 'time-inp'; inp.placeholder = '—';
+inp.value = (data.tb && data.tb[i]) || '';
+inp.addEventListener('input', () => savePlannerEntry(ds));
+row.innerHTML = '<span class="time-lbl">' + h + '</span>';
 row.appendChild(inp);
 tg.appendChild(row);
 });
@@ -2388,127 +2388,127 @@ tg.appendChild(row);
 
 function getPlannerData() {
 const d = {};
-[‘health’,‘chores’,‘career’,‘spirit’,‘rel’,‘relax’,‘hobby’,‘other’].forEach(k => {
-const el = document.getElementById(‘p-’ + k);
-d[‘chk_’ + k] = el ? el.checked : false;
+['health','chores','career','spirit','rel','relax','hobby','other'].forEach(k => {
+const el = document.getElementById('p-' + k);
+d['chk_' + k] = el ? el.checked : false;
 });
-d.prod = document.getElementById(‘p-prod’)?.value || 5;
-[‘1’,‘2’,‘3’].forEach(n => { d[‘int’ + n] = document.getElementById(‘p-int’ + n)?.value || ‘’; });
-d.keystone = document.getElementById(‘p-keystone’)?.value || ‘’;
-d.reward = document.getElementById(‘p-reward’)?.value || ‘’;
-d.reminder = document.getElementById(‘p-reminder’)?.value || ‘’;
-d.eod = document.getElementById(‘p-eod’)?.value || ‘’;
-d.tb = Array.from(document.getElementById(‘p-time-grid’)?.querySelectorAll(’.time-inp’) || []).map(i => i.value);
+d.prod = document.getElementById('p-prod')?.value || 5;
+['1','2','3'].forEach(n => { d['int' + n] = document.getElementById('p-int' + n)?.value || ''; });
+d.keystone = document.getElementById('p-keystone')?.value || '';
+d.reward = document.getElementById('p-reward')?.value || '';
+d.reminder = document.getElementById('p-reminder')?.value || '';
+d.eod = document.getElementById('p-eod')?.value || '';
+d.tb = Array.from(document.getElementById('p-time-grid')?.querySelectorAll('.time-inp') || []).map(i => i.value);
 return d;
 }
 
 function savePlannerEntry(ds) {
-localStorage.setItem(‘planner_’ + ds, JSON.stringify(getPlannerData()));
-renderCal(‘planner’); updateStreak();
+localStorage.setItem('planner_' + ds, JSON.stringify(getPlannerData()));
+renderCal('planner'); updateStreak();
 }
 
 // ── DAILY SAVE ──
 const dTimers = {};
 function attachDailySave(type, ds) {
-const form = document.getElementById(type + ‘-entry-form’);
-const dot = document.getElementById(type === ‘mood’ ? ‘m-save-ind’ : ‘p-save-ind’);
-const lbl = document.getElementById(type === ‘mood’ ? ‘m-save-lbl’ : ‘p-save-lbl’);
-form.querySelectorAll(‘input[type=text], textarea, input[type=range]’).forEach(el => {
-el.addEventListener(‘input’, () => {
-dot.className = ‘save-ind saving’; lbl.textContent = ‘Saving…’;
+const form = document.getElementById(type + '-entry-form');
+const dot = document.getElementById(type === 'mood' ? 'm-save-ind' : 'p-save-ind');
+const lbl = document.getElementById(type === 'mood' ? 'm-save-lbl' : 'p-save-lbl');
+form.querySelectorAll('input[type=text], textarea, input[type=range]').forEach(el => {
+el.addEventListener('input', () => {
+dot.className = 'save-ind saving'; lbl.textContent = 'Saving…';
 clearTimeout(dTimers[type]);
 dTimers[type] = setTimeout(() => {
-if (type === ‘mood’) saveMoodEntry(ds);
-if (type === ‘planner’) savePlannerEntry(ds);
-dot.className = ‘save-ind’; lbl.textContent = ‘All saved’;
+if (type === 'mood') saveMoodEntry(ds);
+if (type === 'planner') savePlannerEntry(ds);
+dot.className = 'save-ind'; lbl.textContent = 'All saved';
 }, 600);
 });
 });
-form.querySelectorAll(‘input[type=checkbox]’).forEach(el => {
-el.addEventListener(‘change’, () => { if (type === ‘planner’) savePlannerEntry(ds); });
+form.querySelectorAll('input[type=checkbox]').forEach(el => {
+el.addEventListener('change', () => { if (type === 'planner') savePlannerEntry(ds); });
 });
 }
 
 // ══ STREAK ══
 function updateStreak() {
 const t = todayStr();
-let sd = JSON.parse(localStorage.getItem(‘inklings_streak’) || ‘{“days”:[]}’);
+let sd = JSON.parse(localStorage.getItem('inklings_streak') || '{"days":[]}');
 if (!sd.days.includes(t)) sd.days.push(t);
 // calculate consecutive streak
-const sorted = […sd.days].sort();
+const sorted = [...sd.days].sort();
 let streak = 1, maxStreak = 1;
 for (let i = sorted.length - 1; i > 0; i--) {
 const a = new Date(sorted[i]), b = new Date(sorted[i-1]);
 const diff = (a - b) / (1000 * 60 * 60 * 24);
 if (diff === 1) { streak++; maxStreak = Math.max(maxStreak, streak); } else break;
 }
-localStorage.setItem(‘inklings_streak’, JSON.stringify(sd));
-const badge = document.getElementById(‘streak-badge’);
-badge.style.display = ‘inline-flex’;
-document.getElementById(‘streak-count’).textContent = streak;
+localStorage.setItem('inklings_streak', JSON.stringify(sd));
+const badge = document.getElementById('streak-badge');
+badge.style.display = 'inline-flex';
+document.getElementById('streak-count').textContent = streak;
 }
 
 // ══ EXPORT ══
 function signOut() {
-window.location.href = ‘https://www.inklingsjournal.com/DigitalJournal/Login.html’;
+window.location.href = 'https://www.inklingsjournal.com/DigitalJournal/Login.html';
 }
 
 function exportData() {
 const data = {
 exported: new Date().toISOString(),
-journal: JSON.parse(localStorage.getItem(‘inklings_static’) || ‘{}’),
-completed: JSON.parse(localStorage.getItem(‘inklings_completed’) || ‘[]’),
-streak: JSON.parse(localStorage.getItem(‘inklings_streak’) || ‘{“days”:[]}’),
+journal: JSON.parse(localStorage.getItem('inklings_static') || '{}'),
+completed: JSON.parse(localStorage.getItem('inklings_completed') || '[]'),
+streak: JSON.parse(localStorage.getItem('inklings_streak') || '{"days":[]}'),
 moodEntries: {},
 plannerEntries: {}
 };
 Object.keys(localStorage).forEach(k => {
-if (k.startsWith(‘mood_’)) data.moodEntries[k.replace(‘mood_’,’’)] = JSON.parse(localStorage.getItem(k));
-if (k.startsWith(‘planner_’)) data.plannerEntries[k.replace(‘planner_’,’’)] = JSON.parse(localStorage.getItem(k));
+if (k.startsWith('mood_')) data.moodEntries[k.replace('mood_','')] = JSON.parse(localStorage.getItem(k));
+if (k.startsWith('planner_')) data.plannerEntries[k.replace('planner_','')] = JSON.parse(localStorage.getItem(k));
 });
-const blob = new Blob([JSON.stringify(data, null, 2)], { type: ‘application/json’ });
+const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
 const url = URL.createObjectURL(blob);
-const a = document.createElement(‘a’);
-a.href = url; a.download = ‘inklings-journal-’ + todayStr() + ‘.json’;
+const a = document.createElement('a');
+a.href = url; a.download = 'inklings-journal-' + todayStr() + '.json';
 a.click(); URL.revokeObjectURL(url);
 }
 
 // ══ INIT ══
-document.addEventListener(‘DOMContentLoaded’, () => {
+document.addEventListener('DOMContentLoaded', () => {
 buildRolesTable();
 buildCollage();
-renderCal(‘mood’);
-renderCal(‘planner’);
+renderCal('mood');
+renderCal('planner');
 restoreCompleted();
 loadStaticData();
 updateProgress();
 attachStaticSave();
 
 // open first group by default
-document.getElementById(‘grp-roots’).classList.add(‘open’);
+document.getElementById('grp-roots').classList.add('open');
 
 // restore streak badge
-const sd = JSON.parse(localStorage.getItem(‘inklings_streak’) || ‘{“days”:[]}’);
+const sd = JSON.parse(localStorage.getItem('inklings_streak') || '{"days":[]}');
 if (sd.days.length > 0) {
-document.getElementById(‘streak-badge’).style.display = ‘inline-flex’;
-document.getElementById(‘streak-count’).textContent = sd.days.length;
+document.getElementById('streak-badge').style.display = 'inline-flex';
+document.getElementById('streak-count').textContent = sd.days.length;
 }
 
 // Add bottom nav to all pages
-document.querySelectorAll(’.page’).forEach(pg => {
-const id = pg.id.replace(‘page-’,’’);
+document.querySelectorAll('.page').forEach(pg => {
+const id = pg.id.replace('page-','');
 // skip daily calendar pages
-if ([‘mood-journal’,‘intention-planner’].includes(id)) return;
-const nav = document.createElement(‘div’);
-nav.className = ‘bottom-nav’;
-nav.id = ‘bottom-nav-’ + id;
-const prevBtn = document.createElement(‘button’);
-prevBtn.className = ‘bottom-nav-btn’;
-prevBtn.innerHTML = ‘← Previous’;
+if (['mood-journal','intention-planner'].includes(id)) return;
+const nav = document.createElement('div');
+nav.className = 'bottom-nav';
+nav.id = 'bottom-nav-' + id;
+const prevBtn = document.createElement('button');
+prevBtn.className = 'bottom-nav-btn';
+prevBtn.innerHTML = '← Previous';
 prevBtn.onclick = navigatePrev;
-const nextBtn = document.createElement(‘button’);
-nextBtn.className = ‘bottom-nav-btn primary’;
-nextBtn.innerHTML = ‘Next →’;
+const nextBtn = document.createElement('button');
+nextBtn.className = 'bottom-nav-btn primary';
+nextBtn.innerHTML = 'Next →';
 nextBtn.onclick = navigateNext;
 nav.appendChild(prevBtn);
 nav.appendChild(nextBtn);
