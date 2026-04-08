@@ -27,20 +27,16 @@
   --gold-light: #f0e6cc;
   --error: #c0614a;
   --sidebar-w: 268px;
-
-/* Part colors */
---part1-color: #7a8c6e;
---part2-color: #8c7a62;
---part3-color: #7a8c6e;
+  --sidebar-w-mobile: 240px;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+- { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
 
 body {
 font-family: ‘Jost’, sans-serif;
-background: var(--cream);
-color: var(--ink);
+background: var(–cream);
+color: var(–ink);
 height: 100vh;
 display: flex;
 overflow: hidden;
@@ -49,22 +45,20 @@ font-weight: 300;
 
 /* ── SIDEBAR ── */
 .sidebar {
-width: var(--sidebar-w);
-min-width: var(--sidebar-w);
-background: var(--white);
-border-right: 1px solid var(--line);
+width: var(–sidebar-w);
+min-width: var(–sidebar-w);
+background: var(–white);
+border-right: 1px solid var(–line);
 display: flex;
 flex-direction: column;
-overflow-y: auto;
+overflow: hidden;
 transition: transform .35s cubic-bezier(.4,0,.2,1);
 z-index: 50;
-scrollbar-width: none;
 }
-.sidebar::-webkit-scrollbar { display: none; }
 
 .sidebar-header {
-padding: 26px 22px 18px;
-border-bottom: 1px solid var(--line-light);
+padding: 22px 20px 16px;
+border-bottom: 1px solid var(–line-light);
 position: relative;
 overflow: hidden;
 flex-shrink: 0;
@@ -75,47 +69,56 @@ position: absolute;
 bottom: -30px; right: -30px;
 width: 110px; height: 110px;
 border-radius: 50%;
-border: 1px solid var(--sage-pale);
+border: 1px solid var(–sage-pale);
 opacity: .5;
 }
 .logo {
 font-family: ‘Cormorant Garamond’, serif;
-font-size: 21px;
+font-size: 20px;
 font-weight: 400;
-color: var(--sage-dark);
+color: var(–sage-dark);
 letter-spacing: .02em;
 display: block;
 line-height: 1;
 margin-bottom: 4px;
 }
-.logo em { font-style: italic; color: var(--gold); }
+.logo em { font-style: italic; color: var(–gold); }
 .tagline {
-font-size: 8.5px;
+font-size: 8px;
 letter-spacing: .18em;
 text-transform: uppercase;
-color: var(--sage-light);
+color: var(–sage-light);
 font-weight: 400;
 }
 
-.sidebar-nav { padding: 10px 0; flex: 1; }
+/* FIX: nav area scrolls independently so footer always visible */
+.sidebar-nav {
+padding: 8px 0;
+flex: 1;
+overflow-y: auto;
+overflow-x: hidden;
+scrollbar-width: none;
+min-height: 0; /* essential for flex scroll child */
+}
+.sidebar-nav::-webkit-scrollbar { display: none; }
 
 /* Part labels */
 .nav-part-label {
 display: flex;
 align-items: center;
 gap: 10px;
-padding: 14px 20px 6px;
+padding: 12px 16px 5px;
 font-size: 7px;
 letter-spacing: .26em;
 text-transform: uppercase;
 font-weight: 600;
-color: var(--sage);
+color: var(–sage);
 }
 .nav-part-label::after {
 content: ‘’;
 flex: 1;
 height: 1px;
-background: var(--line-light);
+background: var(–line-light);
 }
 
 /* Section groups */
@@ -123,19 +126,30 @@ background: var(--line-light);
 display: flex;
 align-items: center;
 gap: 8px;
-padding: 7px 20px;
+padding: 7px 16px;
 cursor: pointer;
 font-size: 11px;
 font-weight: 500;
-color: var(--ink-mid);
+color: var(–ink-mid);
 user-select: none;
-transition: color .2s;
+transition: color .2s, background .2s;
+border-radius: 0;
 }
-.nav-group-header:hover { color: var(--sage-dark); }
+.nav-group-header:hover { color: var(–sage-dark); background: rgba(122,140,110,.05); }
+
+/* FIX: highlight parent group header when a child is active */
+.nav-group.has-active > .nav-group-header {
+color: var(–sage-dark);
+background: rgba(122,140,110,.07);
+}
+.nav-group.has-active > .nav-group-header .nav-group-arrow {
+color: var(–sage);
+}
+
 .nav-group-arrow {
 margin-left: auto;
 font-size: 8px;
-color: var(--sage-light);
+color: var(–sage-light);
 transition: transform .25s;
 }
 .nav-group.open .nav-group-arrow { transform: rotate(180deg); }
@@ -146,61 +160,62 @@ transition: transform .25s;
 display: flex;
 align-items: center;
 gap: 8px;
-padding: 5px 20px;
+padding: 5px 16px;
 cursor: pointer;
 transition: all .2s;
-font-size: 11.5px;
+font-size: 11px;
 font-weight: 300;
-color: var(--ink-light);
+color: var(–ink-light);
 border-left: 2px solid transparent;
 user-select: none;
 }
-.nav-item:hover { color: var(--sage-dark); background: var(--parchment); border-left-color: var(--sage-pale); }
+.nav-item:hover { color: var(–sage-dark); background: var(–parchment); border-left-color: var(–sage-pale); }
 .nav-item.active {
-color: var(--sage-dark);
-border-left-color: var(--sage);
-background: linear-gradient(90deg, var(--parchment) 0%, transparent 100%);
+color: var(–sage-dark);
+border-left-color: var(–sage);
+background: linear-gradient(90deg, var(–parchment) 0%, transparent 100%);
 font-weight: 400;
 }
-.nav-item.sub { padding-left: 34px; font-size: 11px; }
-.nav-item.sub.pause-item { color: var(--sage-light); font-style: italic; }
+.nav-item.sub { padding-left: 30px; font-size: 10.5px; }
+.nav-item.sub.pause-item { color: var(–sage-light); font-style: italic; }
 
 .nav-dot {
 width: 4px; height: 4px;
 border-radius: 50%;
-background: var(--line);
+background: var(–line);
 flex-shrink: 0;
 transition: all .2s;
 }
-.nav-item.active .nav-dot { background: var(--sage); transform: scale(1.4); }
-.nav-item.done .nav-dot { background: var(--sage-light); }
+.nav-item.active .nav-dot { background: var(–sage); transform: scale(1.4); }
+.nav-item.done .nav-dot { background: var(–sage-light); }
 
-/* Sidebar footer */
+/* Sidebar footer — always pinned to bottom */
 .sidebar-footer {
-padding: 14px 20px 18px;
-border-top: 1px solid var(--line-light);
+padding: 12px 16px 14px;
+border-top: 1px solid var(–line-light);
 flex-shrink: 0;
+background: var(–white);
 }
 .progress-label {
-font-size: 8.5px;
+font-size: 8px;
 letter-spacing: .14em;
 text-transform: uppercase;
-color: var(--sage-light);
-margin-bottom: 7px;
+color: var(–sage-light);
+margin-bottom: 6px;
 font-weight: 500;
 display: flex;
 justify-content: space-between;
 }
 .progress-track {
 height: 2px;
-background: var(--line);
+background: var(–line);
 border-radius: 2px;
 overflow: hidden;
-margin-bottom: 10px;
+margin-bottom: 9px;
 }
 .progress-fill {
 height: 100%;
-background: linear-gradient(90deg, var(--sage-light), var(--sage));
+background: linear-gradient(90deg, var(–sage-light), var(–sage));
 border-radius: 2px;
 transition: width .6s cubic-bezier(.4,0,.2,1);
 }
@@ -208,33 +223,51 @@ transition: width .6s cubic-bezier(.4,0,.2,1);
 display: none;
 align-items: center;
 gap: 5px;
-background: var(--gold-light);
-border: 1px solid var(--gold);
+background: var(–gold-light);
+border: 1px solid var(–gold);
 border-radius: 20px;
 padding: 3px 9px;
-font-size: 9.5px;
-color: var(--warm-brown);
+font-size: 9px;
+color: var(–warm-brown);
 font-weight: 500;
-margin-bottom: 10px;
+margin-bottom: 8px;
 }
 .export-btn {
 display: flex;
 align-items: center;
 gap: 6px;
-padding: 7px 10px;
-border: 1px solid var(--line);
+padding: 6px 10px;
+border: 1px solid var(–line);
 border-radius: 8px;
 background: transparent;
 font-family: ‘Jost’, sans-serif;
-font-size: 10.5px;
+font-size: 10px;
 font-weight: 400;
-color: var(--ink-light);
+color: var(–ink-light);
 cursor: pointer;
 transition: all .2s;
 width: 100%;
-margin-bottom: 6px;
+margin-bottom: 5px;
 }
-.export-btn:hover { border-color: var(--sage); color: var(--sage-dark); }
+.export-btn:hover { border-color: var(–sage); color: var(–sage-dark); }
+
+.signout-btn {
+display: flex;
+align-items: center;
+gap: 6px;
+padding: 6px 10px;
+border: 1px solid var(–line);
+border-radius: 8px;
+background: transparent;
+font-family: ‘Jost’, sans-serif;
+font-size: 10px;
+font-weight: 400;
+color: var(–ink-light);
+cursor: pointer;
+transition: all .2s;
+width: 100%;
+}
+.signout-btn:hover { border-color: var(–error); color: var(–error); }
 
 /* ── MAIN ── */
 .main {
@@ -243,18 +276,19 @@ overflow-y: auto;
 display: flex;
 flex-direction: column;
 scrollbar-width: thin;
-scrollbar-color: var(--line) transparent;
+scrollbar-color: var(–line) transparent;
+min-width: 0;
 }
 .main::-webkit-scrollbar { width: 3px; }
-.main::-webkit-scrollbar-thumb { background: var(--line); border-radius: 2px; }
+.main::-webkit-scrollbar-thumb { background: var(–line); border-radius: 2px; }
 
 /* Top bar */
 .top-bar {
-padding: 13px 44px;
+padding: 12px 36px;
 display: flex;
 align-items: center;
 justify-content: space-between;
-border-bottom: 1px solid var(--line-light);
+border-bottom: 1px solid var(–line-light);
 background: rgba(253,250,245,.95);
 backdrop-filter: blur(8px);
 position: sticky;
@@ -262,31 +296,32 @@ top: 0;
 z-index: 20;
 flex-shrink: 0;
 }
-.breadcrumb { font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--sage-light); }
-.top-right { display: flex; align-items: center; gap: 12px; }
-.save-status { display: flex; align-items: center; gap: 5px; font-size: 9.5px; color: var(--ink-light); font-weight: 300; }
-.save-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--sage); transition: all .3s; }
-.save-dot.saving { background: var(--gold); animation: pulse 1s infinite; }
+.breadcrumb { font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: var(–sage-light); }
+.top-right { display: flex; align-items: center; gap: 10px; }
+.save-status { display: flex; align-items: center; gap: 5px; font-size: 9px; color: var(–ink-light); font-weight: 300; }
+.save-dot { width: 5px; height: 5px; border-radius: 50%; background: var(–sage); transition: all .3s; }
+.save-dot.saving { background: var(–gold); animation: pulse 1s infinite; }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
-.nav-btns { display: flex; gap: 4px; }
+.nav-btns { display: flex; gap: 6px; }
 .nav-btn {
-width: 28px; height: 28px;
-border: 1px solid var(--line);
-background: transparent;
+width: 34px; height: 34px;
+border: 1.5px solid var(–sage-light);
+background: var(–white);
 border-radius: 50%;
 cursor: pointer;
 display: flex; align-items: center; justify-content: center;
-color: var(--ink-light);
-font-size: 11px;
+color: var(–sage-dark);
+font-size: 14px;
 transition: all .2s;
 font-family: inherit;
+box-shadow: 0 1px 4px rgba(79,98,71,.10);
 }
-.nav-btn:hover { border-color: var(--sage); color: var(--sage-dark); background: var(--parchment); }
+.nav-btn:hover { border-color: var(–sage-dark); background: var(–sage-dark); color: white; box-shadow: 0 2px 8px rgba(79,98,71,.18); transform: translateY(-1px); }
 
 .menu-toggle {
 display: none;
 width: 32px; height: 32px;
-border: 1px solid var(--line);
+border: 1px solid var(–line);
 background: transparent;
 border-radius: 6px;
 cursor: pointer;
@@ -295,14 +330,26 @@ justify-content: center;
 flex-direction: column;
 gap: 3px;
 }
-.menu-toggle span { width: 13px; height: 1px; background: var(--ink-mid); display: block; }
+.menu-toggle span { width: 13px; height: 1px; background: var(–ink-mid); display: block; }
+
+.sidebar-close-btn {
+display: none;
+background: none;
+border: none;
+font-size: 20px;
+color: var(–ink-light);
+cursor: pointer;
+padding: 0 2px;
+line-height: 1;
+margin-top: -2px;
+}
 
 /* ── PAGES ── */
 .page {
 display: none;
 flex-direction: column;
-padding: 48px 68px 88px;
-max-width: 780px;
+padding: 44px 56px 80px;
+max-width: 760px;
 width: 100%;
 margin: 0 auto;
 animation: fadeUp .3s cubic-bezier(.4,0,.2,1);
@@ -323,53 +370,57 @@ margin-bottom: 14px;
 padding: 5px 12px;
 border-radius: 20px;
 }
-.part-badge.p1, .part-badge.p2, .part-badge.p3 { background: rgba(122,140,110,.08); color: var(--sage); border: 1px solid rgba(122,140,110,.18); }
+.part-badge.p1, .part-badge.p2, .part-badge.p3 {
+background: rgba(122,140,110,.08);
+color: var(–sage);
+border: 1px solid rgba(122,140,110,.18);
+}
 
 .section-tag {
-font-size: 8.5px;
+font-size: 8px;
 letter-spacing: .24em;
 text-transform: uppercase;
-color: var(--sage);
+color: var(–sage);
 font-weight: 500;
 margin-bottom: 10px;
 display: flex;
 align-items: center;
 gap: 10px;
 }
-.section-tag::after { content: ‘’; flex: 1; height: 1px; background: var(--sage-pale); max-width: 56px; }
+.section-tag::after { content: ‘’; flex: 1; height: 1px; background: var(–sage-pale); max-width: 56px; }
 
 .page-title {
 font-family: ‘Cormorant Garamond’, serif;
-font-size: 44px;
+font-size: 40px;
 font-weight: 300;
-color: var(--ink);
+color: var(–ink);
 line-height: 1.08;
 margin-bottom: 14px;
 letter-spacing: -.01em;
 }
-.page-title em { font-style: italic; color: var(--sage-dark); }
+.page-title em { font-style: italic; color: var(–sage-dark); }
 
 .page-intro {
 font-size: 13px;
 line-height: 1.88;
-color: var(--ink-light);
+color: var(–ink-light);
 font-weight: 300;
 max-width: 520px;
-margin-bottom: 36px;
+margin-bottom: 32px;
 padding-left: 16px;
-border-left: 2px solid var(--sage-pale);
+border-left: 2px solid var(–sage-pale);
 }
-.divider { height: 1px; background: linear-gradient(90deg, var(--line), transparent); margin: 26px 0; }
+.divider { height: 1px; background: linear-gradient(90deg, var(–line), transparent); margin: 22px 0; }
 
 /* ── PROMPTS ── */
-.prompt-block { margin-bottom: 30px; }
+.prompt-block { margin-bottom: 28px; }
 .prompt-q {
 font-family: ‘Cormorant Garamond’, serif;
-font-size: 18px;
+font-size: 17px;
 font-weight: 400;
-color: var(--ink);
+color: var(–ink);
 line-height: 1.5;
-margin-bottom: 13px;
+margin-bottom: 12px;
 font-style: italic;
 }
 
@@ -378,88 +429,88 @@ width: 100%;
 min-height: 108px;
 background: transparent;
 border: none;
-border-bottom: 1px solid var(--line);
+border-bottom: 1px solid var(–line);
 resize: none;
 font-family: ‘Jost’, sans-serif;
-font-size: 13.5px;
+font-size: 13px;
 font-weight: 300;
-color: var(--ink);
+color: var(–ink);
 line-height: 2.3;
 padding: 4px 0 6px;
 outline: none;
 transition: border-color .25s;
 background-image: repeating-linear-gradient(
 transparent, transparent calc(2.3em - 1px),
-var(--line-light) calc(2.3em - 1px), var(--line-light) calc(2.3em)
+var(–line-light) calc(2.3em - 1px), var(–line-light) calc(2.3em)
 );
 background-size: 100% 2.3em;
 }
-.journal-area:focus { border-bottom-color: var(--sage); }
-.journal-area::placeholder { color: var(--line); font-style: italic; }
-.large-area { min-height: 230px; }
+.journal-area:focus { border-bottom-color: var(–sage); }
+.journal-area::placeholder { color: var(–line); font-style: italic; }
+.large-area { min-height: 220px; }
 
 /* ── COMPLETE BAR ── */
 .complete-bar {
 display: flex;
 align-items: center;
 justify-content: space-between;
-margin-top: 32px;
+margin-top: 28px;
 padding: 14px 18px;
-border: 1px solid var(--line-light);
+border: 1px solid var(–line-light);
 border-radius: 12px;
-background: var(--white);
+background: var(–white);
 transition: all .3s;
 }
-.complete-bar.done { border-color: var(--sage-pale); background: rgba(214,222,206,.3); }
-.complete-bar-text { font-size: 12px; color: var(--ink-light); font-weight: 300; }
-.complete-bar.done .complete-bar-text { color: var(--sage-dark); font-weight: 400; }
+.complete-bar.done { border-color: var(–sage-pale); background: rgba(214,222,206,.3); }
+.complete-bar-text { font-size: 12px; color: var(–ink-light); font-weight: 300; }
+.complete-bar.done .complete-bar-text { color: var(–sage-dark); font-weight: 400; }
 .complete-btn {
 padding: 7px 16px;
-border: 1.5px solid var(--sage);
+border: 1.5px solid var(–sage);
 background: transparent;
 border-radius: 20px;
 font-family: ‘Jost’, sans-serif;
-font-size: 10.5px;
+font-size: 10px;
 font-weight: 500;
-color: var(--sage-dark);
+color: var(–sage-dark);
 cursor: pointer;
 letter-spacing: .06em;
 text-transform: uppercase;
 transition: all .2s;
 white-space: nowrap;
 }
-.complete-btn:hover { background: var(--sage); color: white; }
-.complete-btn.done { background: var(--sage); color: white; border-color: var(--sage); cursor: default; }
+.complete-btn:hover { background: var(–sage); color: white; }
+.complete-btn.done { background: var(–sage); color: white; border-color: var(–sage); cursor: default; }
 
 /* ── BOXES ── */
 .info-box {
-background: var(--gold-light);
+background: var(–gold-light);
 border: 1px solid rgba(184,154,92,.3);
 border-radius: 10px;
 padding: 14px 18px;
-font-size: 12.5px;
-color: var(--warm-brown);
+font-size: 12px;
+color: var(–warm-brown);
 line-height: 1.75;
-margin-bottom: 22px;
+margin-bottom: 20px;
 }
 .info-box strong { font-weight: 500; }
 
 .chapter-banner {
-background: var(--sage-pale);
+background: var(–sage-pale);
 border-radius: 10px;
-padding: 15px 20px;
-margin-bottom: 20px;
-border-left: 3px solid var(--sage);
+padding: 14px 18px;
+margin-bottom: 18px;
+border-left: 3px solid var(–sage);
 }
-.chapter-banner p { font-size: 13px; color: var(--ink-mid); line-height: 1.75; font-weight: 300; }
+.chapter-banner p { font-size: 12.5px; color: var(–ink-mid); line-height: 1.75; font-weight: 300; }
 
 /* Pause box */
 .pause-box {
 background: linear-gradient(135deg, rgba(214,222,206,.4), rgba(237,230,212,.6));
 border-radius: 14px;
-padding: 24px 26px;
-margin-bottom: 22px;
-border: 1px solid var(--sage-pale);
+padding: 22px 24px;
+margin-bottom: 20px;
+border: 1px solid var(–sage-pale);
 position: relative;
 overflow: hidden;
 }
@@ -467,66 +518,66 @@ overflow: hidden;
 content: ‘❧’;
 position: absolute;
 top: 14px; right: 18px;
-font-size: 22px;
-color: var(--sage-pale);
+font-size: 20px;
+color: var(–sage-pale);
 opacity: .7;
 }
 .pause-box-label {
 font-size: 8px;
 letter-spacing: .24em;
 text-transform: uppercase;
-color: var(--sage);
+color: var(–sage);
 font-weight: 600;
-margin-bottom: 12px;
+margin-bottom: 10px;
 }
 .pause-box-q {
 font-family: ‘Cormorant Garamond’, serif;
-font-size: 17px;
+font-size: 16px;
 font-weight: 400;
-color: var(--sage-dark);
-margin-bottom: 14px;
+color: var(–sage-dark);
+margin-bottom: 13px;
 line-height: 1.55;
 }
 .pause-area {
 width: 100%;
-min-height: 90px;
+min-height: 88px;
 background: rgba(255,255,255,.6);
 border: 1px solid rgba(122,140,110,.2);
 border-radius: 8px;
 resize: none;
 font-family: ‘Jost’, sans-serif;
-font-size: 13px;
+font-size: 12.5px;
 font-weight: 300;
-color: var(--ink);
+color: var(–ink);
 line-height: 1.85;
 padding: 10px 14px;
 outline: none;
 transition: border-color .2s;
 }
-.pause-area:focus { border-color: var(--sage); }
-.pause-area::placeholder { color: var(--sage-light); font-style: italic; }
+.pause-area:focus { border-color: var(–sage); }
+.pause-area::placeholder { color: var(–sage-light); font-style: italic; }
 
 /* ── WELCOME ── */
-.welcome-hero { text-align: center; padding: 20px 0 34px; }
-.welcome-leaf { font-family: ‘Cormorant Garamond’, serif; font-size: 52px; font-weight: 300; color: var(--gold); display: block; margin-bottom: 16px; line-height: 1; }
+.welcome-hero { text-align: center; padding: 16px 0 28px; }
+.welcome-leaf { font-family: ‘Cormorant Garamond’, serif; font-size: 48px; font-weight: 300; color: var(–gold); display: block; margin-bottom: 14px; line-height: 1; }
 .welcome-sub {
-font-size: 13.5px;
-color: var(--ink-light);
-max-width: 420px;
-margin: 0 auto 36px;
+font-size: 13px;
+color: var(–ink-light);
+max-width: 400px;
+margin: 0 auto 32px;
 line-height: 1.85;
 }
 .welcome-cards {
 display: grid;
-grid-template-columns: 1fr 1fr 1fr;
-gap: 14px;
-margin-bottom: 32px;
+grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+gap: 12px;
+margin-bottom: 28px;
 }
 .welcome-card {
-background: var(--white);
-border: 1px solid var(--line-light);
+background: var(–white);
+border: 1px solid var(–line-light);
 border-radius: 14px;
-padding: 20px 16px;
+padding: 18px 14px;
 text-align: center;
 cursor: pointer;
 transition: all .25s;
@@ -538,43 +589,45 @@ content: ‘→’;
 position: absolute;
 bottom: 10px; right: 14px;
 font-size: 10px;
-color: var(--sage-light);
+color: var(–sage-light);
 opacity: 0;
 transition: opacity .2s;
 }
-.welcome-card:hover { border-color: var(--sage-light); transform: translateY(-2px); box-shadow: 0 6px 22px rgba(79,98,71,.08); }
+.welcome-card:hover { border-color: var(–sage-light); transform: translateY(-2px); box-shadow: 0 6px 22px rgba(79,98,71,.08); }
 .welcome-card:hover::after { opacity: 1; }
-.welcome-card-icon { font-family: ‘Cormorant Garamond’, serif; font-size: 28px; font-weight: 300; color: var(--sage-dark); margin-bottom: 8px; line-height: 1; }
-.welcome-card-title { font-family: ‘Cormorant Garamond’, serif; font-size: 16px; color: var(--sage-dark); margin-bottom: 5px; font-weight: 400; }
-.welcome-card-desc { font-size: 11px; color: var(--ink-light); line-height: 1.65; }
+.welcome-card-icon { font-family: ‘Cormorant Garamond’, serif; font-size: 26px; font-weight: 300; color: var(–sage-dark); margin-bottom: 7px; line-height: 1; }
+.welcome-card-title { font-family: ‘Cormorant Garamond’, serif; font-size: 15px; color: var(–sage-dark); margin-bottom: 5px; font-weight: 400; }
+.welcome-card-desc { font-size: 10.5px; color: var(–ink-light); line-height: 1.65; }
 .welcome-card-tag {
 display: inline-block;
-font-size: 7.5px;
+font-size: 7px;
 letter-spacing: .18em;
 text-transform: uppercase;
 padding: 3px 8px;
 border-radius: 10px;
-margin-bottom: 10px;
+margin-bottom: 9px;
 font-weight: 500;
+background: rgba(122,140,110,.1);
+color: var(–sage-dark);
+border: 1px solid rgba(122,140,110,.2);
 }
-.welcome-card-tag { background: rgba(122,140,110,.1); color: var(--sage-dark); border: 1px solid rgba(122,140,110,.2); }
 
 .welcome-quote {
-background: var(--parchment);
+background: var(–parchment);
 border-radius: 14px;
-padding: 22px 28px;
+padding: 20px 26px;
 font-family: ‘Cormorant Garamond’, serif;
-font-size: 17.5px;
+font-size: 16px;
 font-style: italic;
-color: var(--ink-mid);
+color: var(–ink-mid);
 line-height: 1.65;
 text-align: center;
 position: relative;
 }
 .welcome-quote::before {
 content: ‘\201C’;
-font-size: 48px;
-color: var(--sage-pale);
+font-size: 44px;
+color: var(–sage-pale);
 position: absolute;
 top: 4px; left: 16px;
 line-height: 1;
@@ -583,372 +636,401 @@ line-height: 1;
 display: inline-flex;
 align-items: center;
 gap: 8px;
-padding: 12px 24px;
-background: var(--sage-dark);
+padding: 11px 22px;
+background: var(–sage-dark);
 color: white;
 border: none;
 border-radius: 26px;
 font-family: ‘Jost’, sans-serif;
-font-size: 12px;
+font-size: 11.5px;
 font-weight: 500;
 letter-spacing: .06em;
 cursor: pointer;
 text-transform: uppercase;
 transition: all .25s;
-margin-top: 24px;
+margin-top: 22px;
 }
-.start-btn:hover { background: var(--ink); transform: translateY(-1px); }
+.start-btn:hover { background: var(–ink); transform: translateY(-1px); }
 
-/* ── PART INTRO PAGES ── */
-.part-intro-hero {
-display: flex;
-align-items: flex-start;
-gap: 28px;
-margin-bottom: 36px;
-padding-bottom: 32px;
-border-bottom: 1px solid var(--line-light);
-}
-.part-intro-icon {
-width: 72px; height: 72px;
-border-radius: 50%;
-display: flex; align-items: center; justify-content: center;
-font-size: 28px;
-flex-shrink: 0;
-}
-.part-intro-icon.p1 { background: rgba(122,140,110,.1); border: 1px solid rgba(122,140,110,.2); }
-.part-intro-icon.p2 { background: rgba(140,122,98,.1); border: 1px solid rgba(140,122,98,.2); }
-.part-intro-icon.p3 { background: rgba(90,122,140,.1); border: 1px solid rgba(90,122,140,.2); }
-
+/* ── PART INTRO ── */
 .what-youll-do {
 display: grid;
 grid-template-columns: 1fr 1fr;
-gap: 12px;
-margin-top: 28px;
+gap: 11px;
+margin-top: 24px;
 }
 .wyd-card {
-background: var(--white);
-border: 1px solid var(--line-light);
+background: var(–white);
+border: 1px solid var(–line-light);
 border-radius: 10px;
-padding: 14px 16px;
+padding: 13px 15px;
 }
-.wyd-num {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 26px;
-color: var(--sage-pale);
-line-height: 1;
-margin-bottom: 6px;
-}
-.wyd-text { font-size: 12px; color: var(--ink-mid); line-height: 1.65; font-weight: 300; }
+.wyd-num { font-family: ‘Cormorant Garamond’, serif; font-size: 24px; color: var(–sage-pale); line-height: 1; margin-bottom: 6px; }
+.wyd-text { font-size: 11.5px; color: var(–ink-mid); line-height: 1.65; font-weight: 300; }
 
-/* ── INNER ROLES TABLE ── */
+/* ── ROLES TABLE ── */
 .roles-table { width: 100%; border-collapse: collapse; margin-top: 6px; }
 .roles-table th {
-font-size: 9px; letter-spacing: .16em; text-transform: uppercase;
-color: var(--sage); font-weight: 500; padding: 8px 12px 8px 0;
-text-align: left; border-bottom: 1px solid var(--line);
+font-size: 8.5px; letter-spacing: .16em; text-transform: uppercase;
+color: var(–sage); font-weight: 500; padding: 8px 10px 8px 0;
+text-align: left; border-bottom: 1px solid var(–line);
 }
-.roles-table tr:not(:last-child) td { border-bottom: 1px solid var(--line-light); }
-.roles-table td { padding: 12px 12px 12px 0; vertical-align: middle; }
-.role-name {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 15px; font-weight: 500; color: var(--sage-dark);
-display: flex; align-items: center; gap: 7px;
-}
-.role-desc { font-size: 11.5px; color: var(--ink-light); line-height: 1.6; font-weight: 300; max-width: 240px; }
+.roles-table tr:not(:last-child) td { border-bottom: 1px solid var(–line-light); }
+.roles-table td { padding: 11px 10px 11px 0; vertical-align: middle; }
+.role-name { font-family: ‘Cormorant Garamond’, serif; font-size: 14px; font-weight: 500; color: var(–sage-dark); }
+.role-desc { font-size: 11px; color: var(–ink-light); line-height: 1.6; font-weight: 300; max-width: 220px; }
 .star-rating { display: flex; gap: 3px; }
-.star { font-size: 17px; color: var(--line); cursor: pointer; transition: all .15s; user-select: none; }
-.star.filled { color: var(--gold); }
+.star { font-size: 16px; color: var(–line); cursor: pointer; transition: all .15s; user-select: none; }
+.star.filled { color: var(–gold); }
 
 /* ── NAME INPUT ── */
 .name-row { display: flex; align-items: baseline; gap: 11px; margin-bottom: 16px; }
-.name-lbl { font-size: 10px; font-weight: 500; color: var(--warm-brown); white-space: nowrap; letter-spacing: .06em; text-transform: uppercase; }
+.name-lbl { font-size: 10px; font-weight: 500; color: var(–warm-brown); white-space: nowrap; letter-spacing: .06em; text-transform: uppercase; }
 .name-inp {
-flex: 1; border: none; border-bottom: 1px solid var(--line);
+flex: 1; border: none; border-bottom: 1px solid var(–line);
 background: transparent; font-family: ‘Cormorant Garamond’, serif;
-font-size: 20px; font-weight: 400; color: var(--ink); padding: 2px 0;
+font-size: 19px; font-weight: 400; color: var(–ink); padding: 2px 0;
 outline: none; transition: border-color .2s;
 }
-.name-inp:focus { border-bottom-color: var(--warm-brown); }
-.name-inp::placeholder { color: var(--line); font-style: italic; font-size: 15px; }
+.name-inp:focus { border-bottom-color: var(–warm-brown); }
+.name-inp::placeholder { color: var(–line); font-style: italic; font-size: 14px; }
 
 /* ── COLLAGE CHIPS ── */
-.collage-grid { display: flex; flex-wrap: wrap; gap: 7px; margin: 14px 0 22px; }
+.collage-grid { display: flex; flex-wrap: wrap; gap: 7px; margin: 12px 0 20px; }
 .collage-chip {
-padding: 6px 14px; border-radius: 20px;
-border: 1.5px solid var(--line); background: var(--white);
-font-size: 11.5px; color: var(--ink-light);
+padding: 6px 13px; border-radius: 20px;
+border: 1.5px solid var(–line); background: var(–white);
+font-size: 11px; color: var(–ink-light);
 cursor: pointer; transition: all .15s; user-select: none;
 }
-.collage-chip.selected { border-color: var(--gold); background: var(--gold-light); color: var(--warm-brown); font-weight: 500; }
+.collage-chip.selected { border-color: var(–gold); background: var(–gold-light); color: var(–warm-brown); font-weight: 500; }
 
 /* ── GROUNDING TABLE ── */
-.grounding-table { width: 100%; border-collapse: collapse; margin: 18px 0; }
-.grounding-table td { padding: 10px 0; border-bottom: 1px solid var(--line-light); vertical-align: top; }
-.grounding-sense { font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--sage); font-weight: 500; width: 150px; padding-top: 12px; }
+.grounding-table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+.grounding-table td { padding: 9px 0; border-bottom: 1px solid var(–line-light); vertical-align: top; }
+.grounding-sense { font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(–sage); font-weight: 500; width: 140px; padding-top: 12px; }
 .g-inp {
-width: 100%; border: none; border-bottom: 1px solid var(--line-light);
+width: 100%; border: none; border-bottom: 1px solid var(–line-light);
 background: transparent; font-family: ‘Jost’, sans-serif;
-font-size: 13px; font-weight: 300; color: var(--ink); padding: 5px 0;
+font-size: 12.5px; font-weight: 300; color: var(–ink); padding: 5px 0;
 outline: none; transition: border-color .2s; margin-bottom: 4px; display: block;
 }
-.g-inp:focus { border-bottom-color: var(--sage); }
-.g-inp::placeholder { color: var(--line); font-style: italic; }
+.g-inp:focus { border-bottom-color: var(–sage); }
+.g-inp::placeholder { color: var(–line); font-style: italic; }
 
 /* ── EMOTION COMPASS ── */
 .ec-body-map {
-background: var(--parchment);
+background: var(–parchment);
 border-radius: 12px;
-padding: 16px 20px;
-margin-bottom: 22px;
-border: 1px solid var(--line-light);
+padding: 14px 18px;
+margin-bottom: 20px;
+border: 1px solid var(–line-light);
 }
-.ec-body-map-label { font-size: 8.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--warm-brown); font-weight: 500; margin-bottom: 10px; }
+.ec-body-map-label { font-size: 8px; letter-spacing: .18em; text-transform: uppercase; color: var(–warm-brown); font-weight: 500; margin-bottom: 10px; }
 .ec-body-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .ec-body-inp {
-border: none; border-bottom: 1px solid var(--parchment-dark);
+border: none; border-bottom: 1px solid var(–parchment-dark);
 background: transparent; font-family: ‘Jost’, sans-serif;
-font-size: 12.5px; font-weight: 300; color: var(--ink);
+font-size: 12px; font-weight: 300; color: var(–ink);
 padding: 4px 0; outline: none; transition: border-color .2s;
 }
-.ec-body-inp:focus { border-bottom-color: var(--warm-brown); }
-.ec-body-inp::placeholder { color: var(--warm-brown-light); font-style: italic; }
+.ec-body-inp:focus { border-bottom-color: var(–warm-brown); }
+.ec-body-inp::placeholder { color: var(–warm-brown-light); font-style: italic; }
 
-/* ── CIRCLE OF CONTROL ── */
+/* ── CIRCLE OF CONTROL — enhanced interactive ── */
+.circle-intro {
+font-size: 13px;
+color: var(–ink-light);
+line-height: 1.8;
+margin-bottom: 20px;
+padding: 14px 18px;
+background: var(–white);
+border: 1px solid var(–line-light);
+border-radius: 10px;
+font-weight: 300;
+}
 .control-circles {
-position: relative; height: 260px; margin: 16px 0 10px;
+position: relative; height: 250px; margin: 12px 0 8px;
 display: flex; align-items: center; justify-content: center;
 }
 .circle-outer {
-position: absolute; width: 256px; height: 256px; border-radius: 50%;
-border: 1.5px solid var(--sage-light); background: rgba(168,184,154,.04);
+position: absolute; width: 248px; height: 248px; border-radius: 50%;
+border: 1.5px solid var(–sage-light); background: rgba(168,184,154,.04);
 display: flex; align-items: center; justify-content: center;
 }
 .circle-middle {
-width: 174px; height: 174px; border-radius: 50%;
-border: 1.5px solid var(--sage); background: rgba(168,184,154,.07);
+width: 168px; height: 168px; border-radius: 50%;
+border: 1.5px solid var(–sage); background: rgba(168,184,154,.07);
 display: flex; align-items: center; justify-content: center;
 }
 .circle-inner {
-width: 90px; height: 90px; border-radius: 50%;
-border: 1.5px solid var(--sage-dark); background: rgba(79,98,71,.08);
+width: 86px; height: 86px; border-radius: 50%;
+border: 1.5px solid var(–sage-dark); background: rgba(79,98,71,.08);
 }
 .circle-label {
-position: absolute; font-size: 8px; letter-spacing: .14em;
+position: absolute; font-size: 7.5px; letter-spacing: .14em;
 text-transform: uppercase; font-weight: 500; text-align: center;
 }
-.label-outer { top: 8px; color: var(--sage-light); }
-.label-middle { top: 52px; color: var(--sage); }
-.label-inner { top: 102px; color: var(--sage-dark); }
+.label-outer { top: 8px; color: var(–sage-light); }
+.label-middle { top: 50px; color: var(–sage); }
+.label-inner { top: 98px; color: var(–sage-dark); }
 
-.control-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 24px; }
-.control-zone { background: var(--white); border: 1px solid var(--line-light); border-radius: 10px; padding: 13px; }
+.control-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+.control-zone { background: var(–white); border: 1px solid var(–line-light); border-radius: 10px; padding: 12px; }
 .control-zone-label {
-font-size: 9px; letter-spacing: .14em; text-transform: uppercase;
-color: var(--sage); font-weight: 500; margin-bottom: 9px;
-padding-bottom: 6px; border-bottom: 1px solid var(--line-light);
+font-size: 8.5px; letter-spacing: .14em; text-transform: uppercase;
+color: var(–sage); font-weight: 500; margin-bottom: 8px;
+padding-bottom: 6px; border-bottom: 1px solid var(–line-light);
 }
 .zone-input {
-width: 100%; border: none; border-bottom: 1px solid var(--line-light);
+width: 100%; border: none; border-bottom: 1px solid var(–line-light);
 background: transparent; font-family: ‘Jost’, sans-serif;
-font-size: 12px; font-weight: 300; color: var(--ink);
+font-size: 11.5px; font-weight: 300; color: var(–ink);
 padding: 5px 0; outline: none; margin-bottom: 6px; transition: border-color .2s; display: block;
 }
 .zone-input:last-child { border-bottom: none; margin-bottom: 0; }
-.zone-input:focus { border-bottom-color: var(--sage); }
-.zone-input::placeholder { color: var(--line); font-style: italic; }
+.zone-input:focus { border-bottom-color: var(–sage); }
+.zone-input::placeholder { color: var(–line); font-style: italic; }
 
-/* Action callout after circle */
+/* Action callout */
 .circle-action {
-background: var(--white);
-border: 1px solid var(--line-light);
+background: var(–white);
+border: 1px solid var(–line-light);
 border-radius: 12px;
-padding: 18px 22px;
-margin-bottom: 26px;
+padding: 16px 20px;
+margin-bottom: 22px;
 display: grid;
 grid-template-columns: 1fr 1fr;
 gap: 18px;
 }
-.ca-label { font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 8px; }
+.ca-label { font-size: 8.5px; letter-spacing: .14em; text-transform: uppercase; color: var(–sage); font-weight: 500; margin-bottom: 7px; }
 .ca-inp {
-width: 100%; border: none; border-bottom: 1px solid var(--line);
+width: 100%; border: none; border-bottom: 1px solid var(–line);
 background: transparent; font-family: ‘Jost’, sans-serif;
-font-size: 13px; font-weight: 300; color: var(--ink);
+font-size: 12.5px; font-weight: 300; color: var(–ink);
 padding: 4px 0; outline: none; transition: border-color .2s;
 }
-.ca-inp:focus { border-bottom-color: var(--sage); }
-.ca-inp::placeholder { color: var(--line); font-style: italic; }
+.ca-inp:focus { border-bottom-color: var(–sage); }
+.ca-inp::placeholder { color: var(–line); font-style: italic; }
 
-/* ── INTENTIONS SPLIT ── */
-.intentions-split { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 24px; }
-.intent-card { border: 1px solid var(--line-light); border-radius: 12px; overflow: hidden; }
-.intent-card-header { padding: 12px 16px 9px; background: var(--white); border-bottom: 1px solid var(--line-light); }
-.intent-card-tag { font-size: 8px; letter-spacing: .18em; text-transform: uppercase; font-weight: 500; margin-bottom: 3px; }
-.intent-card-tag.big { color: var(--sage-dark); }
-.intent-card-tag.small { color: var(--gold); }
-.intent-card-title { font-family: ‘Cormorant Garamond’, serif; font-size: 18px; font-weight: 400; color: var(--ink); }
-.intent-card-body { padding: 12px 16px; background: var(--cream); }
-.intent-item { display: flex; align-items: center; gap: 9px; padding: 6px 0; border-bottom: 1px solid var(--line-light); }
+/* ── INTENTIONS ── */
+.intentions-split { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 26px; }
+.intent-card { border: 1px solid var(–line-light); border-radius: 14px; overflow: hidden; }
+.intent-card-header { padding: 13px 18px 10px; background: var(–white); border-bottom: 1px solid var(–line-light); }
+.intent-card-tag { font-size: 7.5px; letter-spacing: .18em; text-transform: uppercase; font-weight: 600; margin-bottom: 3px; }
+.intent-card-tag.big { color: var(–sage-dark); }
+.intent-card-tag.small { color: var(–gold); }
+.intent-card-title { font-family: ‘Cormorant Garamond’, serif; font-size: 18px; font-weight: 400; color: var(–ink); }
+.intent-card-subtitle { font-size: 11px; color: var(–ink-light); line-height: 1.6; margin-top: 4px; font-weight: 300; }
+.intent-card-body { padding: 12px 18px; background: var(–cream); }
+.intent-item { display: flex; align-items: center; gap: 9px; padding: 7px 0; border-bottom: 1px solid var(–line-light); }
 .intent-item:last-child { border-bottom: none; }
-.intent-num { font-family: ‘Cormorant Garamond’, serif; font-size: 13px; color: var(--sage-light); width: 12px; flex-shrink: 0; }
-.intent-inp { flex: 1; border: none; background: transparent; font-family: ‘Jost’, sans-serif; font-size: 12px; font-weight: 300; color: var(--ink); padding: 3px 0; outline: none; }
-.intent-inp::placeholder { color: var(--line); font-style: italic; }
+.intent-num { font-family: ‘Cormorant Garamond’, serif; font-size: 13px; color: var(–sage-light); width: 13px; flex-shrink: 0; }
+.intent-inp { flex: 1; border: none; background: transparent; font-family: ‘Jost’, sans-serif; font-size: 12.5px; font-weight: 300; color: var(–ink); padding: 3px 0; outline: none; }
+.intent-inp::placeholder { color: var(–line); font-style: italic; }
 
-/* ── WHAT FILLS / DRAINS ── */
-.fills-drains-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 26px; }
-.fd-card { border-radius: 12px; padding: 18px; overflow: hidden; }
+/* Reflection prompts below the two boxes */
+.intent-reflection { margin-top: 26px; }
+.intent-reflection-title {
+font-size: 8.5px; letter-spacing: .22em; text-transform: uppercase;
+color: var(–sage); font-weight: 600; margin-bottom: 16px;
+display: flex; align-items: center; gap: 10px;
+}
+.intent-reflection-title::after { content: ‘’; flex: 1; height: 1px; background: var(–sage-pale); }
+.intent-reflection-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+.intent-ref-box {
+background: var(–white);
+border: 1px solid var(–line-light);
+border-radius: 12px;
+padding: 14px 16px;
+}
+.intent-ref-box.gold-tint {
+background: linear-gradient(135deg, var(–gold-light), rgba(253,250,245,.9));
+border-color: rgba(184,154,92,.25);
+}
+.intent-ref-label {
+font-size: 8px; letter-spacing: .16em; text-transform: uppercase;
+color: var(–warm-brown); font-weight: 600; margin-bottom: 8px;
+}
+.intent-ref-label.sage { color: var(–sage-dark); }
+.intent-ref-ta {
+width: 100%; border: none; background: transparent;
+font-family: ‘Jost’, sans-serif; font-size: 12px; font-weight: 300;
+color: var(–ink); line-height: 1.8; resize: none; outline: none; min-height: 62px;
+}
+.intent-ref-ta::placeholder { color: var(–line); font-style: italic; }
+
+/* ── FILLS / DRAINS ── */
+.fills-drains-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 22px; }
+.fd-card { border-radius: 12px; padding: 16px; overflow: hidden; }
 .fd-card.fills { background: rgba(122,140,110,.07); border: 1px solid rgba(122,140,110,.2); }
 .fd-card.drains { background: rgba(192,97,74,.05); border: 1px solid rgba(192,97,74,.15); }
-.fd-title { font-size: 9px; letter-spacing: .18em; text-transform: uppercase; font-weight: 600; margin-bottom: 14px; display: flex; align-items: center; gap: 6px; }
-.fd-title.fills { color: var(--sage-dark); }
-.fd-title.drains { color: var(--error); }
+.fd-title { font-size: 8.5px; letter-spacing: .18em; text-transform: uppercase; font-weight: 600; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+.fd-title.fills { color: var(–sage-dark); }
+.fd-title.drains { color: var(–error); }
 .fd-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
 .fd-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
-.fd-dot.fills { background: var(--sage-light); }
+.fd-dot.fills { background: var(–sage-light); }
 .fd-dot.drains { background: rgba(192,97,74,.4); }
 .fd-inp {
 flex: 1; border: none; border-bottom: 1px solid rgba(122,140,110,.2);
 background: transparent; font-family: ‘Jost’, sans-serif;
-font-size: 12.5px; font-weight: 300; color: var(--ink); padding: 3px 0; outline: none; transition: border-color .2s;
+font-size: 12px; font-weight: 300; color: var(–ink); padding: 3px 0; outline: none; transition: border-color .2s;
 }
 .fd-inp.drains { border-bottom-color: rgba(192,97,74,.15); }
-.fd-inp:focus { border-bottom-color: var(--sage); }
-.fd-inp.drains:focus { border-bottom-color: var(--error); }
-.fd-inp::placeholder { color: var(--line); font-style: italic; }
+.fd-inp:focus { border-bottom-color: var(–sage); }
+.fd-inp.drains:focus { border-bottom-color: var(–error); }
+.fd-inp::placeholder { color: var(–line); font-style: italic; }
 
 /* ── CALENDAR ── */
-.cal-wrap { background: var(--white); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; margin-bottom: 28px; box-shadow: 0 4px 20px rgba(79,98,71,.06); }
-.cal-header { display: flex; align-items: center; justify-content: space-between; padding: 15px 20px 12px; border-bottom: 1px solid var(--line-light); background: var(--parchment); }
-.cal-month-title { font-family: ‘Cormorant Garamond’, serif; font-size: 19px; font-weight: 400; color: var(--ink); }
-.cal-month-title span { font-style: italic; color: var(--sage-dark); }
+.cal-wrap { background: var(–white); border: 1px solid var(–line); border-radius: 16px; overflow: hidden; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(79,98,71,.06); }
+.cal-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px 11px; border-bottom: 1px solid var(–line-light); background: var(–parchment); }
+.cal-month-title { font-family: ‘Cormorant Garamond’, serif; font-size: 18px; font-weight: 400; color: var(–ink); }
+.cal-month-title span { font-style: italic; color: var(–sage-dark); }
 .cal-nav { display: flex; gap: 4px; }
-.cal-nav-btn { width: 28px; height: 28px; border: 1px solid var(--line); background: var(--white); border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--ink-light); transition: all .2s; font-family: inherit; }
-.cal-nav-btn:hover { border-color: var(--sage); color: var(--sage-dark); background: var(--sage-pale); }
-.cal-day-labels { display: grid; grid-template-columns: repeat(7,1fr); padding: 9px 14px 3px; }
-.cal-day-label { text-align: center; font-size: 8.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--sage-light); font-weight: 500; padding: 3px 0; }
-.cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 2px; padding: 4px 14px 14px; }
-.cal-cell { aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 50%; cursor: pointer; transition: all .18s; font-size: 12px; color: var(--ink-light); font-weight: 300; gap: 2px; }
-.cal-cell:hover:not(.cal-other):not(.cal-today):not(.cal-sel) { background: var(--parchment); color: var(--sage-dark); }
+.cal-nav-btn { width: 28px; height: 28px; border: 1px solid var(–line); background: var(–white); border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(–ink-light); transition: all .2s; font-family: inherit; }
+.cal-nav-btn:hover { border-color: var(–sage); color: var(–sage-dark); background: var(–sage-pale); }
+.cal-day-labels { display: grid; grid-template-columns: repeat(7,1fr); padding: 8px 12px 3px; }
+.cal-day-label { text-align: center; font-size: 8px; letter-spacing: .12em; text-transform: uppercase; color: var(–sage-light); font-weight: 500; padding: 3px 0; }
+.cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 2px; padding: 4px 12px 12px; }
+.cal-cell { aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 50%; cursor: pointer; transition: all .18s; font-size: 11.5px; color: var(–ink-light); font-weight: 300; gap: 2px; }
+.cal-cell:hover:not(.cal-other):not(.cal-today):not(.cal-sel) { background: var(–parchment); color: var(–sage-dark); }
 .cal-cell.cal-other { opacity: .3; pointer-events: none; }
-.cal-cell.cal-today { background: var(--sage-pale); color: var(--sage-dark); font-weight: 500; }
-.cal-cell.cal-sel { background: var(--sage-dark); color: white; font-weight: 500; }
+.cal-cell.cal-today { background: var(–sage-pale); color: var(–sage-dark); font-weight: 500; }
+.cal-cell.cal-sel { background: var(–sage-dark); color: white; font-weight: 500; }
 .cal-dot { width: 4px; height: 4px; border-radius: 50%; background: transparent; }
-.cal-cell.cal-has .cal-dot { background: var(--sage); }
+.cal-cell.cal-has .cal-dot { background: var(–sage); }
 .cal-cell.cal-sel .cal-dot { background: rgba(255,255,255,.7); }
-.cal-cell.cal-today .cal-dot { background: var(--sage); }
+.cal-cell.cal-today .cal-dot { background: var(–sage); }
 .cal-cell.cal-future { opacity: .25; cursor: not-allowed; pointer-events: none; }
-.cal-footer { padding: 9px 20px 12px; border-top: 1px solid var(--line-light); display: flex; align-items: center; justify-content: space-between; }
-.cal-sel-lbl { font-size: 9px; color: var(--sage); letter-spacing: .1em; text-transform: uppercase; font-weight: 500; }
-.cal-sel-txt { font-family: ‘Cormorant Garamond’, serif; font-size: 15px; color: var(--ink); margin-top: 2px; }
-.cal-entry-ct { font-size: 10px; color: var(--ink-light); font-weight: 300; }
+.cal-footer { padding: 8px 18px 11px; border-top: 1px solid var(–line-light); display: flex; align-items: center; justify-content: space-between; }
+.cal-sel-lbl { font-size: 8.5px; color: var(–sage); letter-spacing: .1em; text-transform: uppercase; font-weight: 500; }
+.cal-sel-txt { font-family: ‘Cormorant Garamond’, serif; font-size: 14px; color: var(–ink); margin-top: 2px; }
+.cal-entry-ct { font-size: 10px; color: var(–ink-light); font-weight: 300; }
+
+/* Daily journal intro box */
+.journal-intro-box {
+background: linear-gradient(135deg, rgba(122,140,110,.08), rgba(237,230,212,.5));
+border: 1px solid rgba(122,140,110,.18);
+border-radius: 12px;
+padding: 16px 20px;
+margin-bottom: 22px;
+position: relative;
+overflow: hidden;
+}
+.journal-intro-box::before {
+content: ‘✦’;
+font-family: ‘Cormorant Garamond’, serif;
+position: absolute; top: 12px; right: 16px;
+font-size: 18px; color: var(–sage-pale); opacity: .7;
+}
+.journal-intro-box-label {
+font-size: 7.5px; letter-spacing: .22em; text-transform: uppercase;
+color: var(–sage); font-weight: 600; margin-bottom: 6px;
+}
+.journal-intro-box-text {
+font-size: 12.5px; color: var(–ink-light); line-height: 1.75; font-weight: 300;
+}
+.journal-intro-box-text em { font-style: italic; color: var(–ink-mid); }
 
 /* Daily entry */
-.daily-hdr { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 26px; padding-bottom: 17px; border-bottom: 1px solid var(--line-light); }
-.daily-wday { font-size: 9.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--sage-light); font-weight: 500; margin-bottom: 3px; }
-.daily-date { font-family: ‘Cormorant Garamond’, serif; font-size: 34px; font-weight: 300; color: var(--ink); line-height: 1.05; }
-.daily-date span { font-style: italic; color: var(--sage-dark); }
-.entry-badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 11px; border-radius: 20px; font-size: 9.5px; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; }
-.entry-badge.new-e { background: var(--gold-light); color: var(--warm-brown); border: 1px solid rgba(184,154,92,.3); }
-.entry-badge.exist-e { background: var(--sage-pale); color: var(--sage-dark); border: 1px solid var(--sage-light); }
-.back-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 13px; border: 1px solid var(--line); border-radius: 20px; background: transparent; font-family: ‘Jost’, sans-serif; font-size: 10px; font-weight: 400; color: var(--ink-light); cursor: pointer; transition: all .2s; margin-top: 26px; }
-.back-btn:hover { border-color: var(--sage); color: var(--sage-dark); background: var(--parchment); }
+.daily-hdr { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 22px; padding-bottom: 15px; border-bottom: 1px solid var(–line-light); }
+.daily-wday { font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: var(–sage-light); font-weight: 500; margin-bottom: 3px; }
+.daily-date { font-family: ‘Cormorant Garamond’, serif; font-size: 32px; font-weight: 300; color: var(–ink); line-height: 1.05; }
+.daily-date span { font-style: italic; color: var(–sage-dark); }
+.entry-badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 11px; border-radius: 20px; font-size: 9px; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; }
+.entry-badge.new-e { background: var(–gold-light); color: var(–warm-brown); border: 1px solid rgba(184,154,92,.3); }
+.entry-badge.exist-e { background: var(–sage-pale); color: var(–sage-dark); border: 1px solid var(–sage-light); }
+.back-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 13px; border: 1px solid var(–line); border-radius: 20px; background: transparent; font-family: ‘Jost’, sans-serif; font-size: 10px; font-weight: 400; color: var(–ink-light); cursor: pointer; transition: all .2s; margin-top: 22px; }
+.back-btn:hover { border-color: var(–sage); color: var(–sage-dark); background: var(–parchment); }
 
 /* Mood & Gratitude */
-.mood-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 17px; margin-bottom: 20px; }
-.mood-box { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; background: var(--white); position: relative; overflow: hidden; }
-.mood-box::before { content: ‘’; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--sage-light), transparent); }
-.mood-lbl { font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 8px; }
-.mood-inp { width: 100%; border: none; border-bottom: 1px solid var(--line-light); background: transparent; font-family: ‘Cormorant Garamond’, serif; font-size: 21px; font-weight: 400; color: var(--ink); padding: 4px 0; outline: none; transition: border-color .2s; }
-.mood-inp:focus { border-bottom-color: var(--sage); }
-.mood-inp::placeholder { font-style: italic; color: var(--line); font-size: 16px; }
+.mood-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 18px; }
+.mood-box { border: 1px solid var(–line); border-radius: 12px; padding: 13px 15px; background: var(–white); position: relative; overflow: hidden; }
+.mood-box::before { content: ‘’; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(–sage-light), transparent); }
+.mood-lbl { font-size: 8.5px; letter-spacing: .16em; text-transform: uppercase; color: var(–sage); font-weight: 500; margin-bottom: 7px; }
+.mood-inp { width: 100%; border: none; border-bottom: 1px solid var(–line-light); background: transparent; font-family: ‘Cormorant Garamond’, serif; font-size: 20px; font-weight: 400; color: var(–ink); padding: 4px 0; outline: none; transition: border-color .2s; }
+.mood-inp:focus { border-bottom-color: var(–sage); }
+.mood-inp::placeholder { font-style: italic; color: var(–line); font-size: 15px; }
 .int-dots { display: flex; gap: 4px; margin-bottom: 4px; flex-wrap: wrap; }
-.int-dot { width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid var(--line); cursor: pointer; transition: all .18s; flex-shrink: 0; }
-.int-dot.on { background: var(--sage); border-color: var(--sage); }
-.int-dot:hover { border-color: var(--sage-light); }
-.int-labels { display: flex; justify-content: space-between; font-size: 7.5px; color: var(--ink-light); max-width: 180px; }
-.grat-section { margin-bottom: 19px; }
-.grat-lbl { font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 11px; }
+.int-dot { width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid var(–line); cursor: pointer; transition: all .18s; flex-shrink: 0; }
+.int-dot.on { background: var(–sage); border-color: var(–sage); }
+.int-dot:hover { border-color: var(–sage-light); }
+.int-labels { display: flex; justify-content: space-between; font-size: 7px; color: var(–ink-light); max-width: 180px; }
+.grat-section { margin-bottom: 17px; }
+.grat-lbl { font-size: 8.5px; letter-spacing: .16em; text-transform: uppercase; color: var(–sage); font-weight: 500; margin-bottom: 10px; }
 .grat-list { display: flex; flex-direction: column; gap: 7px; }
 .grat-row { display: flex; align-items: center; gap: 10px; }
-.grat-num { font-family: ‘Cormorant Garamond’, serif; font-size: 13px; color: var(--sage-light); width: 13px; text-align: right; flex-shrink: 0; }
-.grat-inp { flex: 1; border: none; border-bottom: 1px solid var(--line-light); background: transparent; font-family: ‘Jost’, sans-serif; font-size: 12.5px; font-weight: 300; color: var(--ink); padding: 5px 0; outline: none; transition: border-color .2s; }
-.grat-inp:focus { border-bottom-color: var(--sage); }
-.grat-inp::placeholder { color: var(--line); font-style: italic; }
-.split-row { display: grid; grid-template-columns: 1fr 1fr; gap: 17px; margin-bottom: 17px; }
-.aff-box { background: var(--parchment); border-radius: 12px; padding: 13px 17px; position: relative; }
-.aff-box::before { content: ‘\201C’; font-family: ‘Cormorant Garamond’, serif; font-size: 40px; color: var(--sage-pale); position: absolute; top: -2px; left: 10px; line-height: 1; }
-.aff-lbl { font-size: 8.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--warm-brown); margin-bottom: 7px; font-weight: 500; }
-.aff-ta { width: 100%; border: none; background: transparent; font-family: ‘Jost’, sans-serif; font-size: 12.5px; font-weight: 300; color: var(--ink); line-height: 1.8; resize: none; outline: none; min-height: 48px; }
-.aff-ta::placeholder { color: var(--warm-brown-light); font-style: italic; }
-.rem-box { border: 1px solid var(--line-light); border-radius: 12px; padding: 13px 16px; background: var(--white); }
-.rem-lbl { font-size: 8.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--sage); margin-bottom: 7px; font-weight: 500; }
-.rem-ta { width: 100%; border: none; background: transparent; font-family: ‘Jost’, sans-serif; font-size: 12.5px; font-weight: 300; color: var(--ink); line-height: 1.8; resize: none; outline: none; min-height: 42px; }
-.rem-ta::placeholder { color: var(--line); font-style: italic; }
-.save-bar { display: flex; align-items: center; justify-content: space-between; padding: 11px 15px; border: 1px solid var(--line-light); border-radius: 10px; background: var(--white); margin-top: 26px; }
-.save-row { display: flex; align-items: center; gap: 6px; font-size: 10.5px; color: var(--ink-light); font-weight: 300; }
-.save-ind { width: 5px; height: 5px; border-radius: 50%; background: var(--sage); transition: all .3s; }
-.save-ind.saving { background: var(--gold); animation: pulse 1s infinite; }
+.grat-num { font-family: ‘Cormorant Garamond’, serif; font-size: 13px; color: var(–sage-light); width: 13px; text-align: right; flex-shrink: 0; }
+.grat-inp { flex: 1; border: none; border-bottom: 1px solid var(–line-light); background: transparent; font-family: ‘Jost’, sans-serif; font-size: 12px; font-weight: 300; color: var(–ink); padding: 5px 0; outline: none; transition: border-color .2s; }
+.grat-inp:focus { border-bottom-color: var(–sage); }
+.grat-inp::placeholder { color: var(–line); font-style: italic; }
+.split-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
+.aff-box { background: var(–parchment); border-radius: 12px; padding: 13px 16px; position: relative; }
+.aff-box::before { content: ‘\201C’; font-family: ‘Cormorant Garamond’, serif; font-size: 38px; color: var(–sage-pale); position: absolute; top: -2px; left: 10px; line-height: 1; }
+.aff-lbl { font-size: 8px; letter-spacing: .14em; text-transform: uppercase; color: var(–warm-brown); margin-bottom: 6px; font-weight: 500; }
+.aff-ta { width: 100%; border: none; background: transparent; font-family: ‘Jost’, sans-serif; font-size: 12px; font-weight: 300; color: var(–ink); line-height: 1.8; resize: none; outline: none; min-height: 46px; }
+.aff-ta::placeholder { color: var(–warm-brown-light); font-style: italic; }
+.rem-box { border: 1px solid var(–line-light); border-radius: 12px; padding: 13px 15px; background: var(–white); }
+.rem-lbl { font-size: 8px; letter-spacing: .14em; text-transform: uppercase; color: var(–sage); margin-bottom: 6px; font-weight: 500; }
+.rem-ta { width: 100%; border: none; background: transparent; font-family: ‘Jost’, sans-serif; font-size: 12px; font-weight: 300; color: var(–ink); line-height: 1.8; resize: none; outline: none; min-height: 40px; }
+.rem-ta::placeholder { color: var(–line); font-style: italic; }
+.save-bar { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; border: 1px solid var(–line-light); border-radius: 10px; background: var(–white); margin-top: 22px; }
+.save-row { display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(–ink-light); font-weight: 300; }
+.save-ind { width: 5px; height: 5px; border-radius: 50%; background: var(–sage); transition: all .3s; }
+.save-ind.saving { background: var(–gold); animation: pulse 1s infinite; }
 
 /* Intention Planner */
-.planner-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-.p-col-title { font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 11px; }
-.focus-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 19px; }
-.chk-lbl { display: flex; align-items: center; gap: 7px; cursor: pointer; font-size: 11.5px; color: var(--ink-light); font-weight: 300; user-select: none; }
-.chk-lbl input { appearance: none; width: 12px; height: 12px; border: 1px solid var(--line); border-radius: 3px; cursor: pointer; flex-shrink: 0; transition: all .2s; position: relative; }
-.chk-lbl input:checked { background: var(--sage); border-color: var(--sage); }
+.planner-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+.p-col-title { font-size: 8.5px; letter-spacing: .18em; text-transform: uppercase; color: var(–sage); font-weight: 500; margin-bottom: 10px; }
+.focus-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 17px; }
+.chk-lbl { display: flex; align-items: center; gap: 7px; cursor: pointer; font-size: 11px; color: var(–ink-light); font-weight: 300; user-select: none; }
+.chk-lbl input { appearance: none; width: 12px; height: 12px; border: 1px solid var(–line); border-radius: 3px; cursor: pointer; flex-shrink: 0; transition: all .2s; position: relative; }
+.chk-lbl input:checked { background: var(–sage); border-color: var(–sage); }
 .chk-lbl input:checked::after { content: ‘’; position: absolute; left: 2px; top: 1px; width: 5px; height: 6px; border: 1.5px solid white; border-top: none; border-left: none; transform: rotate(45deg); }
-.prod-wrap { margin-bottom: 19px; }
-.prod-slider { width: 100%; appearance: none; height: 2px; background: var(--line); border-radius: 1px; outline: none; cursor: pointer; margin-bottom: 4px; }
-.prod-slider::-webkit-slider-thumb { appearance: none; width: 12px; height: 12px; border-radius: 50%; background: var(--sage); cursor: pointer; }
-.slider-ticks { display: flex; justify-content: space-between; font-size: 8px; color: var(--sage-light); }
-.int-list { margin-bottom: 19px; }
-.int-row { display: flex; align-items: center; gap: 8px; padding: 4px 0; border-bottom: 1px solid var(--line-light); }
-.int-n { font-family: ‘Cormorant Garamond’, serif; font-size: 15px; color: var(--sage-light); width: 13px; text-align: right; flex-shrink: 0; }
-.int-inp { flex: 1; border: none; background: transparent; font-family: ‘Jost’, sans-serif; font-size: 12.5px; font-weight: 300; color: var(--ink); padding: 4px 0; outline: none; }
-.int-inp::placeholder { color: var(--line); font-style: italic; }
-.ks-card { border: 1px solid var(--line-light); border-radius: 10px; padding: 12px 14px; background: var(--parchment); }
-.ks-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 8px; }
+.prod-wrap { margin-bottom: 17px; }
+.prod-slider { width: 100%; appearance: none; height: 2px; background: var(–line); border-radius: 1px; outline: none; cursor: pointer; margin-bottom: 4px; }
+.prod-slider::-webkit-slider-thumb { appearance: none; width: 12px; height: 12px; border-radius: 50%; background: var(–sage); cursor: pointer; }
+.slider-ticks { display: flex; justify-content: space-between; font-size: 7.5px; color: var(–sage-light); }
+.int-list { margin-bottom: 17px; }
+.int-row { display: flex; align-items: center; gap: 8px; padding: 4px 0; border-bottom: 1px solid var(–line-light); }
+.int-n { font-family: ‘Cormorant Garamond’, serif; font-size: 14px; color: var(–sage-light); width: 13px; text-align: right; flex-shrink: 0; }
+.int-inp { flex: 1; border: none; background: transparent; font-family: ‘Jost’, sans-serif; font-size: 12px; font-weight: 300; color: var(–ink); padding: 4px 0; outline: none; }
+.int-inp::placeholder { color: var(–line); font-style: italic; }
+.ks-card { border: 1px solid var(–line-light); border-radius: 10px; padding: 11px 13px; background: var(–parchment); }
+.ks-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 7px; }
 .ks-row:last-child { margin-bottom: 0; }
-.ks-lbl { font-size: 9px; font-weight: 500; color: var(--warm-brown); letter-spacing: .08em; white-space: nowrap; text-transform: uppercase; }
-.ks-inp { flex: 1; border: none; border-bottom: 1px solid var(--parchment-dark); background: transparent; font-family: ‘Jost’, sans-serif; font-size: 12.5px; font-weight: 300; color: var(--ink); padding: 2px 0; outline: none; transition: border-color .2s; }
-.ks-inp:focus { border-bottom-color: var(--warm-brown); }
-.ks-inp::placeholder { color: var(--warm-brown-light); font-style: italic; }
-.time-grid { display: flex; flex-direction: column; }
-.time-row { display: flex; align-items: center; gap: 8px; padding: 3px 0; border-bottom: 1px solid var(--line-light); }
-.time-lbl { font-size: 8.5px; color: var(--sage-light); width: 33px; flex-shrink: 0; letter-spacing: .04em; }
-.time-inp { flex: 1; border: none; background: transparent; font-family: ‘Jost’, sans-serif; font-size: 11.5px; font-weight: 300; color: var(--ink); padding: 3px 0; outline: none; }
-.time-inp::placeholder { color: var(--line); }
-.reminder-bar { background: var(--parchment); border-radius: 10px; padding: 13px 17px; margin-top: 22px; grid-column: 1 / -1; }
-.reminder-lbl { font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: var(--warm-brown); margin-bottom: 7px; font-weight: 500; }
-.reminder-ta { width: 100%; min-height: 54px; background: transparent; border: none; font-family: ‘Jost’, sans-serif; font-size: 12.5px; font-weight: 300; color: var(--ink); line-height: 1.85; resize: none; outline: none; }
-.reminder-ta::placeholder { color: var(--warm-brown-light); font-style: italic; }
-
+.ks-lbl { font-size: 8.5px; font-weight: 500; color: var(–warm-brown); letter-spacing: .08em; white-space: nowrap; text-transform: uppercase; }
+.ks-inp { flex: 1; border: none; border-bottom: 1px solid var(–parchment-dark); background: transparent; font-family: ‘Jost’, sans-serif; font-size: 12px; font-weight: 300; color: var(–ink); padding: 2px 0; outline: none; transition: border-color .2s; }
+.ks-inp:focus { border-bottom-color: var(–warm-brown); }
+.ks-inp::placeholder { color: var(–warm-brown-light); font-style: italic; }
+.time-grid { display: flex; flex-direction: column; max-height: 380px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(–line) transparent; }
+.time-grid::-webkit-scrollbar { width: 3px; }
+.time-grid::-webkit-scrollbar-thumb { background: var(–line); border-radius: 2px; }
+.time-row { display: flex; align-items: center; gap: 8px; padding: 3px 0; border-bottom: 1px solid var(–line-light); }
+.time-lbl { font-size: 8px; color: var(–sage-light); width: 30px; flex-shrink: 0; letter-spacing: .04em; }
+.time-inp { flex: 1; border: none; background: transparent; font-family: ‘Jost’, sans-serif; font-size: 11px; font-weight: 300; color: var(–ink); padding: 3px 0; outline: none; }
+.time-inp::placeholder { color: var(–line); }
+.reminder-bar { background: var(–parchment); border-radius: 10px; padding: 12px 16px; margin-top: 20px; grid-column: 1 / -1; }
+.reminder-lbl { font-size: 8.5px; letter-spacing: .14em; text-transform: uppercase; color: var(–warm-brown); margin-bottom: 6px; font-weight: 500; }
+.reminder-ta { width: 100%; min-height: 52px; background: transparent; border: none; font-family: ‘Jost’, sans-serif; font-size: 12px; font-weight: 300; color: var(–ink); line-height: 1.85; resize: none; outline: none; }
+.reminder-ta::placeholder { color: var(–warm-brown-light); font-style: italic; }
 
 /* Closing ceremony */
 .ceremony-banner {
 background: linear-gradient(135deg, rgba(122,140,110,.12), rgba(184,154,92,.08));
 border: 1px solid rgba(122,140,110,.2);
 border-radius: 16px;
-padding: 26px 28px;
-margin-bottom: 28px;
+padding: 24px 26px;
+margin-bottom: 26px;
 text-align: center;
 }
-.ceremony-icon { font-size: 36px; margin-bottom: 12px; display: block; }
-.ceremony-title { font-family: ‘Cormorant Garamond’, serif; font-size: 24px; font-weight: 400; color: var(--sage-dark); margin-bottom: 8px; }
-.ceremony-sub { font-size: 13px; color: var(--ink-light); line-height: 1.75; }
+.ceremony-icon { font-size: 34px; margin-bottom: 11px; display: block; }
+.ceremony-title { font-family: ‘Cormorant Garamond’, serif; font-size: 22px; font-weight: 400; color: var(–sage-dark); margin-bottom: 7px; }
+.ceremony-sub { font-size: 12.5px; color: var(–ink-light); line-height: 1.75; }
 
-/* ── RESPONSIVE ── */
-@media(max-width: 768px) {
-.sidebar { position: fixed; left: 0; top: 0; height: 100vh; transform: translateX(-100%); }
-.sidebar.open { transform: translateX(0); box-shadow: 4px 0 30px rgba(0,0,0,.1); }
-.page { padding: 28px 20px 72px; }
-.top-bar { padding: 12px 20px; }
-.welcome-cards, .control-grid, .planner-layout, .mood-grid,
-.split-row, .intentions-split, .fills-drains-grid, .what-youll-do,
-.weekly-grid, .circle-action, .ec-body-inputs { grid-template-columns: 1fr; }
-.menu-toggle { display: flex !important; }
-.sidebar { box-shadow: none; }
-.page-title { font-size: 34px; }
-}
+/* Bottom nav — hidden; navigation handled by top bar buttons */
+.bottom-nav { display: none; }
 
 /* Overlay for mobile sidebar */
 .sidebar-overlay {
@@ -959,75 +1041,69 @@ z-index: 40;
 }
 .sidebar-overlay.active { display: block; }
 
-/* Bottom navigation bar */
-.bottom-nav {
-display: flex;
-align-items: center;
-justify-content: space-between;
-margin-top: 48px;
-padding-top: 24px;
-border-top: 1px solid var(--line-light);
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+.page { padding: 36px 40px 72px; }
+.top-bar { padding: 12px 28px; }
 }
-.bottom-nav-btn {
-display: inline-flex;
-align-items: center;
-gap: 8px;
-padding: 9px 18px;
-border: 1px solid var(--line);
-border-radius: 24px;
-background: transparent;
-font-family: ‘Jost’, sans-serif;
-font-size: 11px;
-font-weight: 400;
-color: var(--ink-light);
-cursor: pointer;
-transition: all .2s;
-letter-spacing: .04em;
-}
-.bottom-nav-btn:hover { border-color: var(--sage); color: var(--sage-dark); background: var(--parchment); }
-.bottom-nav-btn.primary {
-background: var(--sage-dark);
-color: white;
-border-color: var(--sage-dark);
-font-weight: 500;
-}
-.bottom-nav-btn.primary:hover { background: var(--ink); border-color: var(--ink); }
 
-.signout-btn {
-display: flex;
-align-items: center;
-gap: 6px;
-margin-top: 6px;
-padding: 7px 10px;
-border: 1px solid var(--line);
-border-radius: 8px;
-background: transparent;
-font-family: ‘Jost’, sans-serif;
-font-size: 10.5px;
-font-weight: 400;
-color: var(--ink-light);
-cursor: pointer;
-transition: all .2s;
-width: 100%;
+@media (max-width: 768px) {
+/* Sidebar: fixed overlay, narrower width */
+.sidebar {
+position: fixed;
+left: 0; top: 0;
+height: 100vh;
+width: var(–sidebar-w-mobile);
+min-width: var(–sidebar-w-mobile);
+transform: translateX(-100%);
+box-shadow: none;
 }
-.signout-btn:hover { border-color: var(--error); color: var(--error); }
+.sidebar.open {
+transform: translateX(0);
+box-shadow: 4px 0 30px rgba(0,0,0,.12);
+}
 
-.sidebar-close-btn {
-display: none;
-background: none;
-border: none;
-font-size: 20px;
-color: var(--ink-light);
-cursor: pointer;
-padding: 0 2px;
-line-height: 1;
-margin-top: -2px;
-}
-@media(max-width:768px) {
+/* Mobile: show close button in header */
 .sidebar-close-btn { display: block; }
+
+/* Menu toggle visible */
+.menu-toggle { display: flex; }
+
+/* Page padding reduced */
+.page { padding: 22px 18px 68px; max-width: 100%; }
+.top-bar { padding: 11px 16px; }
+
+/* Nav btns stay visible on mobile — primary navigation */
+
+/* Responsive grids */
+.welcome-cards,
+.control-grid,
+.planner-layout,
+.mood-grid,
+.split-row,
+.intentions-split,
+.intent-reflection-grid,
+.fills-drains-grid,
+.what-youll-do,
+.circle-action,
+.ec-body-inputs { grid-template-columns: 1fr; }
+
+.roles-table .role-desc { display: none; } /* hide only on mobile */
+.page-title { font-size: 30px; }
+.breadcrumb { font-size: 8px; max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 }
 
+@media (max-width: 480px) {
+.page { padding: 18px 14px 60px; }
+.top-bar { padding: 10px 14px; }
+.page-title { font-size: 26px; }
+.cal-grid { padding: 3px 8px 10px; }
+.cal-day-labels { padding: 6px 8px 2px; }
+.cal-cell { font-size: 10.5px; }
+.sidebar-footer { padding: 10px 14px 12px; }
+}
 </style>
+
 </head>
 <body>
 
@@ -1046,14 +1122,14 @@ margin-top: -2px;
     </div>
   </div>
 
+  <!-- FIX: nav scrolls independently, footer stays pinned -->
+
   <div class="sidebar-nav">
-    <!-- Start Here -->
     <div class="nav-part-label">Start here</div>
     <div class="nav-item active" data-page="welcome" onclick="showPage('welcome',this)"><span class="nav-dot"></span>Welcome</div>
     <div class="nav-item" data-page="how-to-use" onclick="showPage('how-to-use',this)"><span class="nav-dot"></span>How to use this journal</div>
 
 ```
-<!-- PART I -->
 <div class="nav-part-label">Part I · Emotional Safety</div>
 <div class="nav-item" data-page="part1-intro" onclick="showPage('part1-intro',this)"><span class="nav-dot"></span>About this part</div>
 <div class="nav-item" data-page="grounding" onclick="showPage('grounding',this)"><span class="nav-dot"></span>Ground yourself first</div>
@@ -1062,7 +1138,6 @@ margin-top: -2px;
 <div class="nav-item" data-page="compassion-figure" onclick="showPage('compassion-figure',this)"><span class="nav-dot"></span>Your compassionate voice</div>
 <div class="nav-item pause-item" data-page="part1-pause" onclick="showPage('part1-pause',this)"><span class="nav-dot"></span>Before you move on</div>
 
-<!-- PART II -->
 <div class="nav-part-label">Part II · Self-Reflection</div>
 <div class="nav-item" data-page="part2-intro" onclick="showPage('part2-intro',this)"><span class="nav-dot"></span>About this part</div>
 
@@ -1070,7 +1145,7 @@ margin-top: -2px;
   <div class="nav-group-header" onclick="toggleGroup('grp-roots')">Where you came from<span class="nav-group-arrow">▾</span></div>
   <div class="nav-group-children">
     <div class="nav-item sub" data-page="ch1-early" onclick="showPage('ch1-early',this)"><span class="nav-dot"></span>Early impressions</div>
-    <div class="nav-item sub" data-page="ch1-family" onclick="showPage('ch1-family',this)"><span class="nav-dot"></span>Family & how you learned to love</div>
+    <div class="nav-item sub" data-page="ch1-family" onclick="showPage('ch1-family',this)"><span class="nav-dot"></span>Family &amp; how you learned to love</div>
     <div class="nav-item sub" data-page="ch1-moments" onclick="showPage('ch1-moments',this)"><span class="nav-dot"></span>A moment that stayed with you</div>
     <div class="nav-item sub pause-item" data-page="ch1-pause" onclick="showPage('ch1-pause',this)"><span class="nav-dot"></span>Before you move on</div>
   </div>
@@ -1096,7 +1171,7 @@ margin-top: -2px;
     <div class="nav-item sub" data-page="ch6-critic" onclick="showPage('ch6-critic',this)"><span class="nav-dot"></span>That voice in your head</div>
     <div class="nav-item sub" data-page="ch6-child" onclick="showPage('ch6-child',this)"><span class="nav-dot"></span>Meeting your younger self</div>
     <div class="nav-item sub" data-page="ch6-letter-younger" onclick="showPage('ch6-letter-younger',this)"><span class="nav-dot"></span>A letter to the child you were</div>
-    <div class="nav-item sub" data-page="ch6-attachment" onclick="showPage('ch6-attachment',this)"><span class="nav-dot"></span>How you love & let people in</div>
+    <div class="nav-item sub" data-page="ch6-attachment" onclick="showPage('ch6-attachment',this)"><span class="nav-dot"></span>How you love &amp; let people in</div>
     <div class="nav-item sub pause-item" data-page="ch6-pause" onclick="showPage('ch6-pause',this)"><span class="nav-dot"></span>Before you move on</div>
   </div>
 </div>
@@ -1104,7 +1179,7 @@ margin-top: -2px;
 <div class="nav-group" id="grp-want">
   <div class="nav-group-header" onclick="toggleGroup('grp-want')">What you want<span class="nav-group-arrow">▾</span></div>
   <div class="nav-group-children">
-    <div class="nav-item sub" data-page="ch4-dreams" onclick="showPage('ch4-dreams',this)"><span class="nav-dot"></span>Dreams & what stops them</div>
+    <div class="nav-item sub" data-page="ch4-dreams" onclick="showPage('ch4-dreams',this)"><span class="nav-dot"></span>Dreams &amp; what stops them</div>
     <div class="nav-item sub" data-page="ch4-vision" onclick="showPage('ch4-vision',this)"><span class="nav-dot"></span>Your ideal day</div>
     <div class="nav-item sub" data-page="ch4-success" onclick="showPage('ch4-success',this)"><span class="nav-dot"></span>What success really means</div>
     <div class="nav-item sub" data-page="ch4-legacy" onclick="showPage('ch4-legacy',this)"><span class="nav-dot"></span>What you want to matter</div>
@@ -1120,17 +1195,18 @@ margin-top: -2px;
   </div>
 </div>
 
-<!-- PART III -->
 <div class="nav-part-label">Part III · Intention</div>
 <div class="nav-item" data-page="part3-intro" onclick="showPage('part3-intro',this)"><span class="nav-dot"></span>About this part</div>
 <div class="nav-item" data-page="closing" onclick="showPage('closing',this)"><span class="nav-dot"></span>A note to carry with you</div>
 <div class="nav-item" data-page="circle-control" onclick="showPage('circle-control',this)"><span class="nav-dot"></span>What's in my hands</div>
-<div class="nav-item" data-page="big-small" onclick="showPage('big-small',this)"><span class="nav-dot"></span>Big & small intentions</div>
-<div class="nav-item" data-page="mood-journal" onclick="showPage('mood-journal',this)"><span class="nav-dot"></span>Mood & gratitude journal</div>
+<div class="nav-item" data-page="big-small" onclick="showPage('big-small',this)"><span class="nav-dot"></span>Big &amp; small intentions</div>
+<div class="nav-item" data-page="mood-journal" onclick="showPage('mood-journal',this)"><span class="nav-dot"></span>Mood &amp; gratitude journal</div>
 <div class="nav-item" data-page="intention-planner" onclick="showPage('intention-planner',this)"><span class="nav-dot"></span>Daily intention planner</div>
 ```
 
   </div>
+
+  <!-- Footer always visible — outside the scrollable nav -->
 
   <div class="sidebar-footer">
     <div class="progress-label"><span>Your progress</span><span id="progress-pct">0%</span></div>
@@ -1151,7 +1227,7 @@ margin-top: -2px;
 
 <main class="main">
   <div class="top-bar">
-    <div style="display:flex;align-items:center;gap:12px">
+    <div style="display:flex;align-items:center;gap:10px">
       <button class="menu-toggle" id="menu-toggle" onclick="toggleSidebar()"><span></span><span></span><span></span></button>
       <span class="breadcrumb" id="breadcrumb">Welcome</span>
     </div>
@@ -1169,7 +1245,7 @@ margin-top: -2px;
   <div class="page active" id="page-welcome">
     <div class="welcome-hero">
       <span class="welcome-leaf">✦</span>
-      <h1 class="page-title" style="font-size:50px;text-align:center">Your inner world,<br><em>in words.</em></h1>
+      <h1 class="page-title" style="font-size:46px;text-align:center">Your inner world,<br><em>in words.</em></h1>
       <p class="welcome-sub">A guided space for self-reflection, mindfulness, and intentional living. Move through three interconnected parts at your own pace.</p>
     </div>
     <div class="welcome-cards">
@@ -1204,14 +1280,14 @@ margin-top: -2px;
     <p class="page-intro">This journal is flexible. Use it when you feel inspired, and on days when you feel stuck. There is no right way — only your way.</p>
     <div class="divider"></div>
     <div class="what-youll-do">
-      <div class="wyd-card"><div class="wyd-num">01</div><div class="wyd-text"><strong>Start with Part I.</strong> Before anything, learn to feel safe with your own thoughts. This takes 20--30 minutes.</div></div>
+      <div class="wyd-card"><div class="wyd-num">01</div><div class="wyd-text"><strong>Start with Part I.</strong> Before anything, learn to feel safe with your own thoughts. This takes 20–30 minutes.</div></div>
       <div class="wyd-card"><div class="wyd-num">02</div><div class="wyd-text"><strong>Move through Part II slowly.</strong> Take one section at a time. There's no rush. Some sections may take several sittings.</div></div>
       <div class="wyd-card"><div class="wyd-num">03</div><div class="wyd-text"><strong>Return to Part III daily.</strong> The mood journal and planner are for everyday use. Build them into your morning or evening.</div></div>
       <div class="wyd-card"><div class="wyd-num">04</div><div class="wyd-text"><strong>Skip and return freely.</strong> If a prompt doesn't land, skip it. If something pulls you back, return. Follow your instincts.</div></div>
     </div>
     <div class="divider"></div>
-    <div class="chapter-banner"><p><strong style="color:var(--sage-dark);font-size:11px;letter-spacing:.08em;text-transform:uppercase">A gentle note</strong><br>Some exercises — especially in Part II — may bring up difficult feelings. If you feel overwhelmed at any time, return to the grounding exercise in Part I. It's always there for you.</p></div>
-    <div style="margin-top:20px;font-size:13px;color:var(--ink-light);line-height:1.85;font-style:italic;border-left:2px solid var(--sage-pale);padding-left:16px">Above all, use this space with gentleness and trust. A single honest sentence is worth more than three pages of what you think you should write.</div>
+    <div class="chapter-banner"><p><strong style="color:var(--sage-dark);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase">A gentle note</strong><br>Some exercises — especially in Part II — may bring up difficult feelings. If you feel overwhelmed at any time, return to the grounding exercise in Part I. It's always there for you.</p></div>
+    <div style="margin-top:18px;font-size:12.5px;color:var(--ink-light);line-height:1.85;font-style:italic;border-left:2px solid var(--sage-pale);padding-left:16px">Above all, use this space with gentleness and trust. A single honest sentence is worth more than three pages of what you think you should write.</div>
     <div class="complete-bar" id="complete-how-to-use"><span class="complete-bar-text">Mark this complete when you're ready to begin</span><button class="complete-btn" onclick="markComplete('how-to-use')">Mark complete</button></div>
   </div>
 
@@ -1220,9 +1296,9 @@ margin-top: -2px;
   <div class="page" id="page-part1-intro">
     <div class="part-badge p1">I · Part One</div>
     <h1 class="page-title">Build <em>Emotional Safety</em></h1>
-    <p class="page-intro">Before we explore anything difficult, we need to make sure you feel okay getting there. This part gives you tools to hold yourself — grounding, emotional awareness, a sense of safety, and a compassionate inner voice. Think of this as laying the ground before you dig.</p>
+    <p class="page-intro">Before we explore anything difficult, we need to make sure you feel okay getting there. This part gives you tools to hold yourself — grounding, emotional awareness, a sense of safety, and a compassionate inner voice.</p>
     <div class="divider"></div>
-    <div class="chapter-banner"><p>This part takes about <strong>30--45 minutes</strong> in one sitting, or spread it across a few days. You can return to any exercise in this part any time you feel overwhelmed.</p></div>
+    <div class="chapter-banner"><p>This part takes about <strong>30–45 minutes</strong> in one sitting, or spread it across a few days. You can return to any exercise in this part any time you feel overwhelmed.</p></div>
     <div class="what-youll-do">
       <div class="wyd-card"><div class="wyd-num">1</div><div class="wyd-text"><strong>Ground yourself first.</strong> A simple sense-based exercise to bring you into the present moment.</div></div>
       <div class="wyd-card"><div class="wyd-num">2</div><div class="wyd-text"><strong>Check in honestly.</strong> Notice what emotions you're carrying, without judgement.</div></div>
@@ -1287,7 +1363,7 @@ margin-top: -2px;
     <div class="complete-bar" id="complete-emotion-compass"><span class="complete-bar-text">Mark complete when you're ready</span><button class="complete-btn" onclick="markComplete('emotion-compass')">Mark complete</button></div>
   </div>
 
-  <!-- ══ EMOTIONAL SAFETY COLLAGE ══ -->
+  <!-- ══ EMOTIONAL COLLAGE ══ -->
 
   <div class="page" id="page-emotional-collage">
     <div class="part-badge p1">I · Emotional Safety</div>
@@ -1298,7 +1374,7 @@ margin-top: -2px;
     <p style="font-size:12px;color:var(--ink-light);margin-bottom:12px;font-weight:300">Select the words that feel like safety to you:</p>
     <div class="collage-grid" id="collage-grid"></div>
     <div class="prompt-block">
-      <p class="prompt-q">Describe your safe place in detail — colours, textures, sounds, smells. Who, if anyone, is there with you? What does your body feel like here?</p>
+      <p class="prompt-q">Describe your safe place in detail — colours, textures, sounds, smells. Who, if anyone, is there with you?</p>
       <textarea class="journal-area" id="col-q1" rows="6" placeholder="The felt sense of safety..."></textarea>
     </div>
     <div class="prompt-block">
@@ -1314,15 +1390,15 @@ margin-top: -2px;
     <div class="part-badge p1">I · Emotional Safety</div>
     <div class="section-tag">Exercise 4 of 4</div>
     <h1 class="page-title">Your <em>compassionate voice</em></h1>
-    <p class="page-intro">Within you lives the capacity to be deeply kind — to yourself. This exercise helps you find that voice and make it real. Imagine a figure who holds you with complete warmth and no judgement. Someone who is always in your corner.</p>
+    <p class="page-intro">Within you lives the capacity to be deeply kind — to yourself. This exercise helps you find that voice and make it real. Imagine a figure who holds you with complete warmth and no judgement.</p>
     <div class="divider"></div>
     <div class="name-row"><span class="name-lbl">Give them a name</span><input type="text" class="name-inp" id="ch6-com-name" placeholder="A name that feels warm to you..."></div>
     <div class="prompt-block">
-      <p class="prompt-q">Describe them — how they look, how they speak, what their presence feels like. Build this person with care.</p>
+      <p class="prompt-q">Describe them — how they look, how they speak, what their presence feels like.</p>
       <textarea class="journal-area" id="ch6-com1" rows="6" placeholder="Their eyes, their voice, the way they hold themselves..."></textarea>
     </div>
     <div class="prompt-block">
-      <p class="prompt-q">Now write a letter from this figure to you — right now, today, as you are. Let them affirm your worth, witness your pain, and speak to your strength. Read this letter often.</p>
+      <p class="prompt-q">Write a letter from this figure to you — right now, today, as you are. Let them affirm your worth, witness your pain, and speak to your strength.</p>
       <textarea class="journal-area large-area" id="ch6-lp1" placeholder="Dear [your name]..." rows="12"></textarea>
     </div>
     <div class="complete-bar" id="complete-compassion-figure"><span class="complete-bar-text">Mark complete when you're ready</span><button class="complete-btn" onclick="markComplete('compassion-figure')">Mark complete</button></div>
@@ -1345,7 +1421,7 @@ margin-top: -2px;
       <p class="pause-box-q">If things feel heavy in Part II, I will return to...</p>
       <textarea class="pause-area" id="p1-pause2" rows="3" placeholder="The grounding exercise / my safe place / my compassionate voice..."></textarea>
     </div>
-    <div class="chapter-banner" style="margin-top:24px"><p>You're ready for Part II. Remember — you can always come back here.</p></div>
+    <div class="chapter-banner" style="margin-top:22px"><p>You're ready for Part II. Remember — you can always come back here.</p></div>
     <div style="text-align:center;margin-top:8px"><button class="start-btn" onclick="showPage('part2-intro',document.querySelector('[data-page=part2-intro]'))">Continue to Part II →</button></div>
     <div class="complete-bar" id="complete-part1-pause"><span class="complete-bar-text">Mark complete when you're ready</span><button class="complete-btn" onclick="markComplete('part1-pause')">Mark complete</button></div>
   </div>
@@ -1355,10 +1431,10 @@ margin-top: -2px;
   <div class="page" id="page-part2-intro">
     <div class="part-badge p2">II · Part Two</div>
     <h1 class="page-title">Reflect on <em>Yourself</em></h1>
-    <p class="page-intro">Now that you feel held, it's time to look honestly at who you are. This part moves through four areas — where you came from, who you are now, what you're carrying, and what you want. Take your time. None of this needs to be done in one sitting.</p>
+    <p class="page-intro">Now that you feel held, it's time to look honestly at who you are. This part moves through four areas — where you came from, who you are now, what you're carrying, and what you want. Take your time.</p>
     <div class="divider"></div>
     <div class="chapter-banner"><p>If anything feels too heavy, <strong>pause</strong>. Return to your grounding exercise. Come back when you're ready. There's no deadline here.</p></div>
-    <div class="what-youll-do" style="margin-top:20px">
+    <div class="what-youll-do" style="margin-top:18px">
       <div class="wyd-card"><div class="wyd-num">→</div><div class="wyd-text"><strong>Where you came from.</strong> Your early years, your family, and the moments that shaped you.</div></div>
       <div class="wyd-card"><div class="wyd-num">→</div><div class="wyd-text"><strong>Who you are now.</strong> Your life today, your energy, your roles, and the parts of yourself you're still learning.</div></div>
       <div class="wyd-card"><div class="wyd-num">→</div><div class="wyd-text"><strong>What you're carrying.</strong> The unsaid things, the inner critic, and your relationship with your younger self.</div></div>
@@ -1386,12 +1462,12 @@ margin-top: -2px;
     <div class="complete-bar" id="complete-ch1-early"><span class="complete-bar-text">Mark complete when you're ready</span><button class="complete-btn" onclick="markComplete('ch1-early')">Mark complete</button></div>
   </div>
 
-  <!-- ══ FAMILY & HOW YOU LEARNED TO LOVE ══ -->
+  <!-- ══ FAMILY & LOVE ══ -->
 
   <div class="page" id="page-ch1-family">
     <div class="part-badge p2">II · Where you came from</div>
     <div class="section-tag">Chapter 1 · Your roots</div>
-    <h1 class="page-title">Family & how you <em>learned to love</em></h1>
+    <h1 class="page-title">Family &amp; how you <em>learned to love</em></h1>
     <div class="divider"></div>
     <div class="prompt-block">
       <p class="prompt-q">What role did you play in your family growing up — the caretaker, the achiever, the peacemaker, the dreamer? How did that shape who you became?</p>
@@ -1404,7 +1480,7 @@ margin-top: -2px;
     <div class="complete-bar" id="complete-ch1-family"><span class="complete-bar-text">Mark complete when you're ready</span><button class="complete-btn" onclick="markComplete('ch1-family')">Mark complete</button></div>
   </div>
 
-  <!-- ══ A MOMENT THAT STAYED WITH YOU ══ -->
+  <!-- ══ A MOMENT THAT STAYED ══ -->
 
   <div class="page" id="page-ch1-moments">
     <div class="part-badge p2">II · Where you came from</div>
@@ -1454,13 +1530,13 @@ margin-top: -2px;
     <div class="complete-bar" id="complete-ch2-today"><span class="complete-bar-text">Mark complete when you're ready</span><button class="complete-btn" onclick="markComplete('ch2-today')">Mark complete</button></div>
   </div>
 
-  <!-- ══ WHAT FILLS / DRAINS YOU ══ -->
+  <!-- ══ FILLS / DRAINS ══ -->
 
   <div class="page" id="page-ch2-fills">
     <div class="part-badge p2">II · Who you are now</div>
     <div class="section-tag">Chapter 2 · Right now</div>
     <h1 class="page-title">What fills you, <em>what drains you</em></h1>
-    <p class="page-intro">Think about the last week or two. Not what should fill you or drain you — just what actually did. Don't analyse, just list.</p>
+    <p class="page-intro">Think about the last week or two. Not what should fill you or drain you — just what actually did.</p>
     <div class="divider"></div>
     <div class="fills-drains-grid">
       <div class="fd-card fills">
@@ -1505,23 +1581,23 @@ margin-top: -2px;
     <div class="complete-bar" id="complete-ch2-joys"><span class="complete-bar-text">Mark complete when you're ready</span><button class="complete-btn" onclick="markComplete('ch2-joys')">Mark complete</button></div>
   </div>
 
-  <!-- ══ THE ROLES YOU PLAY ══ -->
+  <!-- ══ ROLES ══ -->
 
   <div class="page" id="page-ch3-roles">
     <div class="part-badge p2">II · Who you are now</div>
     <div class="section-tag">Chapter 3 · Your inner world</div>
     <h1 class="page-title">The roles <em>you play</em></h1>
-    <p class="page-intro">We all show up differently in different parts of life. Rate how strongly each role resonates with you right now — 1 (not at all) to 5 (very strongly). None of these is the whole of you.</p>
+    <p class="page-intro">We all show up differently in different parts of life. Rate how strongly each role resonates with you right now — 1 (not at all) to 5 (very strongly).</p>
     <div class="divider"></div>
     <table class="roles-table"><thead><tr><th>Role</th><th>What it means</th><th>How much it's you</th></tr></thead><tbody id="roles-tbody"></tbody></table>
-    <div class="prompt-block" style="margin-top:28px">
+    <div class="prompt-block" style="margin-top:24px">
       <p class="prompt-q">Which role resonates most right now? Is it helping you — or holding you back in any way?</p>
       <textarea class="journal-area" id="ch3-und1" rows="5"></textarea>
     </div>
     <div class="complete-bar" id="complete-ch3-roles"><span class="complete-bar-text">Mark complete when you're ready</span><button class="complete-btn" onclick="markComplete('ch3-roles')">Mark complete</button></div>
   </div>
 
-  <!-- ══ A VERSION OF YOU YOU ADMIRE ══ -->
+  <!-- ══ A VERSION YOU ADMIRE ══ -->
 
   <div class="page" id="page-ch3-ideal">
     <div class="part-badge p2">II · Who you are now</div>
@@ -1539,14 +1615,14 @@ margin-top: -2px;
     <div class="complete-bar" id="complete-ch3-ideal"><span class="complete-bar-text">Mark complete when you're ready</span><button class="complete-btn" onclick="markComplete('ch3-ideal')">Mark complete</button></div>
   </div>
 
-  <!-- ══ THE PART THAT'S HARD TO SHOW ══ -->
+  <!-- ══ SHADOW ══ -->
 
   <div class="page" id="page-ch3-shadow">
     <div class="part-badge p2">II · Who you are now</div>
     <div class="section-tag">Chapter 3 · Your inner world</div>
     <h1 class="page-title">The part that's <em>hard to show</em></h1>
     <p class="page-intro">Every one of us has parts we hide — out of shame, fear, or because someone once told us those parts weren't okay. This page is a safe space for one of those parts.</p>
-    <div class="info-box"><strong>Go gently here.</strong> If this brings up something heavy, pause and return to your grounding exercise. You can come back to this page at any time.</div>
+    <div class="info-box"><strong>Go gently here.</strong> Take three slow breaths before you begin. If this brings up something heavy, pause and return to your grounding exercise.</div>
     <div class="divider"></div>
     <div class="prompt-block">
       <p class="prompt-q">Write as if you were giving voice to a part of yourself you usually keep hidden. What does it long for? What is it afraid of? What is it trying to protect you from?</p>
@@ -1573,76 +1649,76 @@ margin-top: -2px;
     <div class="complete-bar" id="complete-ch2-pause"><span class="complete-bar-text">Mark complete when you're ready</span><button class="complete-btn" onclick="markComplete('ch2-pause')">Mark complete</button></div>
   </div>
 
-  <!-- ══ SAY THE THING YOU HAVEN'T SAID ══ -->
+  <!-- ══ SAY THE THING ══ -->
 
   <div class="page" id="page-ch6-offload">
     <div class="part-badge p2">II · What you're carrying</div>
     <div class="section-tag">Chapter 4 · Let it out</div>
     <h1 class="page-title">Say the thing you <em>haven't said</em></h1>
-    <p class="page-intro">This is your space to unburden yourself. Write freely about emotions, memories, or secrets you've never shared with anyone. You are not here to fix anything — just to release and honour it. If you feel overwhelmed, pause and return to your grounding exercise.</p>
+    <p class="page-intro">This is your space to unburden yourself. Write freely about emotions, memories, or secrets you've never shared with anyone. You are not here to fix anything — just to release and honour it.</p>
     <div class="divider"></div>
     <textarea class="journal-area large-area" id="ch6-off1" placeholder="Write whatever needs to come out. This space is only for you..." rows="14"></textarea>
     <div class="complete-bar" id="complete-ch6-offload"><span class="complete-bar-text">Mark complete when you're ready</span><button class="complete-btn" onclick="markComplete('ch6-offload')">Mark complete</button></div>
   </div>
 
-  <!-- ══ THAT VOICE IN YOUR HEAD ══ -->
+  <!-- ══ INNER CRITIC ══ -->
 
   <div class="page" id="page-ch6-critic">
     <div class="part-badge p2">II · What you're carrying</div>
     <div class="section-tag">Chapter 4 · Let it out</div>
     <h1 class="page-title">That voice <em>in your head</em></h1>
-    <p class="page-intro">Most of us have an inner voice that tells us we're not enough. This page is for that voice — and for finding a kinder one. Let's see what it's really saying, and where it comes from.</p>
+    <p class="page-intro">Most of us have an inner voice that tells us we're not enough. This page is for that voice — and for finding a kinder one.</p>
     <div class="divider"></div>
     <div class="prompt-block">
       <p class="prompt-q">Give that critical voice a free space to say everything it usually says about you. Don't filter it — just let it speak.</p>
       <textarea class="journal-area" id="ch6-cri1" rows="6" placeholder="The critic's voice, unfiltered..."></textarea>
     </div>
     <div class="prompt-block">
-      <p class="prompt-q">Now take one thing it said and try writing a kinder version. Not fake positivity — just a more honest, fair perspective. For example: "I'm not good enough" → "I'm still learning, and that's real."</p>
-      <textarea class="journal-area" id="ch6-cri2" rows="5" placeholder="The reframe — and how it feels to read it..."></textarea>
+      <p class="prompt-q">Now take one thing it said and try writing a kinder version — not fake positivity, just a more honest, fair perspective. <em>e.g. "I'm not good enough" → "I'm still learning, and that's real."</em></p>
+      <textarea class="journal-area" id="ch6-cri2" rows="5" placeholder="The reframe..."></textarea>
     </div>
     <div class="complete-bar" id="complete-ch6-critic"><span class="complete-bar-text">Mark complete when you're ready</span><button class="complete-btn" onclick="markComplete('ch6-critic')">Mark complete</button></div>
   </div>
 
-  <!-- ══ MEETING YOUR YOUNGER SELF ══ -->
+  <!-- ══ YOUNGER SELF ══ -->
 
   <div class="page" id="page-ch6-child">
     <div class="part-badge p2">II · What you're carrying</div>
     <div class="section-tag">Chapter 4 · Let it out</div>
     <h1 class="page-title">Meeting your <em>younger self</em></h1>
-    <p class="page-intro">Within you lives a younger version of yourself — still carrying some of the fears, hopes, and needs that never quite got met. This exercise is about giving that child something they may have needed.</p>
-    <div class="info-box"><strong>Go gently.</strong> This exercise can bring up real emotion. Pause any time you need to. You can return to your compassionate voice from Part I if this feels heavy.</div>
+    <p class="page-intro">Within you lives a younger version of yourself — still carrying some of the fears, hopes, and needs that never quite got met.</p>
+    <div class="info-box"><strong>Go gently.</strong> Take three slow breaths before you begin. Pause any time you need to. Your compassionate voice from Part I is always there for you.</div>
     <div class="divider"></div>
     <div class="prompt-block">
       <p class="prompt-q">Close your eyes and picture yourself as a child — around 5 to 10 years old. Describe what you see. What are they wearing? Where are they? How do they look?</p>
       <textarea class="journal-area" id="ch6-chi1" rows="5"></textarea>
     </div>
     <div class="prompt-block">
-      <p class="prompt-q">Write in that child's voice. What could they never quite say out loud? Use these as starting points:<br><em>I need... &nbsp; I feel... &nbsp; I wish...</em></p>
+      <p class="prompt-q">Write in that child's voice. What could they never quite say out loud?<br><em>I need… &nbsp; I feel… &nbsp; I wish…</em></p>
       <textarea class="journal-area" id="ch6-chi2" rows="6" placeholder="I need... I feel... I wish..."></textarea>
     </div>
     <div class="complete-bar" id="complete-ch6-child"><span class="complete-bar-text">Mark complete when you're ready</span><button class="complete-btn" onclick="markComplete('ch6-child')">Mark complete</button></div>
   </div>
 
-  <!-- ══ LETTER TO THE CHILD YOU WERE ══ -->
+  <!-- ══ LETTER TO CHILD ══ -->
 
   <div class="page" id="page-ch6-letter-younger">
     <div class="part-badge p2">II · What you're carrying</div>
     <div class="section-tag">Chapter 4 · Let it out</div>
     <h1 class="page-title">A letter to the <em>child you were</em></h1>
-    <p class="page-intro">Write from your present-day self to the child you just described. Offer them comfort, clarity, and a new way of seeing the world. Tell them what you know now. Tell them what they needed to hear.</p>
+    <p class="page-intro">Write from your present-day self to the child you just described. Offer them comfort, clarity, and a new way of seeing the world.</p>
     <div class="divider"></div>
     <textarea class="journal-area large-area" id="ch6-ly1" placeholder="Dear little one..." rows="14"></textarea>
     <div class="complete-bar" id="complete-ch6-letter-younger"><span class="complete-bar-text">Mark complete when you're ready</span><button class="complete-btn" onclick="markComplete('ch6-letter-younger')">Mark complete</button></div>
   </div>
 
-  <!-- ══ HOW YOU LOVE & LET PEOPLE IN ══ -->
+  <!-- ══ ATTACHMENT ══ -->
 
   <div class="page" id="page-ch6-attachment">
     <div class="part-badge p2">II · What you're carrying</div>
     <div class="section-tag">Chapter 4 · Let it out</div>
-    <h1 class="page-title">How you love & <em>let people in</em></h1>
-    <p class="page-intro">These questions explore how you feel safe with people, and what you learned about closeness growing up. You may uncover something tender — pause if you need to, and come back when you're ready.</p>
+    <h1 class="page-title">How you love &amp; <em>let people in</em></h1>
+    <p class="page-intro">These questions explore how you feel safe with people, and what you learned about closeness growing up. Take three slow breaths before you begin — you may uncover something tender.</p>
     <div class="divider"></div>
     <div class="prompt-block"><p class="prompt-q">When I imagine trusting someone completely, I feel...</p><textarea class="journal-area" id="ch6-att1" rows="3"></textarea></div>
     <div class="prompt-block"><p class="prompt-q">To me, feeling emotionally safe with someone means...</p><textarea class="journal-area" id="ch6-att2" rows="3"></textarea></div>
@@ -1650,7 +1726,7 @@ margin-top: -2px;
     <div class="prompt-block"><p class="prompt-q">Growing up, when I needed comfort, I usually received...</p><textarea class="journal-area" id="ch6-att4" rows="3"></textarea></div>
     <div class="prompt-block"><p class="prompt-q">My deepest fear when I truly care for someone is...</p><textarea class="journal-area" id="ch6-att5" rows="3"></textarea></div>
     <div class="prompt-block">
-      <p class="prompt-q">Looking at these answers — what patterns do you notice? What small step could you take today toward building safer, richer connections with yourself or others?</p>
+      <p class="prompt-q">Looking at these answers — what patterns do you notice? What small step could you take today toward building safer, richer connections?</p>
       <textarea class="journal-area" id="ch6-att6" rows="5" placeholder="What I notice, and what I want to do with it..."></textarea>
     </div>
     <div class="complete-bar" id="complete-ch6-attachment"><span class="complete-bar-text">Mark complete when you're ready</span><button class="complete-btn" onclick="markComplete('ch6-attachment')">Mark complete</button></div>
@@ -1670,12 +1746,12 @@ margin-top: -2px;
     <div class="complete-bar" id="complete-ch6-pause"><span class="complete-bar-text">Mark complete when you're ready</span><button class="complete-btn" onclick="markComplete('ch6-pause')">Mark complete</button></div>
   </div>
 
-  <!-- ══ DREAMS & WHAT STOPS THEM ══ -->
+  <!-- ══ DREAMS ══ -->
 
   <div class="page" id="page-ch4-dreams">
     <div class="part-badge p2">II · What you want</div>
     <div class="section-tag">Chapter 5 · Looking forward</div>
-    <h1 class="page-title">Dreams & <em>what stops them</em></h1>
+    <h1 class="page-title">Dreams &amp; <em>what stops them</em></h1>
     <div class="divider"></div>
     <div class="prompt-block">
       <p class="prompt-q">If you could pursue one dream above all else, what would it be? Don't be sensible — be honest.</p>
@@ -1688,7 +1764,7 @@ margin-top: -2px;
     <div class="complete-bar" id="complete-ch4-dreams"><span class="complete-bar-text">Mark complete when you're ready</span><button class="complete-btn" onclick="markComplete('ch4-dreams')">Mark complete</button></div>
   </div>
 
-  <!-- ══ YOUR IDEAL DAY ══ -->
+  <!-- ══ IDEAL DAY ══ -->
 
   <div class="page" id="page-ch4-vision">
     <div class="part-badge p2">II · What you want</div>
@@ -1706,7 +1782,7 @@ margin-top: -2px;
     <div class="complete-bar" id="complete-ch4-vision"><span class="complete-bar-text">Mark complete when you're ready</span><button class="complete-btn" onclick="markComplete('ch4-vision')">Mark complete</button></div>
   </div>
 
-  <!-- ══ WHAT SUCCESS REALLY MEANS ══ -->
+  <!-- ══ SUCCESS ══ -->
 
   <div class="page" id="page-ch4-success">
     <div class="part-badge p2">II · What you want</div>
@@ -1724,7 +1800,7 @@ margin-top: -2px;
     <div class="complete-bar" id="complete-ch4-success"><span class="complete-bar-text">Mark complete when you're ready</span><button class="complete-btn" onclick="markComplete('ch4-success')">Mark complete</button></div>
   </div>
 
-  <!-- ══ WHAT YOU WANT TO MATTER ══ -->
+  <!-- ══ LEGACY ══ -->
 
   <div class="page" id="page-ch4-legacy">
     <div class="part-badge p2">II · What you want</div>
@@ -1750,13 +1826,13 @@ margin-top: -2px;
     <div class="divider"></div>
     <div class="pause-box">
       <div class="pause-box-label">A vision to carry forward</div>
-      <p class="pause-box-q">Describe the life you're moving toward — in full sensory detail. Where are you? What do you see, hear, smell, touch? What do your thoughts feel like? Write as if you're already living it.</p>
+      <p class="pause-box-q">Describe the life you're moving toward — in full sensory detail. Write as if you're already living it.</p>
       <textarea class="pause-area" id="ch4-pause1" rows="10" placeholder="I wake up and..."></textarea>
     </div>
     <div class="complete-bar" id="complete-ch4-pause"><span class="complete-bar-text">Mark complete when you're ready</span><button class="complete-btn" onclick="markComplete('ch4-pause')">Mark complete</button></div>
   </div>
 
-  <!-- ══ WHAT THIS TAUGHT ME ══ -->
+  <!-- ══ INSIGHTS ══ -->
 
   <div class="page" id="page-ch5-insights">
     <div class="part-badge p2">II · Putting it together</div>
@@ -1774,21 +1850,21 @@ margin-top: -2px;
     <div class="complete-bar" id="complete-ch5-insights"><span class="complete-bar-text">Mark complete when you're ready</span><button class="complete-btn" onclick="markComplete('ch5-insights')">Mark complete</button></div>
   </div>
 
-  <!-- ══ MY FULL STORY ══ -->
+  <!-- ══ FULL STORY ══ -->
 
   <div class="page" id="page-ch5-final">
     <div class="part-badge p2">II · Putting it together</div>
     <div class="section-tag">Chapter 6 · The closing ceremony</div>
     <div class="ceremony-banner">
-      <span class="ceremony-icon" style="font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:40px;display:block;margin-bottom:12px">✦</span>
+      <span style="font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:38px;display:block;margin-bottom:11px">✦</span>
       <div class="ceremony-title">You made it through Part II.</div>
-      <div class="ceremony-sub">This page is your ceremony. Write your story — from where it began to where it's headed. Take as long as you need. This is for you.</div>
+      <div class="ceremony-sub">This page is your ceremony. Write your story — from where it began to where it's headed. Take as long as you need.</div>
     </div>
     <div class="prompt-block">
       <p class="prompt-q">Write a short story beginning with your childhood and leading to the person you are today — and the one you're becoming. Include the defining moments, the key people, the lessons, and where this story is headed next.</p>
       <textarea class="journal-area large-area" id="ch5-fin1" placeholder="Begin your story here..." rows="16"></textarea>
     </div>
-    <div style="margin-top:20px;font-size:13px;color:var(--ink-light);line-height:1.85;font-style:italic;border-left:2px solid var(--sage-pale);padding-left:16px">What would you like to remind yourself during moments of fear or doubt? Write it here, and return to it when you need it.</div>
+    <div style="margin-top:18px;font-size:12.5px;color:var(--ink-light);line-height:1.85;font-style:italic;border-left:2px solid var(--sage-pale);padding-left:16px">What would you like to remind yourself during moments of fear or doubt?</div>
     <textarea class="journal-area" id="ch5-tur1" rows="4" placeholder="When things feel hard, I want to remember..." style="margin-top:12px"></textarea>
     <div class="complete-bar" id="complete-ch5-final"><span class="complete-bar-text">Mark Part II complete</span><button class="complete-btn" onclick="markComplete('ch5-final')">Mark complete</button></div>
     <div style="text-align:center;margin-top:16px"><button class="start-btn" onclick="showPage('part3-intro',document.querySelector('[data-page=part3-intro]'))">Continue to Part III →</button></div>
@@ -1799,65 +1875,107 @@ margin-top: -2px;
   <div class="page" id="page-part3-intro">
     <div class="part-badge p3">III · Part Three</div>
     <h1 class="page-title">Move Forward <em>With Intention</em></h1>
-    <p class="page-intro">You've done the inner work. Now this part helps you turn it into how you actually live — day by day. Unlike Parts I and II, which you move through once, this part is your <strong>everyday space</strong>. Come back here as often as you like.</p>
+    <p class="page-intro">You've done the inner work. Now this part helps you turn it into how you actually live — day by day. Unlike Parts I and II, this part is your <strong>everyday space</strong>. Come back here as often as you like.</p>
     <div class="divider"></div>
     <div class="chapter-banner"><p>The mood journal and daily planner are designed to be used <strong>every day</strong>. Even two or three minutes of honest check-in builds something meaningful over time.</p></div>
-    <div class="what-youll-do" style="margin-top:20px">
+    <div class="what-youll-do" style="margin-top:18px">
       <div class="wyd-card"><div class="wyd-num">→</div><div class="wyd-text"><strong>What's in my hands.</strong> Identify what you can and can't control, and make one clear decision.</div></div>
-      <div class="wyd-card"><div class="wyd-num">→</div><div class="wyd-text"><strong>Big & small intentions.</strong> Set meaningful goals and the tiny daily steps that lead there.</div></div>
-<div class="wyd-card"><div class="wyd-num">→</div><div class="wyd-text"><strong>Daily journals.</strong> Track your mood, practise gratitude, and plan your day with intention.</div></div>
+      <div class="wyd-card"><div class="wyd-num">→</div><div class="wyd-text"><strong>Big &amp; small intentions.</strong> Set meaningful goals and the tiny daily steps that lead there.</div></div>
+      <div class="wyd-card"><div class="wyd-num">→</div><div class="wyd-text"><strong>Daily journals.</strong> Track your mood, practise gratitude, and plan your day with intention.</div></div>
     </div>
     <div style="text-align:center;margin-top:14px"><button class="start-btn" onclick="showPage('circle-control',document.querySelector('[data-page=circle-control]'))">Begin Part III →</button></div>
   </div>
 
-  <!-- ══ CLOSING PAGE ══ -->
+  <!-- ══ CLOSING ══ -->
 
   <div class="page" id="page-closing">
     <div class="section-tag">A note to carry with you</div>
     <h1 class="page-title">You are not <em>finished.</em><br>You are beginning.</h1>
     <p class="page-intro">This journal was never meant to be completed once and closed. It was designed to be returned to — again and again, at different seasons of your life.</p>
     <div class="divider"></div>
-    <div class="ceremony-banner" style="text-align:left;padding:28px 32px">
-      <div style="font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--sage);letter-spacing:.18em;text-transform:uppercase;margin-bottom:14px">What to do from here</div>
-      <div style="display:grid;gap:16px">
-        <div style="display:flex;gap:14px;align-items:flex-start"><span style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);line-height:1;flex-shrink:0">✦</span><div><div style="font-size:12px;font-weight:500;color:var(--ink);margin-bottom:3px">Return to Part III daily</div><div style="font-size:12px;color:var(--ink-light);line-height:1.7">Even two minutes of mood tracking or intention setting builds something real over time. Make it a ritual.</div></div></div>
-<div style="display:flex;gap:14px;align-items:flex-start"><span style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);line-height:1;flex-shrink:0">✦</span><div><div style="font-size:12px;font-weight:500;color:var(--ink);margin-bottom:3px">Revisit Part II when life changes</div><div style="font-size:12px;color:var(--ink-light);line-height:1.7">After a big transition, a loss, a new beginning — go back to the reflective chapters. You will read them differently each time.</div></div></div>
-        <div style="display:flex;gap:14px;align-items:flex-start"><span style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);line-height:1;flex-shrink:0">✦</span><div><div style="font-size:12px;font-weight:500;color:var(--ink);margin-bottom:3px">Return to Part I when things feel heavy</div><div style="font-size:12px;color:var(--ink-light);line-height:1.7">Your grounding exercise, your safe place, your compassionate voice — these are always there. Use them freely.</div></div></div>
+    <div class="ceremony-banner" style="text-align:left;padding:26px 28px">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:12px;color:var(--sage);letter-spacing:.18em;text-transform:uppercase;margin-bottom:14px">What to do from here</div>
+      <div style="display:grid;gap:14px">
+        <div style="display:flex;gap:14px;align-items:flex-start"><span style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--gold);line-height:1;flex-shrink:0">✦</span><div><div style="font-size:12px;font-weight:500;color:var(--ink);margin-bottom:3px">Return to Part III daily</div><div style="font-size:12px;color:var(--ink-light);line-height:1.7">Even two minutes of mood tracking or intention setting builds something real over time. Make it a ritual.</div></div></div>
+        <div style="display:flex;gap:14px;align-items:flex-start"><span style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--gold);line-height:1;flex-shrink:0">✦</span><div><div style="font-size:12px;font-weight:500;color:var(--ink);margin-bottom:3px">Revisit Part II when life changes</div><div style="font-size:12px;color:var(--ink-light);line-height:1.7">After a big transition, a loss, a new beginning — go back to the reflective chapters. You will read them differently each time.</div></div></div>
+        <div style="display:flex;gap:14px;align-items:flex-start"><span style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--gold);line-height:1;flex-shrink:0">✦</span><div><div style="font-size:12px;font-weight:500;color:var(--ink);margin-bottom:3px">Return to Part I when things feel heavy</div><div style="font-size:12px;color:var(--ink-light);line-height:1.7">Your grounding exercise, your safe place, your compassionate voice — these are always there. Use them freely.</div></div></div>
       </div>
     </div>
-    <div class="welcome-quote" style="margin-top:28px">The goal of this journal was never to have all the answers. It was to help you become someone who is not afraid to sit with the questions.</div>
-    <div style="margin-top:20px;font-size:12px;color:var(--ink-light);text-align:center;line-height:1.8">With warmth,<br><span style="font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--sage-dark);font-style:italic">Shreya &amp; the Inklings team</span></div>
-    <div style="text-align:center;margin-top:28px"><button class="start-btn" onclick="showPage('mood-journal',document.querySelector('[data-page=mood-journal]'))">Continue to daily journal →</button></div>
+    <div class="welcome-quote" style="margin-top:26px">The goal of this journal was never to have all the answers. It was to help you become someone who is not afraid to sit with the questions.</div>
+    <div style="margin-top:18px;font-size:12px;color:var(--ink-light);text-align:center;line-height:1.8">With warmth,<br><span style="font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--sage-dark);font-style:italic">Shreya &amp; the Inklings team</span></div>
+    <div style="text-align:center;margin-top:26px"><button class="start-btn" onclick="showPage('mood-journal',document.querySelector('[data-page=mood-journal]'))">Continue to daily journal →</button></div>
   </div>
 
-  <!-- ══ WHAT'S IN MY HANDS ══ -->
+  <!-- ══ WHAT'S IN MY HANDS — enhanced interactive ══ -->
 
   <div class="page" id="page-circle-control">
     <div class="part-badge p3">III · Move Forward</div>
     <div class="section-tag">Clarity exercise</div>
     <h1 class="page-title">What's <em>in my hands</em></h1>
-    <p class="page-intro">When everything feels overwhelming, this helps. Separate what you can actually do something about from what you need to let go of — at least for now.</p>
-    <div class="divider"></div>
-    <div class="control-circles">
-      <div class="circle-outer">
-        <span class="circle-label label-outer">Out of my hands</span>
-        <div class="circle-middle">
-          <span class="circle-label label-middle">I can influence</span>
-          <div class="circle-inner"></div>
-          <span class="circle-label label-inner">I control</span>
-        </div>
-      </div>
+    <p class="page-intro">When everything feels overwhelming, this helps. Separate what you can actually do something about from what you need to release — at least for now.</p>
+
+```
+<div class="circle-intro">
+  Take a breath before you begin. Think of one situation in your life that feels heavy or uncertain right now. Keep that situation in mind as you fill in each circle below. You don't need to solve it — just sort it.
+</div>
+
+<div class="divider"></div>
+<div class="control-circles">
+  <div class="circle-outer">
+    <span class="circle-label label-outer">Out of my hands</span>
+    <div class="circle-middle">
+      <span class="circle-label label-middle">I can influence</span>
+      <div class="circle-inner"></div>
+      <span class="circle-label label-inner">I control</span>
     </div>
-    <div class="control-grid">
-      <div class="control-zone"><div class="control-zone-label">I control</div><input class="zone-input" placeholder="My own actions..."><input class="zone-input" placeholder="My responses..."><input class="zone-input" placeholder="My habits..."></div>
-      <div class="control-zone"><div class="control-zone-label">I can influence</div><input class="zone-input" placeholder="Conversations I have..."><input class="zone-input" placeholder="How I show up..."><input class="zone-input" placeholder="My effort in..."></div>
-      <div class="control-zone"><div class="control-zone-label">Out of my hands</div><input class="zone-input" placeholder="Other people's choices..."><input class="zone-input" placeholder="The past..."><input class="zone-input" placeholder="Things I can't predict..."></div>
-    </div>
-    <div class="circle-action">
-      <div><div class="ca-label">One thing I can actually do today</div><input class="ca-inp" id="ca-do" placeholder="Something concrete and small..."></div>
-      <div><div class="ca-label">One thing I'm choosing to release</div><input class="ca-inp" id="ca-release" placeholder="Something I'll stop carrying today..."></div>
-    </div>
-    <div class="complete-bar" id="complete-circle-control"><span class="complete-bar-text">Mark complete when you're ready</span><button class="complete-btn" onclick="markComplete('circle-control')">Mark complete</button></div>
+  </div>
+</div>
+<div class="control-grid">
+  <div class="control-zone">
+    <div class="control-zone-label">I control</div>
+    <input class="zone-input" placeholder="My own actions...">
+    <input class="zone-input" placeholder="My responses...">
+    <input class="zone-input" placeholder="My habits &amp; choices...">
+  </div>
+  <div class="control-zone">
+    <div class="control-zone-label">I can influence</div>
+    <input class="zone-input" placeholder="Conversations I have...">
+    <input class="zone-input" placeholder="How I show up...">
+    <input class="zone-input" placeholder="My effort in...">
+  </div>
+  <div class="control-zone">
+    <div class="control-zone-label">Out of my hands</div>
+    <input class="zone-input" placeholder="Other people's choices...">
+    <input class="zone-input" placeholder="The past...">
+    <input class="zone-input" placeholder="Things I cannot predict...">
+  </div>
+</div>
+
+<!-- Enhanced prompts -->
+<div class="prompt-block">
+  <p class="prompt-q">Looking at your "out of my hands" column — what would it feel like to genuinely let those things go, just for today?</p>
+  <textarea class="journal-area" id="cc-release-feel" rows="3" placeholder="Relief, grief, resistance, freedom..."></textarea>
+</div>
+
+<div class="circle-action">
+  <div>
+    <div class="ca-label">One thing I can actually do today</div>
+    <input class="ca-inp" id="ca-do" placeholder="Something concrete and small...">
+  </div>
+  <div>
+    <div class="ca-label">One thing I'm choosing to release</div>
+    <input class="ca-inp" id="ca-release" placeholder="Something I'll stop carrying today...">
+  </div>
+</div>
+
+<div class="prompt-block">
+  <p class="prompt-q">When you focus only on what you can control — how does that shift how you feel about this situation? What becomes possible?</p>
+  <textarea class="journal-area" id="cc-shift" rows="4" placeholder="What changes when I focus on what's in my hands..."></textarea>
+</div>
+
+<div class="complete-bar" id="complete-circle-control"><span class="complete-bar-text">Mark complete when you're ready</span><button class="complete-btn" onclick="markComplete('circle-control')">Mark complete</button></div>
+```
+
   </div>
 
   <!-- ══ BIG & SMALL INTENTIONS ══ -->
@@ -1865,28 +1983,72 @@ margin-top: -2px;
   <div class="page" id="page-big-small">
     <div class="part-badge p3">III · Move Forward</div>
     <div class="section-tag">Intentions</div>
-    <h1 class="page-title">Big & small <em>intentions</em></h1>
-    <p class="page-intro">Start with the big picture — the intentions that matter most to you right now. Then break them down into small, daily acts. The big ones give you direction. The small ones actually move you.</p>
+    <h1 class="page-title">Big &amp; small <em>intentions</em></h1>
+    <p class="page-intro">Start with what matters most — the big intentions that give you direction. Then name the small daily acts that actually get you there. After you've filled in both, the reflection prompts below help you go deeper.</p>
     <div class="divider"></div>
-    <div class="intentions-split">
-      <div class="intent-card">
-        <div class="intent-card-header"><div class="intent-card-tag big">Big intentions</div><div class="intent-card-title">What matters most</div></div>
-        <div class="intent-card-body">
-          <div class="intent-item"><span class="intent-num">1</span><input class="intent-inp" id="bi1" placeholder="e.g. rebuild my relationship with rest..."></div>
-          <div class="intent-item"><span class="intent-num">2</span><input class="intent-inp" id="bi2" placeholder=""></div>
-          <div class="intent-item"><span class="intent-num">3</span><input class="intent-inp" id="bi3" placeholder=""></div>
-        </div>
-      </div>
-      <div class="intent-card">
-        <div class="intent-card-header"><div class="intent-card-tag small">Small intentions</div><div class="intent-card-title">Daily acts</div></div>
-        <div class="intent-card-body">
-          <div class="intent-item"><span class="intent-num">1</span><input class="intent-inp" id="si1" placeholder="e.g. no phone for first 20 min..."></div>
-          <div class="intent-item"><span class="intent-num">2</span><input class="intent-inp" id="si2" placeholder=""></div>
-          <div class="intent-item"><span class="intent-num">3</span><input class="intent-inp" id="si3" placeholder=""></div>
-        </div>
-      </div>
+
+```
+<div class="intentions-split">
+  <div class="intent-card">
+    <div class="intent-card-header">
+      <div class="intent-card-tag big">Big intentions</div>
+      <div class="intent-card-title">What matters most</div>
+      <div class="intent-card-subtitle">The meaningful directions you want to move in right now.</div>
     </div>
-    <div class="complete-bar" id="complete-big-small"><span class="complete-bar-text">Mark complete when you're ready</span><button class="complete-btn" onclick="markComplete('big-small')">Mark complete</button></div>
+    <div class="intent-card-body">
+      <div class="intent-item"><span class="intent-num">1</span><input class="intent-inp" id="bi1" placeholder="e.g. rebuild my relationship with rest..."></div>
+      <div class="intent-item"><span class="intent-num">2</span><input class="intent-inp" id="bi2" placeholder=""></div>
+      <div class="intent-item"><span class="intent-num">3</span><input class="intent-inp" id="bi3" placeholder=""></div>
+    </div>
+  </div>
+  <div class="intent-card">
+    <div class="intent-card-header">
+      <div class="intent-card-tag small">Small intentions</div>
+      <div class="intent-card-title">Daily acts</div>
+      <div class="intent-card-subtitle">Tiny, repeatable things that connect each day to your bigger direction.</div>
+    </div>
+    <div class="intent-card-body">
+      <div class="intent-item"><span class="intent-num">1</span><input class="intent-inp" id="si1" placeholder="e.g. no phone for first 20 min..."></div>
+      <div class="intent-item"><span class="intent-num">2</span><input class="intent-inp" id="si2" placeholder=""></div>
+      <div class="intent-item"><span class="intent-num">3</span><input class="intent-inp" id="si3" placeholder=""></div>
+      <div class="intent-item"><span class="intent-num">4</span><input class="intent-inp" id="si4" placeholder=""></div>
+      <div class="intent-item"><span class="intent-num">5</span><input class="intent-inp" id="si5" placeholder=""></div>
+    </div>
+  </div>
+</div>
+
+<!-- Reflection prompts -->
+<div class="intent-reflection">
+  <div class="intent-reflection-title">Go deeper</div>
+  <div class="intent-reflection-grid">
+    <div class="intent-ref-box gold-tint">
+      <div class="intent-ref-label">Why this makes my life meaningful</div>
+      <textarea class="intent-ref-ta" id="ir-meaning" placeholder="These intentions matter to me because..."></textarea>
+    </div>
+    <div class="intent-ref-box">
+      <div class="intent-ref-label sage">The feeling I'm moving toward</div>
+      <textarea class="intent-ref-ta" id="ir-feeling" placeholder="When I imagine living these intentions, I feel..."></textarea>
+    </div>
+  </div>
+  <div class="intent-reflection-grid">
+    <div class="intent-ref-box">
+      <div class="intent-ref-label sage">One action I can take this week</div>
+      <textarea class="intent-ref-ta" id="ir-action" placeholder="The smallest real step I can take right now is..."></textarea>
+    </div>
+    <div class="intent-ref-box gold-tint">
+      <div class="intent-ref-label">What might get in the way</div>
+      <textarea class="intent-ref-ta" id="ir-obstacle" placeholder="The habit, fear, or pattern that could pull me off course is..."></textarea>
+    </div>
+  </div>
+  <div class="prompt-block" style="margin-bottom:0">
+    <p class="prompt-q">What would your life look like in three months if you actually lived these intentions? Describe it honestly.</p>
+    <textarea class="journal-area" id="ir-vision" rows="4" placeholder="Three months from now, I will..."></textarea>
+  </div>
+</div>
+
+<div class="complete-bar" id="complete-big-small" style="margin-top:24px"><span class="complete-bar-text">Mark complete when you're ready</span><button class="complete-btn" onclick="markComplete('big-small')">Mark complete</button></div>
+```
+
   </div>
 
   <!-- ══ MOOD & GRATITUDE (calendar) ══ -->
@@ -1894,36 +2056,48 @@ margin-top: -2px;
   <div class="page" id="page-mood-journal">
     <div class="part-badge p3">III · Daily Practice</div>
     <div class="section-tag">Daily journal</div>
-    <h1 class="page-title">Mood & <em>Gratitude</em></h1>
-    <div class="cal-wrap" id="mood-cal-wrap">
-      <div class="cal-header">
-        <div><div style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--sage-light);margin-bottom:3px">Mood Journal</div><div class="cal-month-title" id="mood-cal-title"></div></div>
-        <div class="cal-nav"><button class="cal-nav-btn" onclick="changeMonth('mood',-1)">‹</button><button class="cal-nav-btn" onclick="changeMonth('mood',1)">›</button></div>
-      </div>
-      <div class="cal-day-labels"><div class="cal-day-label">Mo</div><div class="cal-day-label">Tu</div><div class="cal-day-label">We</div><div class="cal-day-label">Th</div><div class="cal-day-label">Fr</div><div class="cal-day-label">Sa</div><div class="cal-day-label">Su</div></div>
-      <div class="cal-grid" id="mood-cal-grid"></div>
-      <div class="cal-footer">
-        <div><div class="cal-sel-lbl">Selected</div><div class="cal-sel-txt" id="mood-cal-selected">—</div></div>
-        <div class="cal-entry-ct" id="mood-entry-ct"></div>
-      </div>
-    </div>
-    <div id="mood-entry-form" style="display:none">
-      <div class="daily-hdr">
-        <div><div class="daily-wday" id="m-entry-wday"></div><div class="daily-date" id="m-entry-date"></div></div>
-        <span class="entry-badge" id="m-entry-badge"></span>
-      </div>
-      <div class="mood-grid">
-        <div class="mood-box"><div class="mood-lbl">Today I feel</div><input class="mood-inp" id="m-feeling" placeholder="Name the feeling..."><div style="margin-top:12px"><div class="mood-lbl">Intensity</div><div class="int-dots" id="m-intensity"></div><div class="int-labels"><span>Mild</span><span>Moderate</span><span>Intense</span></div></div></div>
-        <div class="mood-box"><div class="mood-lbl">What's on my mind</div><textarea class="aff-ta" id="m-thoughts" style="min-height:80px;border:none;background:transparent;font-family:Jost,sans-serif;font-size:12.5px;font-weight:300;color:var(--ink);resize:none;outline:none;width:100%" placeholder="Free write anything..."></textarea></div>
-      </div>
-      <div class="prompt-block"><p style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);font-weight:500;margin-bottom:10px">What would help me feel a little better today?</p><textarea class="journal-area" id="m-elevate" rows="3" placeholder="One small thing..."></textarea></div>
-      <div class="grat-section"><div class="grat-lbl">Three things I'm grateful for today</div><div class="grat-list"><div class="grat-row"><span class="grat-num">1</span><input class="grat-inp" id="m-grat1" placeholder="Be specific — the more specific, the more powerful..."></div><div class="grat-row"><span class="grat-num">2</span><input class="grat-inp" id="m-grat2" placeholder="What made this possible?"></div><div class="grat-row"><span class="grat-num">3</span><input class="grat-inp" id="m-grat3" placeholder="Something small is just as meaningful..."></div></div></div>
-      <div class="split-row">
-        <div class="aff-box"><div class="aff-lbl">My affirmation today</div><textarea class="aff-ta" id="m-affirmation" placeholder="I am..."></textarea></div>
-        <div class="rem-box"><div class="rem-lbl">Something I want to remember</div><textarea class="rem-ta" id="m-remember" placeholder="A moment, a feeling, a thought..."></textarea></div>
-      </div>
-      <div class="save-bar"><div class="save-row"><div class="save-ind" id="m-save-ind"></div><span id="m-save-lbl">All saved</span></div><button class="back-btn" onclick="closeEntry('mood')">← Back to calendar</button></div>
-    </div>
+    <h1 class="page-title">Mood &amp; <em>Gratitude</em></h1>
+
+```
+<!-- NEW: intro box shown when calendar is visible -->
+<div class="journal-intro-box" id="mood-intro-box">
+  <div class="journal-intro-box-label">How this works</div>
+  <div class="journal-intro-box-text">
+    Select any day on the calendar to open that day's entry. <em>Today is always highlighted.</em> You can track your mood, record what you're grateful for, and note what would help you feel a little lighter. Over time, patterns emerge — and that awareness itself is the practice.
+  </div>
+</div>
+
+<div class="cal-wrap" id="mood-cal-wrap">
+  <div class="cal-header">
+    <div><div style="font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--sage-light);margin-bottom:3px">Mood Journal</div><div class="cal-month-title" id="mood-cal-title"></div></div>
+    <div class="cal-nav"><button class="cal-nav-btn" onclick="changeMonth('mood',-1)">‹</button><button class="cal-nav-btn" onclick="changeMonth('mood',1)">›</button></div>
+  </div>
+  <div class="cal-day-labels"><div class="cal-day-label">Mo</div><div class="cal-day-label">Tu</div><div class="cal-day-label">We</div><div class="cal-day-label">Th</div><div class="cal-day-label">Fr</div><div class="cal-day-label">Sa</div><div class="cal-day-label">Su</div></div>
+  <div class="cal-grid" id="mood-cal-grid"></div>
+  <div class="cal-footer">
+    <div><div class="cal-sel-lbl">Selected</div><div class="cal-sel-txt" id="mood-cal-selected">—</div></div>
+    <div class="cal-entry-ct" id="mood-entry-ct"></div>
+  </div>
+</div>
+<div id="mood-entry-form" style="display:none">
+  <div class="daily-hdr">
+    <div><div class="daily-wday" id="m-entry-wday"></div><div class="daily-date" id="m-entry-date"></div></div>
+    <span class="entry-badge" id="m-entry-badge"></span>
+  </div>
+  <div class="mood-grid">
+    <div class="mood-box"><div class="mood-lbl">Today I feel</div><input class="mood-inp" id="m-feeling" placeholder="Name the feeling..."><div style="margin-top:11px"><div class="mood-lbl">Intensity</div><div class="int-dots" id="m-intensity"></div><div class="int-labels"><span>Mild</span><span>Moderate</span><span>Intense</span></div></div></div>
+    <div class="mood-box"><div class="mood-lbl">What's on my mind</div><textarea class="aff-ta" id="m-thoughts" style="min-height:78px;border:none;background:transparent;font-family:Jost,sans-serif;font-size:12px;font-weight:300;color:var(--ink);resize:none;outline:none;width:100%" placeholder="Free write anything..."></textarea></div>
+  </div>
+  <div class="prompt-block"><p style="font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);font-weight:500;margin-bottom:9px">What would help me feel a little better today?</p><textarea class="journal-area" id="m-elevate" rows="3" placeholder="One small thing..."></textarea></div>
+  <div class="grat-section"><div class="grat-lbl">Three things I'm grateful for today</div><div class="grat-list"><div class="grat-row"><span class="grat-num">1</span><input class="grat-inp" id="m-grat1" placeholder="Be specific — the more specific, the more powerful..."></div><div class="grat-row"><span class="grat-num">2</span><input class="grat-inp" id="m-grat2" placeholder="What made this possible?"></div><div class="grat-row"><span class="grat-num">3</span><input class="grat-inp" id="m-grat3" placeholder="Something small is just as meaningful..."></div></div></div>
+  <div class="split-row">
+    <div class="aff-box"><div class="aff-lbl">My affirmation today</div><textarea class="aff-ta" id="m-affirmation" placeholder="I am..."></textarea></div>
+    <div class="rem-box"><div class="rem-lbl">Something I want to remember</div><textarea class="rem-ta" id="m-remember" placeholder="A moment, a feeling, a thought..."></textarea></div>
+  </div>
+  <div class="save-bar"><div class="save-row"><div class="save-ind" id="m-save-ind"></div><span id="m-save-lbl">All saved</span></div><button class="back-btn" onclick="closeEntry('mood')">← Back to calendar</button></div>
+</div>
+```
+
   </div>
 
   <!-- ══ INTENTION PLANNER (calendar) ══ -->
@@ -1932,67 +2106,80 @@ margin-top: -2px;
     <div class="part-badge p3">III · Daily Practice</div>
     <div class="section-tag">Daily journal</div>
     <h1 class="page-title">Intention <em>Planner</em></h1>
-    <div class="cal-wrap" id="planner-cal-wrap">
-      <div class="cal-header">
-        <div><div style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--sage-light);margin-bottom:3px">Daily Planner</div><div class="cal-month-title" id="planner-cal-title"></div></div>
-        <div class="cal-nav"><button class="cal-nav-btn" onclick="changeMonth('planner',-1)">‹</button><button class="cal-nav-btn" onclick="changeMonth('planner',1)">›</button></div>
+
+```
+<!-- NEW: intro box shown when calendar is visible -->
+<div class="journal-intro-box" id="planner-intro-box">
+  <div class="journal-intro-box-label">How this works</div>
+  <div class="journal-intro-box-text">
+    Each day gets its own planning space. Select a date to set your top three intentions, choose your focus areas, and map out your time blocks. End each day with a short reflection — even one sentence is enough. <em>Consistency matters more than completeness.</em>
+  </div>
+</div>
+
+<div class="cal-wrap" id="planner-cal-wrap">
+  <div class="cal-header">
+    <div><div style="font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--sage-light);margin-bottom:3px">Daily Planner</div><div class="cal-month-title" id="planner-cal-title"></div></div>
+    <div class="cal-nav"><button class="cal-nav-btn" onclick="changeMonth('planner',-1)">‹</button><button class="cal-nav-btn" onclick="changeMonth('planner',1)">›</button></div>
+  </div>
+  <div class="cal-day-labels"><div class="cal-day-label">Mo</div><div class="cal-day-label">Tu</div><div class="cal-day-label">We</div><div class="cal-day-label">Th</div><div class="cal-day-label">Fr</div><div class="cal-day-label">Sa</div><div class="cal-day-label">Su</div></div>
+  <div class="cal-grid" id="planner-cal-grid"></div>
+  <div class="cal-footer">
+    <div><div class="cal-sel-lbl">Selected</div><div class="cal-sel-txt" id="planner-cal-selected">—</div></div>
+    <div class="cal-entry-ct" id="planner-entry-ct"></div>
+  </div>
+</div>
+<div id="planner-entry-form" style="display:none">
+  <div class="daily-hdr">
+    <div><div class="daily-wday" id="p-entry-wday"></div><div class="daily-date" id="p-entry-date"></div></div>
+    <span class="entry-badge" id="p-entry-badge"></span>
+  </div>
+  <div class="planner-layout">
+    <div>
+      <div class="p-col-title">Focus areas today</div>
+      <div class="focus-grid">
+        <label class="chk-lbl"><input type="checkbox" id="p-health"> Health</label>
+        <label class="chk-lbl"><input type="checkbox" id="p-chores"> Home</label>
+        <label class="chk-lbl"><input type="checkbox" id="p-career"> Work</label>
+        <label class="chk-lbl"><input type="checkbox" id="p-spirit"> Spirit</label>
+        <label class="chk-lbl"><input type="checkbox" id="p-rel"> Relationships</label>
+        <label class="chk-lbl"><input type="checkbox" id="p-relax"> Rest</label>
+        <label class="chk-lbl"><input type="checkbox" id="p-hobby"> Creative</label>
+        <label class="chk-lbl"><input type="checkbox" id="p-other"> Other</label>
       </div>
-      <div class="cal-day-labels"><div class="cal-day-label">Mo</div><div class="cal-day-label">Tu</div><div class="cal-day-label">We</div><div class="cal-day-label">Th</div><div class="cal-day-label">Fr</div><div class="cal-day-label">Sa</div><div class="cal-day-label">Su</div></div>
-      <div class="cal-grid" id="planner-cal-grid"></div>
-      <div class="cal-footer">
-        <div><div class="cal-sel-lbl">Selected</div><div class="cal-sel-txt" id="planner-cal-selected">—</div></div>
-        <div class="cal-entry-ct" id="planner-entry-ct"></div>
+      <div class="prod-wrap">
+        <div class="p-col-title">Energy level</div>
+        <input type="range" class="prod-slider" id="p-prod" min="1" max="10" value="5">
+        <div class="slider-ticks"><span>Low</span><span>Medium</span><span>High</span></div>
+      </div>
+      <div class="int-list">
+        <div class="p-col-title">Top 3 intentions today</div>
+        <div class="int-row"><span class="int-n">1</span><input class="int-inp" id="p-int1" placeholder="The most important thing..."></div>
+        <div class="int-row"><span class="int-n">2</span><input class="int-inp" id="p-int2" placeholder=""></div>
+        <div class="int-row"><span class="int-n">3</span><input class="int-inp" id="p-int3" placeholder=""></div>
+      </div>
+      <div class="ks-card">
+        <div class="ks-row"><span class="ks-lbl">Keystone habit</span><input class="ks-inp" id="p-keystone" placeholder="The one habit that anchors the day..."></div>
+        <div class="ks-row"><span class="ks-lbl">Today's reward</span><input class="ks-inp" id="p-reward" placeholder="Something kind I'll give myself..."></div>
+        <div class="ks-row"><span class="ks-lbl">Reminder</span><input class="ks-inp" id="p-reminder" placeholder="What I need to remember today..."></div>
       </div>
     </div>
-    <div id="planner-entry-form" style="display:none">
-      <div class="daily-hdr">
-        <div><div class="daily-wday" id="p-entry-wday"></div><div class="daily-date" id="p-entry-date"></div></div>
-        <span class="entry-badge" id="p-entry-badge"></span>
-      </div>
-      <div class="planner-layout">
-        <div>
-          <div class="p-col-title">Focus areas today</div>
-          <div class="focus-grid">
-            <label class="chk-lbl"><input type="checkbox" id="p-health"> Health</label>
-            <label class="chk-lbl"><input type="checkbox" id="p-chores"> Home</label>
-            <label class="chk-lbl"><input type="checkbox" id="p-career"> Work</label>
-            <label class="chk-lbl"><input type="checkbox" id="p-spirit"> Spirit</label>
-            <label class="chk-lbl"><input type="checkbox" id="p-rel"> Relationships</label>
-            <label class="chk-lbl"><input type="checkbox" id="p-relax"> Rest</label>
-            <label class="chk-lbl"><input type="checkbox" id="p-hobby"> Creative</label>
-            <label class="chk-lbl"><input type="checkbox" id="p-other"> Other</label>
-          </div>
-          <div class="prod-wrap">
-            <div class="p-col-title">Energy level</div>
-            <input type="range" class="prod-slider" id="p-prod" min="1" max="10" value="5">
-            <div class="slider-ticks"><span>Low</span><span>Medium</span><span>High</span></div>
-          </div>
-          <div class="int-list">
-            <div class="p-col-title">Top 3 intentions today</div>
-            <div class="int-row"><span class="int-n">1</span><input class="int-inp" id="p-int1" placeholder="The most important thing..."></div>
-            <div class="int-row"><span class="int-n">2</span><input class="int-inp" id="p-int2" placeholder=""></div>
-            <div class="int-row"><span class="int-n">3</span><input class="int-inp" id="p-int3" placeholder=""></div>
-          </div>
-          <div class="ks-card">
-            <div class="ks-row"><span class="ks-lbl">Keystone habit</span><input class="ks-inp" id="p-keystone" placeholder="The one habit that anchors the day..."></div>
-            <div class="ks-row"><span class="ks-lbl">Today's reward</span><input class="ks-inp" id="p-reward" placeholder="Something kind I'll give myself..."></div>
-            <div class="ks-row"><span class="ks-lbl">Reminder</span><input class="ks-inp" id="p-reminder" placeholder="What I need to remember today..."></div>
-          </div>
-        </div>
-        <div>
-          <div class="p-col-title">Time blocks</div>
-          <div class="time-grid" id="p-time-grid"></div>
-        </div>
-        <div class="reminder-bar">
-          <div class="reminder-lbl">End of day reflection</div>
-          <textarea class="reminder-ta" id="p-eod" placeholder="How did today go? What do I want to carry into tomorrow?"></textarea>
-        </div>
-      </div>
-      <div class="save-bar"><div class="save-row"><div class="save-ind" id="p-save-ind"></div><span id="p-save-lbl">All saved</span></div><button class="back-btn" onclick="closeEntry('planner')">← Back to calendar</button></div>
+    <div>
+      <div class="p-col-title">Time blocks</div>
+      <div class="time-grid" id="p-time-grid"></div>
     </div>
+    <div class="reminder-bar">
+      <div class="reminder-lbl">End of day reflection</div>
+      <textarea class="reminder-ta" id="p-eod" placeholder="How did today go? What do I want to carry into tomorrow?"></textarea>
+    </div>
+  </div>
+  <div class="save-bar"><div class="save-row"><div class="save-ind" id="p-save-ind"></div><span id="p-save-lbl">All saved</span></div><button class="back-btn" onclick="closeEntry('planner')">← Back to calendar</button></div>
+</div>
+```
+
   </div>
 
 </main>
+
 <script>
 // ══ DATA ══
 const ROLES = [
@@ -2011,10 +2198,10 @@ const ROLES = [
 ];
 
 const COLLAGE_WORDS = [
-'stillness','warm light','safety','belonging','softness','morning tea',
-'open skies','being held','laughter','music','forests','the ocean',
-'home','gentle words','creativity','sunshine','deep sleep','trusted friends',
-'silence','movement','childhood','colour','candlelight','fresh air',
+  'stillness','warm light','safety','belonging','softness','morning tea',
+  'open skies','being held','laughter','music','forests','the ocean',
+  'home','gentle words','creativity','sunshine','deep sleep','trusted friends',
+  'silence','movement','childhood','colour','candlelight','fresh air',
 ];
 
 const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -2022,501 +2209,545 @@ const WDAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Satu
 
 // ══ PAGE NAVIGATION ══
 const PAGES = [
-'welcome','how-to-use',
-'part1-intro','grounding','emotion-compass','emotional-collage','compassion-figure','part1-pause',
-'part2-intro',
-'ch1-early','ch1-family','ch1-moments','ch1-pause',
-'ch2-today','ch2-fills','ch2-joys','ch3-roles','ch3-ideal','ch3-shadow','ch2-pause',
-'ch6-offload','ch6-critic','ch6-child','ch6-letter-younger','ch6-attachment','ch6-pause',
-'ch4-dreams','ch4-vision','ch4-success','ch4-legacy','ch4-pause',
-'ch5-insights','ch5-final',
-'part3-intro','closing','circle-control','big-small','mood-journal','intention-planner'
+  'welcome','how-to-use',
+  'part1-intro','grounding','emotion-compass','emotional-collage','compassion-figure','part1-pause',
+  'part2-intro',
+  'ch1-early','ch1-family','ch1-moments','ch1-pause',
+  'ch2-today','ch2-fills','ch2-joys','ch3-roles','ch3-ideal','ch3-shadow','ch2-pause',
+  'ch6-offload','ch6-critic','ch6-child','ch6-letter-younger','ch6-attachment','ch6-pause',
+  'ch4-dreams','ch4-vision','ch4-success','ch4-legacy','ch4-pause',
+  'ch5-insights','ch5-final',
+  'part3-intro','closing','circle-control','big-small','mood-journal','intention-planner'
 ];
 
 const BREADCRUMBS = {
-"welcome":"Welcome","how-to-use":"How to use this journal",
-"part1-intro":"Part I · Introduction","grounding":"Ground yourself first",
-"emotion-compass":"How are you, really?","emotional-collage":"Your safe place",
-"compassion-figure":"Your compassionate voice","part1-pause":"Before you move on",
-"part2-intro":"Part II · Introduction",
-"ch1-early":"Early impressions","ch1-family":"Family and love","ch1-moments":"A moment that stayed",
-"ch1-pause":"Before you move on",
-"ch2-today":"Your life today","ch2-fills":"What fills and drains you","ch2-joys":"Small joys",
-"ch3-roles":"The roles you play","ch3-ideal":"A version you admire","ch3-shadow":"The hard-to-show part",
-"ch2-pause":"Before you move on",
-"ch6-offload":"Say the thing you haven't said","ch6-critic":"That voice in your head",
-"ch6-child":"Meeting your younger self","ch6-letter-younger":"A letter to the child you were",
-"ch6-attachment":"How you love and let people in","ch6-pause":"Before you move on",
-"ch4-dreams":"Dreams and what stops them","ch4-vision":"Your ideal day",
-"ch4-success":"What success really means","ch4-legacy":"What you want to matter",
-"ch4-pause":"Before you move on",
-"ch5-insights":"What this taught me",
-"ch5-final":"My full story",
-"part3-intro":"Part III · Introduction","closing":"A note to carry with you",
-"circle-control":"What is in my hands",
-"big-small":"Big and small intentions",
-"mood-journal":"Mood and gratitude","intention-planner":"Intention planner"
+  "welcome":"Welcome","how-to-use":"How to use this journal",
+  "part1-intro":"Part I · Introduction","grounding":"Ground yourself first",
+  "emotion-compass":"How are you, really?","emotional-collage":"Your safe place",
+  "compassion-figure":"Your compassionate voice","part1-pause":"Before you move on",
+  "part2-intro":"Part II · Introduction",
+  "ch1-early":"Early impressions","ch1-family":"Family and love","ch1-moments":"A moment that stayed",
+  "ch1-pause":"Before you move on",
+  "ch2-today":"Your life today","ch2-fills":"What fills and drains you","ch2-joys":"Small joys",
+  "ch3-roles":"The roles you play","ch3-ideal":"A version you admire","ch3-shadow":"The hard-to-show part",
+  "ch2-pause":"Before you move on",
+  "ch6-offload":"Say the thing you haven't said","ch6-critic":"That voice in your head",
+  "ch6-child":"Meeting your younger self","ch6-letter-younger":"A letter to the child you were",
+  "ch6-attachment":"How you love and let people in","ch6-pause":"Before you move on",
+  "ch4-dreams":"Dreams and what stops them","ch4-vision":"Your ideal day",
+  "ch4-success":"What success really means","ch4-legacy":"What you want to matter",
+  "ch4-pause":"Before you move on",
+  "ch5-insights":"What this taught me","ch5-final":"My full story",
+  "part3-intro":"Part III · Introduction","closing":"A note to carry with you",
+  "circle-control":"What is in my hands","big-small":"Big and small intentions",
+  "mood-journal":"Mood and gratitude","intention-planner":"Intention planner"
 };
 
-// Completable pages (excludes calendars which are always open)
 const COMPLETABLE = PAGES.filter(p => !['mood-journal','intention-planner','part2-intro','part3-intro'].includes(p));
+
+// Mapping each page to its group id (for Part II active highlight)
+const PAGE_GROUP_MAP = {
+  'ch1-early': 'grp-roots', 'ch1-family': 'grp-roots', 'ch1-moments': 'grp-roots', 'ch1-pause': 'grp-roots',
+  'ch2-today': 'grp-now', 'ch2-fills': 'grp-now', 'ch2-joys': 'grp-now',
+  'ch3-roles': 'grp-now', 'ch3-ideal': 'grp-now', 'ch3-shadow': 'grp-now', 'ch2-pause': 'grp-now',
+  'ch6-offload': 'grp-carrying', 'ch6-critic': 'grp-carrying', 'ch6-child': 'grp-carrying',
+  'ch6-letter-younger': 'grp-carrying', 'ch6-attachment': 'grp-carrying', 'ch6-pause': 'grp-carrying',
+  'ch4-dreams': 'grp-want', 'ch4-vision': 'grp-want', 'ch4-success': 'grp-want',
+  'ch4-legacy': 'grp-want', 'ch4-pause': 'grp-want',
+  'ch5-insights': 'grp-together', 'ch5-final': 'grp-together',
+};
 
 let currentPage = 'welcome';
 
 function showPage(id, el) {
-document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-const pg = document.getElementById('page-' + id);
-if (pg) pg.classList.add('active');
-if (el) el.classList.add('active');
-currentPage = id;
-document.getElementById('breadcrumb').textContent = BREADCRUMBS[id] || id;
-document.querySelector('.main').scrollTo(0, 0);
-// close mobile sidebar
-document.getElementById('sidebar').classList.remove('open');
-document.getElementById('overlay').classList.remove('active');
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+  // FIX: clear all group 'has-active' classes before re-setting
+  document.querySelectorAll('.nav-group').forEach(g => g.classList.remove('has-active'));
+
+  const pg = document.getElementById('page-' + id);
+  if (pg) pg.classList.add('active');
+  if (el) el.classList.add('active');
+  currentPage = id;
+  document.getElementById('breadcrumb').textContent = BREADCRUMBS[id] || id;
+  document.querySelector('.main').scrollTo(0, 0);
+
+  // FIX: highlight & open parent group when a child is active
+  const grpId = PAGE_GROUP_MAP[id];
+  if (grpId) {
+    const grp = document.getElementById(grpId);
+    if (grp) {
+      grp.classList.add('has-active');
+      // auto-open the group so active child is visible
+      if (!grp.classList.contains('open')) {
+        grp.classList.add('open');
+      }
+    }
+  }
+
+  // Scroll the active item into view in sidebar
+  setTimeout(() => {
+    if (el) el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }, 50);
+
+  // Hide/show intro boxes for calendar pages
+  if (id === 'mood-journal') {
+    const ib = document.getElementById('mood-intro-box');
+    if (ib) ib.style.display = '';
+  }
+  if (id === 'intention-planner') {
+    const ib = document.getElementById('planner-intro-box');
+    if (ib) ib.style.display = '';
+  }
+
+  // close mobile sidebar
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('active');
 }
 
 function navigateNext() {
-const i = PAGES.indexOf(currentPage);
-if (i < PAGES.length - 1) {
-const n = PAGES[i + 1];
-showPage(n, document.querySelector('[data-page="' + n + '"]'));
-}
+  const i = PAGES.indexOf(currentPage);
+  if (i < PAGES.length - 1) {
+    const n = PAGES[i + 1];
+    showPage(n, document.querySelector('[data-page="' + n + '"]'));
+  }
 }
 
 function navigatePrev() {
-const i = PAGES.indexOf(currentPage);
-if (i > 0) {
-const n = PAGES[i - 1];
-showPage(n, document.querySelector('[data-page="' + n + '"]'));
-}
+  const i = PAGES.indexOf(currentPage);
+  if (i > 0) {
+    const n = PAGES[i - 1];
+    showPage(n, document.querySelector('[data-page="' + n + '"]'));
+  }
 }
 
 function toggleGroup(id) {
-document.getElementById(id).classList.toggle('open');
+  document.getElementById(id).classList.toggle('open');
 }
 
 function toggleSidebar() {
-const sb = document.getElementById('sidebar');
-const ov = document.getElementById('overlay');
-sb.classList.toggle('open');
-ov.classList.toggle('active');
+  const sb = document.getElementById('sidebar');
+  const ov = document.getElementById('overlay');
+  sb.classList.toggle('open');
+  ov.classList.toggle('active');
 }
 
 // ══ COMPLETE ══
 function markComplete(id) {
-const bar = document.getElementById('complete-' + id);
-if (!bar) return;
-bar.classList.add('done');
-bar.querySelector('.complete-bar-text').textContent = '✓ Section complete — moving to next page…';
-bar.querySelector('.complete-btn').classList.add('done');
-bar.querySelector('.complete-btn').textContent = 'Complete ✓';
-const navEl = document.querySelector('[data-page="' + id + '"]');
-if (navEl) navEl.classList.add('done');
-const completed = JSON.parse(localStorage.getItem('inklings_completed') || '[]');
-if (!completed.includes(id)) completed.push(id);
-localStorage.setItem('inklings_completed', JSON.stringify(completed));
-updateProgress();
-updateStreak();
-// auto-advance to next page after 1.2s
-setTimeout(() => navigateNext(), 1200);
+  const bar = document.getElementById('complete-' + id);
+  if (!bar) return;
+  bar.classList.add('done');
+  bar.querySelector('.complete-bar-text').textContent = '✓ Section complete — moving to next page…';
+  bar.querySelector('.complete-btn').classList.add('done');
+  bar.querySelector('.complete-btn').textContent = 'Complete ✓';
+  const navEl = document.querySelector('[data-page="' + id + '"]');
+  if (navEl) navEl.classList.add('done');
+  const completed = JSON.parse(localStorage.getItem('inklings_completed') || '[]');
+  if (!completed.includes(id)) completed.push(id);
+  localStorage.setItem('inklings_completed', JSON.stringify(completed));
+  updateProgress();
+  updateStreak();
+  setTimeout(() => navigateNext(), 1200);
 }
 
 function restoreCompleted() {
-const completed = JSON.parse(localStorage.getItem('inklings_completed') || '[]');
-completed.forEach(id => {
-const bar = document.getElementById('complete-' + id);
-if (bar) {
-bar.classList.add('done');
-bar.querySelector('.complete-bar-text').textContent = '✓ Section complete';
-const btn = bar.querySelector('.complete-btn');
-btn.classList.add('done');
-btn.textContent = 'Complete ✓';
-}
-const navEl = document.querySelector('[data-page="' + id + '"]');
-if (navEl) navEl.classList.add('done');
-});
+  const completed = JSON.parse(localStorage.getItem('inklings_completed') || '[]');
+  completed.forEach(id => {
+    const bar = document.getElementById('complete-' + id);
+    if (bar) {
+      bar.classList.add('done');
+      bar.querySelector('.complete-bar-text').textContent = '✓ Section complete';
+      const btn = bar.querySelector('.complete-btn');
+      btn.classList.add('done');
+      btn.textContent = 'Complete ✓';
+    }
+    const navEl = document.querySelector('[data-page="' + id + '"]');
+    if (navEl) navEl.classList.add('done');
+  });
 }
 
 function updateProgress() {
-const completed = JSON.parse(localStorage.getItem('inklings_completed') || '[]');
-const pct = Math.round((completed.length / COMPLETABLE.length) * 100);
-document.getElementById('progress-pct').textContent = pct + '%';
-document.getElementById('progress-fill').style.width = pct + '%';
+  const completed = JSON.parse(localStorage.getItem('inklings_completed') || '[]');
+  const pct = Math.round((completed.length / COMPLETABLE.length) * 100);
+  document.getElementById('progress-pct').textContent = pct + '%';
+  document.getElementById('progress-fill').style.width = pct + '%';
 }
 
 // ══ ROLES TABLE ══
 function buildRolesTable() {
-const tbody = document.getElementById('roles-tbody');
-if (!tbody) return;
-const saved = JSON.parse(localStorage.getItem('inklings_roles') || '{}');
-ROLES.forEach((role, ri) => {
-const tr = document.createElement('tr');
-const stars = [1,2,3,4,5].map(s =>
-`<span class="star ${(saved[ri]||0) >= s ? 'filled' : ''}" data-ri="${ri}" data-s="${s}">★</span>`
-).join('');
-tr.innerHTML = `<td><div class="role-name">${role.name}</div></td> <td><div class="role-desc">${role.desc}</div></td> <td><div class="star-rating" id="stars-${ri}">${stars}</div></td>`;
-tbody.appendChild(tr);
-});
-tbody.addEventListener('click', e => {
-if (e.target.classList.contains('star')) {
-const ri = parseInt(e.target.dataset.ri);
-const s = parseInt(e.target.dataset.s);
-const saved2 = JSON.parse(localStorage.getItem('inklings_roles') || '{}');
-saved2[ri] = s;
-localStorage.setItem('inklings_roles', JSON.stringify(saved2));
-document.querySelectorAll(`#stars-${ri} .star`).forEach((st, i) => {
-st.classList.toggle('filled', i < s);
-});
-}
-});
+  const tbody = document.getElementById('roles-tbody');
+  if (!tbody) return;
+  const saved = JSON.parse(localStorage.getItem('inklings_roles') || '{}');
+  ROLES.forEach((role, ri) => {
+    const tr = document.createElement('tr');
+    const stars = [1,2,3,4,5].map(s =>
+      `<span class="star ${(saved[ri]||0) >= s ? 'filled' : ''}" data-ri="${ri}" data-s="${s}">★</span>`
+    ).join('');
+    tr.innerHTML = `<td><div class="role-name">${role.name}</div></td><td><div class="role-desc">${role.desc}</div></td><td><div class="star-rating" id="stars-${ri}">${stars}</div></td>`;
+    tbody.appendChild(tr);
+  });
+  tbody.addEventListener('click', e => {
+    if (e.target.classList.contains('star')) {
+      const ri = parseInt(e.target.dataset.ri);
+      const s = parseInt(e.target.dataset.s);
+      const saved2 = JSON.parse(localStorage.getItem('inklings_roles') || '{}');
+      saved2[ri] = s;
+      localStorage.setItem('inklings_roles', JSON.stringify(saved2));
+      document.querySelectorAll(`#stars-${ri} .star`).forEach((st, i) => {
+        st.classList.toggle('filled', i < s);
+      });
+    }
+  });
 }
 
 // ══ COLLAGE ══
 function buildCollage() {
-const grid = document.getElementById('collage-grid');
-if (!grid) return;
-const saved = JSON.parse(localStorage.getItem('inklings_collage') || '[]');
-COLLAGE_WORDS.forEach(w => {
-const chip = document.createElement('div');
-chip.className = 'collage-chip' + (saved.includes(w) ? ' selected' : '');
-chip.textContent = w;
-chip.onclick = () => {
-chip.classList.toggle('selected');
-const s = JSON.parse(localStorage.getItem('inklings_collage') || '[]');
-const idx = s.indexOf(w);
-if (idx > -1) s.splice(idx, 1); else s.push(w);
-localStorage.setItem('inklings_collage', JSON.stringify(s));
-};
-grid.appendChild(chip);
-});
+  const grid = document.getElementById('collage-grid');
+  if (!grid) return;
+  const saved = JSON.parse(localStorage.getItem('inklings_collage') || '[]');
+  COLLAGE_WORDS.forEach(w => {
+    const chip = document.createElement('div');
+    chip.className = 'collage-chip' + (saved.includes(w) ? ' selected' : '');
+    chip.textContent = w;
+    chip.onclick = () => {
+      chip.classList.toggle('selected');
+      const s = JSON.parse(localStorage.getItem('inklings_collage') || '[]');
+      const idx = s.indexOf(w);
+      if (idx > -1) s.splice(idx, 1); else s.push(w);
+      localStorage.setItem('inklings_collage', JSON.stringify(s));
+    };
+    grid.appendChild(chip);
+  });
 }
 
 // ══ STATIC SAVE (debounced) ══
 let saveTimer;
 function triggerSave() {
-const dot = document.getElementById('save-dot');
-const lbl = document.getElementById('save-label');
-dot.className = 'save-dot saving';
-lbl.textContent = 'Saving…';
-clearTimeout(saveTimer);
-saveTimer = setTimeout(() => {
-saveStaticData();
-dot.className = 'save-dot';
-lbl.textContent = 'All saved';
-}, 600);
+  const dot = document.getElementById('save-dot');
+  const lbl = document.getElementById('save-label');
+  dot.className = 'save-dot saving';
+  lbl.textContent = 'Saving…';
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    saveStaticData();
+    dot.className = 'save-dot';
+    lbl.textContent = 'All saved';
+  }, 600);
 }
 
 function saveStaticData() {
-const data = {};
-document.querySelectorAll('textarea[id], input[type=text][id], input[type=text].g-inp[id], input[type=text].ca-inp[id], input[type=text].ec-body-inp[id], input[type=text].zone-input[id], input[type=text].fd-inp[id], input[type=text].intent-inp[id], input[type=text].ks-inp[id], input[type=text].wk-ta[id]').forEach(el => {
-if (el.id) data[el.id] = el.value;
-});
-// also grab inputs
-document.querySelectorAll('input[type=text][id]').forEach(el => {
-if (el.id) data[el.id] = el.value;
-});
-localStorage.setItem('inklings_static', JSON.stringify(data));
+  const data = {};
+  document.querySelectorAll('textarea[id], input[type=text][id], input[id].g-inp, input[id].ca-inp, input[id].ec-body-inp, input[id].zone-input, input[id].fd-inp, input[id].intent-inp, input[id].ks-inp, input[id].name-inp, input[id].mood-inp').forEach(el => {
+    if (el.id) data[el.id] = el.value;
+  });
+  localStorage.setItem('inklings_static', JSON.stringify(data));
 }
 
 function loadStaticData() {
-const data = JSON.parse(localStorage.getItem('inklings_static') || '{}');
-Object.entries(data).forEach(([id, val]) => {
-const el = document.getElementById(id);
-if (el && el.tagName !== 'SELECT') el.value = val;
-});
+  const data = JSON.parse(localStorage.getItem('inklings_static') || '{}');
+  Object.entries(data).forEach(([id, val]) => {
+    const el = document.getElementById(id);
+    if (el && el.type !== 'checkbox') el.value = val;
+  });
 }
 
 function attachStaticSave() {
-document.querySelectorAll('textarea, input[type=text]').forEach(el => {
-el.addEventListener('input', triggerSave);
-});
+  document.querySelectorAll('textarea, input[type=text], input.g-inp, input.ca-inp, input.ec-body-inp, input.zone-input, input.fd-inp, input.intent-inp, input.ks-inp, input.name-inp, input.mood-inp').forEach(el => {
+    el.addEventListener('input', triggerSave);
+  });
 }
 
 // ══ CALENDAR ══
 const calSt = {
-mood: { y: new Date().getFullYear(), m: new Date().getMonth(), sel: null },
-planner: { y: new Date().getFullYear(), m: new Date().getMonth(), sel: null }
+  mood: { y: new Date().getFullYear(), m: new Date().getMonth(), sel: null },
+  planner: { y: new Date().getFullYear(), m: new Date().getMonth(), sel: null }
 };
 
 function fmtDate(y, m, d) { return y + '-' + String(m+1).padStart(2,'0') + '-' + String(d).padStart(2,'0'); }
 function todayStr() { const t = new Date(); return fmtDate(t.getFullYear(), t.getMonth(), t.getDate()); }
 
 function renderCal(type) {
-const st = calSt[type];
-const { y, m } = st;
-document.getElementById(type + '-cal-title').innerHTML = MONTHS[m] + ' <span>' + y + '</span>';
-const grid = document.getElementById(type + '-cal-grid');
-grid.innerHTML = '';
-const firstDay = new Date(y, m, 1).getDay();
-const offset = firstDay === 0 ? 6 : firstDay - 1;
-const daysInMonth = new Date(y, m+1, 0).getDate();
-const daysInPrev = new Date(y, m, 0).getDate();
-const today = todayStr();
-const pfx = type + '_' + y + '-' + String(m+1).padStart(2,'0');
-const ct = Object.keys(localStorage).filter(k => k.startsWith(pfx)).length;
-document.getElementById(type + '-entry-ct').textContent = ct + (ct === 1 ? ' entry' : ' entries') + ' this month';
-for (let i = offset-1; i >= 0; i--) grid.appendChild(makeCell(type, y, m-1, daysInPrev-i, today, true));
-for (let d = 1; d <= daysInMonth; d++) grid.appendChild(makeCell(type, y, m, d, today, false));
-const total = offset + daysInMonth, rem = total % 7 === 0 ? 0 : 7 - (total % 7);
-for (let d = 1; d <= rem; d++) grid.appendChild(makeCell(type, y, m+1, d, today, true));
+  const st = calSt[type];
+  const { y, m } = st;
+  document.getElementById(type + '-cal-title').innerHTML = MONTHS[m] + ' <span>' + y + '</span>';
+  const grid = document.getElementById(type + '-cal-grid');
+  grid.innerHTML = '';
+  const firstDay = new Date(y, m, 1).getDay();
+  const offset = firstDay === 0 ? 6 : firstDay - 1;
+  const daysInMonth = new Date(y, m+1, 0).getDate();
+  const daysInPrev = new Date(y, m, 0).getDate();
+  const today = todayStr();
+  const pfx = type + '_' + y + '-' + String(m+1).padStart(2,'0');
+  const ct = Object.keys(localStorage).filter(k => k.startsWith(pfx)).length;
+  document.getElementById(type + '-entry-ct').textContent = ct + (ct === 1 ? ' entry' : ' entries') + ' this month';
+  for (let i = offset-1; i >= 0; i--) grid.appendChild(makeCell(type, y, m-1, daysInPrev-i, today, true, false));
+  for (let d = 1; d <= daysInMonth; d++) grid.appendChild(makeCell(type, y, m, d, today, false, false));
+  const total = offset + daysInMonth, rem = total % 7 === 0 ? 0 : 7 - (total % 7);
+  for (let d = 1; d <= rem; d++) grid.appendChild(makeCell(type, y, m+1, d, today, true, false));
 }
 
-function makeCell(type, year, month, day, today, isOther) {
-const ry = month < 0 ? year-1 : month > 11 ? year+1 : year;
-const rm = ((month % 12) + 12) % 12;
-const ds = fmtDate(ry, rm, day);
-const hasEntry = localStorage.getItem(type + '_' + ds) !== null;
-const isToday = ds === today, isSel = calSt[type].sel === ds;
-const isFuture = ds > today;
-const cell = document.createElement('div');
-cell.className = 'cal-cell'
-+ (isOther || isFuture ? ' cal-other' : '')
-+ (isToday ? ' cal-today' : '')
-+ (isSel ? ' cal-sel' : '')
-+ (hasEntry ? ' cal-has' : '')
-+ (isFuture ? ' cal-future' : '');
-cell.innerHTML = '<span>' + day + '</span><div class="cal-dot"></div>';
-if (!isOther && !isFuture) cell.addEventListener('click', () => { calSt[type].sel = ds; renderCal(type); openEntry(type, ds); });
-return cell;
+function makeCell(type, year, month, day, today, isOther, _unused) {
+  const ry = month < 0 ? year-1 : month > 11 ? year+1 : year;
+  const rm = ((month % 12) + 12) % 12;
+  const ds = fmtDate(ry, rm, day);
+  const hasEntry = localStorage.getItem(type + '_' + ds) !== null;
+  const isToday = ds === today;
+  const isSel = calSt[type].sel === ds;
+  // FIX: future dates in current month get 'cal-future' not 'cal-other'
+  const isFuture = !isOther && ds > today;
+
+  const cell = document.createElement('div');
+  cell.className = 'cal-cell'
+    + (isOther ? ' cal-other' : '')
+    + (isFuture ? ' cal-future' : '')
+    + (isToday ? ' cal-today' : '')
+    + (isSel ? ' cal-sel' : '')
+    + (hasEntry && !isOther ? ' cal-has' : '');
+  cell.innerHTML = '<span>' + day + '</span><div class="cal-dot"></div>';
+  if (!isOther && !isFuture) {
+    cell.addEventListener('click', () => { calSt[type].sel = ds; renderCal(type); openEntry(type, ds); });
+  }
+  return cell;
 }
 
 function changeMonth(type, dir) {
-const st = calSt[type]; st.m += dir;
-if (st.m < 0) { st.m = 11; st.y--; }
-if (st.m > 11) { st.m = 0; st.y++; }
-renderCal(type);
+  const st = calSt[type]; st.m += dir;
+  if (st.m < 0) { st.m = 11; st.y--; }
+  if (st.m > 11) { st.m = 0; st.y++; }
+  renderCal(type);
 }
 
 function openEntry(type, ds) {
-const [y, m, d] = ds.split('-').map(Number);
-const dt = new Date(y, m-1, d);
-document.getElementById(type === 'mood' ? 'm-entry-wday' : 'p-entry-wday').textContent = WDAYS[dt.getDay()];
-const dateEl = document.getElementById(type === 'mood' ? 'm-entry-date' : 'p-entry-date');
-dateEl.innerHTML = d + ' <span>' + MONTHS[m-1] + '</span> ' + y;
-const saved = localStorage.getItem(type + '_' + ds);
-const badge = document.getElementById(type === 'mood' ? 'm-entry-badge' : 'p-entry-badge');
-badge.textContent = saved ? '✦ Existing entry' : '✦ New entry';
-badge.className = 'entry-badge ' + (saved ? 'exist-e' : 'new-e');
-const selTxt = document.getElementById(type + '-cal-selected');
-if (selTxt) selTxt.textContent = WDAYS[dt.getDay()] + ', ' + MONTHS[m-1] + ' ' + d;
-document.getElementById(type + '-cal-wrap').style.display = 'none';
-document.getElementById(type + '-entry-form').style.display = 'block';
-if (type === 'mood') loadMoodEntry(ds, saved);
-if (type === 'planner') loadPlannerEntry(ds, saved);
-attachDailySave(type, ds);
+  const [y, m, d] = ds.split('-').map(Number);
+  const dt = new Date(y, m-1, d);
+  document.getElementById(type === 'mood' ? 'm-entry-wday' : 'p-entry-wday').textContent = WDAYS[dt.getDay()];
+  const dateEl = document.getElementById(type === 'mood' ? 'm-entry-date' : 'p-entry-date');
+  dateEl.innerHTML = d + ' <span>' + MONTHS[m-1] + '</span> ' + y;
+  const saved = localStorage.getItem(type + '_' + ds);
+  const badge = document.getElementById(type === 'mood' ? 'm-entry-badge' : 'p-entry-badge');
+  badge.textContent = saved ? '✦ Existing entry' : '✦ New entry';
+  badge.className = 'entry-badge ' + (saved ? 'exist-e' : 'new-e');
+  const selTxt = document.getElementById(type + '-cal-selected');
+  if (selTxt) selTxt.textContent = WDAYS[dt.getDay()] + ', ' + MONTHS[m-1] + ' ' + d;
+
+  // Hide intro box while entry is open
+  const ib = document.getElementById(type + '-intro-box');
+  if (ib) ib.style.display = 'none';
+
+  document.getElementById(type + '-cal-wrap').style.display = 'none';
+  document.getElementById(type + '-entry-form').style.display = 'block';
+  if (type === 'mood') loadMoodEntry(ds, saved);
+  if (type === 'planner') loadPlannerEntry(ds, saved);
+  attachDailySave(type, ds);
 }
 
 function closeEntry(type) {
-document.getElementById(type + '-cal-wrap').style.display = '';
-document.getElementById(type + '-entry-form').style.display = 'none';
-calSt[type].sel = null;
-renderCal(type);
+  document.getElementById(type + '-cal-wrap').style.display = '';
+  document.getElementById(type + '-entry-form').style.display = 'none';
+  // Restore intro box
+  const ib = document.getElementById(type + '-intro-box');
+  if (ib) ib.style.display = '';
+  calSt[type].sel = null;
+  renderCal(type);
 }
 
 // ── MOOD ──
 function loadMoodEntry(ds, savedJson) {
-const data = savedJson ? JSON.parse(savedJson) : {};
-['m-feeling','m-thoughts','m-elevate','m-grat1','m-grat2','m-grat3','m-affirmation','m-remember'].forEach(id => {
-const key = id.replace('m-', '');
-const el = document.getElementById(id);
-if (el) el.value = data[key] || '';
-});
-const dots = document.getElementById('m-intensity');
-dots.innerHTML = '';
-for (let i = 1; i <= 10; i++) {
-const dot = document.createElement('div');
-dot.className = 'int-dot' + (i <= (data.intensity || 0) ? ' on' : '');
-dot.dataset.v = i;
-dot.addEventListener('click', function() {
-const v = parseInt(this.dataset.v);
-dots.querySelectorAll('.int-dot').forEach((d, idx) => d.classList.toggle('on', idx < v));
-saveMoodEntry(ds);
-});
-dots.appendChild(dot);
-}
+  const data = savedJson ? JSON.parse(savedJson) : {};
+  ['m-feeling','m-thoughts','m-elevate','m-grat1','m-grat2','m-grat3','m-affirmation','m-remember'].forEach(id => {
+    const key = id.replace('m-', '');
+    const el = document.getElementById(id);
+    if (el) el.value = data[key] || '';
+  });
+  const dots = document.getElementById('m-intensity');
+  dots.innerHTML = '';
+  for (let i = 1; i <= 10; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'int-dot' + (i <= (data.intensity || 0) ? ' on' : '');
+    dot.dataset.v = i;
+    dot.addEventListener('click', function() {
+      const v = parseInt(this.dataset.v);
+      dots.querySelectorAll('.int-dot').forEach((d2, idx) => d2.classList.toggle('on', idx < v));
+      saveMoodEntry(ds);
+    });
+    dots.appendChild(dot);
+  }
 }
 
 function getMoodData() {
-return {
-feeling: document.getElementById('m-feeling').value,
-intensity: document.getElementById('m-intensity').querySelectorAll('.int-dot.on').length,
-thoughts: document.getElementById('m-thoughts').value,
-elevate: document.getElementById('m-elevate').value,
-grat1: document.getElementById('m-grat1').value,
-grat2: document.getElementById('m-grat2').value,
-grat3: document.getElementById('m-grat3').value,
-affirmation: document.getElementById('m-affirmation').value,
-remember: document.getElementById('m-remember').value
-};
+  return {
+    feeling: document.getElementById('m-feeling').value,
+    intensity: document.getElementById('m-intensity').querySelectorAll('.int-dot.on').length,
+    thoughts: document.getElementById('m-thoughts').value,
+    elevate: document.getElementById('m-elevate').value,
+    grat1: document.getElementById('m-grat1').value,
+    grat2: document.getElementById('m-grat2').value,
+    grat3: document.getElementById('m-grat3').value,
+    affirmation: document.getElementById('m-affirmation').value,
+    remember: document.getElementById('m-remember').value
+  };
 }
 
 function saveMoodEntry(ds) {
-localStorage.setItem('mood_' + ds, JSON.stringify(getMoodData()));
-renderCal('mood'); updateStreak();
+  localStorage.setItem('mood_' + ds, JSON.stringify(getMoodData()));
+  renderCal('mood');
+  updateStreak();
 }
 
 // ── PLANNER ──
 function loadPlannerEntry(ds, savedJson) {
-const data = savedJson ? JSON.parse(savedJson) : {};
-['health','chores','career','spirit','rel','relax','hobby','other'].forEach(k => {
-const el = document.getElementById('p-' + k);
-if (el) el.checked = data['chk_' + k] || false;
-});
-const sl = document.getElementById('p-prod');
-if (sl) sl.value = data.prod || 5;
-['1','2','3'].forEach(n => { const el = document.getElementById('p-int' + n); if (el) el.value = data['int' + n] || ''; });
-['p-keystone','p-reward','p-reminder','p-eod'].forEach(id => {
-const el = document.getElementById(id);
-if (el) el.value = data[id.replace('p-', '')] || '';
-});
-const tg = document.getElementById('p-time-grid');
-tg.innerHTML = '';
-['6:00','7:00','8:00','9:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00'].forEach((h, i) => {
-const row = document.createElement('div');
-row.className = 'time-row';
-const inp = document.createElement('input');
-inp.type = 'text'; inp.className = 'time-inp'; inp.placeholder = '—';
-inp.value = (data.tb && data.tb[i]) || '';
-inp.addEventListener('input', () => savePlannerEntry(ds));
-row.innerHTML = '<span class="time-lbl">' + h + '</span>';
-row.appendChild(inp);
-tg.appendChild(row);
-});
+  const data = savedJson ? JSON.parse(savedJson) : {};
+  ['health','chores','career','spirit','rel','relax','hobby','other'].forEach(k => {
+    const el = document.getElementById('p-' + k);
+    if (el) el.checked = data['chk_' + k] || false;
+  });
+  const sl = document.getElementById('p-prod');
+  if (sl) sl.value = data.prod || 5;
+  ['1','2','3'].forEach(n => { const el = document.getElementById('p-int' + n); if (el) el.value = data['int' + n] || ''; });
+  ['p-keystone','p-reward','p-reminder','p-eod'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = data[id.replace('p-', '')] || '';
+  });
+  const tg = document.getElementById('p-time-grid');
+  tg.innerHTML = '';
+  ['6:00','7:00','8:00','9:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00'].forEach((h, i) => {
+    const row = document.createElement('div');
+    row.className = 'time-row';
+    const inp = document.createElement('input');
+    inp.type = 'text'; inp.className = 'time-inp'; inp.placeholder = '—';
+    inp.value = (data.tb && data.tb[i]) || '';
+    inp.addEventListener('input', () => savePlannerEntry(ds));
+    row.innerHTML = '<span class="time-lbl">' + h + '</span>';
+    row.appendChild(inp);
+    tg.appendChild(row);
+  });
 }
 
 function getPlannerData() {
-const d = {};
-['health','chores','career','spirit','rel','relax','hobby','other'].forEach(k => {
-const el = document.getElementById('p-' + k);
-d['chk_' + k] = el ? el.checked : false;
-});
-d.prod = document.getElementById('p-prod')?.value || 5;
-['1','2','3'].forEach(n => { d['int' + n] = document.getElementById('p-int' + n)?.value || ''; });
-d.keystone = document.getElementById('p-keystone')?.value || '';
-d.reward = document.getElementById('p-reward')?.value || '';
-d.reminder = document.getElementById('p-reminder')?.value || '';
-d.eod = document.getElementById('p-eod')?.value || '';
-d.tb = Array.from(document.getElementById('p-time-grid')?.querySelectorAll('.time-inp') || []).map(i => i.value);
-return d;
+  const d = {};
+  ['health','chores','career','spirit','rel','relax','hobby','other'].forEach(k => {
+    const el = document.getElementById('p-' + k);
+    d['chk_' + k] = el ? el.checked : false;
+  });
+  d.prod = document.getElementById('p-prod')?.value || 5;
+  ['1','2','3'].forEach(n => { d['int' + n] = document.getElementById('p-int' + n)?.value || ''; });
+  d.keystone = document.getElementById('p-keystone')?.value || '';
+  d.reward = document.getElementById('p-reward')?.value || '';
+  d.reminder = document.getElementById('p-reminder')?.value || '';
+  d.eod = document.getElementById('p-eod')?.value || '';
+  d.tb = Array.from(document.getElementById('p-time-grid')?.querySelectorAll('.time-inp') || []).map(i => i.value);
+  return d;
 }
 
 function savePlannerEntry(ds) {
-localStorage.setItem('planner_' + ds, JSON.stringify(getPlannerData()));
-renderCal('planner'); updateStreak();
+  localStorage.setItem('planner_' + ds, JSON.stringify(getPlannerData()));
+  renderCal('planner');
+  updateStreak();
 }
 
 // ── DAILY SAVE ──
 const dTimers = {};
 function attachDailySave(type, ds) {
-const form = document.getElementById(type + '-entry-form');
-const dot = document.getElementById(type === 'mood' ? 'm-save-ind' : 'p-save-ind');
-const lbl = document.getElementById(type === 'mood' ? 'm-save-lbl' : 'p-save-lbl');
-form.querySelectorAll('input[type=text], textarea, input[type=range]').forEach(el => {
-el.addEventListener('input', () => {
-dot.className = 'save-ind saving'; lbl.textContent = 'Saving…';
-clearTimeout(dTimers[type]);
-dTimers[type] = setTimeout(() => {
-if (type === 'mood') saveMoodEntry(ds);
-if (type === 'planner') savePlannerEntry(ds);
-dot.className = 'save-ind'; lbl.textContent = 'All saved';
-}, 600);
-});
-});
-form.querySelectorAll('input[type=checkbox]').forEach(el => {
-el.addEventListener('change', () => { if (type === 'planner') savePlannerEntry(ds); });
-});
+  const form = document.getElementById(type + '-entry-form');
+  const dot = document.getElementById(type === 'mood' ? 'm-save-ind' : 'p-save-ind');
+  const lbl = document.getElementById(type === 'mood' ? 'm-save-lbl' : 'p-save-lbl');
+  form.querySelectorAll('input[type=text], textarea, input[type=range]').forEach(el => {
+    el.addEventListener('input', () => {
+      dot.className = 'save-ind saving'; lbl.textContent = 'Saving…';
+      clearTimeout(dTimers[type]);
+      dTimers[type] = setTimeout(() => {
+        if (type === 'mood') saveMoodEntry(ds);
+        if (type === 'planner') savePlannerEntry(ds);
+        dot.className = 'save-ind'; lbl.textContent = 'All saved';
+      }, 600);
+    });
+  });
+  form.querySelectorAll('input[type=checkbox]').forEach(el => {
+    el.addEventListener('change', () => { if (type === 'planner') savePlannerEntry(ds); });
+  });
 }
 
-// ══ STREAK ══
-function updateStreak() {
-const t = todayStr();
-let sd = JSON.parse(localStorage.getItem('inklings_streak') || '{"days":[]}');
-if (!sd.days.includes(t)) sd.days.push(t);
-// calculate consecutive streak
-const sorted = [...sd.days].sort();
-let streak = 1, maxStreak = 1;
-for (let i = sorted.length - 1; i > 0; i--) {
-const a = new Date(sorted[i]), b = new Date(sorted[i-1]);
-const diff = (a - b) / (1000 * 60 * 60 * 24);
-if (diff === 1) { streak++; maxStreak = Math.max(maxStreak, streak); } else break;
+// ══ STREAK — fixed: uses consecutive count, init calls updateStreak() ══
+function getConsecutiveStreak(days) {
+  if (!days || days.length === 0) return 0;
+  const sorted = [...new Set(days)].sort();
+  const today = todayStr();
+  const yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1);
+  const yStr = fmtDate(yesterday.getFullYear(), yesterday.getMonth(), yesterday.getDate());
+  // streak must include today or yesterday to be active
+  if (!sorted.includes(today) && !sorted.includes(yStr)) return 0;
+  let streak = 1;
+  for (let i = sorted.length - 1; i > 0; i--) {
+    const a = new Date(sorted[i]), b = new Date(sorted[i-1]);
+    const diff = (a - b) / (1000 * 60 * 60 * 24);
+    if (diff === 1) streak++; else break;
+  }
+  return streak;
 }
-localStorage.setItem('inklings_streak', JSON.stringify(sd));
-const badge = document.getElementById('streak-badge');
-badge.style.display = 'inline-flex';
-document.getElementById('streak-count').textContent = streak;
+
+function updateStreak() {
+  const t = todayStr();
+  const sd = JSON.parse(localStorage.getItem('inklings_streak') || '{"days":[]}');
+  if (!sd.days.includes(t)) sd.days.push(t);
+  localStorage.setItem('inklings_streak', JSON.stringify(sd));
+  const streak = getConsecutiveStreak(sd.days);
+  const badge = document.getElementById('streak-badge');
+  if (streak > 0) {
+    badge.style.display = 'inline-flex';
+    document.getElementById('streak-count').textContent = streak;
+  }
 }
 
 // ══ EXPORT ══
 function signOut() {
-window.location.href = 'https://www.inklingsjournal.com/DigitalJournal/Login.html';
+  const SIGNOUT_URL = 'https://www.inklingsjournal.com/DigitalJournal/Login.html';
+  window.location.href = SIGNOUT_URL;
 }
 
 function exportData() {
-const data = {
-exported: new Date().toISOString(),
-journal: JSON.parse(localStorage.getItem('inklings_static') || '{}'),
-completed: JSON.parse(localStorage.getItem('inklings_completed') || '[]'),
-streak: JSON.parse(localStorage.getItem('inklings_streak') || '{"days":[]}'),
-moodEntries: {},
-plannerEntries: {}
-};
-Object.keys(localStorage).forEach(k => {
-if (k.startsWith('mood_')) data.moodEntries[k.replace('mood_','')] = JSON.parse(localStorage.getItem(k));
-if (k.startsWith('planner_')) data.plannerEntries[k.replace('planner_','')] = JSON.parse(localStorage.getItem(k));
-});
-const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-const url = URL.createObjectURL(blob);
-const a = document.createElement('a');
-a.href = url; a.download = 'inklings-journal-' + todayStr() + '.json';
-a.click(); URL.revokeObjectURL(url);
+  const data = {
+    exported: new Date().toISOString(),
+    journal: JSON.parse(localStorage.getItem('inklings_static') || '{}'),
+    completed: JSON.parse(localStorage.getItem('inklings_completed') || '[]'),
+    streak: JSON.parse(localStorage.getItem('inklings_streak') || '{"days":[]}'),
+    moodEntries: {},
+    plannerEntries: {}
+  };
+  Object.keys(localStorage).forEach(k => {
+    if (k.startsWith('mood_')) data.moodEntries[k.replace('mood_','')] = JSON.parse(localStorage.getItem(k));
+    if (k.startsWith('planner_')) data.plannerEntries[k.replace('planner_','')] = JSON.parse(localStorage.getItem(k));
+  });
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'inklings-journal-' + todayStr() + '.json';
+  a.click(); URL.revokeObjectURL(url);
 }
 
 // ══ INIT ══
 document.addEventListener('DOMContentLoaded', () => {
-buildRolesTable();
-buildCollage();
-renderCal('mood');
-renderCal('planner');
-restoreCompleted();
-loadStaticData();
-updateProgress();
-attachStaticSave();
+  buildRolesTable();
+  buildCollage();
+  renderCal('mood');
+  renderCal('planner');
+  restoreCompleted();
+  loadStaticData();
+  updateProgress();
+  attachStaticSave();
 
-// open first group by default
-document.getElementById('grp-roots').classList.add('open');
+  // FIX: use updateStreak() on init so badge shows correct consecutive count
+  const sd = JSON.parse(localStorage.getItem('inklings_streak') || '{"days":[]}');
+  if (sd.days.length > 0) {
+    const streak = getConsecutiveStreak(sd.days);
+    if (streak > 0) {
+      document.getElementById('streak-badge').style.display = 'inline-flex';
+      document.getElementById('streak-count').textContent = streak;
+    }
+  }
 
-// restore streak badge
-const sd = JSON.parse(localStorage.getItem('inklings_streak') || '{"days":[]}');
-if (sd.days.length > 0) {
-document.getElementById('streak-badge').style.display = 'inline-flex';
-document.getElementById('streak-count').textContent = sd.days.length;
-}
-
-// Add bottom nav to all pages
-document.querySelectorAll('.page').forEach(pg => {
-const id = pg.id.replace('page-','');
-// skip daily calendar pages
-if (['mood-journal','intention-planner'].includes(id)) return;
-const nav = document.createElement('div');
-nav.className = 'bottom-nav';
-nav.id = 'bottom-nav-' + id;
-const prevBtn = document.createElement('button');
-prevBtn.className = 'bottom-nav-btn';
-prevBtn.innerHTML = '← Previous';
-prevBtn.onclick = navigatePrev;
-const nextBtn = document.createElement('button');
-nextBtn.className = 'bottom-nav-btn primary';
-nextBtn.innerHTML = 'Next →';
-nextBtn.onclick = navigateNext;
-nav.appendChild(prevBtn);
-nav.appendChild(nextBtn);
-pg.appendChild(nav);
-});
-
-// mobile handled via CSS media query
-
+  // Open first group by default
+  document.getElementById('grp-roots').classList.add('open');
 });
 </script>
 
