@@ -57,12 +57,13 @@ z-index: 50;
 }
 
 .sidebar-header {
-padding: 22px 20px 16px;
-border-bottom: 1px solid var(--line-light);
-position: relative;
-overflow: hidden;
-flex-shrink: 0;
+  padding: 22px 20px 16px;
+  border-bottom: 1px solid var(--line-light);
+  position: relative;
+  overflow: visible;
+  flex-shrink: 0;
 }
+
 .sidebar-header::after {
 content: ‘’;
 position: absolute;
@@ -1118,7 +1119,8 @@ box-shadow: 4px 0 30px rgba(0,0,0,.12);
         <span class="logo">Inklings <em>Journal</em></span>
         <span class="tagline">Your inner world, in words</span>
       </div>
-      <button class="sidebar-close-btn" id="sidebar-close" onclick="toggleSidebar()" title="Close menu">×</button>
+      <button class="sidebar-close-btn" id="sidebar-close" title="Close menu" style="position:relative;z-index:10;" onclick="toggleSidebar()">×</button>
+
     </div>
   </div>
 
