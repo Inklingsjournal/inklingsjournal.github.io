@@ -100,6 +100,7 @@ overflow-y: auto;
 overflow-x: hidden;
 scrollbar-width: none;
 min-height: 0; /* essential for flex scroll child */
+    -webkit-overflow-scrolling: touch;
 }
 .sidebar-nav::-webkit-scrollbar { display: none; }
 
@@ -1044,37 +1045,69 @@ z-index: 40;
 
 /* ── RESPONSIVE ── */
 @media (max-width: 1024px) {
-.page { padding: 36px 40px 72px; }
-.top-bar { padding: 12px 28px; }
+  .page { padding: 36px 40px 72px; }
+  .top-bar { padding: 12px 28px; }
 }
 
+@media (max-width: 1024px) and (pointer: coarse) {
+  .sidebar {
+    position: fixed;
+    left: 0; top: 0;
+    height: 100vh;
+    height: 100dvh;
+    transform: translateX(-100%);
+    box-shadow: none;
+    z-index: 50;
+  }
+  .sidebar.open {
+    transform: translateX(0);
+    box-shadow: 4px 0 30px rgba(0,0,0,.12);
+  }
+  .sidebar-close-btn { display: flex; }
+  .menu-toggle { display: flex; }
+  .top-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 30;
+    height: 54px;
+    padding: 12px 24px;
+  }
+  .main {
+    padding-top: 54px;
+    height: 100vh;
+    height: 100dvh;
+  }
+  .page { padding: 28px 32px 88px; max-width: 100%; }
+}
 @media (max-width: 768px) {
-/* Sidebar: fixed overlay, narrower width */
-.sidebar {
-position: fixed;
-left: 0; top: 0;
-height: 100vh;
-width: var(--sidebar-w-mobile);
-min-width: var(--sidebar-w-mobile);
-transform: translateX(-100%);
-box-shadow: none;
-}
-.sidebar.open {
-transform: translateX(0);
-box-shadow: 4px 0 30px rgba(0,0,0,.12);
-}
+  .sidebar {
+    position: fixed;
+    left: 0; top: 0;
+    height: 100vh;
+    height: 100dvh;
+    width: var(--sidebar-w-mobile);
+    min-width: var(--sidebar-w-mobile);
+    transform: translateX(-100%);
+    box-shadow: none;
+  }
+  .sidebar.open {
+    transform: translateX(0);
+    box-shadow: 4px 0 30px rgba(0,0,0,.12);
+  }
+  .sidebar-close-btn { display: flex; }
+  .menu-toggle { display: flex; }
+  .top-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 11px 16px;
+    z-index: 30;
+    height: 52px;
+  }
+  .main { padding-top: 52px; }
+  .page { padding: 22px 18px 88px; max-width: 100%; }
 
-/* Mobile: show close button in header */
-.sidebar-close-btn { display: block; }
+  /* Nav btns stay visible on mobile — primary navigation */
 
-/* Menu toggle visible */
-.menu-toggle { display: flex; }
-
-/* Page padding reduced */
-.page { padding: 22px 18px 68px; max-width: 100%; }
-.top-bar { padding: 11px 16px; }
-
-/* Nav btns stay visible on mobile — primary navigation */
 
 /* Responsive grids */
 .welcome-cards,
