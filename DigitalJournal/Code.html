@@ -43,6 +43,9 @@ overflow: hidden;
 font-weight: 300;
 }
 
+  /* temporary debug */
+<div id="debug-box" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,.85);color:#fff;font-size:11px;padding:8px;z-index:9999;max-height:120px;overflow-y:auto;display:none;font-family:monospace;"></div>
+
 /* ── SIDEBAR ── */
 .sidebar {
 width: var(--sidebar-w);
@@ -2302,15 +2305,25 @@ const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
 let CUSTOMER_ID = null;
 
 async function initCustomer() {
+  if (!sb) { dbg('sb is null — SDK not loaded'); return; }
   try {
     const session = JSON.parse(sessionStorage.getItem('inklings_session') || 'null');
-    if (!session || !session.email) return;
+    dbg('Session: ' + JSON.stringify(session));
+    if (!session || !session.email) { dbg('No session email'); return; }
     const { data, error } = await sb.rpc('get_customer_id', { p_email: session.email });
+    dbg('RPC result: ' + JSON.stringify(data) + ' error: ' + JSON.stringify(error));
     if (!error && data) CUSTOMER_ID = data;
-  } catch(e) { console.error('Customer init failed', e); }
+    dbg('CUSTOMER_ID set to: ' + CUSTOMER_ID);
+  } catch(e) { dbg('initCustomer error: ' + e.message); }
 }
 
-  
+function dbg(msg) {
+  const box = document.getElementById('debug-box');
+  if (!box) return;
+  box.style.display = 'block';
+  box.innerHTML += msg + '<br>';
+}
+
 // ══ DATA ══
 const ROLES = [
   { name: "The Caregiver", desc: "You put others first and find meaning in nurturing, protecting, and supporting the people around you." },
