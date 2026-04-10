@@ -433,6 +433,9 @@ background: transparent;
 border: none;
 border-bottom: 1px solid var(--line);
 resize: none;
+    word-wrap: break-word;
+  overflow-wrap: break-word;
+
 font-family: ‘Jost’, sans-serif;
 font-size: 13px;
 font-weight: 300;
@@ -1045,7 +1048,7 @@ z-index: 40;
 
 /* ── RESPONSIVE ── */
 @media (max-width: 1024px) {
-  .page { padding: 36px 40px 72px; }
+.page { padding: 36px 40px 72px; max-width: 780px; }
   .top-bar { padding: 12px 28px; }
 }
 
