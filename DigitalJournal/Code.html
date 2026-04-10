@@ -1154,7 +1154,7 @@ z-index: 40;
     height: 100vh;
     height: 100dvh;
   }
-.page { padding: 28px 60px 88px; max-width: 720px; }
+.page { padding: 40px 60px 88px; max-width: 720px; }
 
 }
 @media (max-width: 768px) {
@@ -1182,7 +1182,7 @@ z-index: 40;
     height: 52px;
   }
   .main { padding-top: 52px; }
-  .page { padding: 22px 18px 88px; max-width: 100%; }
+  .page { padding: 40px 18px 88px; max-width: 100%; }
 
   /* Nav btns stay visible on mobile — primary navigation */
 
@@ -2475,7 +2475,14 @@ function confirmComplete() {
   localStorage.setItem('inklings_completed', JSON.stringify(completed));
   updateProgress();
   updateStreak();
-  setTimeout(() => navigateNext(), 1200);
+  setTimeout(() => {
+  const i = PAGES.indexOf(id);
+  if (i < PAGES.length - 1) {
+    const n = PAGES[i + 1];
+    showPage(n, document.querySelector('[data-page="' + n + '"]'));
+  }
+}, 1200);
+
 }
 
 function restoreCompleted() {
