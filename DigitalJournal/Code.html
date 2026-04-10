@@ -487,6 +487,79 @@ white-space: nowrap;
 .complete-btn:hover { background: var(--sage); color: white; }
 .complete-btn.done { background: var(--sage); color: white; border-color: var(--sage); cursor: default; }
 
+  /* ── CONFIRM MODAL ── */
+.confirm-modal-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.35);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+}
+.confirm-modal-overlay.active { display: flex; }
+.confirm-modal {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 28px 28px 22px;
+  max-width: 340px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 12px 40px rgba(0,0,0,.12);
+}
+.confirm-modal-icon {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+.confirm-modal-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.confirm-modal-text {
+  font-size: 12px;
+  color: var(--ink-light);
+  line-height: 1.75;
+  font-weight: 300;
+  margin-bottom: 22px;
+}
+.confirm-modal-btns {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+.confirm-modal-cancel {
+  padding: 8px 20px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: transparent;
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--ink-light);
+  cursor: pointer;
+  transition: all .2s;
+}
+.confirm-modal-cancel:hover { border-color: var(--sage); color: var(--sage-dark); }
+.confirm-modal-confirm {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 20px;
+  background: var(--sage-dark);
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: white;
+  cursor: pointer;
+  transition: all .2s;
+  letter-spacing: .04em;
+}
+.confirm-modal-confirm:hover { background: var(--ink); }
+
+
 /* ── BOXES ── */
 .info-box {
 background: var(--gold-light);
@@ -1145,6 +1218,18 @@ z-index: 40;
 
 </head>
 <body>
+
+  <div class="confirm-modal-overlay" id="confirm-modal-overlay">
+  <div class="confirm-modal">
+    <div class="confirm-modal-icon">✦</div>
+    <div class="confirm-modal-title">Mark this complete?</div>
+    <div class="confirm-modal-text">This section will be marked as done.<br>This can't be undone.</div>
+    <div class="confirm-modal-btns">
+      <button class="confirm-modal-cancel" onclick="closeConfirmModal()">Not yet</button>
+      <button class="confirm-modal-confirm" onclick="confirmComplete()">Yes, complete</button>
+    </div>
+  </div>
+</div>
 
 <div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
 
@@ -2359,7 +2444,24 @@ function toggleSidebar() {
 }
 
 // ══ COMPLETE ══
+let _pendingCompleteId = null;
+
 function markComplete(id) {
+  const bar = document.getElementById('complete-' + id);
+  if (!bar || bar.classList.contains('done')) return;
+  _pendingCompleteId = id;
+  document.getElementById('confirm-modal-overlay').classList.add('active');
+}
+
+function closeConfirmModal() {
+  _pendingCompleteId = null;
+  document.getElementById('confirm-modal-overlay').classList.remove('active');
+}
+
+function confirmComplete() {
+  const id = _pendingCompleteId;
+  closeConfirmModal();
+  if (!id) return;
   const bar = document.getElementById('complete-' + id);
   if (!bar) return;
   bar.classList.add('done');
