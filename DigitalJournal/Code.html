@@ -43,9 +43,6 @@ overflow: hidden;
 font-weight: 300;
 }
 
-  /* temporary debug */
-<div id="debug-box" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,.85);color:#fff;font-size:11px;padding:8px;z-index:9999;max-height:120px;overflow-y:auto;display:none;font-family:monospace;"></div>
-
 /* ── SIDEBAR ── */
 .sidebar {
 width: var(--sidebar-w);
@@ -1222,6 +1219,8 @@ z-index: 40;
 
 </head>
 <body>
+
+<div id="debug-box" style="position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,.85);color:#fff;font-size:11px;padding:8px;z-index:9999;max-height:120px;overflow-y:auto;display:none;font-family:monospace;"></div>
 
   <div class="confirm-modal-overlay" id="confirm-modal-overlay">
   <div class="confirm-modal">
@@ -2532,7 +2531,11 @@ async function restoreCompleted() {
     const { data } = await sb.from('completed_sections')
       .select('section_id')
       .eq('customer_id', CUSTOMER_ID);
-    if (data) completedIds = data.map(r => r.section_id);
+    if (data) {
+      completedIds = data.map(r => r.section_id);
+      // Sync to localStorage so updateProgress() always reads the right count
+      localStorage.setItem('inklings_completed', JSON.stringify(completedIds));
+    }
   } else {
     completedIds = JSON.parse(localStorage.getItem('inklings_completed') || '[]');
   }
@@ -2685,31 +2688,38 @@ async function renderCal(type) {
   const daysInPrev = new Date(y, m, 0).getDate();
   const today = todayStr();
   const pfx = type + '_' + y + '-' + String(m+1).padStart(2,'0');
-let ct = 0;
-if (CUSTOMER_ID) {
-  const monthStr = y + '-' + String(m+1).padStart(2,'0');
-  const { count } = await sb.from('daily_entries')
-    .select('*', { count: 'exact', head: true })
-    .eq('customer_id', CUSTOMER_ID)
-    .eq('entry_type', type)
-    .like('entry_date', monthStr + '%');
-  ct = count || 0;
-} else {
-  ct = Object.keys(localStorage).filter(k => k.startsWith(pfx)).length;
-}
-document.getElementById(type + '-entry-ct').textContent = ct + (ct === 1 ? ' entry' : ' entries') + ' this month';
+  let ct = 0;
+  const entryDates = new Set();
+  if (CUSTOMER_ID) {
+    const monthStr = y + '-' + String(m+1).padStart(2,'0');
+    const { data: entriesData } = await sb.from('daily_entries')
+      .select('entry_date')
+      .eq('customer_id', CUSTOMER_ID)
+      .eq('entry_type', type)
+      .like('entry_date', monthStr + '%');
+    if (entriesData) {
+      entriesData.forEach(r => entryDates.add(r.entry_date));
+      ct = entriesData.length;
+    }
+  } else {
+    Object.keys(localStorage).filter(k => k.startsWith(pfx)).forEach(k => {
+      entryDates.add(k.slice(type.length + 1));
+    });
+    ct = entryDates.size;
+  }
+  document.getElementById(type + '-entry-ct').textContent = ct + (ct === 1 ? ' entry' : ' entries') + ' this month';
 
-  for (let i = offset-1; i >= 0; i--) grid.appendChild(makeCell(type, y, m-1, daysInPrev-i, today, true, false));
-  for (let d = 1; d <= daysInMonth; d++) grid.appendChild(makeCell(type, y, m, d, today, false, false));
+  for (let i = offset-1; i >= 0; i--) grid.appendChild(makeCell(type, y, m-1, daysInPrev-i, today, true, entryDates));
+  for (let d = 1; d <= daysInMonth; d++) grid.appendChild(makeCell(type, y, m, d, today, false, entryDates));
   const total = offset + daysInMonth, rem = total % 7 === 0 ? 0 : 7 - (total % 7);
-  for (let d = 1; d <= rem; d++) grid.appendChild(makeCell(type, y, m+1, d, today, true, false));
+  for (let d = 1; d <= rem; d++) grid.appendChild(makeCell(type, y, m+1, d, today, true, entryDates));
 }
 
-function makeCell(type, year, month, day, today, isOther, _unused) {
+function makeCell(type, year, month, day, today, isOther, entryDates) {
   const ry = month < 0 ? year-1 : month > 11 ? year+1 : year;
   const rm = ((month % 12) + 12) % 12;
   const ds = fmtDate(ry, rm, day);
-  const hasEntry = localStorage.getItem(type + '_' + ds) !== null;
+  const hasEntry = entryDates.has(ds);
   const isToday = ds === today;
   const isSel = calSt[type].sel === ds;
   // FIX: future dates in current month get 'cal-future' not 'cal-other'
@@ -2955,8 +2965,8 @@ async function updateStreak() {
 
 // ══ EXPORT ══
 function signOut() {
-  const SIGNOUT_URL = 'https://www.inklingsjournal.com/DigitalJournal/Login.html';
-  window.location.href = SIGNOUT_URL;
+  sessionStorage.removeItem('inklings_session');
+  window.location.href = './Login.html';
 }
 
 function exportData() {
