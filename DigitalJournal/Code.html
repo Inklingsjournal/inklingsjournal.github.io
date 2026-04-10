@@ -2724,7 +2724,6 @@ function changeMonth(type, dir) {
 }
 
 async function openEntry(type, ds) {
- {
   const [y, m, d] = ds.split('-').map(Number);
   const dt = new Date(y, m-1, d);
   document.getElementById(type === 'mood' ? 'm-entry-wday' : 'p-entry-wday').textContent = WDAYS[dt.getDay()];
