@@ -723,21 +723,39 @@ async function sbRpc(fn, body) {
 
 // -- SHA-256 HELPER --
 async function sha256(message) {
+  if (!window.crypto || !window.crypto.subtle) {
+    throw new Error('INSECURE_CONTEXT');
+  }
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(message));
   return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
 // -- LOGIN --
 async function adminLogin() {
+  const errorEl = document.getElementById('loginError');
+  errorEl.classList.remove('show');
+
   const pass = document.getElementById('adminPass').value.trim();
-  const hash = await sha256(pass);
-  if (hash === ADMIN_PASSWORD_HASH) {
-    sessionStorage.setItem('inklings_admin', '1');
-    document.getElementById('loginScreen').style.display = 'none';
-    document.getElementById('adminScreen').classList.add('active');
-    initDashboard();
-  } else {
-    document.getElementById('loginError').classList.add('show');
+  if (!pass) return;
+
+  try {
+    const hash = await sha256(pass);
+    if (hash === ADMIN_PASSWORD_HASH) {
+      sessionStorage.setItem('inklings_admin', '1');
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('adminScreen').classList.add('active');
+      initDashboard();
+    } else {
+      errorEl.textContent = 'Incorrect password. Try again.';
+      errorEl.classList.add('show');
+    }
+  } catch (e) {
+    if (e.message === 'INSECURE_CONTEXT') {
+      errorEl.textContent = 'This page must be opened over HTTPS (not file://). Please use the live site.';
+    } else {
+      errorEl.textContent = 'Login error. Please refresh and try again.';
+    }
+    errorEl.classList.add('show');
   }
 }
 
