@@ -886,6 +886,9 @@ function renderTable(customers) {
             <td>
               <button class="action-btn" onclick="openAddonModal('${c.id}','${esc(c.name)}','${esc(c.email)}')">Add-ons</button>
               <button class="action-btn" onclick="copyPasskey('${esc(c.passkey)}','${esc(c.email)}')">Copy login</button>
+<button class="action-btn" onclick="resendCredentials('${esc(c.name)}','${esc(c.email)}','${esc(c.passkey)}')">Resend email</button>
+<button class="action-btn danger" onclick="deleteCustomer('${c.id}','${esc(c.name)}')">Delete</button>
+
             </td>
           </tr>
         `).join('')}
@@ -948,6 +951,32 @@ async function grantAddon(slug, templateName) {
 function closeAddonModal() {
   document.getElementById('addonModal').classList.remove('active');
   currentCustomerId = null;
+}
+
+  async function deleteCustomer(id, name) {
+  if (!confirm('Delete ' + name + '? This permanently removes all their data.')) return;
+  const { ok } = await sbFetch('customers?id=eq.' + id, {
+    method: 'DELETE',
+    headers: { 'Prefer': 'return=minimal' }
+  });
+  if (ok) {
+    showToast(name + ' deleted', 'success');
+    await loadCustomers();
+    await loadStats();
+  } else {
+    showToast('Delete failed', 'error');
+  }
+}
+
+async function resendCredentials(name, email, passkey) {
+  if (!confirm('Resend login email to ' + email + '?')) return;
+  try {
+    await sendWelcomeEmail(name, email, passkey);
+    showToast('Email resent to ' + email, 'success');
+  } catch(err) {
+    showToast('Failed to send email', 'error');
+    console.error(err);
+  }
 }
 
 // -- COPY LOGIN DETAILS --
