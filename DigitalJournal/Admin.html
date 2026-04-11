@@ -833,8 +833,8 @@ async function addCustomer() {
 async function sendWelcomeEmail(name, email, passkey) {
   const res = await fetch(
     'https://vqpyeebiornuymohbicz.supabase.co/functions/v1/resend-email',
-',
     {
+
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
