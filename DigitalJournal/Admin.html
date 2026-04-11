@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Inklings - Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #f6f1e9;
+  --parchment: #ede6d4;
+  --sage: #7a8c6e;
+  --sage-light: #a8b89a;
+  --sage-pale: #d6dece;
+  --sage-dark: #4f6247;
+  --ink: #2a2a28;
+  --ink-mid: #4a4a46;
+  --ink-light: #7a7a74;
+  --line: #d8d0c4;
+  --line-light: #e8e2d8;
+  --white: #fdfaf5;
+  --gold: #b89a5c;
+  --gold-light: #f0e6cc;
+  --error: #c0614a;
+  --success: #4f6247;
+  --warm-brown: #6b5c47;
+}
+
+- { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+font-family: ‘Jost’, sans-serif;
+background: var(–cream);
+color: var(–ink);
+min-height: 100vh;
+font-weight: 300;
+}
+
+/* – LOGIN SCREEN – */
+.login-screen {
+min-height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 24px;
+position: relative;
+overflow: hidden;
+}
+.login-screen::before {
+content: ‘’;
+position: fixed;
+width: 600px; height: 600px;
+border-radius: 50%;
+border: 1px solid var(–sage-pale);
+top: -200px; right: -200px;
+opacity: .4;
+pointer-events: none;
+}
+.login-screen::after {
+content: ‘’;
+position: fixed;
+width: 400px; height: 400px;
+border-radius: 50%;
+border: 1px solid var(–sage-pale);
+bottom: -150px; left: -150px;
+opacity: .4;
+pointer-events: none;
+}
+
+.login-card {
+background: var(–white);
+border: 1px solid var(–line);
+border-radius: 20px;
+padding: 48px 44px;
+max-width: 400px;
+width: 100%;
+position: relative;
+box-shadow: 0 20px 60px rgba(79,98,71,.08);
+animation: rise .4s cubic-bezier(.4,0,.2,1);
+}
+.login-card::before {
+content: ‘’;
+position: absolute;
+top: 0; left: 44px; right: 44px;
+height: 2px;
+background: linear-gradient(90deg, transparent, var(–sage-light), var(–gold), var(–sage-light), transparent);
+border-radius: 0 0 2px 2px;
+}
+@keyframes rise { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+.login-logo {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 26px;
+font-weight: 300;
+color: var(–sage-dark);
+margin-bottom: 4px;
+display: block;
+}
+.login-logo em { font-style: italic; color: var(–gold); }
+.login-sub {
+font-size: 8.5px;
+letter-spacing: .2em;
+text-transform: uppercase;
+color: var(–sage-light);
+margin-bottom: 36px;
+display: block;
+}
+.login-title {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 28px;
+font-weight: 300;
+color: var(–ink);
+margin-bottom: 6px;
+}
+.login-title em { font-style: italic; color: var(–sage-dark); }
+.login-desc { font-size: 12.5px; color: var(–ink-light); margin-bottom: 28px; line-height: 1.7; }
+
+.field-label {
+font-size: 9px;
+letter-spacing: .16em;
+text-transform: uppercase;
+color: var(–sage);
+font-weight: 500;
+margin-bottom: 7px;
+display: block;
+}
+.field-input {
+width: 100%;
+border: 1px solid var(–line);
+border-radius: 10px;
+background: var(–cream);
+font-family: ‘Jost’, sans-serif;
+font-size: 14px;
+font-weight: 300;
+color: var(–ink);
+padding: 12px 16px;
+outline: none;
+transition: all .2s;
+margin-bottom: 16px;
+}
+.field-input:focus { border-color: var(–sage-light); background: var(–white); box-shadow: 0 0 0 3px rgba(122,140,110,.1); }
+
+.login-btn {
+width: 100%;
+background: var(–sage-dark);
+color: white;
+border: none;
+border-radius: 10px;
+padding: 14px;
+font-family: ‘Jost’, sans-serif;
+font-size: 12px;
+font-weight: 400;
+letter-spacing: .1em;
+text-transform: uppercase;
+cursor: pointer;
+transition: all .2s;
+margin-top: 4px;
+}
+.login-btn:hover { background: var(–ink); transform: translateY(-1px); }
+
+.error-msg {
+background: rgba(192,97,74,.08);
+border: 1px solid rgba(192,97,74,.2);
+border-radius: 8px;
+padding: 10px 14px;
+font-size: 12px;
+color: var(–error);
+margin-bottom: 14px;
+display: none;
+}
+.error-msg.show { display: block; }
+
+/* – ADMIN DASHBOARD – */
+.admin-screen { display: none; }
+.admin-screen.active { display: block; }
+
+.admin-header {
+background: var(–white);
+border-bottom: 1px solid var(–line-light);
+padding: 16px 40px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+position: sticky;
+top: 0;
+z-index: 10;
+}
+.admin-logo {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 20px;
+font-weight: 300;
+color: var(–sage-dark);
+}
+.admin-logo em { font-style: italic; color: var(–gold); }
+.admin-logo-tag {
+font-size: 8px;
+letter-spacing: .2em;
+text-transform: uppercase;
+color: var(–sage-light);
+margin-left: 10px;
+vertical-align: middle;
+}
+.logout-btn {
+padding: 7px 16px;
+border: 1px solid var(–line);
+border-radius: 20px;
+background: transparent;
+font-family: ‘Jost’, sans-serif;
+font-size: 10.5px;
+color: var(–ink-light);
+cursor: pointer;
+transition: all .2s;
+}
+.logout-btn:hover { border-color: var(–error); color: var(–error); }
+
+.admin-body { max-width: 1100px; margin: 0 auto; padding: 40px 32px 80px; }
+
+/* Stats row */
+.stats-row {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 16px;
+margin-bottom: 36px;
+}
+.stat-card {
+background: var(–white);
+border: 1px solid var(–line-light);
+border-radius: 14px;
+padding: 20px 22px;
+position: relative;
+overflow: hidden;
+}
+.stat-card::before {
+content: ‘’;
+position: absolute;
+top: 0; left: 0; right: 0;
+height: 2px;
+background: linear-gradient(90deg, var(–sage-light), transparent);
+}
+.stat-num {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 36px;
+font-weight: 300;
+color: var(–sage-dark);
+line-height: 1;
+margin-bottom: 4px;
+}
+.stat-label {
+font-size: 9px;
+letter-spacing: .14em;
+text-transform: uppercase;
+color: var(–ink-light);
+font-weight: 500;
+}
+
+/* Two column layout */
+.admin-cols { display: grid; grid-template-columns: 380px 1fr; gap: 28px; align-items: start; }
+
+/* Add customer card */
+.add-card {
+background: var(–white);
+border: 1px solid var(–line-light);
+border-radius: 16px;
+overflow: hidden;
+position: sticky;
+top: 88px;
+}
+.add-card-header {
+padding: 20px 24px 16px;
+border-bottom: 1px solid var(–line-light);
+background: var(–parchment);
+}
+.add-card-title {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 20px;
+font-weight: 400;
+color: var(–ink);
+margin-bottom: 3px;
+}
+.add-card-sub { font-size: 11.5px; color: var(–ink-light); line-height: 1.6; }
+.add-card-body { padding: 22px 24px; }
+
+.form-field { margin-bottom: 16px; }
+.form-label {
+font-size: 8.5px;
+letter-spacing: .16em;
+text-transform: uppercase;
+color: var(–sage);
+font-weight: 500;
+margin-bottom: 7px;
+display: block;
+}
+.form-input {
+width: 100%;
+border: 1px solid var(–line);
+border-radius: 8px;
+background: var(–cream);
+font-family: ‘Jost’, sans-serif;
+font-size: 13px;
+font-weight: 300;
+color: var(–ink);
+padding: 10px 14px;
+outline: none;
+transition: all .2s;
+}
+.form-input:focus { border-color: var(–sage-light); background: var(–white); box-shadow: 0 0 0 3px rgba(122,140,110,.1); }
+.form-input::placeholder { color: var(–line); }
+
+/* Passkey display */
+.passkey-preview {
+background: var(–gold-light);
+border: 1px solid rgba(184,154,92,.3);
+border-radius: 8px;
+padding: 10px 14px;
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 18px;
+font-weight: 400;
+color: var(–warm-brown);
+letter-spacing: .08em;
+text-align: center;
+margin-bottom: 16px;
+cursor: pointer;
+transition: all .2s;
+position: relative;
+}
+.passkey-preview:hover { background: var(–gold-light); }
+.passkey-regen {
+font-size: 8px;
+letter-spacing: .12em;
+text-transform: uppercase;
+color: var(–sage-light);
+text-align: center;
+margin-top: 4px;
+margin-bottom: 16px;
+cursor: pointer;
+}
+.passkey-regen:hover { color: var(–sage); }
+
+.add-btn {
+width: 100%;
+background: var(–sage-dark);
+color: white;
+border: none;
+border-radius: 10px;
+padding: 13px;
+font-family: ‘Jost’, sans-serif;
+font-size: 11.5px;
+font-weight: 400;
+letter-spacing: .1em;
+text-transform: uppercase;
+cursor: pointer;
+transition: all .2s;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 8px;
+}
+.add-btn:hover:not(:disabled) { background: var(–ink); transform: translateY(-1px); }
+.add-btn:disabled { opacity: .6; cursor: not-allowed; }
+.spinner { width: 14px; height: 14px; border: 2px solid rgba(255,255,255,.3); border-top-color: white; border-radius: 50%; animation: spin .7s linear infinite; display: none; }
+.add-btn.loading .btn-text { display: none; }
+.add-btn.loading .spinner { display: block; }
+@keyframes spin { to{transform:rotate(360deg)} }
+
+/* Toast */
+.toast {
+position: fixed;
+bottom: 28px;
+left: 50%;
+transform: translateX(-50%) translateY(80px);
+background: var(–ink);
+color: white;
+padding: 12px 22px;
+border-radius: 30px;
+font-size: 12.5px;
+font-weight: 400;
+z-index: 100;
+transition: transform .3s cubic-bezier(.4,0,.2,1);
+white-space: nowrap;
+}
+.toast.success { background: var(–sage-dark); }
+.toast.error { background: var(–error); }
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* Customers table */
+.table-card {
+background: var(–white);
+border: 1px solid var(–line-light);
+border-radius: 16px;
+overflow: hidden;
+}
+.table-header {
+padding: 18px 24px 14px;
+border-bottom: 1px solid var(–line-light);
+display: flex;
+align-items: center;
+justify-content: space-between;
+background: var(–white);
+}
+.table-title {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 20px;
+font-weight: 400;
+color: var(–ink);
+}
+.search-input {
+border: 1px solid var(–line);
+border-radius: 20px;
+padding: 7px 14px;
+font-family: ‘Jost’, sans-serif;
+font-size: 12px;
+font-weight: 300;
+color: var(–ink);
+background: var(–cream);
+outline: none;
+width: 200px;
+transition: all .2s;
+}
+.search-input:focus { border-color: var(–sage-light); background: var(–white); }
+.search-input::placeholder { color: var(–line); }
+
+table { width: 100%; border-collapse: collapse; }
+thead th {
+font-size: 8px;
+letter-spacing: .16em;
+text-transform: uppercase;
+color: var(–sage);
+font-weight: 500;
+padding: 10px 16px;
+text-align: left;
+border-bottom: 1px solid var(–line-light);
+background: var(–cream);
+}
+tbody tr { border-bottom: 1px solid var(–line-light); transition: background .15s; }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: rgba(214,222,206,.15); }
+tbody td { padding: 13px 16px; font-size: 12.5px; color: var(–ink-mid); vertical-align: middle; }
+
+.customer-name { font-weight: 400; color: var(–ink); }
+.customer-email { font-size: 11.5px; color: var(–ink-light); margin-top: 2px; }
+.passkey-cell {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 15px;
+color: var(–warm-brown);
+letter-spacing: .04em;
+}
+.date-cell { font-size: 11.5px; color: var(–ink-light); }
+
+.badge {
+display: inline-flex;
+align-items: center;
+padding: 3px 10px;
+border-radius: 20px;
+font-size: 9px;
+font-weight: 500;
+letter-spacing: .08em;
+text-transform: uppercase;
+}
+.badge-active { background: rgba(79,98,71,.1); color: var(–sage-dark); border: 1px solid rgba(79,98,71,.2); }
+.badge-inactive { background: rgba(122,122,116,.08); color: var(–ink-light); border: 1px solid var(–line); }
+
+.action-btn {
+padding: 5px 12px;
+border-radius: 16px;
+font-family: ‘Jost’, sans-serif;
+font-size: 10px;
+font-weight: 400;
+cursor: pointer;
+transition: all .2s;
+border: 1px solid var(–line);
+background: transparent;
+color: var(–ink-light);
+margin-right: 4px;
+}
+.action-btn:hover { border-color: var(–sage); color: var(–sage-dark); }
+.action-btn.danger:hover { border-color: var(–error); color: var(–error); }
+
+.empty-state {
+padding: 48px 24px;
+text-align: center;
+color: var(–ink-light);
+}
+.empty-state-icon {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 36px;
+color: var(–sage-pale);
+margin-bottom: 12px;
+display: block;
+}
+.empty-state p { font-size: 13px; line-height: 1.7; }
+
+/* Add-on modal */
+.modal-overlay {
+display: none;
+position: fixed; inset: 0;
+background: rgba(0,0,0,.35);
+z-index: 50;
+align-items: center;
+justify-content: center;
+}
+.modal-overlay.active { display: flex; }
+.modal {
+background: var(–white);
+border-radius: 16px;
+padding: 28px;
+max-width: 380px;
+width: 90%;
+box-shadow: 0 20px 60px rgba(0,0,0,.15);
+animation: rise .3s cubic-bezier(.4,0,.2,1);
+}
+.modal-title {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 22px;
+font-weight: 400;
+color: var(–ink);
+margin-bottom: 6px;
+}
+.modal-sub { font-size: 12px; color: var(–ink-light); margin-bottom: 20px; line-height: 1.6; }
+.template-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+.template-item {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 10px 14px;
+border: 1px solid var(–line-light);
+border-radius: 10px;
+background: var(–cream);
+}
+.template-name { font-size: 13px; color: var(–ink-mid); }
+.template-grant-btn {
+padding: 5px 13px;
+border-radius: 16px;
+border: 1px solid var(–sage);
+background: transparent;
+font-family: ‘Jost’, sans-serif;
+font-size: 10px;
+color: var(–sage-dark);
+cursor: pointer;
+transition: all .2s;
+}
+.template-grant-btn:hover { background: var(–sage-dark); color: white; }
+.template-grant-btn.granted { background: var(–sage-pale); border-color: var(–sage-pale); color: var(–sage-dark); cursor: default; }
+.modal-close {
+width: 100%;
+padding: 10px;
+border: 1px solid var(–line);
+border-radius: 10px;
+background: transparent;
+font-family: ‘Jost’, sans-serif;
+font-size: 11.5px;
+color: var(–ink-light);
+cursor: pointer;
+transition: all .2s;
+}
+.modal-close:hover { border-color: var(–sage); color: var(–sage-dark); }
+
+/* Responsive */
+@media (max-width: 900px) {
+.admin-cols { grid-template-columns: 1fr; }
+.add-card { position: static; }
+.stats-row { grid-template-columns: 1fr 1fr; }
+.admin-body { padding: 24px 20px 60px; }
+.admin-header { padding: 14px 20px; }
+}
+@media (max-width: 500px) {
+.stats-row { grid-template-columns: 1fr 1fr; gap: 10px; }
+.login-card { padding: 36px 24px; }
+}
+</style>
+
+</head>
+<body>
+
+<!-- -- LOGIN -- -->
+
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <span class="login-logo">Ink<em>lings</em></span>
+    <span class="login-sub">Admin Dashboard</span>
+    <h2 class="login-title">Welcome <em>back.</em></h2>
+    <p class="login-desc">Enter your admin password to access the dashboard.</p>
+    <div class="error-msg" id="loginError">Incorrect password. Try again.</div>
+    <label class="field-label" for="adminPass">Admin Password</label>
+    <input class="field-input" id="adminPass" type="password" placeholder="********" onkeydown="if(event.key==='Enter')adminLogin()">
+    <button class="login-btn" onclick="adminLogin()">Enter Dashboard</button>
+  </div>
+</div>
+
+<!-- -- DASHBOARD -- -->
+
+<div class="admin-screen" id="adminScreen">
+
+  <header class="admin-header">
+    <div>
+      <span class="admin-logo">Ink<em>lings</em></span>
+      <span class="admin-logo-tag">Admin</span>
+    </div>
+    <button class="logout-btn" onclick="adminLogout()">Sign out</button>
+  </header>
+
+  <div class="admin-body">
+
+```
+<!-- Stats -->
+<div class="stats-row">
+  <div class="stat-card">
+    <div class="stat-num" id="stat-total">--</div>
+    <div class="stat-label">Total customers</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num" id="stat-this-month">--</div>
+    <div class="stat-label">Joined this month</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num" id="stat-active">--</div>
+    <div class="stat-label">Active (last 7 days)</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num" id="stat-addons">--</div>
+    <div class="stat-label">Add-ons sold</div>
+  </div>
+</div>
+
+<div class="admin-cols">
+
+  <!-- Add Customer -->
+  <div class="add-card">
+    <div class="add-card-header">
+      <div class="add-card-title">Add new customer</div>
+      <div class="add-card-sub">Fill in their details, then click Add. A welcome email is sent automatically.</div>
+    </div>
+    <div class="add-card-body">
+      <div class="form-field">
+        <label class="form-label">Full name</label>
+        <input class="form-input" id="newName" type="text" placeholder="e.g. Priya Sharma">
+      </div>
+      <div class="form-field">
+        <label class="form-label">Email address</label>
+        <input class="form-input" id="newEmail" type="email" placeholder="priya@example.com">
+      </div>
+      <div class="form-label" style="margin-bottom:7px">Generated passkey</div>
+      <div class="passkey-preview" id="passkeyDisplay" onclick="regeneratePasskey()" title="Click to regenerate">--</div>
+      <div class="passkey-regen" onclick="regeneratePasskey()">- Click to regenerate</div>
+      <button class="add-btn" id="addBtn" onclick="addCustomer()">
+        <span class="btn-text">- Add Customer & Send Email</span>
+        <div class="spinner"></div>
+      </button>
+      <div style="margin-top:12px;font-size:11px;color:var(--ink-light);text-align:center;line-height:1.6">A welcome email with login details will be sent from hello@inklingsjournal.com</div>
+    </div>
+  </div>
+
+  <!-- Customers Table -->
+  <div class="table-card">
+    <div class="table-header">
+      <div class="table-title">All customers</div>
+      <input class="search-input" id="searchInput" type="text" placeholder="Search name or email..." oninput="filterCustomers()">
+    </div>
+    <div id="tableWrap">
+      <div class="empty-state">
+        <span class="empty-state-icon">-</span>
+        <p>Loading customers...</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+```
+
+  </div>
+</div>
+
+<!-- Add-on Modal -->
+
+<div class="modal-overlay" id="addonModal">
+  <div class="modal">
+    <div class="modal-title">Manage add-ons</div>
+    <div class="modal-sub" id="addonModalSub">Grant template access for this customer.</div>
+    <div class="template-list" id="templateList"></div>
+    <button class="modal-close" onclick="closeAddonModal()">Close</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// -- CONFIG -- fill these in --
+const ADMIN_PASSWORD   = 'YOUR_ADMIN_PASSWORD';       // Change this to your own password
+const SUPABASE_URL     = 'https://vqpyeebiornuymohbicz.supabase.co';
+const SUPABASE_ANON    = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZxcHllZWJpb3JudXltb2hiaWN6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0MTU1NDcsImV4cCI6MjA5MDk5MTU0N30.7XFzJu3JVJxE-GW4qsqKVbRkjq-KZIi1BUqcNtETKKM';
+const RESEND_API_KEY   = 'YOUR_RESEND_API_KEY';       // Paste your Resend API key here
+const FROM_EMAIL       = 'hello@inklingsjournal.com';
+const JOURNAL_URL      = 'https://inklingsjournal.com/DigitalJournal/Login.html';
+
+// -- SUPABASE HELPER --
+async function sbFetch(path, options = {}) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
+    ...options,
+    headers: {
+      'apikey': SUPABASE_ANON,
+      'Authorization': `Bearer ${SUPABASE_ANON}`,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=representation',
+      ...options.headers
+    }
+  });
+  const text = await res.text();
+  try { return { data: JSON.parse(text), ok: res.ok, status: res.status }; }
+  catch { return { data: text, ok: res.ok, status: res.status }; }
+}
+
+async function sbRpc(fn, body) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${fn}`, {
+    method: 'POST',
+    headers: {
+      'apikey': SUPABASE_ANON,
+      'Authorization': `Bearer ${SUPABASE_ANON}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  });
+  const text = await res.text();
+  try { return { data: JSON.parse(text), ok: res.ok }; }
+  catch { return { data: text, ok: res.ok }; }
+}
+
+// -- LOGIN --
+function adminLogin() {
+  const pass = document.getElementById('adminPass').value;
+  if (pass === ADMIN_PASSWORD) {
+    sessionStorage.setItem('inklings_admin', '1');
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminScreen').classList.add('active');
+    initDashboard();
+  } else {
+    document.getElementById('loginError').classList.add('show');
+  }
+}
+
+function adminLogout() {
+  sessionStorage.removeItem('inklings_admin');
+  location.reload();
+}
+
+// -- PASSKEY GENERATOR --
+function generatePasskey() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  const seg = () => Array.from({length:4}, () => chars[Math.floor(Math.random()*chars.length)]).join('');
+  return `INK-${seg()}-${seg()}`;
+}
+
+function regeneratePasskey() {
+  document.getElementById('passkeyDisplay').textContent = generatePasskey();
+}
+
+// -- ADD CUSTOMER --
+async function addCustomer() {
+  const name  = document.getElementById('newName').value.trim();
+  const email = document.getElementById('newEmail').value.trim().toLowerCase();
+  const passkey = document.getElementById('passkeyDisplay').textContent;
+
+  if (!name) { showToast('Please enter a name', 'error'); return; }
+  if (!email || !email.includes('@')) { showToast('Please enter a valid email', 'error'); return; }
+  if (passkey === '--') { showToast('Please generate a passkey first', 'error'); return; }
+
+  const btn = document.getElementById('addBtn');
+  btn.disabled = true;
+  btn.classList.add('loading');
+
+  try {
+    // 1. Check if email already exists
+    const check = await sbFetch(`customers?email=eq.${encodeURIComponent(email)}&select=id`);
+    if (check.data && check.data.length > 0) {
+      showToast('A customer with this email already exists', 'error');
+      btn.disabled = false; btn.classList.remove('loading');
+      return;
+    }
+
+    // 2. Insert customer
+    const insert = await sbFetch('customers', {
+      method: 'POST',
+      body: JSON.stringify({ email, name, passkey })
+    });
+    if (!insert.ok) throw new Error('Failed to create customer');
+    const customer = insert.data[0];
+
+    // 3. Grant core template access
+    await sbRpc('grant_template_access', { p_email: email, p_template_slug: 'core' });
+
+    // 4. Send welcome email via Resend
+    await sendWelcomeEmail(name, email, passkey);
+
+    // 5. Success
+    showToast(`- ${name} added & email sent`, 'success');
+    document.getElementById('newName').value = '';
+    document.getElementById('newEmail').value = '';
+    regeneratePasskey();
+    await loadCustomers();
+    await loadStats();
+
+  } catch(err) {
+    showToast('Something went wrong. Check console.', 'error');
+    console.error(err);
+  }
+
+  btn.disabled = false;
+  btn.classList.remove('loading');
+}
+
+// -- SEND WELCOME EMAIL --
+async function sendWelcomeEmail(name, email, passkey) {
+  const firstName = name.split(' ')[0];
+  const html = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body style="margin:0;padding:0;background:#f6f1e9;font-family:'Georgia',serif;">
+      <div style="max-width:520px;margin:40px auto;background:#fdfaf5;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.06);">
+        
+        <div style="height:3px;background:linear-gradient(90deg,transparent,#a8b89a,#b89a5c,#a8b89a,transparent);"></div>
+        
+        <div style="padding:44px 44px 36px;">
+          <div style="font-family:'Georgia',serif;font-size:26px;color:#4f6247;margin-bottom:4px;">
+            Ink<em style="color:#b89a5c;">lings</em>
+          </div>
+          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#a8b89a;margin-bottom:36px;">
+            YOUR INNER WORLD, IN WORDS
+          </div>
+          
+          <div style="font-size:28px;color:#2a2a28;margin-bottom:6px;line-height:1.2;">
+            You're <em style="color:#4f6247;">in,</em> ${firstName}.
+          </div>
+          <div style="font-size:14px;color:#7a7a74;line-height:1.8;margin-bottom:32px;font-family:'Georgia',serif;">
+            Your journal is ready and waiting. Take your time -- there is no rush here, and no right way to begin. Just you and your honest words.
+          </div>
+          
+          <div style="background:#ede6d4;border-radius:12px;padding:22px 24px;margin-bottom:28px;">
+            <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#7a8c6e;margin-bottom:14px;font-family:'Georgia',serif;">
+              YOUR LOGIN DETAILS
+            </div>
+            <div style="margin-bottom:8px;">
+              <span style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#7a7a74;">Email</span><br>
+              <span style="font-size:15px;color:#2a2a28;">${email}</span>
+            </div>
+            <div>
+              <span style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#7a7a74;">Passkey</span><br>
+              <span style="font-family:'Courier New',monospace;font-size:22px;color:#6b5c47;letter-spacing:2px;">${passkey}</span>
+            </div>
+          </div>
+          
+          <a href="${JOURNAL_URL}" style="display:block;background:#4f6247;color:white;text-decoration:none;text-align:center;padding:16px;border-radius:10px;font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:28px;">
+            Open My Journal -
+          </a>
+          
+          <div style="font-size:13px;color:#7a7a74;line-height:1.8;font-family:'Georgia',serif;font-style:italic;border-left:2px solid #d6dece;padding-left:16px;margin-bottom:28px;">
+            "This is not about fixing yourself. It is about understanding, honouring, and integrating the many parts of who you are."
+          </div>
+          
+          <div style="font-size:13px;color:#7a7a74;line-height:1.8;">
+            With warmth,<br>
+            <span style="font-family:'Georgia',serif;font-size:18px;color:#4f6247;">Shreya</span><br>
+            <span style="font-size:11px;color:#a8b89a;">Inklings Journal</span>
+          </div>
+        </div>
+        
+        <div style="padding:20px 44px;border-top:1px solid #e8e2d8;background:#f6f1e9;">
+          <div style="font-size:11px;color:#a8b89a;line-height:1.7;">
+            If you have any questions, reply to this email or write to <a href="mailto:hello@inklingsjournal.com" style="color:#7a8c6e;">hello@inklingsjournal.com</a>
+          </div>
+        </div>
+        
+      </div>
+    </body>
+    </html>
+  `;
+
+  await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${RESEND_API_KEY}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      from: `Shreya at Inklings <${FROM_EMAIL}>`,
+      to: [email],
+      subject: `Your Inklings Journal is ready -`,
+      html
+    })
+  });
+}
+
+// -- LOAD DATA --
+let allCustomers = [];
+
+async function loadCustomers() {
+  const { data } = await sbFetch('customers?select=id,email,name,passkey,created_at&order=created_at.desc');
+  allCustomers = data || [];
+  renderTable(allCustomers);
+}
+
+async function loadStats() {
+  const { data: all } = await sbFetch('customers?select=id,created_at');
+  if (!all) return;
+  
+  const now = new Date();
+  const thisMonth = all.filter(c => {
+    const d = new Date(c.created_at);
+    return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+  });
+
+  // Active = has daily entry in last 7 days
+  const sevenDaysAgo = new Date(Date.now() - 7*24*60*60*1000).toISOString().split('T')[0];
+  const { data: active } = await sbFetch(`daily_entries?select=customer_id&entry_date=gte.${sevenDaysAgo}`);
+  const uniqueActive = new Set((active||[]).map(e => e.customer_id)).size;
+
+  // Add-ons = non-core template grants
+  const { data: addons } = await sbFetch('customer_templates?select=id,template_id');
+  const { data: coreTemplate } = await sbFetch('templates?select=id&slug=eq.core');
+  const coreId = coreTemplate && coreTemplate[0] ? coreTemplate[0].id : null;
+  const addonCount = (addons||[]).filter(a => a.template_id !== coreId).length;
+
+  document.getElementById('stat-total').textContent = all.length;
+  document.getElementById('stat-this-month').textContent = thisMonth.length;
+  document.getElementById('stat-active').textContent = uniqueActive;
+  document.getElementById('stat-addons').textContent = addonCount;
+}
+
+function renderTable(customers) {
+  const wrap = document.getElementById('tableWrap');
+  if (!customers || customers.length === 0) {
+    wrap.innerHTML = `<div class="empty-state"><span class="empty-state-icon">-</span><p>No customers yet.<br>Add your first one using the form.</p></div>`;
+    return;
+  }
+  wrap.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>Customer</th>
+          <th>Passkey</th>
+          <th>Joined</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${customers.map(c => `
+          <tr>
+            <td>
+              <div class="customer-name">${esc(c.name)}</div>
+              <div class="customer-email">${esc(c.email)}</div>
+            </td>
+            <td><span class="passkey-cell">${esc(c.passkey)}</span></td>
+            <td><span class="date-cell">${formatDate(c.created_at)}</span></td>
+            <td>
+              <button class="action-btn" onclick="openAddonModal('${c.id}','${esc(c.name)}','${esc(c.email)}')">Add-ons</button>
+              <button class="action-btn" onclick="copyPasskey('${esc(c.passkey)}','${esc(c.email)}')">Copy login</button>
+            </td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+function filterCustomers() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  if (!q) { renderTable(allCustomers); return; }
+  renderTable(allCustomers.filter(c =>
+    c.name.toLowerCase().includes(q) || c.email.toLowerCase().includes(q)
+  ));
+}
+
+// -- ADDON MODAL --
+let currentCustomerId = null;
+
+async function openAddonModal(customerId, name, email) {
+  currentCustomerId = customerId;
+  document.getElementById('addonModalSub').textContent = `Managing add-ons for ${name} (${email})`;
+
+  // Load all templates except core
+  const { data: templates } = await sbFetch('templates?select=id,slug,name&is_core=eq.false&order=sort_order');
+  
+  // Load customer's current templates
+  const { data: granted } = await sbFetch(`customer_templates?customer_id=eq.${customerId}&select=template_id`);
+  const grantedIds = new Set((granted||[]).map(g => g.template_id));
+
+  const list = document.getElementById('templateList');
+  list.innerHTML = (templates||[]).map(t => `
+    <div class="template-item">
+      <span class="template-name">${esc(t.name)}</span>
+      <button class="template-grant-btn ${grantedIds.has(t.id) ? 'granted' : ''}"
+        onclick="${grantedIds.has(t.id) ? '' : `grantAddon('${t.slug}','${t.name}')`}"
+        ${grantedIds.has(t.id) ? 'disabled' : ''}>
+        ${grantedIds.has(t.id) ? '- Granted' : 'Grant access'}
+      </button>
+    </div>
+  `).join('');
+
+  document.getElementById('addonModal').classList.add('active');
+}
+
+async function grantAddon(slug, templateName) {
+  if (!currentCustomerId) return;
+  
+  // Get email for this customer
+  const { data } = await sbFetch(`customers?id=eq.${currentCustomerId}&select=email,name`);
+  if (!data || !data[0]) return;
+  
+  await sbRpc('grant_template_access', { p_email: data[0].email, p_template_slug: slug });
+  showToast(`- ${templateName} granted to ${data[0].name}`, 'success');
+  
+  // Refresh modal
+  openAddonModal(currentCustomerId, data[0].name, data[0].email);
+}
+
+function closeAddonModal() {
+  document.getElementById('addonModal').classList.remove('active');
+  currentCustomerId = null;
+}
+
+// -- COPY LOGIN DETAILS --
+function copyPasskey(passkey, email) {
+  const text = `Email: ${email}\nPasskey: ${passkey}\nLogin at: ${JOURNAL_URL}`;
+  navigator.clipboard.writeText(text).then(() => {
+    showToast('Login details copied', 'success');
+  }).catch(() => {
+    showToast(`Passkey: ${passkey}`, '');
+  });
+}
+
+// -- UTILS --
+function esc(str) {
+  return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function formatDate(iso) {
+  if (!iso) return '--';
+  const d = new Date(iso);
+  return d.toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
+}
+
+let toastTimer;
+function showToast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast ${type} show`;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+// -- INIT --
+async function initDashboard() {
+  regeneratePasskey();
+  await Promise.all([loadCustomers(), loadStats()]);
+}
+
+// Auto-login if session exists
+window.addEventListener('load', () => {
+  if (sessionStorage.getItem('inklings_admin') === '1') {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminScreen').classList.add('active');
+    initDashboard();
+  }
+  document.getElementById('adminPass').addEventListener('keydown', e => {
+    if (e.key === 'Enter') adminLogin();
+  });
+});
+</script>
+
+</body>
+</html>
