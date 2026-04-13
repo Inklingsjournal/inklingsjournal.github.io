@@ -1200,7 +1200,57 @@ z-index: 40;
 .circle-action,
 .ec-body-inputs { grid-template-columns: 1fr; }
 
-.roles-table .role-desc { display: none; } /* hide only on mobile */
+.roles-table .role-desc { display: none; }
+
+/* Tooltip for mobile */
+.role-tooltip-btn {
+  display: none;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  border: 1px solid var(--sage-light);
+  background: transparent;
+  color: var(--sage);
+  font-size: 9px;
+  font-weight: 600;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-left: 4px;
+  font-family: serif;
+  line-height: 1;
+}
+.role-tooltip-btn:hover { background: var(--sage-pale); }
+
+.role-tooltip-popup {
+  display: none;
+  position: absolute;
+  left: 0; top: 100%;
+  z-index: 30;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 13px;
+  font-size: 11px;
+  color: var(--ink-mid);
+  line-height: 1.65;
+  font-weight: 300;
+  box-shadow: 0 6px 20px rgba(0,0,0,.1);
+  max-width: 220px;
+  width: max-content;
+}
+.role-tooltip-popup.visible { display: block; }
+
+.role-name-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .role-tooltip-btn { display: inline-flex; }
+}
+
 .page-title { font-size: 30px; }
 .breadcrumb { font-size: 8px; max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 }
@@ -2024,6 +2074,33 @@ z-index: 40;
       <div style="display:grid;gap:14px">
         <div style="display:flex;gap:14px;align-items:flex-start"><span style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--gold);line-height:1;flex-shrink:0">✦</span><div><div style="font-size:12px;font-weight:500;color:var(--ink);margin-bottom:3px">Return to Part III daily</div><div style="font-size:12px;color:var(--ink-light);line-height:1.7">Even two minutes of mood tracking or intention setting builds something real over time. Make it a ritual.</div></div></div>
         <div style="display:flex;gap:14px;align-items:flex-start"><span style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--gold);line-height:1;flex-shrink:0">✦</span><div><div style="font-size:12px;font-weight:500;color:var(--ink);margin-bottom:3px">Revisit Part II when life changes</div><div style="font-size:12px;color:var(--ink-light);line-height:1.7">After a big transition, a loss, a new beginning — go back to the reflective chapters. You will read them differently each time.</div></div></div>
+     <div style="margin-top:36px;margin-bottom:8px">
+  <div style="font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--sage);font-weight:600;margin-bottom:20px;display:flex;align-items:center;gap:10px">
+    A letter to your future self
+    <span style="flex:1;height:1px;background:var(--sage-pale);display:block"></span>
+  </div>
+
+  <div style="background:var(--parchment);border-radius:14px;padding:22px 26px;margin-bottom:18px;border:1px solid var(--line-light)">
+    <div style="font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--warm-brown);font-weight:600;margin-bottom:10px">What this journal taught me</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--ink-mid);font-style:italic;line-height:1.6;margin-bottom:14px">Looking back at everything you wrote — what do you know about yourself now that you didn't before?</div>
+    <textarea class="journal-area" id="closing-insights" rows="5" placeholder="The most honest thing I learned about myself is..."></textarea>
+  </div>
+
+  <div style="background:var(--white);border:1px solid var(--line-light);border-radius:14px;padding:22px 26px;margin-bottom:18px">
+    <div style="font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--warm-brown);font-weight:600;margin-bottom:10px">Where I want to be in 6 months</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--ink-mid);font-style:italic;line-height:1.6;margin-bottom:14px">Not goals — feelings. What do you want your inner life to feel like six months from now?</div>
+    <textarea class="journal-area" id="closing-6months" rows="5" placeholder="Six months from now, I hope I feel..."></textarea>
+  </div>
+
+  <div style="background:linear-gradient(135deg,rgba(122,140,110,.08),rgba(184,154,92,.06));border:1px solid rgba(122,140,110,.18);border-radius:14px;padding:22px 26px;margin-bottom:8px;position:relative;overflow:hidden">
+    <div style="position:absolute;top:14px;right:18px;font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--sage-pale);opacity:.6">✦</div>
+    <div style="font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--sage);font-weight:600;margin-bottom:10px">A letter to open in 6 months</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--ink-mid);font-style:italic;line-height:1.6;margin-bottom:14px">Write to yourself as you are right now. Tell your future self what you've been through, what you're hoping for, and what you want them to remember about this moment.</div>
+    <textarea class="journal-area large-area" id="closing-letter" rows="10" placeholder="Dear future me..."></textarea>
+    <div style="margin-top:10px;font-size:10px;color:var(--sage-light);font-style:italic;text-align:right">— Written on <span id="closing-letter-date"></span></div>
+  </div>
+</div>
+
         <div style="display:flex;gap:14px;align-items:flex-start"><span style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--gold);line-height:1;flex-shrink:0">✦</span><div><div style="font-size:12px;font-weight:500;color:var(--ink);margin-bottom:3px">Return to Part I when things feel heavy</div><div style="font-size:12px;color:var(--ink-light);line-height:1.7">Your grounding exercise, your safe place, your compassionate voice — these are always there. Use them freely.</div></div></div>
       </div>
     </div>
@@ -2571,7 +2648,16 @@ function buildRolesTable() {
     const stars = [1,2,3,4,5].map(s =>
       `<span class="star ${(saved[ri]||0) >= s ? 'filled' : ''}" data-ri="${ri}" data-s="${s}">★</span>`
     ).join('');
-    tr.innerHTML = `<td><div class="role-name">${role.name}</div></td><td><div class="role-desc">${role.desc}</div></td><td><div class="star-rating" id="stars-${ri}">${stars}</div></td>`;
+    tr.innerHTML = `
+      <td>
+        <div class="role-name-wrap">
+          <div class="role-name">${role.name}</div>
+          <button class="role-tooltip-btn" onclick="toggleTooltip(event, 'tip-${ri}')" title="What this means">i</button>
+          <div class="role-tooltip-popup" id="tip-${ri}">${role.desc}</div>
+        </div>
+      </td>
+      <td><div class="role-desc">${role.desc}</div></td>
+      <td><div class="star-rating" id="stars-${ri}">${stars}</div></td>`;
     tbody.appendChild(tr);
   });
   tbody.addEventListener('click', e => {
@@ -2586,7 +2672,22 @@ function buildRolesTable() {
       });
     }
   });
+  // Close tooltips when clicking outside
+  document.addEventListener('click', e => {
+    if (!e.target.classList.contains('role-tooltip-btn')) {
+      document.querySelectorAll('.role-tooltip-popup.visible').forEach(p => p.classList.remove('visible'));
+    }
+  });
 }
+
+function toggleTooltip(e, id) {
+  e.stopPropagation();
+  const popup = document.getElementById(id);
+  const wasVisible = popup.classList.contains('visible');
+  document.querySelectorAll('.role-tooltip-popup.visible').forEach(p => p.classList.remove('visible'));
+  if (!wasVisible) popup.classList.add('visible');
+}
+
 
 // ══ COLLAGE ══
 function buildCollage() {
@@ -2970,23 +3071,265 @@ function signOut() {
 }
 
 function exportData() {
-  const data = {
-    exported: new Date().toISOString(),
-    journal: JSON.parse(localStorage.getItem('inklings_static') || '{}'),
-    completed: JSON.parse(localStorage.getItem('inklings_completed') || '[]'),
-    streak: JSON.parse(localStorage.getItem('inklings_streak') || '{"days":[]}'),
-    moodEntries: {},
-    plannerEntries: {}
+  // Field ID to human label mapping — prompts never appear, only section headings
+  const FIELD_LABELS = {
+    // Grounding
+    'g-see1':'','g-see2':'','g-see3':'','g-see4':'','g-see5':'',
+    'g-tou1':'','g-tou2':'','g-tou3':'','g-tou4':'',
+    'g-hea1':'','g-hea2':'','g-hea3':'',
+    'g-sme1':'','g-sme2':'',
+    'g-tas1':'',
+    'g-after':'After the exercise',
+    // Emotion compass
+    'ec-q1':'Emotions lately','ec-b1':'','ec-b2':'','ec-b3':'','ec-b4':'',
+    'ec-q3':'What I need','ec-q4':'What I would say to a friend',
+    // Safe place
+    'col-q1':'My safe place','col-q2':'Bringing safety into daily life',
+    // Compassionate voice
+    'ch6-com-name':'Their name','ch6-com1':'How they appear to me',
+    'ch6-lp1':'Their letter to me',
+    // Part I pause
+    'p1-pause1':'What I carry from Part I','p1-pause2':'My promise to myself',
+    // Early impressions
+    'ch1-q1':'My earliest memory','ch1-q2':'Influential people in my early years',
+    // Family
+    'ch1-fam1':'My role in my family','ch1-fam2':'How love was shown',
+    // Moments
+    'ch1-mom1':'A moment that shaped me','ch1-mom2':'A belief I want to release',
+    // Ch1 pause
+    'ch1-pause1':'What I noticed',
+    // Life today
+    'ch2-tod1':'This chapter of my life','ch2-tod2':'Where I want this to lead',
+    // Fills drains
+    'f1':'','f2':'','f3':'','f4':'','f5':'',
+    'd1':'','d2':'','d3':'','d4':'','d5':'',
+    'ch2-fills-q':'What I notice about my energy',
+    // Joys
+    'ch2-joy1':'A moment of genuine joy','ch2-joy2':'Small things that feel good',
+    // Roles
+    'ch3-und1':'The role that resonates most',
+    // Ideal self
+    'ch3-ide1':'Qualities I see in myself','ch3-ide2':'Becoming that version',
+    // Shadow
+    'ch3-sha2':'The part I usually hide','ch3-sha-reply':'What that part needs to hear',
+    // Ch2 pause
+    'ch2-pause1':'What surprised me',
+    // Offload
+    'ch6-off1':'What I needed to say',
+    // Critic
+    'ch6-cri1':'The critical voice','ch6-cri2':'A kinder perspective',
+    // Child
+    'ch6-chi1':'My younger self','ch6-chi2':'What they could never say',
+    // Letter
+    'ch6-ly1':'Letter to the child I was',
+    // Attachment
+    'ch6-att1':'Trusting someone completely',
+    'ch6-att2':'Feeling emotionally safe',
+    'ch6-att3':'What I hope for when hurting',
+    'ch6-att4':'Comfort I received growing up',
+    'ch6-att5':'My deepest fear in love',
+    'ch6-att6':'Patterns I notice',
+    // Ch6 pause
+    'ch6-pause1':'My wiser self speaks',
+    // Dreams
+    'ch4-dre1':'My truest dream','ch4-dre2':'What stops me',
+    // Vision
+    'ch4-vis1':'My ideal day','ch4-vis2':'Living well',
+    // Success
+    'ch4-suc1':'What success really means','ch4-suc2':'Small steps forward',
+    // Legacy
+    'ch4-leg1':'What I want to be remembered for','ch4-leg2':'My quiet impact',
+    // Ch4 pause
+    'ch4-pause1':'The life I am moving toward',
+    // Insights
+    'ch5-ins1':'The most meaningful discovery','ch5-ins2':'What I want to let go of',
+    // Full story
+    'ch5-fin1':'My full story','ch5-tur1':'What I want to remember in hard moments',
+    // Circle of control
+    'cc-release-feel':'Letting go','ca-do':'One thing I can do today',
+    'ca-release':'One thing I am releasing','cc-shift':'What becomes possible',
+    // Big/small intentions
+    'bi1':'','bi2':'','bi3':'',
+    'si1':'','si2':'','si3':'','si4':'','si5':'',
+    'ir-meaning':'Why this matters','ir-feeling':'The feeling I am moving toward',
+    'ir-action':'One step this week','ir-obstacle':'What might get in the way',
+    'ir-vision':'Three months from now',
+    // Closing
+    'closing-insights':'What this journal taught me',
+    'closing-6months':'Where I want to be in 6 months',
+    'closing-letter':'A letter to my future self',
   };
-  Object.keys(localStorage).forEach(k => {
-    if (k.startsWith('mood_')) data.moodEntries[k.replace('mood_','')] = JSON.parse(localStorage.getItem(k));
-    if (k.startsWith('planner_')) data.plannerEntries[k.replace('planner_','')] = JSON.parse(localStorage.getItem(k));
+
+  const SECTIONS = [
+    { heading: 'Part I · Grounding', ids: ['g-see1','g-see2','g-see3','g-see4','g-see5','g-tou1','g-tou2','g-tou3','g-tou4','g-hea1','g-hea2','g-hea3','g-sme1','g-sme2','g-tas1','g-after'] },
+    { heading: 'Part I · How I Am, Really', ids: ['ec-q1','ec-b1','ec-b2','ec-b3','ec-b4','ec-q3','ec-q4'] },
+    { heading: 'Part I · My Safe Place', ids: ['col-q1','col-q2'] },
+    { heading: 'Part I · My Compassionate Voice', ids: ['ch6-com-name','ch6-com1','ch6-lp1'] },
+    { heading: 'Part I · Reflection', ids: ['p1-pause1','p1-pause2'] },
+    { heading: 'Part II · Early Impressions', ids: ['ch1-q1','ch1-q2'] },
+    { heading: 'Part II · Family and Love', ids: ['ch1-fam1','ch1-fam2'] },
+    { heading: 'Part II · A Moment That Stayed', ids: ['ch1-mom1','ch1-mom2','ch1-pause1'] },
+    { heading: 'Part II · My Life Today', ids: ['ch2-tod1','ch2-tod2'] },
+    { heading: 'Part II · What Fills and Drains Me', ids: ['f1','f2','f3','f4','f5','d1','d2','d3','d4','d5','ch2-fills-q'] },
+    { heading: 'Part II · Small Joys', ids: ['ch2-joy1','ch2-joy2'] },
+    { heading: 'Part II · The Roles I Play', ids: ['ch3-und1'] },
+    { heading: 'Part II · A Version I Admire', ids: ['ch3-ide1','ch3-ide2'] },
+    { heading: 'Part II · The Part That Is Hard to Show', ids: ['ch3-sha2','ch3-sha-reply','ch2-pause1'] },
+    { heading: 'Part II · What I Needed to Say', ids: ['ch6-off1'] },
+    { heading: 'Part II · The Voice in My Head', ids: ['ch6-cri1','ch6-cri2'] },
+    { heading: 'Part II · My Younger Self', ids: ['ch6-chi1','ch6-chi2'] },
+    { heading: 'Part II · A Letter to the Child I Was', ids: ['ch6-ly1'] },
+    { heading: 'Part II · How I Love and Let People In', ids: ['ch6-att1','ch6-att2','ch6-att3','ch6-att4','ch6-att5','ch6-att6','ch6-pause1'] },
+    { heading: 'Part II · Dreams', ids: ['ch4-dre1','ch4-dre2'] },
+    { heading: 'Part II · My Ideal Day', ids: ['ch4-vis1','ch4-vis2'] },
+    { heading: 'Part II · What Success Really Means', ids: ['ch4-suc1','ch4-suc2'] },
+    { heading: 'Part II · What I Want to Matter', ids: ['ch4-leg1','ch4-leg2','ch4-pause1'] },
+    { heading: 'Part II · What This Taught Me', ids: ['ch5-ins1','ch5-ins2'] },
+    { heading: 'Part II · My Full Story', ids: ['ch5-fin1','ch5-tur1'] },
+    { heading: 'Part III · What Is In My Hands', ids: ['cc-release-feel','ca-do','ca-release','cc-shift'] },
+    { heading: 'Part III · My Intentions', ids: ['bi1','bi2','bi3','si1','si2','si3','si4','si5','ir-meaning','ir-feeling','ir-action','ir-obstacle','ir-vision'] },
+    { heading: 'Closing · Letter to My Future Self', ids: ['closing-insights','closing-6months','closing-letter'] },
+  ];
+
+  // Collect values
+  const vals = {};
+  Object.keys(FIELD_LABELS).forEach(id => {
+    const el = document.getElementById(id);
+    vals[id] = el ? el.value.trim() : '';
   });
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url; a.download = 'inklings-journal-' + todayStr() + '.json';
-  a.click(); URL.revokeObjectURL(url);
+
+  // Build fills/drains combined label
+  const fillsList = [vals.f1,vals.f2,vals.f3,vals.f4,vals.f5].filter(Boolean);
+  const drainsList = [vals.d1,vals.d2,vals.d3,vals.d4,vals.d5].filter(Boolean);
+
+  const session = JSON.parse(sessionStorage.getItem('inklings_session') || '{}');
+  const name = session.name || 'My';
+  const dateStr = new Date().toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' });
+
+  // Build HTML for PDF
+  let html = `
+  <!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap');
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Jost',sans-serif; background:#fdfaf5; color:#2a2a28; font-weight:300; font-size:13px; line-height:1.85; padding:48px 60px; max-width:680px; margin:0 auto; }
+    .cover { text-align:center; padding:60px 0 80px; border-bottom:1px solid #e8e2d8; margin-bottom:56px; }
+    .cover-title { font-family:'Cormorant Garamond',serif; font-size:42px; font-weight:300; color:#4f6247; margin-bottom:8px; }
+    .cover-title em { font-style:italic; color:#b89a5c; }
+    .cover-name { font-family:'Cormorant Garamond',serif; font-size:22px; color:#2a2a28; margin-bottom:6px; }
+    .cover-date { font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#a8b89a; }
+    .cover-note { font-size:12px; color:#7a7a74; font-style:italic; margin-top:28px; line-height:1.8; max-width:380px; margin-left:auto; margin-right:auto; }
+    .section { margin-bottom:44px; page-break-inside:avoid; }
+    .section-heading { font-size:8px; letter-spacing:.22em; text-transform:uppercase; color:#7a8c6e; font-weight:600; margin-bottom:18px; padding-bottom:8px; border-bottom:1px solid #d6dece; }
+    .entry { margin-bottom:16px; }
+    .entry-label { font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:#a8b89a; font-weight:500; margin-bottom:5px; }
+    .entry-value { font-family:'Cormorant Garamond',serif; font-size:16px; color:#2a2a28; line-height:1.75; white-space:pre-wrap; }
+    .list-group { margin-bottom:16px; }
+    .list-group-title { font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:#a8b89a; font-weight:500; margin-bottom:8px; }
+    .list-items { display:flex; flex-wrap:wrap; gap:6px; }
+    .list-chip { background:#ede6d4; border-radius:20px; padding:4px 12px; font-size:11px; color:#6b5c47; }
+    .letter-block { background:#f6f1e9; border-left:3px solid #a8b89a; border-radius:0 10px 10px 0; padding:20px 22px; margin-bottom:16px; }
+    .letter-value { font-family:'Cormorant Garamond',serif; font-size:16px; color:#2a2a28; line-height:1.85; white-space:pre-wrap; font-style:italic; }
+    .footer { text-align:center; margin-top:60px; padding-top:24px; border-top:1px solid #e8e2d8; font-size:10px; color:#a8b89a; letter-spacing:.1em; }
+    @media print { body { padding:32px 44px; } .section { page-break-inside:avoid; } }
+  </style>
+  </head>
+  <body>
+  <div class="cover">
+    <div class="cover-title">Inklings <em>Journal</em></div>
+    <div class="cover-name">${name}</div>
+    <div class="cover-date">Exported ${dateStr}</div>
+    <div class="cover-note">This document contains your personal reflections. The words here are entirely yours — written with honesty, courage, and care.</div>
+  </div>`;
+
+  SECTIONS.forEach(sec => {
+    // Check if this section has any content
+    let hasContent = false;
+
+    if (sec.heading.includes('Fills and Drains')) {
+      if (fillsList.length > 0 || drainsList.length > 0 || vals['ch2-fills-q']) hasContent = true;
+    } else {
+      sec.ids.forEach(id => { if (vals[id]) hasContent = true; });
+    }
+
+    if (!hasContent) return;
+
+    html += `<div class="section"><div class="section-heading">${sec.heading}</div>`;
+
+    if (sec.heading.includes('Fills and Drains')) {
+      if (fillsList.length > 0) {
+        html += `<div class="list-group"><div class="list-group-title">What left me feeling lighter</div><div class="list-items">${fillsList.map(f=>`<span class="list-chip">${f}</span>`).join('')}</div></div>`;
+      }
+      if (drainsList.length > 0) {
+        html += `<div class="list-group"><div class="list-group-title">What left me feeling heavier</div><div class="list-items">${drainsList.map(d=>`<span class="list-chip">${d}</span>`).join('')}</div></div>`;
+      }
+      if (vals['ch2-fills-q']) html += `<div class="entry"><div class="entry-value">${vals['ch2-fills-q']}</div></div>`;
+    } else if (sec.heading.includes('Intentions')) {
+      const bigs = [vals.bi1,vals.bi2,vals.bi3].filter(Boolean);
+      const smalls = [vals.si1,vals.si2,vals.si3,vals.si4,vals.si5].filter(Boolean);
+      if (bigs.length) html += `<div class="list-group"><div class="list-group-title">What matters most</div><div class="list-items">${bigs.map(b=>`<span class="list-chip">${b}</span>`).join('')}</div></div>`;
+      if (smalls.length) html += `<div class="list-group"><div class="list-group-title">Daily acts</div><div class="list-items">${smalls.map(s=>`<span class="list-chip">${s}</span>`).join('')}</div></div>`;
+      ['ir-meaning','ir-feeling','ir-action','ir-obstacle','ir-vision'].forEach(id => {
+        if (vals[id]) html += `<div class="entry"><div class="entry-label">${FIELD_LABELS[id]}</div><div class="entry-value">${vals[id]}</div></div>`;
+      });
+    } else if (sec.heading.includes('Letter to My Future Self')) {
+      ['closing-insights','closing-6months'].forEach(id => {
+        if (vals[id]) html += `<div class="entry"><div class="entry-label">${FIELD_LABELS[id]}</div><div class="entry-value">${vals[id]}</div></div>`;
+      });
+      if (vals['closing-letter']) {
+        html += `<div class="letter-block"><div class="list-group-title" style="margin-bottom:12px">A letter to open in 6 months</div><div class="letter-value">${vals['closing-letter']}</div></div>`;
+      }
+    } else if (sec.heading.includes('Grounding')) {
+      const sees = [vals['g-see1'],vals['g-see2'],vals['g-see3'],vals['g-see4'],vals['g-see5']].filter(Boolean);
+      const touchs = [vals['g-tou1'],vals['g-tou2'],vals['g-tou3'],vals['g-tou4']].filter(Boolean);
+      const hears = [vals['g-hea1'],vals['g-hea2'],vals['g-hea3']].filter(Boolean);
+      const smells = [vals['g-sme1'],vals['g-sme2']].filter(Boolean);
+      if (sees.length) html += `<div class="list-group"><div class="list-group-title">I can see</div><div class="list-items">${sees.map(s=>`<span class="list-chip">${s}</span>`).join('')}</div></div>`;
+      if (touchs.length) html += `<div class="list-group"><div class="list-group-title">I can touch</div><div class="list-items">${touchs.map(s=>`<span class="list-chip">${s}</span>`).join('')}</div></div>`;
+      if (hears.length) html += `<div class="list-group"><div class="list-group-title">I can hear</div><div class="list-items">${hears.map(s=>`<span class="list-chip">${s}</span>`).join('')}</div></div>`;
+      if (smells.length) html += `<div class="list-group"><div class="list-group-title">I can smell</div><div class="list-items">${smells.map(s=>`<span class="list-chip">${s}</span>`).join('')}</div></div>`;
+      if (vals['g-tas1']) html += `<div class="list-group"><div class="list-group-title">I can taste</div><div class="list-items"><span class="list-chip">${vals['g-tas1']}</span></div></div>`;
+      if (vals['g-after']) html += `<div class="entry"><div class="entry-value">${vals['g-after']}</div></div>`;
+    } else if (sec.heading.includes('How I Am')) {
+      if (vals['ec-q1']) html += `<div class="entry"><div class="entry-value">${vals['ec-q1']}</div></div>`;
+      const body = [vals['ec-b1'],vals['ec-b2'],vals['ec-b3'],vals['ec-b4']].filter(Boolean);
+      if (body.length) html += `<div class="list-group"><div class="list-group-title">Where I feel it in my body</div><div class="list-items">${body.map(b=>`<span class="list-chip">${b}</span>`).join('')}</div></div>`;
+      if (vals['ec-q3']) html += `<div class="entry"><div class="entry-value">${vals['ec-q3']}</div></div>`;
+      if (vals['ec-q4']) html += `<div class="entry"><div class="entry-value">${vals['ec-q4']}</div></div>`;
+    } else {
+      sec.ids.forEach(id => {
+        const v = vals[id];
+        if (!v) return;
+        const label = FIELD_LABELS[id];
+        if (id === 'ch6-lp1' || id === 'ch6-ly1' || id === 'ch5-fin1' || id === 'ch6-off1') {
+          html += `<div class="letter-block"><div class="letter-value">${v}</div></div>`;
+        } else {
+          html += `<div class="entry">`;
+          if (label) html += `<div class="entry-label">${label}</div>`;
+          html += `<div class="entry-value">${v}</div></div>`;
+        }
+      });
+    }
+
+    html += `</div>`;
+  });
+
+  html += `
+  <div class="footer">Inklings Journal &nbsp;·&nbsp; ${name} &nbsp;·&nbsp; ${dateStr}</div>
+  </body></html>`;
+
+  // Open in new window and trigger print-to-PDF
+  const win = window.open('', '_blank');
+  win.document.write(html);
+  win.document.close();
+  win.onload = () => {
+    setTimeout(() => {
+      win.print();
+    }, 800);
+  };
 }
 
 // ══ INIT ══
@@ -3025,6 +3368,16 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('grp-roots').classList.add('open');
 });
 
+  // Set closing letter date
+document.addEventListener('DOMContentLoaded', () => {
+  const el = document.getElementById('closing-letter-date');
+  if (el) {
+    const d = new Date();
+    el.textContent = d.toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' });
+  }
+});
+
+  
 </script>
 
 </body>
