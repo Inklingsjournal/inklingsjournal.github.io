@@ -1488,9 +1488,9 @@ footer { padding: 48px 28px 28px; }
 </button>
 
 <script>
-var SUPABASE_URL  = 'https://vqpyeebiornuymohbicz.supabase.co';
-var SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZxcHllZWJpb3JudXltb2hiaWN6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0MTU1NDcsImV4cCI6MjA5MDk5MTU0N30.7XFzJu3JVJxE-GW4qsqKVbRkjq-KZIi1BUqcNtETKKM';
-var EDGE_FN_URL   = 'https://vqpyeebiornuymohbicz.supabase.co/functions/v1/resend-email';
+var BREVO_API_KEY = 'xsmtpsib-ff9df2b744089c8e8d20c7c453cbb1dc48ca49ce5f2251164a856a9a50cef9e2-jTsRWd7KZM4xfzvT';
+var BREVO_LIST_ID = 3;
+
 
 // Nav scroll
 var navbar = document.getElementById('navbar');
@@ -1564,45 +1564,45 @@ async function subscribeEmail() {
   btn.textContent = 'Subscribing...';
 
   try {
-    const res = await fetch('https://api.brevo.com/v3/contacts', {
+    var res = await fetch('https://api.brevo.com/v3/contacts', {
       method: 'POST',
       headers: {
         'accept': 'application/json',
         'content-type': 'application/json',
-        'api-key': 'xsmtpsib-ff9df2b744089c8e8d20c7c453cbb1dc48ca49ce5f2251164a856a9a50cef9e2-jTsRWd7KZM4xfzvT'  // ← paste your key here
+        'api-key': BREVO_API_KEY
       },
       body: JSON.stringify({
         email: email,
-        listIds: [3],  // ← your list ID number eg. 3
+        listIds: [BREVO_LIST_ID],
         updateEnabled: true
       })
     });
 
-    if (res.status === 204 || res.status === 201 || res.ok) {
+    if (res.status === 201 || res.status === 204) {
       document.getElementById('sub-email').value = '';
-      note.textContent = 'You are subscribed. Check your inbox for a note from hello@inklingsjournal.com.';
+      note.textContent = 'Almost there. Check your inbox to confirm your subscription.';
       note.style.color = '#6e8060';
-      btn.textContent = 'Subscribed';
+      btn.textContent = 'Check your inbox';
       btn.style.background = '#6e8060';
-    } else {
-      const data = await res.json();
-      // Contact already exists
-      if (data.code === 'duplicate_parameter') {
-        note.textContent = 'You are already subscribed. Thank you.';
-        note.style.color = '#6e8060';
-        btn.disabled = false;
-        btn.textContent = 'Subscribe';
-      } else {
-        throw new Error(data.message);
-      }
+      return;
     }
 
+    var data = await res.json();
+    if (data.code === 'duplicate_parameter') {
+      note.textContent = 'You are already on the list. Thank you.';
+      note.style.color = '#6e8060';
+      btn.disabled = false;
+      btn.textContent = 'Subscribe';
+      return;
+    }
+
+    throw new Error(data.message || 'Unexpected error');
+
   } catch(err) {
-    note.textContent = 'Something went wrong. Please try again or write to hello@inklingsjournal.com.';
+    note.textContent = 'Something went wrong. Please write to hello@inklingsjournal.com.';
     note.style.color = '#c0614a';
     btn.disabled = false;
     btn.textContent = 'Subscribe';
-    console.error(err);
   }
 }
 
