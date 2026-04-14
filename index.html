@@ -1563,9 +1563,9 @@ async function subscribeEmail() {
 
   try {
     var formData = new FormData();
-formData.append('EMAIL', email);
-formData.append('email_address_check', '');
-formData.append('locale', 'en');
+    formData.append('EMAIL', email);
+    formData.append('email_address_check', '');
+    formData.append('locale', 'en');
 
     await fetch('https://394eccff.sibforms.com/serve/MUIFAPVsgryVuIIuDtQhJVUjDtbkvGVNKIa-1Cd6YH7qC6Ro4wLhyXxEmvnbIZxvnwXIHWwsg3gUG9xzXdupBBTmwz10Dd7uUyf5rd0zasHrHYE1Uioc3GnbpWvxvjxdgKK5_RGbqIE23-RHa9_ywRISHvq_A8cYxvpxN5rx3C45AqETZ2tuSfzXGgH9V6Cp4SeyAXz4IFEbqSNgqA==', {
       method: 'POST',
@@ -1573,24 +1573,11 @@ formData.append('locale', 'en');
       mode: 'no-cors'
     });
 
-        document.getElementById('sub-email').value = '';
+    document.getElementById('sub-email').value = '';
     note.textContent = 'Almost there. Check your inbox to confirm your subscription.';
     note.style.color = '#6e8060';
     btn.textContent = 'Check your inbox';
     btn.style.background = '#6e8060';
-    return;
-  }
-
-    var data = await res.json();
-    if (data.code === 'duplicate_parameter') {
-      note.textContent = 'You are already on the list. Thank you.';
-      note.style.color = '#6e8060';
-      btn.disabled = false;
-      btn.textContent = 'Subscribe';
-      return;
-    }
-
-    throw new Error(data.message || 'Unexpected error');
 
   } catch(err) {
     note.textContent = 'Something went wrong. Please write to hello@inklingsjournal.com.';
@@ -1599,6 +1586,7 @@ formData.append('locale', 'en');
     btn.textContent = 'Subscribe';
   }
 }
+
 
 </script>
 
