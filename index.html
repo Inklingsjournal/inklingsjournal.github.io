@@ -1488,8 +1488,6 @@ footer { padding: 48px 28px 28px; }
 </button>
 
 <script>
-var BREVO_API_KEY = 'xsmtpsib-ff9df2b744089c8e8d20c7c453cbb1dc48ca49ce5f2251164a856a9a50cef9e2-jTsRWd7KZM4xfzvT';
-var BREVO_LIST_ID = 3;
 
 
 // Nav scroll
@@ -1564,19 +1562,15 @@ async function subscribeEmail() {
   btn.textContent = 'Subscribing...';
 
   try {
-    var res = await fetch('https://api.brevo.com/v3/contacts', {
-      method: 'POST',
-      headers: {
-        'accept': 'application/json',
-        'content-type': 'application/json',
-        'api-key': BREVO_API_KEY
-      },
-      body: JSON.stringify({
-        email: email,
-        listIds: [BREVO_LIST_ID],
-        updateEnabled: true
-      })
-    });
+    var formData = new FormData();
+formData.append('EMAIL', email);
+formData.append('email_address_check', '');
+formData.append('locale', 'en');
+
+var res = await fetch('https://394eccff.sibforms.com/serve/MUIFAPVsgryVuIIuDtQhJVUjDtbkvGVNKIa-1Cd6YH7qC6Ro4wLhyXxEmvnbIZxvnwXIHWwsg3gUG9xzXdupBBTmwz10Dd7uUyf5rd0zasHrHYE1Uioc3GnbpWvxvjxdgKK5_RGbqIE23-RHa9_ywRISHvq_A8cYxvpxN5rx3C45AqETZ2tuSfzXGgH9V6Cp4SeyAXz4IFEbqSNgqA==', {
+  method: 'POST',
+  body: formData
+});
 
     if (res.status === 201 || res.status === 204) {
       document.getElementById('sub-email').value = '';
