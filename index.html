@@ -9,38 +9,38 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 
-/* ── TOKENS ── */
+/* TOKENS */
 :root {
---cream: #f4efe6;
---parchment: #ece4d0;
---parchment-dark: #ddd4be;
---sage: #6e8060;
---sage-light: #9aaf8c;
---sage-pale: #ccd9c4;
---sage-dark: #445c38;
---sage-deep: #304228;
---warm-brown: #5e4e38;
---warm-mid: #7a6550;
---ink: #1e1e1c;
---ink-mid: #3a3a36;
---ink-light: #646460;
---ink-faint: #8a8a84;
---line: #ccc4b4;
---line-light: #e2dcd0;
---white: #faf7f2;
---gold: #a8844a;
---gold-light: #e8d8b0;
---gold-pale: #f4edd8;
---footer: #1c1a14;
+–cream: #f4efe6;
+–parchment: #ece4d0;
+–parchment-dark: #ddd4be;
+–sage: #6e8060;
+–sage-light: #9aaf8c;
+–sage-pale: #ccd9c4;
+–sage-dark: #445c38;
+–sage-deep: #304228;
+–warm-brown: #5e4e38;
+–warm-mid: #7a6550;
+–ink: #1e1e1c;
+–ink-mid: #3a3a36;
+–ink-light: #646460;
+–ink-faint: #8a8a84;
+–line: #ccc4b4;
+–line-light: #e2dcd0;
+–white: #faf7f2;
+–gold: #a8844a;
+–gold-light: #e8d8b0;
+–gold-pale: #f4edd8;
+–footer: #1c1a14;
 }
 
-/* ── RESET ── */
+/* RESET */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; font-size: 16px; }
 body {
 font-family: ‘Jost’, sans-serif;
-background: var(--cream);
-color: var(--ink);
+background: var(–cream);
+color: var(–ink);
 font-weight: 300;
 overflow-x: hidden;
 -webkit-font-smoothing: antialiased;
@@ -49,27 +49,26 @@ img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 button { cursor: pointer; font-family: inherit; }
 
-/* ── SCROLLBAR ── */
+/* SCROLLBAR */
 ::-webkit-scrollbar { width: 3px; }
-::-webkit-scrollbar-thumb { background: var(--line); border-radius: 2px; }
+::-webkit-scrollbar-thumb { background: var(–line); border-radius: 2px; }
 
-/* ── UTILITY ── */
+/* UTILITY */
 .serif { font-family: ‘Cormorant Garamond’, serif; }
 .eyebrow {
 font-size: 9px;
 letter-spacing: .28em;
 text-transform: uppercase;
 font-weight: 500;
-color: var(--sage);
+color: var(–sage);
 display: flex;
 align-items: center;
 gap: 10px;
 margin-bottom: 16px;
 }
-.eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--sage-pale); flex-shrink: 0; display: inline-block; vertical-align: middle; }
+.eyebrow::before { content: ‘’; width: 20px; height: 1px; background: var(–sage-pale); flex-shrink: 0; display: inline-block; }
 
-
-/* ── REVEAL ── */
+/* REVEAL */
 .reveal {
 opacity: 0;
 transform: translateY(22px);
@@ -81,9 +80,7 @@ transition: opacity .8s cubic-bezier(.4,0,.2,1), transform .8s cubic-bezier(.4,0
 .reveal-d3 { transition-delay: .3s; }
 .reveal-d4 { transition-delay: .4s; }
 
-/* ══════════════════════════════
-NAV
-══════════════════════════════ */
+/* NAV */
 nav {
 position: fixed;
 top: 0; left: 0; right: 0;
@@ -98,56 +95,52 @@ transition: background .4s, border-color .4s, backdrop-filter .4s;
 nav.scrolled {
 background: rgba(244,239,230,.96);
 backdrop-filter: blur(16px);
-border-bottom: 1px solid var(--line-light);
+border-bottom: 1px solid var(–line-light);
 }
 .nav-logo { text-decoration: none; display: flex; flex-direction: column; gap: 1px; }
 .nav-logo-main {
 font-family: ‘Cormorant Garamond’, serif;
 font-size: 20px;
 font-weight: 400;
-color: var(--sage-dark);
+color: var(–sage-dark);
 line-height: 1;
 letter-spacing: .01em;
 }
-.nav-logo-main em { font-style: italic; color: var(--gold); }
+.nav-logo-main em { font-style: italic; color: var(–gold); }
 .nav-logo-tag {
 font-size: 8px;
 letter-spacing: .2em;
 text-transform: uppercase;
-color: var(--sage-light);
+color: var(–sage-light);
 font-weight: 400;
 }
-.nav-links {
-display: flex;
-list-style: none;
-gap: 36px;
-}
+.nav-links { display: flex; list-style: none; gap: 36px; }
 .nav-links a {
 font-size: 11px;
 font-weight: 400;
-color: var(--ink-light);
+color: var(–ink-light);
 letter-spacing: .1em;
 text-transform: uppercase;
 transition: color .2s;
 }
-.nav-links a:hover { color: var(--sage-dark); }
+.nav-links a:hover { color: var(–sage-dark); }
 .nav-actions { display: flex; align-items: center; gap: 10px; }
 .nav-login {
 padding: 8px 18px;
-border: 1px solid var(--line);
+border: 1px solid var(–line);
 border-radius: 24px;
 background: transparent;
 font-size: 11px;
 font-weight: 400;
-color: var(--ink-mid);
+color: var(–ink-mid);
 letter-spacing: .06em;
 transition: all .2s;
 }
-.nav-login:hover { border-color: var(--sage); color: var(--sage-dark); }
+.nav-login:hover { border-color: var(–sage); color: var(–sage-dark); }
 .nav-cta {
 padding: 9px 22px;
 border-radius: 24px;
-background: var(--sage-dark);
+background: var(–sage-dark);
 border: none;
 font-size: 11px;
 font-weight: 500;
@@ -157,7 +150,7 @@ text-transform: uppercase;
 transition: all .2s;
 display: inline-block;
 }
-.nav-cta:hover { background: var(--ink); transform: translateY(-1px); }
+.nav-cta:hover { background: var(–ink); transform: translateY(-1px); }
 .hamburger {
 display: none;
 flex-direction: column;
@@ -166,13 +159,13 @@ background: none;
 border: none;
 padding: 4px;
 }
-.hamburger span { width: 22px; height: 1.5px; background: var(--ink); display: block; transition: all .3s; }
+.hamburger span { width: 22px; height: 1.5px; background: var(–ink); display: block; transition: all .3s; }
 .mobile-menu {
 display: none;
 position: fixed;
 top: 68px; left: 0; right: 0;
-background: var(--white);
-border-bottom: 1px solid var(--line-light);
+background: var(–white);
+border-bottom: 1px solid var(–line-light);
 padding: 28px 32px;
 flex-direction: column;
 gap: 20px;
@@ -182,18 +175,16 @@ box-shadow: 0 12px 32px rgba(30,30,28,.08);
 .mobile-menu.open { display: flex; }
 .mobile-menu a {
 font-size: 13px;
-color: var(--ink-mid);
+color: var(–ink-mid);
 letter-spacing: .08em;
 text-transform: uppercase;
 padding: 6px 0;
-border-bottom: 1px solid var(--line-light);
+border-bottom: 1px solid var(–line-light);
 font-weight: 400;
 }
 .mobile-menu a:last-child { border-bottom: none; }
 
-/* ══════════════════════════════
-HERO
-══════════════════════════════ */
+/* HERO */
 #hero {
 min-height: 100vh;
 display: flex;
@@ -210,7 +201,6 @@ radial-gradient(ellipse 60% 60% at 85% 35%, rgba(154,175,140,.14) 0%, transparen
 radial-gradient(ellipse 40% 50% at 10% 85%, rgba(168,132,74,.08) 0%, transparent 55%);
 pointer-events: none;
 }
-
 .hero-inner {
 position: relative;
 max-width: 1100px;
@@ -228,47 +218,30 @@ display: inline-flex;
 align-items: center;
 gap: 8px;
 background: rgba(250,247,242,.85);
-border: 1px solid var(--line-light);
+border: 1px solid var(–line-light);
 border-radius: 24px;
 padding: 6px 14px 6px 10px;
 font-size: 9px;
 letter-spacing: .18em;
 text-transform: uppercase;
-color: var(--sage);
+color: var(–sage);
 font-weight: 500;
 margin-bottom: 28px;
 }
-.hero-pill-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--sage); }
+.hero-pill-dot { width: 5px; height: 5px; border-radius: 50%; background: var(–sage); }
 .hero-title {
 font-family: ‘Cormorant Garamond’, serif;
 font-size: clamp(54px, 7vw, 88px);
 font-weight: 300;
 line-height: 1.02;
-color: var(--ink);
+color: var(–ink);
 letter-spacing: -.02em;
-margin-bottom: 8px;
-}
-.hero-title em { font-style: italic; color: var(--sage-dark); }
-.hero-sub {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: clamp(17px, 2.2vw, 22px);
-font-weight: 300;
-color: var(--warm-brown);
-font-style: italic;
-margin-bottom: 28px;
-letter-spacing: .01em;
-}
-.hero-cred {
-display: flex;
-align-items: center;
-gap: 10px;
 margin-bottom: 28px;
 }
-.hero-cred-line { width: 28px; height: 1px; background: var(--gold); }
-.hero-cred-text { font-size: 11px; color: var(--warm-mid); letter-spacing: .14em; text-transform: uppercase; font-weight: 400; }
+.hero-title em { font-style: italic; color: var(–sage-dark); }
 .hero-desc {
 font-size: 15.5px;
-color: var(--ink-mid);
+color: var(–ink-mid);
 line-height: 1.9;
 font-weight: 300;
 max-width: 460px;
@@ -280,7 +253,7 @@ display: inline-flex;
 align-items: center;
 gap: 8px;
 padding: 14px 28px;
-background: var(--sage-dark);
+background: var(–sage-dark);
 color: white;
 border: none;
 border-radius: 32px;
@@ -290,15 +263,15 @@ letter-spacing: .09em;
 text-transform: uppercase;
 transition: all .25s;
 }
-.btn-primary:hover { background: var(--ink); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(30,30,28,.15); }
+.btn-primary:hover { background: var(–ink); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(30,30,28,.15); }
 .btn-outline {
 display: inline-flex;
 align-items: center;
 gap: 8px;
 padding: 13px 26px;
 background: transparent;
-color: var(--sage-dark);
-border: 1.5px solid var(--sage);
+color: var(–sage-dark);
+border: 1.5px solid var(–sage);
 border-radius: 32px;
 font-size: 12px;
 font-weight: 500;
@@ -306,96 +279,94 @@ letter-spacing: .09em;
 text-transform: uppercase;
 transition: all .25s;
 }
-.btn-outline:hover { background: var(--sage-dark); color: white; }
+.btn-outline:hover { background: var(–sage-dark); color: white; }
 
 /* Hero card */
 .hero-visual { animation: heroIn .9s .18s cubic-bezier(.4,0,.2,1) both; }
 .hero-card {
-background: var(--white);
-border: 1px solid var(--line-light);
+background: var(–white);
+border: 1px solid var(–line-light);
 border-radius: 22px;
 padding: 32px;
 box-shadow: 0 24px 64px rgba(30,30,28,.1), 0 4px 16px rgba(30,30,28,.05);
 }
-.hc-label { font-size: 8px; letter-spacing: .2em; text-transform: uppercase; color: var(--sage-light); margin-bottom: 6px; font-weight: 500; }
-.hc-headline { font-family: ‘Cormorant Garamond’, serif; font-size: 18px; color: var(--sage-dark); margin-bottom: 18px; font-weight: 400; }
-.hc-parts { border: 1px solid var(--line-light); border-radius: 12px; overflow: hidden; margin-bottom: 18px; }
+.hc-label { font-size: 8px; letter-spacing: .2em; text-transform: uppercase; color: var(–sage-light); margin-bottom: 6px; font-weight: 500; }
+.hc-headline { font-family: ‘Cormorant Garamond’, serif; font-size: 18px; color: var(–sage-dark); margin-bottom: 18px; font-weight: 400; }
+.hc-parts { border: 1px solid var(–line-light); border-radius: 12px; overflow: hidden; margin-bottom: 18px; }
 .hc-part {
 display: flex;
 align-items: center;
 gap: 14px;
 padding: 13px 16px;
-border-bottom: 1px solid var(--line-light);
+border-bottom: 1px solid var(–line-light);
 transition: background .2s;
 }
 .hc-part:last-child { border-bottom: none; }
-.hc-part:hover { background: var(--cream); }
-.hc-part-num { font-family: ‘Cormorant Garamond’, serif; font-size: 18px; color: var(--sage-pale); width: 20px; flex-shrink: 0; }
+.hc-part:hover { background: var(–cream); cursor: pointer; }
+.hc-part-arr { transition: transform .2s, color .2s; }
+.hc-part:hover .hc-part-arr { transform: translateX(3px); color: var(–sage); }
+.hc-part-num { font-family: ‘Cormorant Garamond’, serif; font-size: 18px; color: var(–sage-pale); width: 20px; flex-shrink: 0; }
 .hc-part-info { flex: 1; }
-.hc-part-tag { font-size: 7.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--sage-light); font-weight: 500; margin-bottom: 1px; }
-.hc-part-name { font-size: 13px; color: var(--ink-mid); font-weight: 300; }
-.hc-part-arr { font-size: 10px; color: var(--line); }
+.hc-part-tag { font-size: 7.5px; letter-spacing: .14em; text-transform: uppercase; color: var(–sage-light); font-weight: 500; margin-bottom: 1px; }
+.hc-part-name { font-size: 13px; color: var(–ink-mid); font-weight: 300; }
+.hc-part-arr { font-size: 10px; color: var(–line); }
 .hc-badge {
 display: flex;
 align-items: center;
 justify-content: space-between;
 padding: 10px 14px;
-background: var(--cream);
+background: var(–cream);
 border-radius: 10px;
 font-size: 10px;
-color: var(--ink-faint);
+color: var(–ink-faint);
 font-weight: 300;
 }
 .hc-price {
 font-family: ‘Cormorant Garamond’, serif;
 font-size: 16px;
-color: var(--warm-brown);
+color: var(–warm-brown);
 font-weight: 400;
 }
 
-/* ══════════════════════════════
-SECTION SHARED
-══════════════════════════════ */
+/* SECTION SHARED */
 section { padding: 100px 56px; }
 .section-inner { max-width: 1100px; margin: 0 auto; }
 .section-title {
 font-family: ‘Cormorant Garamond’, serif;
 font-size: clamp(36px, 4.5vw, 54px);
 font-weight: 300;
-color: var(--ink);
+color: var(–ink);
 line-height: 1.1;
 letter-spacing: -.01em;
 margin-bottom: 16px;
 }
-.section-title em { font-style: italic; color: var(--sage-dark); }
+.section-title em { font-style: italic; color: var(–sage-dark); }
 .section-lead {
 font-size: 16px;
-color: var(--ink-mid);
+color: var(–ink-mid);
 line-height: 1.85;
 font-weight: 300;
 max-width: 520px;
 }
 
-/* ══════════════════════════════
-WHAT IS THIS
-══════════════════════════════ */
+/* WHAT IS THIS */
 #what {
-background: var(--parchment);
+background: var(–parchment);
 position: relative;
 overflow: hidden;
 padding: 100px 56px;
 }
 #what::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(transparent, transparent 39px, rgba(154,175,140,.2) 39px, rgba(154,175,140,.2) 40px);
-  pointer-events: none;
-  z-index: 0;
+content: ‘’;
+position: absolute;
+inset: 0;
+background: repeating-linear-gradient(transparent, transparent 39px, rgba(154,175,140,.2) 39px, rgba(154,175,140,.2) 40px);
+pointer-events: none;
+z-index: 0;
 }
-
 .what-inner {
 position: relative;
+z-index: 1;
 max-width: 1100px;
 margin: 0 auto;
 display: grid;
@@ -403,20 +374,19 @@ grid-template-columns: 1fr 1fr;
 gap: 80px;
 align-items: start;
 }
-.what-text .section-title { margin-bottom: 24px; }
 .what-body {
 font-size: 16px;
-color: var(--ink-mid);
+color: var(–ink-mid);
 line-height: 2;
 font-weight: 300;
 }
 .what-body p { margin-bottom: 18px; }
 .what-body p:last-child { margin-bottom: 0; }
-.what-body strong { color: var(--ink); font-weight: 500; }
+.what-body strong { color: var(–ink); font-weight: 500; }
 .what-cards { display: flex; flex-direction: column; gap: 16px; }
 .what-card {
-background: var(--white);
-border: 1px solid var(--line-light);
+background: var(–white);
+border: 1px solid var(–line-light);
 border-radius: 16px;
 padding: 22px 24px;
 position: relative;
@@ -427,64 +397,65 @@ content: ‘’;
 position: absolute;
 top: 0; left: 0;
 width: 3px; height: 100%;
-background: var(--sage-pale);
+background: var(–sage-pale);
 }
 .what-card-num {
 font-family: ‘Cormorant Garamond’, serif;
 font-size: 28px;
-color: var(--sage-pale);
+color: var(–sage-pale);
 line-height: 1;
 margin-bottom: 8px;
 }
-.what-card-title { font-size: 14px; font-weight: 500; color: var(--sage-dark); margin-bottom: 5px; }
-.what-card-desc { font-size: 13px; color: var(--ink-light); line-height: 1.75; font-weight: 300; }
+.what-card-title { font-size: 14px; font-weight: 500; color: var(–sage-dark); margin-bottom: 5px; }
+.what-card-desc { font-size: 13px; color: var(–ink-light); line-height: 1.75; font-weight: 300; }
 
-/* ══════════════════════════════
-INSIDE
-══════════════════════════════ */
-#inside { background: var(--cream); }
+/* What text title override */
+.what-text .section-title { margin-bottom: 24px; }
+
+/* INSIDE */
+#inside { background: var(–cream); }
 .inside-header { text-align: center; margin-bottom: 64px; }
 .inside-header .section-lead { margin: 0 auto; text-align: center; }
-.inside-parts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--line-light); border-radius: 20px; overflow: hidden; margin-bottom: 56px; }
+.inside-parts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(–line-light); border-radius: 20px; overflow: hidden; margin-bottom: 56px; }
 .inside-part {
-background: var(--white);
+background: var(–white);
 padding: 40px 36px;
 transition: background .2s;
 }
-.inside-part:hover { background: var(--gold-pale); }
+.inside-part:hover { background: var(–gold-pale); }
 .ip-num {
 font-family: ‘Cormorant Garamond’, serif;
 font-size: 56px;
 font-weight: 300;
-color: var(--sage-pale);
+color: var(–sage-pale);
 line-height: 1;
 margin-bottom: 18px;
 }
-.ip-tag { font-size: 8px; letter-spacing: .24em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 10px; }
+.ip-tag { font-size: 8px; letter-spacing: .24em; text-transform: uppercase; color: var(–sage); font-weight: 500; margin-bottom: 10px; }
 .ip-title {
 font-family: ‘Cormorant Garamond’, serif;
 font-size: 24px;
 font-weight: 400;
-color: var(--ink);
+color: var(–ink);
 margin-bottom: 14px;
 line-height: 1.2;
 }
-.ip-title em { font-style: italic; color: var(--sage-dark); }
-.ip-desc { font-size: 14px; color: var(--ink-light); line-height: 1.8; font-weight: 300; margin-bottom: 20px; }
+.ip-title em { font-style: italic; color: var(–sage-dark); }
+.ip-desc { font-size: 14px; color: var(–ink-light); line-height: 1.8; font-weight: 300; margin-bottom: 20px; }
 .ip-prompts { display: flex; flex-direction: column; gap: 8px; }
 .ip-prompt {
 display: flex;
 align-items: flex-start;
 gap: 10px;
 font-size: 12.5px;
-color: var(--ink-mid);
+color: var(–ink-mid);
 line-height: 1.6;
 font-weight: 300;
 }
 .ip-prompt-dot {
 width: 4px; height: 4px;
 border-radius: 50%;
-background: var(--sage-light);
+background: var(–sage-light);
 flex-shrink: 0;
 margin-top: 8px;
 }
@@ -494,18 +465,16 @@ grid-template-columns: repeat(4, 1fr);
 gap: 16px;
 }
 .ie-card {
-background: var(--parchment);
+background: var(–parchment);
 border-radius: 14px;
 padding: 20px 20px;
-border: 1px solid var(--parchment-dark);
+border: 1px solid var(–parchment-dark);
 }
-.ie-icon { width: 36px; height: 36px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; background: var(--sage-pale); border-radius: 10px; padding: 8px; }
-.ie-title { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 5px; }
-.ie-desc { font-size: 12px; color: var(--ink-light); line-height: 1.65; font-weight: 300; }
+.ie-icon { width: 36px; height: 36px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; background: var(–sage-pale); border-radius: 10px; padding: 8px; }
+.ie-title { font-size: 13px; font-weight: 500; color: var(–ink); margin-bottom: 5px; }
+.ie-desc { font-size: 12px; color: var(–ink-light); line-height: 1.65; font-weight: 300; }
 
-/* ══════════════════════════════
-STORY
-══════════════════════════════ */
+/* STORY */
 #story { padding: 0; }
 .story-split {
 display: grid;
@@ -518,81 +487,78 @@ position: relative;
 overflow: hidden;
 }
 .story-col::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(transparent, transparent 39px, rgba(154,175,140,.18) 39px, rgba(154,175,140,.18) 40px);
-  pointer-events: none;
-  z-index: 0;
+content: ‘’;
+position: absolute;
+inset: 0;
+background: repeating-linear-gradient(transparent, transparent 39px, rgba(154,175,140,.18) 39px, rgba(154,175,140,.18) 40px);
+pointer-events: none;
+z-index: 0;
 }
-
 .story-col-inner { position: relative; z-index: 1; }
-.story-col.brand { background: var(--parchment); border-right: 1px solid var(--parchment-dark); }
-.story-col.founder { background: var(--white); }
+.story-col.brand { background: var(–parchment); border-right: 1px solid var(–parchment-dark); }
+.story-col.founder { background: var(–white); }
 .story-col-eyebrow { font-size: 8.5px; letter-spacing: .22em; text-transform: uppercase; font-weight: 500; margin-bottom: 18px; display: flex; align-items: center; gap: 9px; }
-.story-col.brand .story-col-eyebrow { color: var(--sage); }
-.story-col.brand .story-col-eyebrow::before { content: ‘’; width: 18px; height: 1px; background: var(--sage); }
-.story-col.founder .story-col-eyebrow { color: var(--gold); }
-.story-col.founder .story-col-eyebrow::before { content: ‘’; width: 18px; height: 1px; background: var(--gold); }
+.story-col.brand .story-col-eyebrow { color: var(–sage); }
+.story-col.brand .story-col-eyebrow::before { content: ‘’; width: 18px; height: 1px; background: var(–sage); }
+.story-col.founder .story-col-eyebrow { color: var(–gold); }
+.story-col.founder .story-col-eyebrow::before { content: ‘’; width: 18px; height: 1px; background: var(–gold); }
 .story-col-title {
 font-family: ‘Cormorant Garamond’, serif;
 font-size: clamp(28px, 3vw, 40px);
 font-weight: 400;
-color: var(--ink);
+color: var(–ink);
 line-height: 1.12;
 margin-bottom: 28px;
 letter-spacing: -.01em;
 }
-.story-col-title em { font-style: italic; color: var(--sage-dark); }
-.story-col.founder .story-col-title em { color: var(--warm-brown); }
-.story-col-body { font-size: 15px; color: var(--ink-mid); line-height: 2; font-weight: 300; }
+.story-col-title em { font-style: italic; color: var(–sage-dark); }
+.story-col.founder .story-col-title em { color: var(–warm-brown); }
+.story-col-body { font-size: 15px; color: var(–ink-mid); line-height: 2; font-weight: 300; }
 .story-col-body p { margin-bottom: 20px; }
 .story-col-body p:last-child { margin-bottom: 0; }
-.story-col-body strong { color: var(--ink); font-weight: 500; }
-.story-sig { margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--parchment-dark); }
+.story-col-body strong { color: var(–ink); font-weight: 500; }
+.story-sig { margin-top: 36px; padding-top: 24px; border-top: 1px solid var(–parchment-dark); }
 .story-sig-quote {
 font-family: ‘Cormorant Garamond’, serif;
 font-size: 16px;
 font-style: italic;
-color: var(--warm-brown);
+color: var(–warm-brown);
 line-height: 1.65;
 margin-bottom: 10px;
 }
-.story-sig-name { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--sage); font-weight: 500; }
+.story-sig-name { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(–sage); font-weight: 500; }
 .story-connect {
 display: inline-flex;
 align-items: center;
 gap: 10px;
 margin-top: 32px;
 padding: 9px 18px;
-background: var(--gold-pale);
-border: 1px solid var(--gold-light);
+background: var(–gold-pale);
+border: 1px solid var(–gold-light);
 border-radius: 24px;
 font-size: 11px;
 letter-spacing: .1em;
 text-transform: uppercase;
-color: var(--warm-brown);
+color: var(–warm-brown);
 font-weight: 500;
 transition: all .2s;
 }
-.story-connect:hover { background: var(--gold-light); }
+.story-connect:hover { background: var(–gold-light); }
 
-/* ══════════════════════════════
-HOW IT WORKS
-══════════════════════════════ */
-#how { background: var(--white); }
+/* HOW IT WORKS */
+#how { background: var(–white); }
 .how-header { margin-bottom: 60px; }
 .how-steps {
 display: grid;
 grid-template-columns: repeat(4, 1fr);
 gap: 2px;
-background: var(--line-light);
+background: var(–line-light);
 border-radius: 20px;
 overflow: hidden;
 margin-bottom: 48px;
 }
 .how-step {
-background: var(--white);
+background: var(–white);
 padding: 36px 30px;
 position: relative;
 }
@@ -604,37 +570,32 @@ height: 2px;
 background: transparent;
 transition: background .2s;
 }
-.how-step:hover::before { background: var(--sage-pale); }
+.how-step:hover::before { background: var(–sage-pale); }
 .how-num {
 font-family: ‘Cormorant Garamond’, serif;
 font-size: 48px;
 font-weight: 300;
-color: var(--sage-pale);
+color: var(–sage-pale);
 line-height: 1;
 margin-bottom: 16px;
 }
-.how-title { font-family: ‘Cormorant Garamond’, serif; font-size: 20px; font-weight: 400; color: var(--sage-dark); margin-bottom: 10px; }
-.how-desc { font-size: 14px; color: var(--ink-light); line-height: 1.8; font-weight: 300; }
+.how-title { font-family: ‘Cormorant Garamond’, serif; font-size: 20px; font-weight: 400; color: var(–sage-dark); margin-bottom: 10px; }
+.how-desc { font-size: 14px; color: var(–ink-light); line-height: 1.8; font-weight: 300; }
 .how-note {
-background: var(--parchment);
+background: var(–parchment);
 border-radius: 14px;
 padding: 22px 28px;
-border: 1px solid var(--parchment-dark);
+border: 1px solid var(–parchment-dark);
 display: flex;
 align-items: center;
 gap: 20px;
 }
-.how-note-icon { width: 44px; height: 44px; background: rgba(255,255,255,.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.how-note-text { font-size: 14px; color: var(--ink-mid); line-height: 1.75; font-weight: 300; }
-.how-note-text strong { color: var(--ink); font-weight: 500; }
+.how-note-icon { width: 44px; height: 44px; background: var(–sage-pale); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.how-note-text { font-size: 14px; color: var(–ink-mid); line-height: 1.75; font-weight: 300; }
+.how-note-text strong { color: var(–ink); font-weight: 500; }
 
-/* ══════════════════════════════
-PRICING
-══════════════════════════════ */
-#pricing {
-background: var(--cream);
-position: relative;
-}
+/* PRICING */
+#pricing { background: var(–cream); position: relative; }
 .pricing-inner {
 max-width: 900px;
 margin: 0 auto;
@@ -651,14 +612,14 @@ display: flex;
 align-items: flex-start;
 gap: 12px;
 font-size: 14.5px;
-color: var(--ink-mid);
+color: var(–ink-mid);
 line-height: 1.55;
 font-weight: 300;
 }
 .pricing-check-mark {
 width: 18px; height: 18px;
 border-radius: 50%;
-background: var(--sage-pale);
+background: var(–sage-pale);
 display: flex;
 align-items: center;
 justify-content: center;
@@ -667,16 +628,16 @@ margin-top: 2px;
 }
 .pricing-check-mark svg { display: block; }
 .pricing-card {
-background: var(--white);
-border: 1px solid var(--line-light);
+background: var(–white);
+border: 1px solid var(–line-light);
 border-radius: 22px;
 overflow: hidden;
 box-shadow: 0 16px 48px rgba(30,30,28,.09);
 }
 .pricing-card-top {
 padding: 36px 36px 28px;
-border-bottom: 1px solid var(--line-light);
-background: var(--parchment);
+border-bottom: 1px solid var(–line-light);
+background: var(–parchment);
 position: relative;
 overflow: hidden;
 }
@@ -685,50 +646,44 @@ content: ‘’;
 position: absolute;
 top: 0; left: 0; right: 0;
 height: 3px;
-background: linear-gradient(90deg, var(--sage-light), var(--gold), var(--sage-light));
+background: linear-gradient(90deg, var(–sage-light), var(–gold), var(–sage-light));
 }
-.pricing-type { font-size: 8.5px; letter-spacing: .22em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 14px; }
+.pricing-type { font-size: 8.5px; letter-spacing: .22em; text-transform: uppercase; color: var(–sage); font-weight: 500; margin-bottom: 14px; }
 .pricing-name {
 font-family: ‘Cormorant Garamond’, serif;
 font-size: 28px;
 font-weight: 400;
-color: var(--ink);
+color: var(–ink);
 margin-bottom: 6px;
 }
-.pricing-name em { font-style: italic; color: var(--sage-dark); }
-.pricing-tagline { font-size: 13.5px; color: var(--ink-light); line-height: 1.7; font-weight: 300; }
+.pricing-name em { font-style: italic; color: var(–sage-dark); }
+.pricing-tagline { font-size: 13.5px; color: var(–ink-light); line-height: 1.7; font-weight: 300; }
 .pricing-card-body { padding: 28px 36px; }
-.pricing-amount {
-display: flex;
-align-items: baseline;
-gap: 8px;
-margin-bottom: 6px;
-}
-.pricing-currency { font-size: 18px; color: var(--warm-brown); font-weight: 400; }
+.pricing-amount { display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px; }
+.pricing-currency { font-size: 18px; color: var(–warm-brown); font-weight: 400; }
 .pricing-number {
 font-family: ‘Cormorant Garamond’, serif;
 font-size: 52px;
 font-weight: 300;
-color: var(--ink);
+color: var(–ink);
 line-height: 1;
 }
-.pricing-period { font-size: 12px; color: var(--ink-faint); letter-spacing: .1em; text-transform: uppercase; font-weight: 400; }
-.pricing-sub { font-size: 12px; color: var(--ink-faint); margin-bottom: 28px; font-weight: 300; }
+.pricing-sub { font-size: 12px; color: var(–ink-faint); margin-bottom: 28px; font-weight: 300; }
 .pricing-features { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
 .pricing-feature {
 display: flex;
 align-items: center;
 gap: 10px;
 font-size: 13.5px;
-color: var(--ink-mid);
+color: var(–ink-mid);
 font-weight: 300;
 }
-.pf-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--sage); flex-shrink: 0; }
+.pf-dot { width: 4px; height: 4px; border-radius: 50%; background: var(–sage); flex-shrink: 0; }
 .pricing-cta {
 display: block;
 width: 100%;
 padding: 15px;
-background: var(--sage-dark);
+background: var(–sage-dark);
 color: white;
 border: none;
 border-radius: 14px;
@@ -739,20 +694,18 @@ text-transform: uppercase;
 text-align: center;
 transition: all .2s;
 }
-.pricing-cta:hover { background: var(--ink); transform: translateY(-1px); }
+.pricing-cta:hover { background: var(–ink); transform: translateY(-1px); }
 .pricing-reassure {
 text-align: center;
 font-size: 11.5px;
-color: var(--ink-faint);
+color: var(–ink-faint);
 margin-top: 12px;
 font-weight: 300;
 }
 
-/* ══════════════════════════════
-TESTIMONIAL / QUOTE BAND
-══════════════════════════════ */
+/* QUOTE BAND */
 #quote-band {
-background: var(--sage-dark);
+background: var(–sage-dark);
 padding: 72px 56px;
 text-align: center;
 }
@@ -776,14 +729,12 @@ margin-bottom: 24px;
 }
 .quote-attr { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.4); font-weight: 400; }
 
-/* ══════════════════════════════
-FAQ
-══════════════════════════════ */
-#faq { background: var(--parchment); }
+/* FAQ */
+#faq { background: var(–parchment); }
 .faq-inner { max-width: 720px; margin: 0 auto; }
 .faq-header { margin-bottom: 48px; }
 .faq-list { display: flex; flex-direction: column; }
-.faq-item { border-bottom: 1px solid var(--parchment-dark); }
+.faq-item { border-bottom: 1px solid var(–parchment-dark); }
 .faq-q {
 width: 100%;
 background: none;
@@ -793,7 +744,7 @@ padding: 22px 0;
 font-family: ‘Jost’, sans-serif;
 font-size: 15px;
 font-weight: 400;
-color: var(--ink);
+color: var(–ink);
 display: flex;
 align-items: center;
 justify-content: space-between;
@@ -802,53 +753,57 @@ transition: color .2s;
 cursor: pointer;
 line-height: 1.5;
 }
-.faq-q:hover { color: var(--sage-dark); }
+.faq-q:hover { color: var(–sage-dark); }
 .faq-icon {
 width: 24px; height: 24px;
 border-radius: 50%;
-border: 1px solid var(--line);
+border: 1px solid var(–line);
 display: flex;
 align-items: center;
 justify-content: center;
 flex-shrink: 0;
 font-size: 16px;
-color: var(--sage);
+color: var(–sage);
 transition: all .25s;
 line-height: 1;
 }
-.faq-item.open .faq-icon { background: var(--sage-dark); color: white; border-color: var(--sage-dark); transform: rotate(45deg); }
+.faq-item.open .faq-icon { background: var(–sage-dark); color: white; border-color: var(–sage-dark); transform: rotate(45deg); }
 .faq-a {
 max-height: 0;
 overflow: hidden;
 transition: max-height .38s ease, padding .38s ease;
 font-size: 14.5px;
-color: var(--ink-mid);
+color: var(–ink-mid);
 line-height: 1.85;
 font-weight: 300;
 }
 .faq-item.open .faq-a { max-height: 400px; padding-bottom: 24px; }
 
-/* ══════════════════════════════
-NEWSLETTER
-══════════════════════════════ */
+/* NEWSLETTER */
 #newsletter {
-background: var(--cream);
+background: var(–cream);
 position: relative;
 overflow: hidden;
 }
 #newsletter::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(transparent, transparent 39px, rgba(154,175,140,.1) 39px, rgba(154,175,140,.1) 40px);
-  pointer-events: none;
-  z-index: 0;
+content: ‘’;
+position: absolute;
+inset: 0;
+background: repeating-linear-gradient(transparent, transparent 39px, rgba(154,175,140,.1) 39px, rgba(154,175,140,.1) 40px);
+pointer-events: none;
+z-index: 0;
 }
-
+.newsletter-inner {
+max-width: 600px;
+margin: 0 auto;
+text-align: center;
+position: relative;
+z-index: 1;
+}
 .newsletter-inner .section-title { margin-bottom: 14px; }
 .newsletter-body {
 font-size: 15.5px;
-color: var(--ink-mid);
+color: var(–ink-mid);
 line-height: 1.85;
 font-weight: 300;
 margin-bottom: 36px;
@@ -857,32 +812,32 @@ margin-left: auto;
 margin-right: auto;
 }
 .newsletter-card {
-background: var(--white);
-border: 1px solid var(--line-light);
+background: var(–white);
+border: 1px solid var(–line-light);
 border-radius: 18px;
 padding: 32px;
 }
-.newsletter-card p { font-size: 13px; color: var(--ink-faint); margin-bottom: 16px; font-weight: 300; }
+.newsletter-card p { font-size: 13px; color: var(–ink-faint); margin-bottom: 16px; font-weight: 300; }
 .newsletter-row { display: flex; gap: 10px; flex-wrap: wrap; }
 .newsletter-input {
 flex: 1;
 min-width: 180px;
 padding: 13px 20px;
-background: var(--cream);
-border: 1px solid var(--line);
+background: var(–cream);
+border: 1px solid var(–line);
 border-radius: 32px;
 font-family: ‘Jost’, sans-serif;
 font-size: 14px;
 font-weight: 300;
-color: var(--ink);
+color: var(–ink);
 outline: none;
 transition: border-color .2s;
 }
-.newsletter-input::placeholder { color: var(--line); }
-.newsletter-input:focus { border-color: var(--sage); }
+.newsletter-input::placeholder { color: var(–line); }
+.newsletter-input:focus { border-color: var(–sage); }
 .newsletter-btn {
 padding: 13px 26px;
-background: var(--sage-dark);
+background: var(–sage-dark);
 color: white;
 border: none;
 border-radius: 32px;
@@ -894,38 +849,32 @@ text-transform: uppercase;
 transition: all .2s;
 white-space: nowrap;
 }
-.newsletter-btn:hover { background: var(--ink); }
-.newsletter-note { font-size: 11px; color: var(--ink-faint); margin-top: 12px; font-weight: 300; }
+.newsletter-btn:hover { background: var(–ink); }
+.newsletter-note { font-size: 11px; color: var(–ink-faint); margin-top: 12px; font-weight: 300; }
 
-/* ══════════════════════════════
-FOOTER
-══════════════════════════════ */
-footer {
-background: var(--footer);
-padding: 56px 56px 36px;
-}
+/* FOOTER */
+footer { background: var(–footer); padding: 56px 56px 36px; }
 .footer-top {
 display: grid;
 grid-template-columns: 1.4fr 1fr 1fr 1fr;
 gap: 48px;
 margin-bottom: 48px;
 }
-.footer-brand {}
 .footer-logo {
 font-family: ‘Cormorant Garamond’, serif;
 font-size: 20px;
 font-weight: 400;
-color: var(--cream);
+color: var(–cream);
 display: block;
 margin-bottom: 3px;
 }
-.footer-logo em { font-style: italic; color: var(--gold); }
+.footer-logo em { font-style: italic; color: var(–gold); }
 .footer-tagline { font-size: 8.5px; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.28); margin-bottom: 14px; display: block; }
 .footer-desc { font-size: 12.5px; color: rgba(255,255,255,.36); line-height: 1.75; font-weight: 300; }
 .footer-col-title { font-size: 8.5px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.26); margin-bottom: 16px; font-weight: 500; }
 .footer-links { display: flex; flex-direction: column; gap: 10px; }
 .footer-links a { font-size: 13px; color: rgba(255,255,255,.46); transition: color .2s; }
-.footer-links a:hover { color: var(--cream); }
+.footer-links a:hover { color: var(–cream); }
 .social-row { display: flex; gap: 10px; margin-top: 4px; }
 .social-icon {
 width: 38px; height: 38px;
@@ -937,7 +886,7 @@ justify-content: center;
 color: rgba(255,255,255,.46);
 transition: all .2s;
 }
-.social-icon:hover { border-color: var(--gold); color: var(--gold); background: rgba(168,132,74,.1); }
+.social-icon:hover { border-color: var(–gold); color: var(–gold); background: rgba(168,132,74,.1); }
 .footer-divider { height: 1px; background: rgba(255,255,255,.07); margin-bottom: 22px; }
 .footer-bottom {
 display: flex;
@@ -949,14 +898,14 @@ font-size: 11.5px;
 color: rgba(255,255,255,.26);
 }
 
-/* ── BACK TO TOP ── */
+/* BACK TO TOP */
 #btt {
 position: fixed;
 bottom: 32px; right: 32px;
 width: 44px; height: 44px;
 border-radius: 50%;
-background: var(--white);
-border: 1px solid var(--line-light);
+background: var(–white);
+border: 1px solid var(–line-light);
 box-shadow: 0 4px 16px rgba(30,30,28,.1);
 display: flex;
 align-items: center;
@@ -969,13 +918,11 @@ transition: opacity .3s, transform .3s, background .2s;
 z-index: 80;
 }
 #btt.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
-#btt:hover { background: var(--sage-dark); border-color: var(--sage-dark); }
+#btt:hover { background: var(–sage-dark); border-color: var(–sage-dark); }
 #btt:hover svg { stroke: white; }
-#btt svg { stroke: var(--sage-dark); transition: stroke .2s; }
+#btt svg { stroke: var(–sage-dark); transition: stroke .2s; }
 
-/* ══════════════════════════════
-RESPONSIVE
-══════════════════════════════ */
+/* RESPONSIVE */
 @media (max-width: 960px) {
 nav { padding: 0 28px; }
 .nav-links { display: none; }
@@ -985,18 +932,20 @@ section { padding: 72px 28px; }
 #hero { padding: 100px 28px 72px; }
 #newsletter { padding: 72px 28px; }
 #quote-band { padding: 60px 28px; }
+#gain { padding: 72px 28px !important; }
 footer { padding: 48px 28px 28px; }
 .hero-inner { grid-template-columns: 1fr; gap: 48px; }
 .hero-visual { max-width: 420px; }
 .what-inner { grid-template-columns: 1fr; gap: 48px; }
 .story-split { grid-template-columns: 1fr; }
 .story-col { padding: 64px 28px; }
-.story-col.brand { border-right: none; border-bottom: 1px solid var(--parchment-dark); }
+.story-col.brand { border-right: none; border-bottom: 1px solid var(–parchment-dark); }
 .inside-parts { grid-template-columns: 1fr; }
 .inside-extras { grid-template-columns: 1fr 1fr; }
 .how-steps { grid-template-columns: 1fr 1fr; }
 .pricing-inner { grid-template-columns: 1fr; gap: 40px; max-width: 520px; }
 .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+.gain-grid { grid-template-columns: 1fr 1fr !important; }
 }
 @media (max-width: 560px) {
 .hero-title { font-size: 46px; }
@@ -1004,6 +953,7 @@ footer { padding: 48px 28px 28px; }
 .how-steps { grid-template-columns: 1fr; }
 .footer-top { grid-template-columns: 1fr; }
 .newsletter-row { flex-direction: column; }
+.gain-grid { grid-template-columns: 1fr !important; }
 #btt { bottom: 20px; right: 18px; }
 }
 </style>
@@ -1048,7 +998,6 @@ footer { padding: 48px 28px 28px; }
 
 <section id="hero">
   <div class="hero-texture"></div>
-  <div class="hero-lines"></div>
   <div class="hero-inner">
     <div class="hero-content">
       <div class="hero-pill">
@@ -1056,54 +1005,51 @@ footer { padding: 48px 28px 28px; }
         Built by a Clinical Psychologist
       </div>
       <h1 class="hero-title">Your inner<br>world, <em>in words.</em></h1>
-
-  
-  <p class="hero-desc">Most of us carry things we have never quite put into words. Not because we don't want to, but because we have never had a space that felt safe enough, structured enough, or honest enough to begin.<br><br>Inklings Journal is that space.</p>
-  <div class="hero-actions">
-    <a href="https://rzp.io/rzp/Inklingsjournal" target="_blank" class="btn-primary">
-      Get the Journal
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-    </a>
-    <a href="#inside" class="btn-outline">See what's inside</a>
-  </div>
-</div>
-<div class="hero-visual">
-  <div class="hero-card">
-    <div class="hc-label">The Digital Journal</div>
-    <div class="hc-headline">Three practices. One journey.</div>
-    <div class="hc-parts">
-      <div class="hc-part">
-        <div class="hc-part-num">I</div>
-        <div class="hc-part-info">
-          <div class="hc-part-tag">Part One</div>
-          <div class="hc-part-name">Build Emotional Safety</div>
-        </div>
-        <div class="hc-part-arr">&#8594;</div>
-      </div>
-      <div class="hc-part">
-        <div class="hc-part-num">II</div>
-        <div class="hc-part-info">
-          <div class="hc-part-tag">Part Two</div>
-          <div class="hc-part-name">Reflect on Yourself</div>
-        </div>
-        <div class="hc-part-arr">&#8594;</div>
-      </div>
-      <div class="hc-part">
-        <div class="hc-part-num">III</div>
-        <div class="hc-part-info">
-          <div class="hc-part-tag">Part Three</div>
-          <div class="hc-part-name">Move Forward With Intention</div>
-        </div>
-        <div class="hc-part-arr">&#8594;</div>
+      <p class="hero-desc">You have probably thought about understanding yourself better. The patterns you repeat, the feelings you can't quite name, the version of yourself you keep meaning to become.<br><br>This journal gives you a structured, private space to actually do that work. Built on psychological principles. Guided by a practising clinical psychologist.</p>
+      <div class="hero-actions">
+        <a href="https://rzp.io/rzp/Inklingsjournal" target="_blank" class="btn-primary">
+          Get the Journal
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="#inside" class="btn-outline">See what's inside</a>
       </div>
     </div>
-    <div class="hc-badge">
-      <span>iPhone &middot; iPad &middot; Android &middot; Any browser</span>
-      <span class="hc-price">Rs 1,499 once</span>
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="hc-label">The Digital Journal</div>
+        <div class="hc-headline">Three practices. One journey.</div>
+        <div class="hc-parts">
+          <div class="hc-part" onclick="scrollToSection('part-1')" title="See Part I details">
+            <div class="hc-part-num">I</div>
+            <div class="hc-part-info">
+              <div class="hc-part-tag">Part One</div>
+              <div class="hc-part-name">Build Emotional Safety</div>
+            </div>
+            <div class="hc-part-arr">&#8594;</div>
+          </div>
+          <div class="hc-part" onclick="scrollToSection('part-2')" title="See Part II details">
+            <div class="hc-part-num">II</div>
+            <div class="hc-part-info">
+              <div class="hc-part-tag">Part Two</div>
+              <div class="hc-part-name">Reflect on Yourself</div>
+            </div>
+            <div class="hc-part-arr">&#8594;</div>
+          </div>
+          <div class="hc-part" onclick="scrollToSection('part-3')" title="See Part III details">
+            <div class="hc-part-num">III</div>
+            <div class="hc-part-info">
+              <div class="hc-part-tag">Part Three</div>
+              <div class="hc-part-name">Move Forward With Intention</div>
+            </div>
+            <div class="hc-part-arr">&#8594;</div>
+          </div>
+        </div>
+        <div class="hc-badge">
+          <span>iPhone &middot; iPad &middot; Android &middot; Any browser</span>
+          <span class="hc-price">Rs 1,499 once</span>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-
   </div>
 </section>
 
@@ -1112,29 +1058,28 @@ footer { padding: 48px 28px 28px; }
 <section id="what">
   <div class="what-inner">
     <div class="what-text reveal">
-      <div class="eyebrow">What this is</div>
       <h2 class="section-title">A mental health journal<br>to regulate, reflect<br>and <em>grow.</em></h2>
       <div class="what-body">
-        <p>Inklings Journal is a <strong>guided digital journal</strong> built on the principles used in psychodynamic therapy. It takes you through a structured journey, at your own pace, in your own words.</p>
-        <p>It is not about productivity or optimising yourself. It is about understanding yourself. The kind of understanding that comes from sitting with a question long enough to find an honest answer.</p>
-        <p>It works on any device. Your entries are saved securely to your account so you can return from anywhere, any time. This journal does not expire.</p>
+        <p>Most journals give you blank pages. Inklings gives you <strong>guided prompts built on psychological principles</strong> — the same kind of reflective work done in therapy, adapted for you to do on your own, at your own pace.</p>
+        <p>It is not a productivity tool or a habit tracker. It is a space to understand yourself: your patterns, your relationships, your emotional responses, and where you actually want to go from here.</p>
+        <p>Designed and curated by Shreya, a practising clinical psychologist with years of experience sitting with people through exactly these questions.</p>
       </div>
     </div>
     <div class="what-cards">
       <div class="what-card reveal reveal-d1">
         <div class="what-card-num">01</div>
-        <div class="what-card-title">Grounded in clinical psychology</div>
-        <div class="what-card-desc">Every exercise draws from established therapeutic practice: self-compassion, inner child work, attachment theory, cognitive reframing. Serious tools, made accessible.</div>
+        <div class="what-card-title">Built on psychological principles</div>
+        <div class="what-card-desc">Every exercise is drawn from evidence-based therapeutic practice: self-compassion, inner child work, attachment theory, cognitive reframing. Clinical tools, made accessible without the clinical setting.</div>
       </div>
       <div class="what-card reveal reveal-d2">
         <div class="what-card-num">02</div>
-        <div class="what-card-title">Structured and flexible</div>
-        <div class="what-card-desc">There is a clear path through the journal, but you can start anywhere, return to anything, and move at whatever pace feels right for where you are.</div>
+        <div class="what-card-title">Why digital makes a difference</div>
+        <div class="what-card-desc">Your journal lives in your account, not a notebook that gets lost. Access it from your phone, tablet, or laptop. Your entries are always there, always private, and new exercises will be added over time as the journal grows.</div>
       </div>
       <div class="what-card reveal reveal-d3">
         <div class="what-card-num">03</div>
-        <div class="what-card-title">Private, safe, and yours</div>
-        <div class="what-card-desc">Your entries are saved to your personal account. No one else can see them. Download them anytime. They will always be there.</div>
+        <div class="what-card-title">One purchase, carried everywhere</div>
+        <div class="what-card-desc">Pay once and the journal is yours without expiry. Pick it up on a difficult day, return to a section months later, track your moods daily or occasionally. It works around your life, not the other way around.</div>
       </div>
     </div>
   </div>
@@ -1146,79 +1091,127 @@ footer { padding: 48px 28px 28px; }
   <div class="section-inner">
     <div class="inside-header reveal">
       <div class="eyebrow" style="justify-content:center">What is inside</div>
-      <h2 class="section-title" style="text-align:center;margin-bottom:14px">Thirty-plus exercises<br>across <em>three interconnected parts.</em></h2>
-      <p class="section-lead" style="text-align:center">Each part builds on the last. You can go in order, or go wherever you are drawn. The journal will meet you where you are.</p>
+      <h2 class="section-title" style="text-align:center;margin-bottom:14px">Thirty-plus exercises.<br><em>Three parts. One complete journey.</em></h2>
+      <p class="section-lead" style="text-align:center">Each part builds on the last. You can follow the full journey or return to what you need. There is no right pace.</p>
     </div>
     <div class="inside-parts">
-      <div class="inside-part reveal">
+      <div class="inside-part reveal" id="part-1">
         <div class="ip-num">I</div>
         <div class="ip-tag">Part One &middot; Foundation</div>
         <h3 class="ip-title">Build<br><em>Emotional Safety</em></h3>
-        <p class="ip-desc">Before anything else, this part gives you the tools to feel safe with your own thoughts. Grounding, emotional awareness, a sense of inner refuge, and a compassionate voice you can return to.</p>
+        <p class="ip-desc">Before going deeper, you need tools to hold yourself when things feel heavy. This part teaches you to ground yourself, name what you feel, and find a steady place inside.</p>
         <div class="ip-prompts">
-          <div class="ip-prompt"><span class="ip-prompt-dot"></span>A sensory grounding exercise for overwhelming moments</div>
-          <div class="ip-prompt"><span class="ip-prompt-dot"></span>Map where you feel emotions in your body</div>
-          <div class="ip-prompt"><span class="ip-prompt-dot"></span>Build your safe place in words</div>
-          <div class="ip-prompt"><span class="ip-prompt-dot"></span>Create your compassionate inner voice</div>
+          <div class="ip-prompt"><span class="ip-prompt-dot"></span>A grounding exercise for when you feel overwhelmed</div>
+          <div class="ip-prompt"><span class="ip-prompt-dot"></span>Notice where emotions live in your body</div>
+          <div class="ip-prompt"><span class="ip-prompt-dot"></span>Build an inner place you can return to anytime</div>
+          <div class="ip-prompt"><span class="ip-prompt-dot"></span>Develop a compassionate voice for yourself</div>
         </div>
       </div>
-      <div class="inside-part reveal reveal-d1">
+      <div class="inside-part reveal reveal-d1" id="part-2">
         <div class="ip-num">II</div>
         <div class="ip-tag">Part Two &middot; Reflection</div>
         <h3 class="ip-title">Reflect on<br><em>Yourself</em></h3>
-        <p class="ip-desc">The heart of the journal. Move through four chapters: your past, your present, what you carry, and what you want. These are the questions most people never sit with long enough.</p>
+        <p class="ip-desc">The deepest part of the journal. You will look at where you came from, who you are now, what you carry, and what you genuinely want. The questions most people never sit with long enough.</p>
         <div class="ip-prompts">
-          <div class="ip-prompt"><span class="ip-prompt-dot"></span>Explore where you came from and what shaped you</div>
-          <div class="ip-prompt"><span class="ip-prompt-dot"></span>Meet your inner critic, your younger self, your attachment patterns</div>
-          <div class="ip-prompt"><span class="ip-prompt-dot"></span>Name your dreams and the beliefs that stop them</div>
-          <div class="ip-prompt"><span class="ip-prompt-dot"></span>Write your full story and where it is headed</div>
+          <div class="ip-prompt"><span class="ip-prompt-dot"></span>Understand the experiences and people that shaped you</div>
+          <div class="ip-prompt"><span class="ip-prompt-dot"></span>Work through your inner critic, younger self, relationship patterns</div>
+          <div class="ip-prompt"><span class="ip-prompt-dot"></span>Name your dreams and the beliefs quietly stopping them</div>
+          <div class="ip-prompt"><span class="ip-prompt-dot"></span>Write your full story and where it is headed next</div>
         </div>
       </div>
-      <div class="inside-part reveal reveal-d2">
+      <div class="inside-part reveal reveal-d2" id="part-3">
         <div class="ip-num">III</div>
         <div class="ip-tag">Part Three &middot; Daily Practice</div>
         <h3 class="ip-title">Move Forward<br><em>With Intention</em></h3>
-        <p class="ip-desc">This part is for every day. Once you have done the deeper work, this is where you bring it into how you actually live. Come back here as often as you need to.</p>
+        <p class="ip-desc">This is the part you return to every day. Once the deeper work is done, this is where you bring it into how you actually live. Small, consistent habits that add up to real change.</p>
         <div class="ip-prompts">
-          <div class="ip-prompt"><span class="ip-prompt-dot"></span>Daily mood and gratitude journal with calendar view</div>
-          <div class="ip-prompt"><span class="ip-prompt-dot"></span>Intention planner with time blocks and reflections</div>
-          <div class="ip-prompt"><span class="ip-prompt-dot"></span>Set big intentions and the small daily acts that lead there</div>
-          <div class="ip-prompt"><span class="ip-prompt-dot"></span>Streak tracking and progress across the journal</div>
+          <div class="ip-prompt"><span class="ip-prompt-dot"></span>Track your mood and gratitude with a visual calendar</div>
+          <div class="ip-prompt"><span class="ip-prompt-dot"></span>Plan your day with intention, not just tasks</div>
+          <div class="ip-prompt"><span class="ip-prompt-dot"></span>Set meaningful goals and the daily acts that lead there</div>
+          <div class="ip-prompt"><span class="ip-prompt-dot"></span>Watch your consistency grow through streaks and progress</div>
         </div>
       </div>
     </div>
+    <div class="inside-extras">
+      <div class="ie-card reveal">
+        <div class="ie-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6e8060" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
+        </div>
+        <div class="ie-title">12 Inner Roles exercise</div>
+        <div class="ie-desc">Identify which archetypal roles you play in your life and how they serve or limit you.</div>
+      </div>
+      <div class="ie-card reveal reveal-d1">
+        <div class="ie-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6e8060" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <div class="ie-title">Self-compassion practices</div>
+        <div class="ie-desc">Written exercises adapted from compassion-focused therapy to soften your inner critic.</div>
+      </div>
+      <div class="ie-card reveal reveal-d2">
+        <div class="ie-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6e8060" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="22"/><line x1="2" y1="12" x2="8" y2="12"/><line x1="16" y1="12" x2="22" y2="12"/></svg>
+        </div>
+        <div class="ie-title">Circle of control</div>
+        <div class="ie-desc">A visual and written exercise to help you focus your energy on what you can actually change.</div>
+      </div>
+      <div class="ie-card reveal reveal-d3">
+        <div class="ie-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6e8060" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+        </div>
+        <div class="ie-title">Export your journal</div>
+        <div class="ie-desc">Download a clean PDF of your answers. Your words, no prompts exposed. Yours to keep forever.</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<div class="inside-extras">
-  <div class="ie-card reveal">
-    <div class="ie-icon">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6e8060" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
-    </div>
-    <div class="ie-title">12 Inner Roles exercise</div>
-    <div class="ie-desc">Identify which archetypal roles you play in your life and how they serve or limit you.</div>
-  </div>
-  <div class="ie-card reveal reveal-d1">
-    <div class="ie-icon">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6e8060" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-    </div>
-    <div class="ie-title">Self-compassion practices</div>
-    <div class="ie-desc">Written exercises adapted from compassion-focused therapy to soften your inner critic.</div>
-  </div>
-  <div class="ie-card reveal reveal-d2">
-    <div class="ie-icon">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6e8060" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="22"/><line x1="2" y1="12" x2="8" y2="12"/><line x1="16" y1="12" x2="22" y2="12"/></svg>
-    </div>
-    <div class="ie-title">Circle of control</div>
-    <div class="ie-desc">A visual and written exercise to help you focus your energy on what you can actually change.</div>
-  </div>
-  <div class="ie-card reveal reveal-d3">
-    <div class="ie-icon">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6e8060" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
-    </div>
-    <div class="ie-title">Export your journal</div>
-    <div class="ie-desc">Download a clean PDF of your answers. Your words, no prompts exposed. Yours to keep forever.</div>
-  </div>
-</div>
+<!-- WHAT YOU GAIN -->
 
+<section id="gain" style="background:var(--parchment);padding:100px 56px;position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background:repeating-linear-gradient(transparent,transparent 39px,rgba(154,175,140,.2) 39px,rgba(154,175,140,.2) 40px);pointer-events:none;z-index:0;"></div>
+  <div style="position:relative;z-index:1;max-width:1100px;margin:0 auto;">
+    <div class="reveal" style="text-align:center;margin-bottom:56px;">
+      <div class="eyebrow" style="justify-content:center">What changes</div>
+      <h2 class="section-title" style="text-align:center">People who use this journal<br>tell us they come out <em>clearer.</em></h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line-light);border-radius:20px;overflow:hidden;" class="gain-grid">
+      <div class="gain-card reveal" style="background:var(--white);padding:36px 32px;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:38px;color:var(--sage-pale);line-height:1;margin-bottom:16px;">01</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--sage-dark);margin-bottom:12px;font-weight:400;">You understand yourself better</div>
+        <div style="font-size:14px;color:var(--ink-light);line-height:1.8;font-weight:300;">The patterns you could not name become visible. Why you react the way you do, what you actually need, and what has been quietly driving your choices.</div>
+      </div>
+      <div class="gain-card reveal reveal-d1" style="background:var(--white);padding:36px 32px;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:38px;color:var(--sage-pale);line-height:1;margin-bottom:16px;">02</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--sage-dark);margin-bottom:12px;font-weight:400;">You feel less at the mercy of your emotions</div>
+        <div style="font-size:14px;color:var(--ink-light);line-height:1.8;font-weight:300;">When you can name what you feel and where it comes from, it loses its grip. You move from reacting to responding, slowly and genuinely.</div>
+      </div>
+      <div class="gain-card reveal reveal-d2" style="background:var(--white);padding:36px 32px;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:38px;color:var(--sage-pale);line-height:1;margin-bottom:16px;">03</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--sage-dark);margin-bottom:12px;font-weight:400;">You know what you actually want</div>
+        <div style="font-size:14px;color:var(--ink-light);line-height:1.8;font-weight:300;">Not what you think you should want. The journal helps you separate other people's expectations from your own, and gives you language for the life you are trying to build.</div>
+      </div>
+      <div class="gain-card reveal" style="background:var(--white);padding:36px 32px;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:38px;color:var(--sage-pale);line-height:1;margin-bottom:16px;">04</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--sage-dark);margin-bottom:12px;font-weight:400;">You are gentler with yourself</div>
+        <div style="font-size:14px;color:var(--ink-light);line-height:1.8;font-weight:300;">Self-compassion is a skill, not a personality trait. The exercises in Part I and II build it deliberately, over time, in ways that actually stick.</div>
+      </div>
+      <div class="gain-card reveal reveal-d1" style="background:var(--white);padding:36px 32px;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:38px;color:var(--sage-pale);line-height:1;margin-bottom:16px;">05</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--sage-dark);margin-bottom:12px;font-weight:400;">Your days feel more intentional</div>
+        <div style="font-size:14px;color:var(--ink-light);line-height:1.8;font-weight:300;">The daily planner and mood journal in Part III turn insight into habit. Small, consistent check-ins that connect who you are becoming with how you actually spend your days.</div>
+      </div>
+      <div class="gain-card reveal reveal-d2" style="background:var(--white);padding:36px 32px;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:38px;color:var(--sage-pale);line-height:1;margin-bottom:16px;">06</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--sage-dark);margin-bottom:12px;font-weight:400;">You have a record of your growth</div>
+        <div style="font-size:14px;color:var(--ink-light);line-height:1.8;font-weight:300;">Your entries are saved to your account and can be exported anytime. Returning to what you wrote six months ago is one of the most quietly powerful things this journal offers.</div>
+      </div>
+    </div>
+    <div class="reveal" style="margin-top:40px;background:var(--white);border-radius:14px;padding:24px 32px;border:1px solid var(--line-light);display:flex;align-items:center;gap:20px;max-width:720px;margin-left:auto;margin-right:auto;">
+      <div style="width:44px;height:44px;background:var(--sage-pale);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6e8060" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div style="font-size:14px;color:var(--ink-mid);line-height:1.75;font-weight:300;"><strong style="color:var(--ink);font-weight:500;">A note on expectations.</strong> This journal will not fix everything. It will not replace therapy if you need it. What it will do is give you honest, structured time with yourself, consistently. That, over time, is where real change begins.</div>
+    </div>
   </div>
 </section>
 
@@ -1246,7 +1239,7 @@ footer { padding: 48px 28px 28px; }
         <div class="story-col-eyebrow">The founder</div>
         <h2 class="story-col-title">Built from both<br>sides of the <em>couch.</em></h2>
         <div class="story-col-body">
-          <p>Shreya is a clinical psychologist who practices psychodynamic therapy. Her work sits at the intersection of the mind, relationships, and the stories we carry, often without knowing it.</p>
+          <p>Shreya is a practising clinical psychologist whose work sits at the intersection of the mind, relationships, and the stories we carry, often without knowing it.</p>
           <p>Having been on both sides of the therapeutic relationship, she noticed something: <strong>people need a space between sessions.</strong> A place to sit with what is shifting, to continue the work on their own terms, without waiting for the next appointment.</p>
           <p>That realisation became Inklings Journal. Built to walk alongside therapy, and alongside you, in the ordinary in-between moments of a real life.</p>
         </div>
@@ -1291,7 +1284,7 @@ footer { padding: 48px 28px 28px; }
     </div>
     <div class="how-note reveal">
       <div class="how-note-icon">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6e8060" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
       </div>
       <div class="how-note-text">
         <strong>Already in therapy?</strong> Inklings Journal is designed to complement therapy, not replace it. Many of the exercises, inner child work, self-compassion, attachment exploration are widely used in clinical settings. Several therapists recommend it to clients who want to continue the work between sessions.
@@ -1310,45 +1303,31 @@ footer { padding: 48px 28px 28px; }
       <p class="section-lead" style="margin-bottom:36px">No tiers. No upsells. No monthly fees. Everything in the journal is yours from day one.</p>
       <div class="pricing-check-list">
         <div class="pricing-check">
-          <div class="pricing-check-mark">
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#6e8060" stroke-width="2"><polyline points="2,6 5,9 10,3"/></svg>
-          </div>
+          <div class="pricing-check-mark"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#6e8060" stroke-width="2"><polyline points="2,6 5,9 10,3"/></svg></div>
           All three parts of the journal, fully unlocked
         </div>
         <div class="pricing-check">
-          <div class="pricing-check-mark">
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#6e8060" stroke-width="2"><polyline points="2,6 5,9 10,3"/></svg>
-          </div>
+          <div class="pricing-check-mark"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#6e8060" stroke-width="2"><polyline points="2,6 5,9 10,3"/></svg></div>
           Secure cloud storage, access from any device
         </div>
         <div class="pricing-check">
-          <div class="pricing-check-mark">
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#6e8060" stroke-width="2"><polyline points="2,6 5,9 10,3"/></svg>
-          </div>
+          <div class="pricing-check-mark"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#6e8060" stroke-width="2"><polyline points="2,6 5,9 10,3"/></svg></div>
           Daily mood journal and intention planner
         </div>
         <div class="pricing-check">
-          <div class="pricing-check-mark">
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#6e8060" stroke-width="2"><polyline points="2,6 5,9 10,3"/></svg>
-          </div>
+          <div class="pricing-check-mark"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#6e8060" stroke-width="2"><polyline points="2,6 5,9 10,3"/></svg></div>
           Progress tracking and streak counter
         </div>
         <div class="pricing-check">
-          <div class="pricing-check-mark">
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#6e8060" stroke-width="2"><polyline points="2,6 5,9 10,3"/></svg>
-          </div>
+          <div class="pricing-check-mark"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#6e8060" stroke-width="2"><polyline points="2,6 5,9 10,3"/></svg></div>
           PDF export of your entries, yours to keep
         </div>
         <div class="pricing-check">
-          <div class="pricing-check-mark">
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#6e8060" stroke-width="2"><polyline points="2,6 5,9 10,3"/></svg>
-          </div>
+          <div class="pricing-check-mark"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#6e8060" stroke-width="2"><polyline points="2,6 5,9 10,3"/></svg></div>
           Works on iPhone, iPad, Android, any browser
         </div>
         <div class="pricing-check">
-          <div class="pricing-check-mark">
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#6e8060" stroke-width="2"><polyline points="2,6 5,9 10,3"/></svg>
-          </div>
+          <div class="pricing-check-mark"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#6e8060" stroke-width="2"><polyline points="2,6 5,9 10,3"/></svg></div>
           Currency adjusts automatically for international buyers
         </div>
       </div>
@@ -1387,8 +1366,8 @@ footer { padding: 48px 28px 28px; }
 <section id="quote-band">
   <div class="quote-band-inner reveal">
     <span class="quote-mark">"</span>
-    <p class="quote-text">This is not about fixing yourself. It is about understanding, honouring, and integrating the many parts of who you are.</p>
-    <div class="quote-attr">The Inklings Journal</div>
+    <p class="quote-text">Most people spend their first session on Part I and feel something shift by the end of it. Not dramatic. Just a little more honest with themselves.</p>
+    <div class="quote-attr">Shreya, Inklings Journal</div>
   </div>
 </section>
 
@@ -1445,12 +1424,12 @@ footer { padding: 48px 28px 28px; }
     <h2 class="section-title reveal" style="text-align:center;margin-bottom:14px">Gentle letters on<br><em>growth and reflection.</em></h2>
     <p class="newsletter-body reveal">Occasional writing on psychology, self-compassion, and the kind of inner work that happens slowly. No noise, just depth. Be the first to know when new things launch.</p>
     <div class="newsletter-card reveal">
-      <p>Enter your email to subscribe to the Inklings Journal newsletter</p>
+      <p>Enter your email to hear from Shreya directly at hello@inklingsjournal.com</p>
       <div class="newsletter-row">
         <input type="email" class="newsletter-input" id="sub-email" placeholder="your@email.com">
-        <button class="newsletter-btn" onclick="goToSubstack()">Subscribe</button>
+        <button class="newsletter-btn" id="sub-btn" onclick="subscribeEmail()">Subscribe</button>
       </div>
-      <div class="newsletter-note">Clicking Subscribe will open Substack to confirm. No spam, ever.</div>
+      <div class="newsletter-note" id="sub-note">You will receive a confirmation from hello@inklingsjournal.com. No spam, ever.</div>
     </div>
   </div>
 </section>
@@ -1509,39 +1488,42 @@ footer { padding: 48px 28px 28px; }
 </button>
 
 <script>
+var SUPABASE_URL  = 'https://vqpyeebiornuymohbicz.supabase.co';
+var SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZxcHllZWJpb3JudXltb2hiaWN6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0MTU1NDcsImV4cCI6MjA5MDk5MTU0N30.7XFzJu3JVJxE-GW4qsqKVbRkjq-KZIi1BUqcNtETKKM';
+var EDGE_FN_URL   = 'https://vqpyeebiornuymohbicz.supabase.co/functions/v1/resend-email';
+
 // Nav scroll
-const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
+var navbar = document.getElementById('navbar');
+window.addEventListener('scroll', function() {
   navbar.classList.toggle('scrolled', window.scrollY > 24);
   document.getElementById('btt').classList.toggle('visible', window.scrollY > 400);
 });
 
 // Mobile menu
 function toggleMenu() { document.getElementById('mobile-menu').classList.toggle('open'); }
-document.addEventListener('click', e => {
+document.addEventListener('click', function(e) {
   if (!e.target.closest('#hamburger') && !e.target.closest('#mobile-menu'))
     document.getElementById('mobile-menu').classList.remove('open');
 });
 
 // FAQ
 function toggleFaq(btn) {
-  const item = btn.closest('.faq-item');
-  const isOpen = item.classList.contains('open');
-  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  var item = btn.closest('.faq-item');
+  var isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
   if (!isOpen) item.classList.add('open');
 }
 
 // Scroll reveal
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
 
-// Fallback reveal
 function revealVisible() {
-  document.querySelectorAll('.reveal').forEach(el => {
+  document.querySelectorAll('.reveal').forEach(function(el) {
     if (!el.classList.contains('visible')) {
-      const r = el.getBoundingClientRect();
+      var r = el.getBoundingClientRect();
       if (r.top < window.innerHeight + 80) el.classList.add('visible');
     }
   });
@@ -1549,22 +1531,90 @@ function revealVisible() {
 window.addEventListener('load', revealVisible);
 window.addEventListener('resize', revealVisible);
 
-// Smooth scroll with nav offset
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const target = document.querySelector(a.getAttribute('href'));
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+  a.addEventListener('click', function(e) {
+    var target = document.querySelector(a.getAttribute('href'));
     if (!target) return;
     e.preventDefault();
     window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 76, behavior: 'smooth' });
   });
 });
 
-// Newsletter
-function goToSubstack() {
-  var email = document.getElementById('sub-email').value.trim();
-  var base = 'https://substack.com/@inklingsjournal/subscribe?r=86frdk&utm_medium=web';
-  var url = email ? base + '&email=' + encodeURIComponent(email) : base;
-  window.open(url, '_blank');
+// Scroll to section by id (used by hero card parts)
+function scrollToSection(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 76, behavior: 'smooth' });
+}
+
+// Newsletter subscribe — saves to Supabase and sends confirmation via Resend
+async function subscribeEmail() {
+  var email = document.getElementById('sub-email').value.trim().toLowerCase();
+  var btn   = document.getElementById('sub-btn');
+  var note  = document.getElementById('sub-note');
+
+  if (!email || !email.includes('@')) {
+    note.textContent = 'Please enter a valid email address.';
+    note.style.color = '#c0614a';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Subscribing...';
+
+  try {
+    // Save to Supabase
+    var res = await fetch(SUPABASE_URL + '/rest/v1/newsletter_subscribers', {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_ANON,
+        'Authorization': 'Bearer ' + SUPABASE_ANON,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({ email: email })
+    });
+
+    if (res.status === 409) {
+      // Already subscribed
+      note.textContent = 'You are already subscribed. Thank you.';
+      note.style.color = '#6e8060';
+      btn.disabled = false;
+      btn.textContent = 'Subscribe';
+      return;
+    }
+
+    if (!res.ok) throw new Error('Save failed');
+
+    // Send confirmation email via edge function
+    await fetch(EDGE_FN_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + SUPABASE_ANON
+      },
+      body: JSON.stringify({
+        name: 'there',
+        email: email,
+        type: 'newsletter'
+      })
+    });
+
+    // Success
+    document.getElementById('sub-email').value = '';
+    note.textContent = 'You are subscribed. Check your inbox for a note from hello@inklingsjournal.com.';
+    note.style.color = '#6e8060';
+    btn.textContent = 'Subscribed';
+    btn.style.background = '#6e8060';
+
+  } catch(err) {
+    note.textContent = 'Something went wrong. Please try again or write to hello@inklingsjournal.com.';
+    note.style.color = '#c0614a';
+    btn.disabled = false;
+    btn.textContent = 'Subscribe';
+    console.error(err);
+  }
 }
 </script>
 
