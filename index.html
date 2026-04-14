@@ -1564,49 +1564,38 @@ async function subscribeEmail() {
   btn.textContent = 'Subscribing...';
 
   try {
-    // Save to Supabase
-    var res = await fetch(SUPABASE_URL + '/rest/v1/newsletter_subscribers', {
+    const res = await fetch('https://api.brevo.com/v3/contacts', {
       method: 'POST',
       headers: {
-        'apikey': SUPABASE_ANON,
-        'Authorization': 'Bearer ' + SUPABASE_ANON,
-        'Content-Type': 'application/json',
-        'Prefer': 'return=minimal'
-      },
-      body: JSON.stringify({ email: email })
-    });
-
-    if (res.status === 409) {
-      // Already subscribed
-      note.textContent = 'You are already subscribed. Thank you.';
-      note.style.color = '#6e8060';
-      btn.disabled = false;
-      btn.textContent = 'Subscribe';
-      return;
-    }
-
-    if (!res.ok) throw new Error('Save failed');
-
-    // Send confirmation email via edge function
-    await fetch(EDGE_FN_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + SUPABASE_ANON
+        'accept': 'application/json',
+        'content-type': 'application/json',
+        'api-key': 'YOUR_BREVO_API_KEY'  // ← paste your key here
       },
       body: JSON.stringify({
-        name: 'there',
         email: email,
-        type: 'newsletter'
+        listIds: [YOUR_LIST_ID],  // ← your list ID number eg. 3
+        updateEnabled: true
       })
     });
 
-    // Success
-    document.getElementById('sub-email').value = '';
-    note.textContent = 'You are subscribed. Check your inbox for a note from hello@inklingsjournal.com.';
-    note.style.color = '#6e8060';
-    btn.textContent = 'Subscribed';
-    btn.style.background = '#6e8060';
+    if (res.status === 204 || res.status === 201 || res.ok) {
+      document.getElementById('sub-email').value = '';
+      note.textContent = 'You are subscribed. Check your inbox for a note from hello@inklingsjournal.com.';
+      note.style.color = '#6e8060';
+      btn.textContent = 'Subscribed';
+      btn.style.background = '#6e8060';
+    } else {
+      const data = await res.json();
+      // Contact already exists
+      if (data.code === 'duplicate_parameter') {
+        note.textContent = 'You are already subscribed. Thank you.';
+        note.style.color = '#6e8060';
+        btn.disabled = false;
+        btn.textContent = 'Subscribe';
+      } else {
+        throw new Error(data.message);
+      }
+    }
 
   } catch(err) {
     note.textContent = 'Something went wrong. Please try again or write to hello@inklingsjournal.com.';
@@ -1616,6 +1605,7 @@ async function subscribeEmail() {
     console.error(err);
   }
 }
+
 </script>
 
 </body>
