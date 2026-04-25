@@ -2675,16 +2675,18 @@ function buildRolesTable() {
     const stars = [1,2,3,4,5].map(s =>
       `<span class="star ${(saved[ri]||0) >= s ? 'filled' : ''}" data-ri="${ri}" data-s="${s}">★</span>`
     ).join('');
+        const showBtn = /iPhone|Android/i.test(navigator.userAgent);
     tr.innerHTML = `
       <td>
         <div class="role-name-wrap">
           <div class="role-name">${role.name}</div>
-          <button class="role-tooltip-btn" onclick="toggleTooltip(event, 'tip-${ri}')" title="What this means">i</button>
-          <div class="role-tooltip-popup" id="tip-${ri}">${role.desc}</div>
+          ${showBtn ? `<button class="role-tooltip-btn" onclick="toggleTooltip(event, 'tip-${ri}')" title="What this means">i</button>
+          <div class="role-tooltip-popup" id="tip-${ri}">${role.desc}</div>` : ''}
         </div>
       </td>
       <td><div class="role-desc">${role.desc}</div></td>
       <td><div class="star-rating" id="stars-${ri}">${stars}</div></td>`;
+
     tbody.appendChild(tr);
   });
   tbody.addEventListener('click', e => {
