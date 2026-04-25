@@ -1247,9 +1247,14 @@ z-index: 40;
   align-items: center;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
   .role-tooltip-btn { display: inline-flex; }
 }
+
+@media (min-width: 601px) {
+  .role-tooltip-btn { display: none !important; }
+}
+
 
 .page-title { font-size: 30px; }
 .breadcrumb { font-size: 8px; max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
