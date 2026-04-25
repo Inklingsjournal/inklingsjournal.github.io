@@ -789,7 +789,7 @@ async function addCustomer() {
   btn.disabled = true;
   btn.classList.add('loading');
 
-  try {
+    try {
     // 1. Check if email already exists
     const check = await sbFetch(`customers?email=eq.${encodeURIComponent(email)}&select=id`);
     if (check.data && check.data.length > 0) {
@@ -799,31 +799,47 @@ async function addCustomer() {
     }
 
     // 2. Insert customer
-        const accessExpiresAt = new Date();
+    const accessExpiresAt = new Date();
     accessExpiresAt.setFullYear(accessExpiresAt.getFullYear() + 2);
 
     const insert = await sbFetch('customers', {
       method: 'POST',
       body: JSON.stringify({
-        email,
-        name,
-        passkey,
+        email, name, passkey,
         active: true,
         access_expires_at: accessExpiresAt.toISOString()
       })
     });
-
-    if (!insert.ok) throw new Error('Failed to create customer');
+    if (!insert.ok) {
+      showToast('Step 2 failed: ' + JSON.stringify(insert.data), 'error');
+      btn.disabled = false; btn.classList.remove('loading');
+      return;
+    }
     const customer = insert.data[0];
 
     // 3. Grant core template access
-    await sbRpc('grant_template_access', { p_email: email, p_template_slug: 'core' });
+    const tmpl = await sbRpc('grant_template_access', { p_email: email, p_template_slug: 'core' });
+    if (!tmpl.ok) {
+      showToast('Step 3 failed: ' + JSON.stringify(tmpl.data), 'error');
+      btn.disabled = false; btn.classList.remove('loading');
+      return;
+    }
 
     // 4. Send welcome email via Resend
-    await sendWelcomeEmail(name, email, passkey);
+    try {
+      await sendWelcomeEmail(name, email, passkey);
+    } catch(emailErr) {
+      // Customer was created — just flag the email issue
+      showToast('Customer added but email failed: ' + emailErr.message, 'error');
+      await loadCustomers();
+      await loadStats();
+      btn.disabled = false; btn.classList.remove('loading');
+      return;
+    }
 
     // 5. Success
-    showToast(`- ${name} added & email sent`, 'success');
+    showToast(`✦ ${name} added & email sent`, 'success');
+
     document.getElementById('newName').value = '';
     document.getElementById('newEmail').value = '';
     regeneratePasskey();
