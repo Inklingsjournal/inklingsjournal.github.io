@@ -1247,13 +1247,7 @@ z-index: 40;
   align-items: center;
 }
 
-@media (max-width: 600px) {
-  .role-tooltip-btn { display: inline-flex; }
-}
-
-@media (min-width: 601px) {
-  .role-tooltip-btn { display: none !important; }
-}
+.role-tooltip-btn { display: none; }
 
 
 .page-title { font-size: 30px; }
@@ -2705,6 +2699,16 @@ function buildRolesTable() {
       });
     }
   });
+
+    // Show tooltip buttons only on phones, not tablets/desktop
+  const isPhone = /iPhone|Android/i.test(navigator.userAgent) && window.screen.width <= 430;
+  if (isPhone) {
+    document.querySelectorAll('.role-tooltip-btn').forEach(btn => {
+      btn.style.display = 'inline-flex';
+    });
+  }
+
+  
   // Close tooltips when clicking outside
   document.addEventListener('click', e => {
     if (!e.target.classList.contains('role-tooltip-btn')) {
