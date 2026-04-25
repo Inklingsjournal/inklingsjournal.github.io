@@ -110,19 +110,19 @@ color: var(--sage); font-weight: 500; margin-bottom: 24px;
 .hero-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
 .hero-visual { animation: fadeUp .9s .2s ease both; }
 .hero-journal-card {
-background: var(–white); border: 1px solid var(--line-light);
+background: var(--white); border: 1px solid var(--line-light);
 border-radius: 22px; padding: 36px;
 box-shadow: 0 24px 64px rgba(42,42,40,.09), 0 4px 16px rgba(42,42,40,.04);
 }
 .hjc-tag { font-size: 8px; letter-spacing: .2em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 18px; }
 .hjc-title { font-family: ‘Cormorant Garamond’, serif; font-size: 22px; color: var(--sage-dark); margin-bottom: 14px; font-weight: 400; }
 .hjc-parts { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--line-light); border-radius: 12px; overflow: hidden; margin-bottom: 22px; }
-.hjc-part { display: flex; align-items: center; gap: 14px; padding: 13px 16px; border-bottom: 1px solid var(–line-light); }
+.hjc-part { display: flex; align-items: center; gap: 14px; padding: 13px 16px; border-bottom: 1px solid var(--line-light); }
 .hjc-part:last-child { border-bottom: none; }
 .hjc-part-num { font-family: ‘Cormorant Garamond’, serif; font-size: 18px; color: var(--sage-pale); font-weight: 300; width: 20px; flex-shrink: 0; }
 .hjc-part-info { flex: 1; }
 .hjc-part-label { font-size: 8px; letter-spacing: .16em; text-transform: uppercase; color: var(--sage-light); font-weight: 500; margin-bottom: 2px; }
-.hjc-part-name { font-size: 13px; color: var(–ink-mid); font-weight: 300; }
+.hjc-part-name { font-size: 13px; color: var(--ink-mid); font-weight: 300; }
 .hjc-part-arrow { font-size: 10px; color: var(--line); }
 .hjc-devices { display: flex; align-items: center; gap: 8px; padding: 10px 12px; background: var(--cream); border-radius: 8px; }
 .hjc-device-icon { font-size: 14px; }
@@ -159,7 +159,7 @@ background: var(--sage-dark); padding: 96px 64px;
 .product-card { background: var(--white); border: 1px solid var(--line-light); border-radius: 20px; overflow: hidden; transition: box-shadow .3s, transform .3s; }
 .product-card:hover { box-shadow: 0 12px 40px rgba(42,42,40,.09); transform: translateY(-3px); }
 .product-card.hero-product { display: grid; grid-template-columns: 1fr 1fr; }
-.product-card-visual { background: var(–parchment); padding: 40px 36px; display: flex; flex-direction: column; justify-content: space-between; min-height: 340px; position: relative; overflow: hidden; }
+.product-card-visual { background: var(--parchment); padding: 40px 36px; display: flex; flex-direction: column; justify-content: space-between; min-height: 340px; position: relative; overflow: hidden; }
 .product-card-visual::before { content: ‘’; position: absolute; bottom: -40px; right: -40px; width: 160px; height: 160px; border-radius: 50%; border: 1px solid var(--sage-pale); opacity: .5; }
 .product-card-visual::after { content: ‘’; position: absolute; bottom: -10px; right: -10px; width: 90px; height: 90px; border-radius: 50%; border: 1px solid var(--sage-pale); opacity: .5; }
 .product-label { display: inline-flex; align-items: center; gap: 6px; background: var(--sage-dark); color: white; border-radius: 20px; padding: 5px 12px; font-size: 9px; letter-spacing: .14em; text-transform: uppercase; font-weight: 500; width: fit-content; }
@@ -181,8 +181,8 @@ background: var(--sage-dark); padding: 96px 64px;
 
 /* Coming soon cards */
 .product-card.coming-soon { opacity: .85; }
-.product-card.coming-soon .product-card-visual { background: var(–cream); min-height: 200px; }
-.product-card.coming-soon .product-visual-title { font-size: 26px; color: var(–ink-light); }
+.product-card.coming-soon .product-card-visual { background: var(--cream); min-height: 200px; }
+.product-card.coming-soon .product-visual-title { font-size: 26px; color: var(--ink-light); }
 .coming-soon-badge { display: inline-block; background: var(--gold-light); border: 1px solid var(--gold); color: var(--warm-brown); font-size: 9px; letter-spacing: .12em; text-transform: uppercase; font-weight: 500; padding: 4px 12px; border-radius: 20px; }
 .product-card.coming-soon .product-card-info { padding: 24px 26px; }
 .product-card.coming-soon .product-name { font-size: 20px; margin-bottom: 8px; }
@@ -205,7 +205,7 @@ background: var(--sage-dark); padding: 96px 64px;
 .newsletter-title { font-family: ‘Cormorant Garamond’, serif; font-size: clamp(32px, 4vw, 46px); font-weight: 300; color: var(--ink); line-height: 1.2; margin-bottom: 12px; letter-spacing: -.01em; }
 .newsletter-title em { font-style: italic; color: var(--sage-dark); }
 .newsletter-sub { font-size: 14px; color: var(--ink-light); line-height: 1.85; margin-bottom: 36px; font-weight: 300; max-width: 440px; margin-left: auto; margin-right: auto; }
-.substack-wrap { background: var(–white); border: 1px solid var(--line-light); border-radius: 16px; padding: 30px 28px; }
+.substack-wrap { background: var(--white); border: 1px solid var(--line-light); border-radius: 16px; padding: 30px 28px; }
 .substack-wrap p { font-size: 11.5px; color: var(--ink-light); margin-bottom: 14px; font-weight: 300; }
 .substack-form { display: flex; gap: 9px; flex-wrap: wrap; }
 .substack-input { flex: 1; min-width: 190px; padding: 12px 18px; background: var(--cream); border: 1px solid var(--line); border-radius: 30px; font-family: ‘Jost’, sans-serif; font-size: 13px; font-weight: 300; color: var(--ink); outline: none; transition: border-color .2s; }
@@ -242,7 +242,7 @@ footer { background: #3a332a; padding: 52px 64px 36px; }
 .footer-divider { height: 1px; background: rgba(255,255,255,.07); margin-bottom: 22px; }
 .social-links { display: flex; flex-direction: column; gap: 10px; }
 .social-link { display: flex; align-items: center; gap: 9px; font-size: 12.5px; color: rgba(255,255,255,.48); text-decoration: none; transition: color .2s; }
-.social-link:hover { color: var(–gold-light); }
+.social-link:hover { color: var(--gold-light); }
 .social-link svg { flex-shrink: 0; opacity: .7; transition: opacity .2s; }
 .social-link:hover svg { opacity: 1; }
 .footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: 11px; color: rgba(255,255,255,.28); }

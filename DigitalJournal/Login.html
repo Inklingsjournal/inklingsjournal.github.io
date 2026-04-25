@@ -57,11 +57,11 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);min-
 /* Expired banner — distinct from error */
 .expired-banner{background:rgba(107,92,71,.07);border:1px solid rgba(107,92,71,.2);border-radius:10px;padding:18px 20px;margin-bottom:16px;text-align:center;display:none;}
 .expired-banner.show{display:block;animation:fadeUp .35s ease;}
-.expired-title{font-family:‘Cormorant Garamond’,serif;font-size:20px;font-weight:300;color:var(–warm-brown);margin-bottom:6px;}
+.expired-title{font-family:’Cormorant Garamond’,serif;font-size:20px;font-weight:300;color:var(--warm-brown);margin-bottom:6px;}
 .expired-title em{font-style:italic;}
-.expired-sub{font-size:12px;color:var(–ink-light);line-height:1.7;font-weight:300;margin-bottom:14px;}
-.renew-btn{display:block;width:100%;background:var(–warm-brown);color:white;border:none;border-radius:10px;padding:13px;font-family:‘Jost’,sans-serif;font-size:12px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;text-align:center;transition:all .25s;}
-.renew-btn:hover{background:var(–ink);transform:translateY(-1px);}
+.expired-sub{font-size:12px;color:var(--ink-light);line-height:1.7;font-weight:300;margin-bottom:14px;}
+.renew-btn{display:block;width:100%;background:var(--warm-brown);color:white;border:none;border-radius:10px;padding:13px;font-family:’Jost’,sans-serif;font-size:12px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;text-align:center;transition:all .25s;}
+.renew-btn:hover{background:var(--ink);transform:translateY(-1px);}
 
 @media(max-width:500px){.card{padding:40px 28px;border-radius:18px;}.view-title,.success-title{font-size:28px;}}
 </style>
@@ -82,12 +82,11 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);min-
     <h2 class="view-title">Welcome<br><em>back.</em></h2>
     <p class="view-sub">Enter the email and passkey from your purchase confirmation email.</p>
 
-```
 <!-- Expired access banner (shown instead of error banner when access has lapsed) -->
 <div class="expired-banner" id="expiredBanner">
   <div class="expired-title">Your access has <em>ended.</em></div>
   <div class="expired-sub">Your 2-year access has expired. Renew for ₹999 and keep all your entries — nothing is lost.</div>
-  <a class="renew-btn" href="./Purchase.html">Renew for ₹999 →</a>
+  <a class="renew-btn" href="../Purchase.html">Renew for ₹999 →</a>
 </div>
 
 <!-- General error banner -->
@@ -115,11 +114,10 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);min-
 </button>
 <div class="divider-or"><span>don't have access yet?</span></div>
 <!-- FIXED: now points to Purchase.html, not old Razorpay hosted link -->
-<a class="buy-btn" href="./Purchase.html">
+<a class="buy-btn" href="../Purchase.html">
   ✦ Get Inklings Journal <span class="price-pill">₹2,499</span>
 </a>
 <p class="help-row">Purchased but no email? <a href="mailto:hello@inklingsjournal.com">Contact support</a></p>
-```
 
   </div>
 
