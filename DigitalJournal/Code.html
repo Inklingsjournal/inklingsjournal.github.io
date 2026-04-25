@@ -2666,16 +2666,40 @@ function updateProgress() {
 }
 
 // ══ ROLES TABLE ══
-function buildRolesTable() {
+async function buildRolesTable() {
   const tbody = document.getElementById('roles-tbody');
   if (!tbody) return;
-  const saved = JSON.parse(localStorage.getItem('inklings_roles') || '{}');
+
+  // Load from Supabase — one row per customer with all ratings as JSON
+  let saved = {};
+  if (CUSTOMER_ID) {
+    const { data } = await sb.from('role_ratings')
+      .select('ratings')
+      .eq('customer_id', CUSTOMER_ID)
+      .single();
+    if (data && data.ratings) saved = data.ratings;
+
+    // One-time migration from localStorage if Supabase is empty
+    if (Object.keys(saved).length === 0) {
+      const local = JSON.parse(localStorage.getItem('inklings_roles') || '{}');
+      if (Object.keys(local).length > 0) {
+        saved = local;
+        await sb.from('role_ratings').upsert(
+          { customer_id: CUSTOMER_ID, ratings: local },
+          { onConflict: 'customer_id' }
+        );
+      }
+    }
+  } else {
+    saved = JSON.parse(localStorage.getItem('inklings_roles') || '{}');
+  }
+
+  const showBtn = /iPhone|Android/i.test(navigator.userAgent);
   ROLES.forEach((role, ri) => {
     const tr = document.createElement('tr');
     const stars = [1,2,3,4,5].map(s =>
       `<span class="star ${(saved[ri]||0) >= s ? 'filled' : ''}" data-ri="${ri}" data-s="${s}">★</span>`
     ).join('');
-        const showBtn = /iPhone|Android/i.test(navigator.userAgent);
     tr.innerHTML = `
       <td>
         <div class="role-name-wrap">
@@ -2686,21 +2710,47 @@ function buildRolesTable() {
       </td>
       <td><div class="role-desc">${role.desc}</div></td>
       <td><div class="star-rating" id="stars-${ri}">${stars}</div></td>`;
-
     tbody.appendChild(tr);
   });
-  tbody.addEventListener('click', e => {
+
+  tbody.addEventListener('click', async e => {
     if (e.target.classList.contains('star')) {
       const ri = parseInt(e.target.dataset.ri);
-      const s = parseInt(e.target.dataset.s);
-      const saved2 = JSON.parse(localStorage.getItem('inklings_roles') || '{}');
-      saved2[ri] = s;
-      localStorage.setItem('inklings_roles', JSON.stringify(saved2));
+      const s  = parseInt(e.target.dataset.s);
+
+      // Update UI immediately
       document.querySelectorAll(`#stars-${ri} .star`).forEach((st, i) => {
         st.classList.toggle('filled', i < s);
       });
+
+      if (CUSTOMER_ID) {
+        // Load current ratings, update, save back as one JSON object
+        const { data } = await sb.from('role_ratings')
+          .select('ratings')
+          .eq('customer_id', CUSTOMER_ID)
+          .single();
+        const current = (data && data.ratings) ? data.ratings : {};
+        current[ri] = s;
+        await sb.from('role_ratings').upsert(
+          { customer_id: CUSTOMER_ID, ratings: current },
+          { onConflict: 'customer_id' }
+        );
+      } else {
+        const saved2 = JSON.parse(localStorage.getItem('inklings_roles') || '{}');
+        saved2[ri] = s;
+        localStorage.setItem('inklings_roles', JSON.stringify(saved2));
+      }
     }
   });
+
+  // Close tooltips when clicking outside
+  document.addEventListener('click', e => {
+    if (!e.target.classList.contains('role-tooltip-btn')) {
+      document.querySelectorAll('.role-tooltip-popup.visible').forEach(p => p.classList.remove('visible'));
+    }
+  });
+}
+
 
     // Show tooltip buttons only on phones, not tablets/desktop
   const isPhone = /iPhone|Android/i.test(navigator.userAgent) && window.screen.width <= 430;
@@ -2729,24 +2779,68 @@ function toggleTooltip(e, id) {
 
 
 // ══ COLLAGE ══
-function buildCollage() {
+async function buildCollage() {
   const grid = document.getElementById('collage-grid');
   if (!grid) return;
-  const saved = JSON.parse(localStorage.getItem('inklings_collage') || '[]');
+
+  // Load from Supabase — one row per customer with all words as JSON array
+  let saved = [];
+  if (CUSTOMER_ID) {
+    const { data } = await sb.from('collage_selections')
+      .select('words')
+      .eq('customer_id', CUSTOMER_ID)
+      .single();
+    if (data && data.words) saved = data.words;
+
+    // One-time migration from localStorage if Supabase is empty
+    if (saved.length === 0) {
+      const local = JSON.parse(localStorage.getItem('inklings_collage') || '[]');
+      if (local.length > 0) {
+        saved = local;
+        await sb.from('collage_selections').upsert(
+          { customer_id: CUSTOMER_ID, words: local },
+          { onConflict: 'customer_id' }
+        );
+      }
+    }
+  } else {
+    saved = JSON.parse(localStorage.getItem('inklings_collage') || '[]');
+  }
+
   COLLAGE_WORDS.forEach(w => {
     const chip = document.createElement('div');
     chip.className = 'collage-chip' + (saved.includes(w) ? ' selected' : '');
     chip.textContent = w;
-    chip.onclick = () => {
+    chip.onclick = async () => {
       chip.classList.toggle('selected');
-      const s = JSON.parse(localStorage.getItem('inklings_collage') || '[]');
-      const idx = s.indexOf(w);
-      if (idx > -1) s.splice(idx, 1); else s.push(w);
-      localStorage.setItem('inklings_collage', JSON.stringify(s));
+      const isSelected = chip.classList.contains('selected');
+
+      if (CUSTOMER_ID) {
+        // Load current words, update, save back as one JSON array
+        const { data } = await sb.from('collage_selections')
+          .select('words')
+          .eq('customer_id', CUSTOMER_ID)
+          .single();
+        const current = (data && data.words) ? [...data.words] : [];
+        const idx = current.indexOf(w);
+        if (isSelected && idx === -1) current.push(w);
+        if (!isSelected && idx > -1) current.splice(idx, 1);
+        await sb.from('collage_selections').upsert(
+          { customer_id: CUSTOMER_ID, words: current },
+          { onConflict: 'customer_id' }
+        );
+      } else {
+        const s = JSON.parse(localStorage.getItem('inklings_collage') || '[]');
+        const idx = s.indexOf(w);
+        if (idx > -1) s.splice(idx, 1); else s.push(w);
+        localStorage.setItem('inklings_collage', JSON.stringify(s));
+      }
     };
     grid.appendChild(chip);
   });
 }
+
+
 
 // ══ STATIC SAVE (debounced) ══
 let saveTimer;
@@ -2817,8 +2911,16 @@ function fmtDate(y, m, d) { return y + '-' + String(m+1).padStart(2,'0') + '-' +
 function todayStr() { const t = new Date(); return fmtDate(t.getFullYear(), t.getMonth(), t.getDate()); }
 
 async function renderCal(type) {
+  if (!CUSTOMER_ID) {
+    let waited = 0;
+    while (!CUSTOMER_ID && waited < 3000) {
+      await new Promise(r => setTimeout(r, 100));
+      waited += 100;
+    }
+  }
   const st = calSt[type];
   const { y, m } = st;
+
   document.getElementById(type + '-cal-title').innerHTML = MONTHS[m] + ' <span>' + y + '</span>';
   const grid = document.getElementById(type + '-cal-grid');
   grid.innerHTML = '';
@@ -3373,9 +3475,9 @@ function exportData() {
 
 // ══ INIT ══
 document.addEventListener('DOMContentLoaded', async () => {
-  await initCustomer();
-  buildRolesTable();
-  buildCollage();
+    await initCustomer();
+  await buildRolesTable();
+  await buildCollage();
   await restoreCompleted();
   await loadStaticData();
   updateProgress();
