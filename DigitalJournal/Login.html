@@ -4,1594 +4,241 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Inklings Journal, A Companion for Your Inner World</title>
-<meta name="description" content="A guided digital journal built by a clinical psychologist. Three interconnected practices: deep self-reflection, daily mindfulness, and intentional planning. One-time purchase, 2 years of full access.">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&amp;family=Jost:wght@300;400;500&amp;display=swap" rel="stylesheet">
+<title>Inklings Journal — Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
+:root{--cream:#f6f1e9;--parchment:#ede6d4;--parchment-dark:#e0d8c8;--sage:#7a8c6e;--sage-light:#a8b89a;--sage-pale:#d6dece;--sage-dark:#4f6247;--warm-brown:#6b5c47;--ink:#2a2a28;--ink-light:#7a7a74;--line:#d8d0c4;--white:#fdfaf5;--gold:#b89a5c;--error:#c0614a;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;overflow:hidden;position:relative;}
+.ring{position:fixed;border-radius:50%;border:1px solid var(--sage-pale);opacity:.4;pointer-events:none;}
+.r1{width:580px;height:580px;top:-200px;right:-200px;}.r2{width:360px;height:360px;top:-80px;right:-80px;}.r3{width:440px;height:440px;bottom:-180px;left:-180px;}.r4{width:220px;height:220px;bottom:-60px;left:-60px;}
+.card{background:var(--white);border:1px solid var(--line);border-radius:24px;padding:52px 48px;max-width:460px;width:100%;position:relative;z-index:1;box-shadow:0 24px 64px rgba(79,98,71,.09),0 4px 16px rgba(0,0,0,.04);animation:rise .5s cubic-bezier(.4,0,.2,1);}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.top-line{position:absolute;top:0;left:48px;right:48px;height:2px;background:linear-gradient(90deg,transparent,var(--sage-light),var(--gold),var(--sage-light),transparent);border-radius:0 0 2px 2px;}
+.logo-wrap{margin-bottom:36px;}.logo{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:300;color:var(--sage-dark);letter-spacing:.02em;display:block;line-height:1;margin-bottom:5px;}.logo em{font-style:italic;color:var(--gold);}
+.tagline{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--sage-light);font-weight:400;}
+.view{display:none;}.view.active{display:block;animation:fadeUp .35s cubic-bezier(.4,0,.2,1);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.view-title{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;color:var(--ink);line-height:1.2;margin-bottom:8px;}.view-title em{font-style:italic;color:var(--sage-dark);}
+.view-sub{font-size:13px;color:var(--ink-light);line-height:1.75;font-weight:300;margin-bottom:28px;}
+.field{margin-bottom:16px;}.field-label{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--sage);font-weight:500;margin-bottom:8px;display:block;}
+.field-input{width:100%;border:1px solid var(--line);border-radius:10px;background:var(--cream);font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--ink);padding:13px 16px;outline:none;transition:all .25s;-webkit-appearance:none;}
+.field-input:focus{border-color:var(--sage-light);background:var(--white);box-shadow:0 0 0 3px rgba(122,140,110,.12);}
+.field-input.error{border-color:var(--error);box-shadow:0 0 0 3px rgba(192,97,74,.1);animation:shake .35s ease;}
+.field-input::placeholder{color:var(--line);}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+.pass-wrap{position:relative;}.pass-wrap .field-input{padding-right:46px;}
+.eye-btn{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--ink-light);padding:4px;display:flex;align-items:center;transition:color .2s;}.eye-btn:hover{color:var(--sage-dark);}
+.error-banner{display:flex;align-items:flex-start;gap:10px;background:rgba(192,97,74,.08);border:1px solid rgba(192,97,74,.2);border-radius:8px;padding:12px 14px;margin-bottom:16px;font-size:12.5px;color:var(--error);line-height:1.55;font-weight:300;opacity:0;transform:translateY(-4px);transition:all .25s;pointer-events:none;}
+.error-banner.show{opacity:1;transform:translateY(0);pointer-events:auto;}
+.submit-btn{width:100%;background:var(--sage-dark);color:white;border:none;border-radius:10px;padding:15px;font-family:'Jost',sans-serif;font-size:12.5px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .25s;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px;}
+.submit-btn:hover:not(:disabled){background:var(--ink);transform:translateY(-1px);box-shadow:0 8px 20px rgba(79,98,71,.2);}
+.submit-btn:disabled{opacity:.65;cursor:not-allowed;}
+.spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;animation:spin .7s linear infinite;display:none;}
+.submit-btn.loading .btn-text{display:none;}.submit-btn.loading .spinner{display:block;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.divider-or{display:flex;align-items:center;gap:12px;margin:24px 0;}
+.divider-or::before,.divider-or::after{content:'';flex:1;height:1px;background:var(--line);}
+.divider-or span{font-size:10px;color:var(--ink-light);letter-spacing:.1em;font-weight:300;}
+.buy-btn{width:100%;background:transparent;color:var(--sage-dark);border:1px solid var(--sage-light);border-radius:10px;padding:14px;font-family:'Jost',sans-serif;font-size:12.5px;font-weight:400;letter-spacing:.06em;cursor:pointer;transition:all .25s;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:8px;}
+.buy-btn:hover{background:var(--parchment);border-color:var(--sage);}
+.price-pill{background:var(--parchment-dark);border-radius:20px;padding:2px 10px;font-size:11px;color:var(--warm-brown);font-weight:400;}
+.help-row{text-align:center;margin-top:20px;font-size:11.5px;color:var(--ink-light);font-weight:300;line-height:1.7;}
+.help-row a{color:var(--sage-dark);text-decoration:none;font-weight:400;}.help-row a:hover{text-decoration:underline;}
+.success-icon{width:60px;height:60px;border-radius:50%;background:var(--sage-pale);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:26px;animation:pop .45s cubic-bezier(.4,0,.2,1);}
+@keyframes pop{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+.success-title{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:300;color:var(--ink);text-align:center;margin-bottom:6px;}.success-title em{font-style:italic;color:var(--sage-dark);}
+.success-name{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);font-style:italic;text-align:center;margin-bottom:8px;}
+.success-sub{font-size:13px;color:var(--ink-light);font-weight:300;line-height:1.75;text-align:center;margin-bottom:28px;}
+.open-btn{display:block;width:100%;background:var(--sage-dark);color:white;border:none;border-radius:10px;padding:15px;font-family:'Jost',sans-serif;font-size:12.5px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .25s;text-decoration:none;text-align:center;}
+.open-btn:hover{background:var(--ink);transform:translateY(-1px);}
+.back-link{display:block;text-align:center;margin-top:14px;font-size:11.5px;color:var(--ink-light);text-decoration:none;font-weight:300;}.back-link:hover{color:var(--sage-dark);}
 
-/* TOKENS */
-:root {
-–cream: #f4efe6;
-–parchment: #ece4d0;
-–parchment-dark: #ddd4be;
-–sage: #6e8060;
-–sage-light: #9aaf8c;
-–sage-pale: #ccd9c4;
-–sage-dark: #445c38;
-–sage-deep: #304228;
-–warm-brown: #5e4e38;
-–warm-mid: #7a6550;
-–ink: #1e1e1c;
-–ink-mid: #3a3a36;
-–ink-light: #646460;
-–ink-faint: #8a8a84;
-–line: #ccc4b4;
-–line-light: #e2dcd0;
-–white: #faf7f2;
-–gold: #a8844a;
-–gold-light: #e8d8b0;
-–gold-pale: #f4edd8;
-–footer: #1c1a14;
-}
+/* Expired banner — distinct from error */
+.expired-banner{background:rgba(107,92,71,.07);border:1px solid rgba(107,92,71,.2);border-radius:10px;padding:18px 20px;margin-bottom:16px;text-align:center;display:none;}
+.expired-banner.show{display:block;animation:fadeUp .35s ease;}
+.expired-title{font-family:‘Cormorant Garamond’,serif;font-size:20px;font-weight:300;color:var(–warm-brown);margin-bottom:6px;}
+.expired-title em{font-style:italic;}
+.expired-sub{font-size:12px;color:var(–ink-light);line-height:1.7;font-weight:300;margin-bottom:14px;}
+.renew-btn{display:block;width:100%;background:var(–warm-brown);color:white;border:none;border-radius:10px;padding:13px;font-family:‘Jost’,sans-serif;font-size:12px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;text-align:center;transition:all .25s;}
+.renew-btn:hover{background:var(–ink);transform:translateY(-1px);}
 
-/* RESET */
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; font-size: 16px; }
-body {
-font-family: ‘Jost’, sans-serif;
-background: var(–cream);
-color: var(–ink);
-font-weight: 300;
-overflow-x: hidden;
--webkit-font-smoothing: antialiased;
-}
-img { max-width: 100%; display: block; }
-a { color: inherit; text-decoration: none; }
-button { cursor: pointer; font-family: inherit; }
-
-/* SCROLLBAR */
-::-webkit-scrollbar { width: 3px; }
-::-webkit-scrollbar-thumb { background: var(–line); border-radius: 2px; }
-
-/* UTILITY */
-.serif { font-family: ‘Cormorant Garamond’, serif; }
-.eyebrow {
-font-size: 9px;
-letter-spacing: .28em;
-text-transform: uppercase;
-font-weight: 500;
-color: var(–sage);
-display: flex;
-align-items: center;
-gap: 10px;
-margin-bottom: 16px;
-}
-.eyebrow::before { content: ‘’; width: 20px; height: 1px; background: var(–sage-pale); flex-shrink: 0; display: inline-block; }
-
-/* REVEAL */
-.reveal {
-opacity: 0;
-transform: translateY(22px);
-transition: opacity .8s cubic-bezier(.4,0,.2,1), transform .8s cubic-bezier(.4,0,.2,1);
-}
-.reveal.visible { opacity: 1; transform: none; }
-.reveal-d1 { transition-delay: .1s; }
-.reveal-d2 { transition-delay: .2s; }
-.reveal-d3 { transition-delay: .3s; }
-.reveal-d4 { transition-delay: .4s; }
-
-/* NAV */
-nav {
-position: fixed;
-top: 0; left: 0; right: 0;
-z-index: 100;
-height: 68px;
-padding: 0 56px;
-display: flex;
-align-items: center;
-justify-content: space-between;
-transition: background .4s, border-color .4s, backdrop-filter .4s;
-}
-nav.scrolled {
-background: rgba(244,239,230,.96);
-backdrop-filter: blur(16px);
-border-bottom: 1px solid var(–line-light);
-}
-.nav-logo { text-decoration: none; display: flex; flex-direction: column; gap: 1px; }
-.nav-logo-main {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 20px;
-font-weight: 400;
-color: var(–sage-dark);
-line-height: 1;
-letter-spacing: .01em;
-}
-.nav-logo-main em { font-style: italic; color: var(–gold); }
-.nav-logo-tag {
-font-size: 8px;
-letter-spacing: .2em;
-text-transform: uppercase;
-color: var(–sage-light);
-font-weight: 400;
-}
-.nav-links { display: flex; list-style: none; gap: 36px; }
-.nav-links a {
-font-size: 11px;
-font-weight: 400;
-color: var(–ink-light);
-letter-spacing: .1em;
-text-transform: uppercase;
-transition: color .2s;
-}
-.nav-links a:hover { color: var(–sage-dark); }
-.nav-actions { display: flex; align-items: center; gap: 10px; }
-.nav-login {
-padding: 8px 18px;
-border: 1px solid var(–line);
-border-radius: 24px;
-background: transparent;
-font-size: 11px;
-font-weight: 400;
-color: var(–ink-mid);
-letter-spacing: .06em;
-transition: all .2s;
-}
-.nav-login:hover { border-color: var(–sage); color: var(–sage-dark); }
-.nav-cta {
-padding: 9px 22px;
-border-radius: 24px;
-background: var(–sage-dark);
-border: none;
-font-size: 11px;
-font-weight: 500;
-color: white;
-letter-spacing: .08em;
-text-transform: uppercase;
-transition: all .2s;
-display: inline-block;
-}
-.nav-cta:hover { background: var(–ink); transform: translateY(-1px); }
-.hamburger {
-display: none;
-flex-direction: column;
-gap: 5px;
-background: none;
-border: none;
-padding: 4px;
-}
-.hamburger span { width: 22px; height: 1.5px; background: var(–ink); display: block; transition: all .3s; }
-.mobile-menu {
-display: none;
-position: fixed;
-top: 68px; left: 0; right: 0;
-background: var(–white);
-border-bottom: 1px solid var(–line-light);
-padding: 28px 32px;
-flex-direction: column;
-gap: 20px;
-z-index: 99;
-box-shadow: 0 12px 32px rgba(30,30,28,.08);
-}
-.mobile-menu.open { display: flex; }
-.mobile-menu a {
-font-size: 13px;
-color: var(–ink-mid);
-letter-spacing: .08em;
-text-transform: uppercase;
-padding: 6px 0;
-border-bottom: 1px solid var(–line-light);
-font-weight: 400;
-}
-.mobile-menu a:last-child { border-bottom: none; }
-
-/* HERO */
-#hero {
-min-height: 100vh;
-display: flex;
-align-items: center;
-padding: 120px 56px 80px;
-position: relative;
-overflow: hidden;
-}
-.hero-texture {
-position: absolute;
-inset: 0;
-background:
-radial-gradient(ellipse 60% 60% at 85% 35%, rgba(154,175,140,.14) 0%, transparent 60%),
-radial-gradient(ellipse 40% 50% at 10% 85%, rgba(168,132,74,.08) 0%, transparent 55%);
-pointer-events: none;
-}
-.hero-inner {
-position: relative;
-max-width: 1100px;
-margin: 0 auto;
-width: 100%;
-display: grid;
-grid-template-columns: 1fr 420px;
-gap: 80px;
-align-items: center;
-}
-.hero-content { animation: heroIn .9s cubic-bezier(.4,0,.2,1) both; }
-@keyframes heroIn { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:none; } }
-.hero-pill {
-display: inline-flex;
-align-items: center;
-gap: 8px;
-background: rgba(250,247,242,.85);
-border: 1px solid var(–line-light);
-border-radius: 24px;
-padding: 6px 14px 6px 10px;
-font-size: 9px;
-letter-spacing: .18em;
-text-transform: uppercase;
-color: var(–sage);
-font-weight: 500;
-margin-bottom: 28px;
-}
-.hero-pill-dot { width: 5px; height: 5px; border-radius: 50%; background: var(–sage); }
-.hero-title {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: clamp(54px, 7vw, 88px);
-font-weight: 300;
-line-height: 1.02;
-color: var(–ink);
-letter-spacing: -.02em;
-margin-bottom: 28px;
-}
-.hero-title em { font-style: italic; color: var(–sage-dark); }
-.hero-desc {
-font-size: 15.5px;
-color: var(–ink-mid);
-line-height: 1.9;
-font-weight: 300;
-max-width: 460px;
-margin-bottom: 36px;
-}
-.hero-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-.btn-primary {
-display: inline-flex;
-align-items: center;
-gap: 8px;
-padding: 14px 28px;
-background: var(–sage-dark);
-color: white;
-border: none;
-border-radius: 32px;
-font-size: 12px;
-font-weight: 500;
-letter-spacing: .09em;
-text-transform: uppercase;
-transition: all .25s;
-}
-.btn-primary:hover { background: var(–ink); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(30,30,28,.15); }
-.btn-outline {
-display: inline-flex;
-align-items: center;
-gap: 8px;
-padding: 13px 26px;
-background: transparent;
-color: var(–sage-dark);
-border: 1.5px solid var(–sage);
-border-radius: 32px;
-font-size: 12px;
-font-weight: 500;
-letter-spacing: .09em;
-text-transform: uppercase;
-transition: all .25s;
-}
-.btn-outline:hover { background: var(–sage-dark); color: white; }
-
-/* Hero card */
-.hero-visual { animation: heroIn .9s .18s cubic-bezier(.4,0,.2,1) both; }
-.hero-card {
-background: var(–white);
-border: 1px solid var(–line-light);
-border-radius: 22px;
-padding: 32px;
-box-shadow: 0 24px 64px rgba(30,30,28,.1), 0 4px 16px rgba(30,30,28,.05);
-}
-.hc-label { font-size: 8px; letter-spacing: .2em; text-transform: uppercase; color: var(–sage-light); margin-bottom: 6px; font-weight: 500; }
-.hc-headline { font-family: ‘Cormorant Garamond’, serif; font-size: 18px; color: var(–sage-dark); margin-bottom: 18px; font-weight: 400; }
-.hc-parts { border: 1px solid var(–line-light); border-radius: 12px; overflow: hidden; margin-bottom: 18px; }
-.hc-part {
-display: flex;
-align-items: center;
-gap: 14px;
-padding: 13px 16px;
-border-bottom: 1px solid var(–line-light);
-transition: background .2s;
-}
-.hc-part:last-child { border-bottom: none; }
-.hc-part:hover { background: var(–cream); cursor: pointer; }
-.hc-part-arr { transition: transform .2s, color .2s; }
-.hc-part:hover .hc-part-arr { transform: translateX(3px); color: var(–sage); }
-.hc-part-num { font-family: ‘Cormorant Garamond’, serif; font-size: 18px; color: var(–sage-pale); width: 20px; flex-shrink: 0; }
-.hc-part-info { flex: 1; }
-.hc-part-tag { font-size: 7.5px; letter-spacing: .14em; text-transform: uppercase; color: var(–sage-light); font-weight: 500; margin-bottom: 1px; }
-.hc-part-name { font-size: 13px; color: var(–ink-mid); font-weight: 300; }
-.hc-part-arr { font-size: 10px; color: var(–line); }
-.hc-badge {
-display: flex;
-align-items: center;
-justify-content: space-between;
-padding: 10px 14px;
-background: var(–cream);
-border-radius: 10px;
-font-size: 10px;
-color: var(–ink-faint);
-font-weight: 300;
-}
-.hc-price {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 16px;
-color: var(–warm-brown);
-font-weight: 400;
-}
-
-/* SECTION SHARED */
-section { padding: 100px 56px; }
-.section-inner { max-width: 1100px; margin: 0 auto; }
-.section-title {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: clamp(36px, 4.5vw, 54px);
-font-weight: 300;
-color: var(–ink);
-line-height: 1.1;
-letter-spacing: -.01em;
-margin-bottom: 16px;
-}
-.section-title em { font-style: italic; color: var(–sage-dark); }
-.section-lead {
-font-size: 16px;
-color: var(–ink-mid);
-line-height: 1.85;
-font-weight: 300;
-max-width: 520px;
-}
-
-/* WHAT IS THIS */
-#what {
-background: var(–parchment);
-position: relative;
-overflow: hidden;
-padding: 100px 56px;
-}
-#what::before {
-content: ‘’;
-position: absolute;
-inset: 0;
-background: repeating-linear-gradient(transparent, transparent 39px, rgba(154,175,140,.35) 39px, rgba(154,175,140,.35) 40px);
-pointer-events: none;
-z-index: 0;
-}
-.what-inner {
-position: relative;
-z-index: 1;
-max-width: 1100px;
-margin: 0 auto;
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 80px;
-align-items: start;
-}
-.what-body {
-font-size: 16px;
-color: var(–ink-mid);
-line-height: 2;
-font-weight: 300;
-}
-.what-body p { margin-bottom: 18px; }
-.what-body p:last-child { margin-bottom: 0; }
-.what-body strong { color: var(–ink); font-weight: 500; }
-.what-cards { display: flex; flex-direction: column; gap: 16px; }
-.what-card {
-background: var(–white);
-border: 1px solid var(–line-light);
-border-radius: 16px;
-padding: 22px 24px;
-position: relative;
-overflow: hidden;
-}
-.what-card::before {
-content: ‘’;
-position: absolute;
-top: 0; left: 0;
-width: 3px; height: 100%;
-background: var(–sage-pale);
-}
-.what-card-num {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 28px;
-color: var(–sage-pale);
-line-height: 1;
-margin-bottom: 8px;
-}
-.what-card-title { font-size: 14px; font-weight: 500; color: var(–sage-dark); margin-bottom: 5px; }
-.what-card-desc { font-size: 13px; color: var(–ink-light); line-height: 1.75; font-weight: 300; }
-
-/* What text title override */
-.what-text .section-title { margin-bottom: 24px; }
-
-/* INSIDE */
-#inside { background: var(–cream); }
-.inside-header { text-align: center; margin-bottom: 64px; }
-.inside-header .section-lead { margin: 0 auto; text-align: center; }
-.inside-parts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(–line-light); border-radius: 20px; overflow: hidden; margin-bottom: 56px; }
-.inside-part {
-background: var(–white);
-padding: 40px 36px;
-transition: background .2s;
-}
-.inside-part:hover { background: var(–gold-pale); }
-.ip-num {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 56px;
-font-weight: 300;
-color: var(–sage-pale);
-line-height: 1;
-margin-bottom: 18px;
-}
-.ip-tag { font-size: 8px; letter-spacing: .24em; text-transform: uppercase; color: var(–sage); font-weight: 500; margin-bottom: 10px; }
-.ip-title {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 24px;
-font-weight: 400;
-color: var(–ink);
-margin-bottom: 14px;
-line-height: 1.2;
-}
-.ip-title em { font-style: italic; color: var(–sage-dark); }
-.ip-desc { font-size: 14px; color: var(–ink-light); line-height: 1.8; font-weight: 300; margin-bottom: 20px; }
-.ip-prompts { display: flex; flex-direction: column; gap: 8px; }
-.ip-prompt {
-display: flex;
-align-items: flex-start;
-gap: 10px;
-font-size: 12.5px;
-color: var(–ink-mid);
-line-height: 1.6;
-font-weight: 300;
-}
-.ip-prompt-dot {
-width: 4px; height: 4px;
-border-radius: 50%;
-background: var(–sage-light);
-flex-shrink: 0;
-margin-top: 8px;
-}
-.inside-extras {
-display: grid;
-grid-template-columns: repeat(4, 1fr);
-gap: 16px;
-}
-.ie-card {
-background: var(–parchment);
-border-radius: 14px;
-padding: 20px 20px;
-border: 1px solid var(–parchment-dark);
-}
-.ie-icon { width: 36px; height: 36px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; background: var(–sage-pale); border-radius: 10px; padding: 8px; }
-.ie-title { font-size: 13px; font-weight: 500; color: var(–ink); margin-bottom: 5px; }
-.ie-desc { font-size: 12px; color: var(–ink-light); line-height: 1.65; font-weight: 300; }
-
-/* STORY */
-#story { padding: 0; }
-.story-split {
-display: grid;
-grid-template-columns: 1fr 1fr;
-min-height: 680px;
-}
-.story-col {
-padding: 88px 72px;
-position: relative;
-overflow: hidden;
-}
-.story-col::before {
-content: ‘’;
-position: absolute;
-inset: 0;
-background: repeating-linear-gradient(transparent, transparent 39px, rgba(154,175,140,.22) 39px, rgba(154,175,140,.22) 40px);
-pointer-events: none;
-z-index: 0;
-}
-.story-col-inner { position: relative; z-index: 1; }
-.story-col.brand { background: var(–parchment); border-right: 1px solid var(–parchment-dark); }
-.story-col.founder { background: var(–white); }
-.story-col-eyebrow { font-size: 8.5px; letter-spacing: .22em; text-transform: uppercase; font-weight: 500; margin-bottom: 18px; display: flex; align-items: center; gap: 9px; }
-.story-col.brand .story-col-eyebrow { color: var(–sage); }
-.story-col.brand .story-col-eyebrow::before { content: ‘’; width: 18px; height: 1px; background: var(–sage); }
-.story-col.founder .story-col-eyebrow { color: var(–gold); }
-.story-col.founder .story-col-eyebrow::before { content: ‘’; width: 18px; height: 1px; background: var(–gold); }
-.story-col-title {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: clamp(28px, 3vw, 40px);
-font-weight: 400;
-color: var(–ink);
-line-height: 1.12;
-margin-bottom: 28px;
-letter-spacing: -.01em;
-}
-.story-col-title em { font-style: italic; color: var(–sage-dark); }
-.story-col.founder .story-col-title em { color: var(–warm-brown); }
-.story-col-body { font-size: 15px; color: var(–ink-mid); line-height: 2; font-weight: 300; }
-.story-col-body p { margin-bottom: 20px; }
-.story-col-body p:last-child { margin-bottom: 0; }
-.story-col-body strong { color: var(–ink); font-weight: 500; }
-.story-sig { margin-top: 36px; padding-top: 24px; border-top: 1px solid var(–parchment-dark); }
-.story-sig-quote {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 16px;
-font-style: italic;
-color: var(–warm-brown);
-line-height: 1.65;
-margin-bottom: 10px;
-}
-.story-sig-name { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(–sage); font-weight: 500; }
-.story-connect {
-display: inline-flex;
-align-items: center;
-gap: 10px;
-margin-top: 32px;
-padding: 9px 18px;
-background: var(–gold-pale);
-border: 1px solid var(–gold-light);
-border-radius: 24px;
-font-size: 11px;
-letter-spacing: .1em;
-text-transform: uppercase;
-color: var(–warm-brown);
-font-weight: 500;
-transition: all .2s;
-}
-.story-connect:hover { background: var(–gold-light); }
-
-/* HOW IT WORKS */
-#how { background: var(–white); }
-.how-header { margin-bottom: 60px; }
-.how-steps {
-display: grid;
-grid-template-columns: repeat(4, 1fr);
-gap: 2px;
-background: var(–line-light);
-border-radius: 20px;
-overflow: hidden;
-margin-bottom: 48px;
-}
-.how-step {
-background: var(–white);
-padding: 36px 30px;
-position: relative;
-}
-.how-step::before {
-content: ‘’;
-position: absolute;
-top: 0; left: 0; right: 0;
-height: 2px;
-background: transparent;
-transition: background .2s;
-}
-.how-step:hover::before { background: var(–sage-pale); }
-.how-num {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 48px;
-font-weight: 300;
-color: var(–sage-pale);
-line-height: 1;
-margin-bottom: 16px;
-}
-.how-title { font-family: ‘Cormorant Garamond’, serif; font-size: 20px; font-weight: 400; color: var(–sage-dark); margin-bottom: 10px; }
-.how-desc { font-size: 14px; color: var(–ink-light); line-height: 1.8; font-weight: 300; }
-.how-note {
-background: var(–parchment);
-border-radius: 14px;
-padding: 22px 28px;
-border: 1px solid var(–parchment-dark);
-display: flex;
-align-items: center;
-gap: 20px;
-}
-.how-note-icon { width: 44px; height: 44px; background: var(–sage-pale); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.how-note-text { font-size: 14px; color: var(–ink-mid); line-height: 1.75; font-weight: 300; }
-.how-note-text strong { color: var(–ink); font-weight: 500; }
-
-/* PRICING */
-#pricing { background: var(–cream); position: relative; }
-.pricing-inner {
-max-width: 900px;
-margin: 0 auto;
-display: grid;
-grid-template-columns: 1fr 1.2fr;
-gap: 56px;
-align-items: start;
-}
-.pricing-left .section-title { margin-bottom: 20px; }
-.pricing-left .section-lead { margin-bottom: 32px; }
-.pricing-check-list { display: flex; flex-direction: column; gap: 12px; }
-.pricing-check {
-display: flex;
-align-items: flex-start;
-gap: 12px;
-font-size: 14.5px;
-color: var(–ink-mid);
-line-height: 1.55;
-font-weight: 300;
-}
-.pricing-check-mark {
-width: 18px; height: 18px;
-border-radius: 50%;
-background: var(–sage-pale);
-display: flex;
-align-items: center;
-justify-content: center;
-flex-shrink: 0;
-margin-top: 2px;
-}
-.pricing-check-mark svg { display: block; }
-.pricing-card {
-background: var(–white);
-border: 1px solid var(–line-light);
-border-radius: 22px;
-overflow: hidden;
-box-shadow: 0 16px 48px rgba(30,30,28,.09);
-}
-.pricing-card-top {
-padding: 36px 36px 28px;
-border-bottom: 1px solid var(–line-light);
-background: var(–parchment);
-position: relative;
-overflow: hidden;
-}
-.pricing-card-top::before {
-content: ‘’;
-position: absolute;
-top: 0; left: 0; right: 0;
-height: 3px;
-background: linear-gradient(90deg, var(–sage-light), var(–gold), var(–sage-light));
-}
-.pricing-type { font-size: 8.5px; letter-spacing: .22em; text-transform: uppercase; color: var(–sage); font-weight: 500; margin-bottom: 14px; }
-.pricing-name {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 28px;
-font-weight: 400;
-color: var(–ink);
-margin-bottom: 6px;
-}
-.pricing-name em { font-style: italic; color: var(–sage-dark); }
-.pricing-tagline { font-size: 13.5px; color: var(–ink-light); line-height: 1.7; font-weight: 300; }
-.pricing-card-body { padding: 28px 36px; }
-.pricing-amount { display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px; }
-.pricing-currency { font-size: 18px; color: var(–warm-brown); font-weight: 400; }
-.pricing-number {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 52px;
-font-weight: 300;
-color: var(–ink);
-line-height: 1;
-}
-.pricing-sub { font-size: 12px; color: var(–ink-faint); margin-bottom: 28px; font-weight: 300; }
-.pricing-features { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
-.pricing-feature {
-display: flex;
-align-items: center;
-gap: 10px;
-font-size: 13.5px;
-color: var(–ink-mid);
-font-weight: 300;
-}
-.pf-dot { width: 4px; height: 4px; border-radius: 50%; background: var(–sage); flex-shrink: 0; }
-.pricing-cta {
-display: block;
-width: 100%;
-padding: 15px;
-background: var(–sage-dark);
-color: white;
-border: none;
-border-radius: 14px;
-font-size: 13px;
-font-weight: 500;
-letter-spacing: .1em;
-text-transform: uppercase;
-text-align: center;
-transition: all .2s;
-}
-.pricing-cta:hover { background: var(–ink); transform: translateY(-1px); }
-.pricing-reassure {
-text-align: center;
-font-size: 11.5px;
-color: var(–ink-faint);
-margin-top: 12px;
-font-weight: 300;
-}
-
-/* QUOTE BAND */
-#quote-band {
-background: var(–sage-dark);
-padding: 72px 56px;
-text-align: center;
-}
-.quote-band-inner { max-width: 680px; margin: 0 auto; }
-.quote-mark {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 80px;
-color: rgba(255,255,255,.15);
-line-height: 0.5;
-margin-bottom: 24px;
-display: block;
-}
-.quote-text {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: clamp(22px, 3vw, 32px);
-font-weight: 300;
-font-style: italic;
-color: rgba(255,255,255,.9);
-line-height: 1.55;
-margin-bottom: 24px;
-}
-.quote-attr { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.4); font-weight: 400; }
-
-/* FAQ */
-#faq { background: var(–parchment); }
-.faq-inner { max-width: 720px; margin: 0 auto; }
-.faq-header { margin-bottom: 48px; }
-.faq-list { display: flex; flex-direction: column; }
-.faq-item { border-bottom: 1px solid var(–parchment-dark); }
-.faq-q {
-width: 100%;
-background: none;
-border: none;
-text-align: left;
-padding: 22px 0;
-font-family: ‘Jost’, sans-serif;
-font-size: 15px;
-font-weight: 400;
-color: var(–ink);
-display: flex;
-align-items: center;
-justify-content: space-between;
-gap: 16px;
-transition: color .2s;
-cursor: pointer;
-line-height: 1.5;
-}
-.faq-q:hover { color: var(–sage-dark); }
-.faq-icon {
-width: 24px; height: 24px;
-border-radius: 50%;
-border: 1px solid var(–line);
-display: flex;
-align-items: center;
-justify-content: center;
-flex-shrink: 0;
-font-size: 16px;
-color: var(–sage);
-transition: all .25s;
-line-height: 1;
-}
-.faq-item.open .faq-icon { background: var(–sage-dark); color: white; border-color: var(–sage-dark); transform: rotate(45deg); }
-.faq-a {
-max-height: 0;
-overflow: hidden;
-transition: max-height .38s ease, padding .38s ease;
-font-size: 14.5px;
-color: var(–ink-mid);
-line-height: 1.85;
-font-weight: 300;
-}
-.faq-item.open .faq-a { max-height: 400px; padding-bottom: 24px; }
-
-/* NEWSLETTER */
-#newsletter {
-background: var(–cream);
-position: relative;
-overflow: hidden;
-}
-#newsletter::before {
-content: ‘’;
-position: absolute;
-inset: 0;
-background: repeating-linear-gradient(transparent, transparent 39px, rgba(154,175,140,.22) 39px, rgba(154,175,140,.22) 40px);
-pointer-events: none;
-z-index: 0;
-}
-.newsletter-inner {
-max-width: 600px;
-margin: 0 auto;
-text-align: center;
-position: relative;
-z-index: 1;
-}
-.newsletter-inner .section-title { margin-bottom: 14px; }
-.newsletter-body {
-font-size: 15.5px;
-color: var(–ink-mid);
-line-height: 1.85;
-font-weight: 300;
-margin-bottom: 36px;
-max-width: 460px;
-margin-left: auto;
-margin-right: auto;
-}
-.newsletter-card {
-background: var(–white);
-border: 1px solid var(–line-light);
-border-radius: 18px;
-padding: 32px;
-}
-.newsletter-card p { font-size: 13px; color: var(–ink-faint); margin-bottom: 16px; font-weight: 300; }
-.newsletter-row { display: flex; gap: 10px; flex-wrap: wrap; }
-.newsletter-input {
-flex: 1;
-min-width: 180px;
-padding: 13px 20px;
-background: var(–cream);
-border: 1px solid var(–line);
-border-radius: 32px;
-font-family: ‘Jost’, sans-serif;
-font-size: 14px;
-font-weight: 300;
-color: var(–ink);
-outline: none;
-transition: border-color .2s;
-}
-.newsletter-input::placeholder { color: var(–line); }
-.newsletter-input:focus { border-color: var(–sage); }
-.newsletter-btn {
-padding: 13px 26px;
-background: var(–sage-dark);
-color: white;
-border: none;
-border-radius: 32px;
-font-family: ‘Jost’, sans-serif;
-font-size: 12px;
-font-weight: 500;
-letter-spacing: .08em;
-text-transform: uppercase;
-transition: all .2s;
-white-space: nowrap;
-}
-.newsletter-btn:hover { background: var(–ink); }
-.newsletter-note { font-size: 11px; color: var(–ink-faint); margin-top: 12px; font-weight: 300; }
-
-/* FOOTER */
-footer { background: var(–footer); padding: 56px 56px 36px; }
-.footer-top {
-display: grid;
-grid-template-columns: 1.4fr 1fr 1fr 1fr;
-gap: 48px;
-margin-bottom: 48px;
-}
-.footer-logo {
-font-family: ‘Cormorant Garamond’, serif;
-font-size: 20px;
-font-weight: 400;
-color: var(–cream);
-display: block;
-margin-bottom: 3px;
-}
-.footer-logo em { font-style: italic; color: var(–gold); }
-.footer-tagline { font-size: 8.5px; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.28); margin-bottom: 14px; display: block; }
-.footer-desc { font-size: 12.5px; color: rgba(255,255,255,.36); line-height: 1.75; font-weight: 300; }
-.footer-col-title { font-size: 8.5px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.26); margin-bottom: 16px; font-weight: 500; }
-.footer-links { display: flex; flex-direction: column; gap: 10px; }
-.footer-links a { font-size: 13px; color: rgba(255,255,255,.46); transition: color .2s; }
-.footer-links a:hover { color: var(–cream); }
-.social-row { display: flex; gap: 10px; margin-top: 4px; }
-.social-icon {
-width: 38px; height: 38px;
-border-radius: 50%;
-border: 1px solid rgba(255,255,255,.14);
-display: flex;
-align-items: center;
-justify-content: center;
-color: rgba(255,255,255,.46);
-transition: all .2s;
-}
-.social-icon:hover { border-color: var(–gold); color: var(–gold); background: rgba(168,132,74,.1); }
-.footer-divider { height: 1px; background: rgba(255,255,255,.07); margin-bottom: 22px; }
-.footer-bottom {
-display: flex;
-align-items: center;
-justify-content: space-between;
-flex-wrap: wrap;
-gap: 10px;
-font-size: 11.5px;
-color: rgba(255,255,255,.26);
-}
-
-/* BACK TO TOP */
-#btt {
-position: fixed;
-bottom: 32px; right: 32px;
-width: 44px; height: 44px;
-border-radius: 50%;
-background: var(–white);
-border: 1px solid var(–line-light);
-box-shadow: 0 4px 16px rgba(30,30,28,.1);
-display: flex;
-align-items: center;
-justify-content: center;
-cursor: pointer;
-opacity: 0;
-pointer-events: none;
-transform: translateY(10px);
-transition: opacity .3s, transform .3s, background .2s;
-z-index: 80;
-}
-#btt.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
-#btt:hover { background: var(–sage-dark); border-color: var(–sage-dark); }
-#btt:hover svg { stroke: white; }
-#btt svg { stroke: var(–sage-dark); transition: stroke .2s; }
-
-/* RESPONSIVE */
-@media (max-width: 960px) {
-nav { padding: 0 28px; }
-.nav-links { display: none; }
-.nav-actions { display: none; }
-.hamburger { display: flex; }
-section { padding: 72px 28px; }
-#hero { padding: 100px 28px 72px; }
-#newsletter { padding: 72px 28px; }
-#quote-band { padding: 60px 28px; }
-#gain { padding: 72px 28px !important; }
-footer { padding: 48px 28px 28px; }
-.hero-inner { grid-template-columns: 1fr; gap: 48px; }
-.hero-visual { max-width: 420px; }
-.what-inner { grid-template-columns: 1fr; gap: 48px; }
-.story-split { grid-template-columns: 1fr; }
-.story-col { padding: 64px 28px; }
-.story-col.brand { border-right: none; border-bottom: 1px solid var(–parchment-dark); }
-.inside-parts { grid-template-columns: 1fr; }
-.inside-extras { grid-template-columns: 1fr 1fr; }
-.how-steps { grid-template-columns: 1fr 1fr; }
-.pricing-inner { grid-template-columns: 1fr; gap: 40px; max-width: 520px; }
-.footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
-.gain-grid { grid-template-columns: 1fr 1fr !important; }
-}
-@media (max-width: 560px) {
-.hero-title { font-size: 46px; }
-.inside-extras { grid-template-columns: 1fr; }
-.how-steps { grid-template-columns: 1fr; }
-.footer-top { grid-template-columns: 1fr; }
-.newsletter-row { flex-direction: column; }
-.gain-grid { grid-template-columns: 1fr !important; }
-#btt { bottom: 20px; right: 18px; }
-}
+@media(max-width:500px){.card{padding:40px 28px;border-radius:18px;}.view-title,.success-title{font-size:28px;}}
 </style>
 
 </head>
 <body>
-
-<!-- NAV -->
-
-<nav id="navbar">
-  <a href="#" class="nav-logo">
-    <span class="nav-logo-main">Inklings <em>Journal</em></span>
-    <span class="nav-logo-tag">A companion for your inner world</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#what">About</a></li>
-    <li><a href="#inside">The Journal</a></li>
-    <li><a href="#story">Our Story</a></li>
-    <li><a href="#pricing">Pricing</a></li>
-    <li><a href="#faq">FAQ</a></li>
-  </ul>
-  <div class="nav-actions">
-    <a href="/DigitalJournal/Login.html" class="nav-login">Login</a>
-    <a href="./Purchase.html" class="nav-cta">Get the Journal</a>
+<div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div><div class="ring r4"></div>
+<div class="card">
+  <div class="top-line"></div>
+  <div class="logo-wrap">
+    <span class="logo">Ink<em>lings</em></span>
+    <span class="tagline">Your inner world, in words</span>
   </div>
-  <button class="hamburger" id="hamburger" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
 
-<div class="mobile-menu" id="mobile-menu">
-  <a href="#what" onclick="toggleMenu()">About</a>
-  <a href="#inside" onclick="toggleMenu()">The Journal</a>
-  <a href="#story" onclick="toggleMenu()">Our Story</a>
-  <a href="#pricing" onclick="toggleMenu()">Pricing</a>
-  <a href="#faq" onclick="toggleMenu()">FAQ</a>
-  <a href="/DigitalJournal/Login.html" onclick="toggleMenu()">Login</a>
-  <a href="./Purchase.html" onclick="toggleMenu()">Get the Journal</a>
+  <!-- LOGIN VIEW -->
+
+  <div class="view active" id="viewLogin">
+    <h2 class="view-title">Welcome<br><em>back.</em></h2>
+    <p class="view-sub">Enter the email and passkey from your purchase confirmation email.</p>
+
+```
+<!-- Expired access banner (shown instead of error banner when access has lapsed) -->
+<div class="expired-banner" id="expiredBanner">
+  <div class="expired-title">Your access has <em>ended.</em></div>
+  <div class="expired-sub">Your 2-year access has expired. Renew for ₹999 and keep all your entries — nothing is lost.</div>
+  <a class="renew-btn" href="./Purchase.html">Renew for ₹999 →</a>
 </div>
 
-<!-- HERO -->
+<!-- General error banner -->
+<div class="error-banner" id="errorBanner">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+  <span id="errorText">Incorrect email or passkey.</span>
+</div>
 
-<section id="hero">
-  <div class="hero-texture"></div>
-  <div class="hero-inner">
-    <div class="hero-content">
-      <div class="hero-pill">
-        <span class="hero-pill-dot"></span>
-        Built by a Clinical Psychologist
-      </div>
-      <h1 class="hero-title">Your inner<br>world, <em>in words.</em></h1>
-      <p class="hero-desc">You have probably thought about understanding yourself better. The patterns you repeat, the feelings you can't quite name, the version of yourself you keep meaning to become.<br><br>This journal gives you a structured, private space to actually do that work. Guided by psychological principles. Built by a practising clinical psychologist.</p>
-      <div class="hero-actions">
-        <a href="./Purchase.html" class="btn-primary">
-          Get the Journal
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-        <a href="#inside" class="btn-outline">See what's inside</a>
-      </div>
-    </div>
-    <div class="hero-visual">
-      <div class="hero-card">
-        <div class="hc-label">The Digital Journal</div>
-        <div class="hc-headline">Three practices. One journey.</div>
-        <div class="hc-parts">
-          <div class="hc-part" onclick="scrollToSection('part-1')" title="See Part I details">
-            <div class="hc-part-num">I</div>
-            <div class="hc-part-info">
-              <div class="hc-part-tag">Part One</div>
-              <div class="hc-part-name">Build Emotional Safety</div>
-            </div>
-            <div class="hc-part-arr">&#8594;</div>
-          </div>
-          <div class="hc-part" onclick="scrollToSection('part-2')" title="See Part II details">
-            <div class="hc-part-num">II</div>
-            <div class="hc-part-info">
-              <div class="hc-part-tag">Part Two</div>
-              <div class="hc-part-name">Reflect on Yourself</div>
-            </div>
-            <div class="hc-part-arr">&#8594;</div>
-          </div>
-          <div class="hc-part" onclick="scrollToSection('part-3')" title="See Part III details">
-            <div class="hc-part-num">III</div>
-            <div class="hc-part-info">
-              <div class="hc-part-tag">Part Three</div>
-              <div class="hc-part-name">Move Forward With Intention</div>
-            </div>
-            <div class="hc-part-arr">&#8594;</div>
-          </div>
-        </div>
-        <div class="hc-badge">
-          <span>iPhone &middot; iPad &middot; Android &middot; Any browser</span>
-          <span class="hc-price">₹2,499 · 2 years</span>
-        </div>
-      </div>
-    </div>
+<div class="field">
+  <label class="field-label" for="emailInput">Email Address</label>
+  <input class="field-input" id="emailInput" type="email" placeholder="you@example.com" autocomplete="email" inputmode="email">
+</div>
+<div class="field">
+  <label class="field-label" for="passkeyInput">Passkey</label>
+  <div class="pass-wrap">
+    <input class="field-input" id="passkeyInput" type="password" placeholder="e.g. INK-A3F7-X9K2" autocomplete="current-password" onkeydown="if(event.key==='Enter')login()">
+    <button class="eye-btn" onclick="toggleEye()" type="button">
+      <svg id="eyeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+    </button>
   </div>
-</section>
-
-<!-- WHAT IS THIS -->
-
-<section id="what">
-  <div class="what-inner">
-    <div class="what-text reveal">
-      <h2 class="section-title">A mental health journal<br>to regulate, reflect<br>and <em>grow.</em></h2>
-      <div class="what-body">
-        <p>Most journals give you blank pages. Inklings gives you <strong>guided prompts built on psychological principles</strong> — the same kind of reflective work done in therapy, adapted for you to do on your own, at your own pace.</p>
-        <p>It is not a productivity tool or a habit tracker. It is a space to understand yourself: your patterns, your relationships, your emotional responses, and where you actually want to go from here.</p>
-        <p>Designed and curated by Shreya, a practising clinical psychologist with years of experience sitting with people through exactly these questions.</p>
-      </div>
-    </div>
-    <div class="what-cards">
-      <div class="what-card reveal reveal-d1">
-        <div class="what-card-num">01</div>
-        <div class="what-card-title">Built on psychological principles</div>
-        <div class="what-card-desc">Every exercise is drawn from evidence-based therapeutic practice: self-compassion, inner child work, attachment theory, cognitive reframing. Clinical tools, made accessible without the clinical setting.</div>
-      </div>
-      <div class="what-card reveal reveal-d2">
-        <div class="what-card-num">02</div>
-        <div class="what-card-title">Why digital journal makes a difference</div>
-        <div class="what-card-desc">Your journal lives in your account, not a notebook that gets lost. Access it from your phone, tablet, or laptop. Your entries are always there, always private, and new exercises will be added over time as the journal grows.</div>
-      </div>
-      <div class="what-card reveal reveal-d3">
-        <div class="what-card-num">03</div>
-        <div class="what-card-title">One purchase, carried everywhere</div>
-        <div class="what-card-desc">Pay once and the journal is yours for two full years. Pick it up on a difficult day, return to a section months later, track your moods daily or occasionally. It works around your life, not the other way around.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- INSIDE -->
-
-<section id="inside">
-  <div class="section-inner">
-    <div class="inside-header reveal">
-      <div class="eyebrow" style="justify-content:center">What is inside</div>
-      <h2 class="section-title" style="text-align:center;margin-bottom:14px">Thirty-plus exercises.<br><em>Three parts. One complete journey.</em></h2>
-      <p class="section-lead" style="text-align:center">Each part builds on the last. You can follow the full journey or return to what you need. There is no right pace.</p>
-    </div>
-    <div class="inside-parts">
-      <div class="inside-part reveal" id="part-1">
-        <div class="ip-num">I</div>
-        <div class="ip-tag">Part One &middot; Foundation</div>
-        <h3 class="ip-title">Build<br><em>Emotional Safety</em></h3>
-        <p class="ip-desc">Before going deeper, you need tools to hold yourself when things feel heavy. This part teaches you to ground yourself, name what you feel, and find a steady place inside.</p>
-        <div class="ip-prompts">
-          <div class="ip-prompt"><span class="ip-prompt-dot"></span>A grounding exercise for when you feel overwhelmed</div>
-          <div class="ip-prompt"><span class="ip-prompt-dot"></span>Notice where emotions live in your body</div>
-          <div class="ip-prompt"><span class="ip-prompt-dot"></span>Build an inner place you can return to anytime</div>
-          <div class="ip-prompt"><span class="ip-prompt-dot"></span>Develop a compassionate voice for yourself</div>
-        </div>
-      </div>
-      <div class="inside-part reveal reveal-d1" id="part-2">
-        <div class="ip-num">II</div>
-        <div class="ip-tag">Part Two &middot; Reflection</div>
-        <h3 class="ip-title">Reflect on<br><em>Yourself</em></h3>
-        <p class="ip-desc">The deepest part of the journal. You will look at where you came from, who you are now, what you carry, and what you genuinely want. The questions most people never sit with long enough.</p>
-        <div class="ip-prompts">
-          <div class="ip-prompt"><span class="ip-prompt-dot"></span>Understand the experiences and people that shaped you</div>
-          <div class="ip-prompt"><span class="ip-prompt-dot"></span>Work through your inner critic, younger self, relationship patterns</div>
-          <div class="ip-prompt"><span class="ip-prompt-dot"></span>Name your dreams and the beliefs quietly stopping them</div>
-          <div class="ip-prompt"><span class="ip-prompt-dot"></span>Write your full story and where it is headed next</div>
-        </div>
-      </div>
-      <div class="inside-part reveal reveal-d2" id="part-3">
-        <div class="ip-num">III</div>
-        <div class="ip-tag">Part Three &middot; Daily Practice</div>
-        <h3 class="ip-title">Move Forward<br><em>With Intention</em></h3>
-        <p class="ip-desc">This is the part you return to every day. Once the deeper work is done, this is where you bring it into how you actually live. Small, consistent habits that add up to real change.</p>
-        <div class="ip-prompts">
-          <div class="ip-prompt"><span class="ip-prompt-dot"></span>Track your mood and gratitude with a visual calendar</div>
-          <div class="ip-prompt"><span class="ip-prompt-dot"></span>Plan your day with intention, not just tasks</div>
-          <div class="ip-prompt"><span class="ip-prompt-dot"></span>Set meaningful goals and the daily acts that lead there</div>
-          <div class="ip-prompt"><span class="ip-prompt-dot"></span>Watch your consistency grow through streaks and progress</div>
-        </div>
-      </div>
-    </div>
-    <div class="inside-extras">
-      <div class="ie-card reveal">
-        <div class="ie-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6e8060" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
-        </div>
-        <div class="ie-title">12 Inner Roles exercise</div>
-        <div class="ie-desc">Identify which archetypal roles you play in your life and how they serve or limit you.</div>
-      </div>
-      <div class="ie-card reveal reveal-d1">
-        <div class="ie-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6e8060" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-        </div>
-        <div class="ie-title">Self-compassion practices</div>
-        <div class="ie-desc">Written exercises adapted from compassion-focused therapy to soften your inner critic.</div>
-      </div>
-      <div class="ie-card reveal reveal-d2">
-        <div class="ie-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6e8060" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="22"/><line x1="2" y1="12" x2="8" y2="12"/><line x1="16" y1="12" x2="22" y2="12"/></svg>
-        </div>
-        <div class="ie-title">Circle of control</div>
-        <div class="ie-desc">A visual and written exercise to help you focus your energy on what you can actually change.</div>
-      </div>
-      <div class="ie-card reveal reveal-d3">
-        <div class="ie-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6e8060" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
-        </div>
-        <div class="ie-title">Export your journal</div>
-        <div class="ie-desc">Download a clean PDF of your answers. Your words, no prompts exposed. Yours to keep forever.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- WHAT YOU GAIN -->
-
-<section id="gain" style="background:var(--parchment);padding:100px 56px;position:relative;overflow:hidden;">
-  <div style="position:absolute;inset:0;background:repeating-linear-gradient(transparent,transparent 39px,rgba(154,175,140,.2) 39px,rgba(154,175,140,.2) 40px);pointer-events:none;z-index:0;"></div>
-  <div style="position:relative;z-index:1;max-width:1100px;margin:0 auto;">
-    <div class="reveal" style="text-align:center;margin-bottom:56px;">
-      <div class="eyebrow" style="justify-content:center">What changes</div>
-      <h2 class="section-title" style="text-align:center">People who use this journal<br>tell us they come out <em>clearer.</em></h2>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line-light);border-radius:20px;overflow:hidden;" class="gain-grid">
-      <div class="gain-card reveal" style="background:var(--white);padding:36px 32px;">
-        <div style="font-family:'Cormorant Garamond',serif;font-size:38px;color:var(--sage-pale);line-height:1;margin-bottom:16px;">01</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--sage-dark);margin-bottom:12px;font-weight:400;">You understand yourself better</div>
-        <div style="font-size:14px;color:var(--ink-light);line-height:1.8;font-weight:300;">The patterns you could not name become visible. Why you react the way you do, what you actually need, and what has been quietly driving your choices.</div>
-      </div>
-      <div class="gain-card reveal reveal-d1" style="background:var(--white);padding:36px 32px;">
-        <div style="font-family:'Cormorant Garamond',serif;font-size:38px;color:var(--sage-pale);line-height:1;margin-bottom:16px;">02</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--sage-dark);margin-bottom:12px;font-weight:400;">You feel less at the mercy of your emotions</div>
-        <div style="font-size:14px;color:var(--ink-light);line-height:1.8;font-weight:300;">When you can name what you feel and where it comes from, it loses its grip. You move from reacting to responding, slowly and genuinely.</div>
-      </div>
-      <div class="gain-card reveal reveal-d2" style="background:var(--white);padding:36px 32px;">
-        <div style="font-family:'Cormorant Garamond',serif;font-size:38px;color:var(--sage-pale);line-height:1;margin-bottom:16px;">03</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--sage-dark);margin-bottom:12px;font-weight:400;">You know what you actually want</div>
-        <div style="font-size:14px;color:var(--ink-light);line-height:1.8;font-weight:300;">Not what you think you should want. The journal helps you separate other people's expectations from your own, and gives you language for the life you are trying to build.</div>
-      </div>
-      <div class="gain-card reveal" style="background:var(--white);padding:36px 32px;">
-        <div style="font-family:'Cormorant Garamond',serif;font-size:38px;color:var(--sage-pale);line-height:1;margin-bottom:16px;">04</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--sage-dark);margin-bottom:12px;font-weight:400;">You are gentler with yourself</div>
-        <div style="font-size:14px;color:var(--ink-light);line-height:1.8;font-weight:300;">Self-compassion is a skill, not a personality trait. The exercises in Part I and II build it deliberately, over time, in ways that actually stick.</div>
-      </div>
-      <div class="gain-card reveal reveal-d1" style="background:var(--white);padding:36px 32px;">
-        <div style="font-family:'Cormorant Garamond',serif;font-size:38px;color:var(--sage-pale);line-height:1;margin-bottom:16px;">05</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--sage-dark);margin-bottom:12px;font-weight:400;">Your days feel more intentional</div>
-        <div style="font-size:14px;color:var(--ink-light);line-height:1.8;font-weight:300;">The daily planner and mood journal in Part III turn insight into habit. Small, consistent check-ins that connect who you are becoming with how you actually spend your days.</div>
-      </div>
-      <div class="gain-card reveal reveal-d2" style="background:var(--white);padding:36px 32px;">
-        <div style="font-family:'Cormorant Garamond',serif;font-size:38px;color:var(--sage-pale);line-height:1;margin-bottom:16px;">06</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--sage-dark);margin-bottom:12px;font-weight:400;">You have a record of your growth</div>
-        <div style="font-size:14px;color:var(--ink-light);line-height:1.8;font-weight:300;">Your entries are saved to your account and can be exported anytime. Returning to what you wrote six months ago is one of the most quietly powerful things this journal offers.</div>
-      </div>
-    </div>
-    <div class="reveal" style="margin-top:40px;background:var(--white);border-radius:14px;padding:24px 32px;border:1px solid var(--line-light);display:flex;align-items:center;gap:20px;max-width:720px;margin-left:auto;margin-right:auto;">
-      <div style="width:44px;height:44px;background:var(--sage-pale);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6e8060" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      </div>
-      <div style="font-size:14px;color:var(--ink-mid);line-height:1.75;font-weight:300;"><strong style="color:var(--ink);font-weight:500;">A note on expectations.</strong> This journal will not fix everything. It will not replace therapy if you need it. What it will do is give you honest, structured time with yourself, consistently. That, over time, is where real change begins.</div>
-    </div>
-  </div>
-</section>
-
-<!-- STORY -->
-
-<section id="story" style="padding:0">
-  <div class="story-split">
-    <div class="story-col brand reveal">
-      <div class="story-col-inner">
-        <div class="story-col-eyebrow">The brand</div>
-        <h2 class="story-col-title">Where science<br>meets <em>self-discovery.</em></h2>
-        <div class="story-col-body">
-          <p>Inklings Journal arrived from a simple observation: the tools that actually help people understand themselves are locked behind clinical settings most people can't access, and the tools that are accessible often don't go deep enough to matter.</p>
-          <p>We wanted to change that. Not by watering down the psychology, but by making it feel like something you could do with a cup of tea in your own time, in your own way.</p>
-          <p>Everything we create combines the depth of scientific understanding with the ease of accessing that knowledge in a way that feels natural. Warm and thoughtful, where psychology meets everyday life.</p>
-        </div>
-        <div class="story-sig">
-          <div class="story-sig-quote">"A companion for every stage of your journey, not just the difficult ones."</div>
-          <div class="story-sig-name">The Inklings Journal team</div>
-        </div>
-      </div>
-    </div>
-    <div class="story-col founder reveal reveal-d1">
-      <div class="story-col-inner">
-        <div class="story-col-eyebrow">The founder</div>
-        <h2 class="story-col-title">Built from both<br>sides of the <em>couch.</em></h2>
-        <div class="story-col-body">
-          <p>Shreya is a practising clinical psychologist whose work sits at the intersection of the self, relationships, and the stories we carry, often without knowing it.</p>
-          <p>Having been on both sides of the therapeutic relationship, she noticed something: <strong>people need a space between sessions.</strong> A place to sit with what is shifting, to continue the work on their own terms, without waiting for the next appointment.</p>
-          <p>That realisation became Inklings Journal. Built to walk alongside therapy, and alongside you, in the ordinary in-between moments of a real life.</p>
-        </div>
-        <a href="mailto:hello@inklingsjournal.com" class="story-connect">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
-          Write to Shreya
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- HOW IT WORKS -->
-
-<section id="how">
-  <div class="section-inner">
-    <div class="how-header reveal">
-      <div class="eyebrow">How it works</div>
-      <h2 class="section-title">Simple to start.<br><em>Meaningful to return to.</em></h2>
-    </div>
-    <div class="how-steps">
-      <div class="how-step reveal">
-        <div class="how-num">01</div>
-        <div class="how-title">Purchase once</div>
-        <div class="how-desc">Pay once and get two full years of access. Your passkey is linked to your account — use it from any device, any time, for the duration of your access.</div>
-      </div>
-      <div class="how-step reveal reveal-d1">
-        <div class="how-num">02</div>
-        <div class="how-title">Receive your passkey</div>
-        <div class="how-desc">After payment, you will receive a unique passkey by email. Use it with your email address to log in from any device, any time.</div>
-      </div>
-      <div class="how-step reveal reveal-d2">
-        <div class="how-num">03</div>
-        <div class="how-title">Begin anywhere</div>
-        <div class="how-desc">There is no right place to start. Open a chapter that calls to you, or start the daily tracker, or follow the journey in order. You choose.</div>
-      </div>
-      <div class="how-step reveal reveal-d3">
-        <div class="how-num">04</div>
-        <div class="how-title">Keep returning</div>
-        <div class="how-desc">Your entries are saved securely. Come back daily, weekly, or whenever you need a quiet moment with yourself. The journal will be there.</div>
-      </div>
-    </div>
-    <div class="how-note reveal">
-      <div class="how-note-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6e8060" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      </div>
-      <div class="how-note-text">
-        <strong>Already in therapy?</strong> Inklings Journal is designed to complement therapy, not replace it. Many of the exercises, inner child work, self-compassion, attachment exploration are widely used in clinical settings. Several therapists recommend it to clients who want to continue the work between sessions.
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PRICING -->
-
-<section id="pricing">
-  <div class="pricing-inner">
-    <div class="pricing-left reveal">
-      <div class="eyebrow">Pricing</div>
-      <h2 class="section-title">One price.<br><em>Two years of access.</em></h2>
-      <p class="section-lead" style="margin-bottom:36px">No tiers. No upsells. No monthly fees. Everything in the journal is yours from day one, for two full years. Renew at ₹999 after that.</p>
-      <div class="pricing-check-list">
-        <div class="pricing-check">
-          <div class="pricing-check-mark"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#6e8060" stroke-width="2"><polyline points="2,6 5,9 10,3"/></svg></div>
-          All three parts of the journal, fully unlocked
-        </div>
-        <div class="pricing-check">
-          <div class="pricing-check-mark"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#6e8060" stroke-width="2"><polyline points="2,6 5,9 10,3"/></svg></div>
-          Secure cloud storage, access from any device
-        </div>
-        <div class="pricing-check">
-          <div class="pricing-check-mark"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#6e8060" stroke-width="2"><polyline points="2,6 5,9 10,3"/></svg></div>
-          Daily mood journal and intention planner
-        </div>
-        <div class="pricing-check">
-          <div class="pricing-check-mark"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#6e8060" stroke-width="2"><polyline points="2,6 5,9 10,3"/></svg></div>
-          Progress tracking and streak counter
-        </div>
-        <div class="pricing-check">
-          <div class="pricing-check-mark"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#6e8060" stroke-width="2"><polyline points="2,6 5,9 10,3"/></svg></div>
-          PDF export of your entries, yours to keep
-        </div>
-        <div class="pricing-check">
-          <div class="pricing-check-mark"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#6e8060" stroke-width="2"><polyline points="2,6 5,9 10,3"/></svg></div>
-          Works on iPhone, iPad, Android, any browser
-        </div>
-        <div class="pricing-check">
-          <div class="pricing-check-mark"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#6e8060" stroke-width="2"><polyline points="2,6 5,9 10,3"/></svg></div>
-          Currency adjusts automatically for international buyers
-        </div>
-      </div>
-    </div>
-    <div class="reveal reveal-d1">
-      <div class="pricing-card">
-        <div class="pricing-card-top">
-          <div class="pricing-type">Digital Journal &middot; Available now</div>
-          <div class="pricing-name">The Inklings <em>Digital Journal</em></div>
-          <div class="pricing-tagline">A complete guided journal with three integrated practices. Designed to be used, returned to, and grown into over time.</div>
-        </div>
-        <div class="pricing-card-body">
-          <div class="pricing-amount">
-            <span class="pricing-currency">₹</span>
-            <span class="pricing-number">2,499</span>
-          </div>
-          <div class="pricing-sub">One-time payment · 2 years of full access · ~₹104/month</div>
-          <div class="pricing-features">
-            <div class="pricing-feature"><span class="pf-dot"></span>30+ guided exercises across 3 parts</div>
-            <div class="pricing-feature"><span class="pf-dot"></span>Inner child, attachment, compassion exercises</div>
-            <div class="pricing-feature"><span class="pf-dot"></span>Daily mood tracker with infinite calendar</div>
-            <div class="pricing-feature"><span class="pf-dot"></span>Daily intention planner with time blocks</div>
-            <div class="pricing-feature"><span class="pf-dot"></span>12 Inner Roles + Circle of Control exercises</div>
-            <div class="pricing-feature"><span class="pf-dot"></span>Secure cloud storage across all your devices</div>
-          </div>
-          <a href="./Purchase.html" class="pricing-cta">Get the Journal</a>
-          <div class="pricing-reassure">No phone number needed · Passkey sent by email · International cards accepted</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- QUOTE BAND -->
-
-<section id="quote-band">
-  <div class="quote-band-inner reveal">
-    <span class="quote-mark">"</span>
-    <p class="quote-text">Growth does not always look like a breakthrough. Sometimes it looks like finally having the words for something you have always known.</p>
-    <div class="quote-attr">Team Inklings Journal</div>
-  </div>
-</section>
-
-<!-- FAQ -->
-
-<section id="faq">
-  <div class="faq-inner">
-    <div class="faq-header reveal">
-      <div class="eyebrow">Questions</div>
-      <h2 class="section-title">Things people<br><em>ask us.</em></h2>
-    </div>
-    <div class="faq-list">
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">How do I access the journal after purchasing?<span class="faq-icon">+</span></button>
-        <div class="faq-a">After your payment is confirmed, your passkey is automatically generated and sent to your email address. Use that passkey along with your email to log in at inklingsjournal.com. Your account is linked securely so you can access it from any device at any time.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Is this really a one-time payment?<span class="faq-icon">+</span></button>
-        <div class="faq-a">Yes. You pay ₹2,499 once and get two full years of access — no monthly fees, no surprises during that time. After two years, you can renew for ₹999 for another two years. Your entries and all your data are always preserved, whether you renew or not.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">What devices does it work on?<span class="faq-icon">+</span></button>
-        <div class="faq-a">Inklings Journal works on any modern browser: iPhone, iPad, Android phones and tablets, laptops, and desktops. No app download needed. Just open your browser, go to inklingsjournal.com, log in, and you are there.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Where is my data stored? Is it private?<span class="faq-icon">+</span></button>
-        <div class="faq-a">Your journal entries are saved securely to your personal account. They are only accessible through your login credentials, no one else can see them, including us. You can also download a PDF of your entries at any time, so you always have a personal copy.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Do I need to complete it in order?<span class="faq-icon">+</span></button>
-        <div class="faq-a">Not at all. Many people start with the daily mood journal, others go straight to a chapter that pulls at them. There is a recommended order: Part I before Part II, because the earlier work builds the emotional safety you need for the deeper reflection. But ultimately, there is no wrong way to use this journal.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">Is this suitable if I am already in therapy?<span class="faq-icon">+</span></button>
-        <div class="faq-a">Yes, this is actually where it works especially well. Inklings Journal is designed to complement therapy, not replace it. The exercises, including self-compassion, inner child work and attachment exploration, are the same kinds of tools used in clinical settings. It gives you a place to continue that work in between sessions.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">What if I am going through something difficult right now?<span class="faq-icon">+</span></button>
-        <div class="faq-a">The journal starts with Part I specifically for this reason: it teaches you to ground yourself before going anywhere deeper. Each section that touches on heavier themes includes a reminder to pause and return to those grounding tools if you need to. That said, if you are in crisis or experiencing significant mental health difficulties, please reach out to a professional alongside using the journal.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">What happens after 2 years?<span class="faq-icon">+</span></button>
-        <div class="faq-a">Your access runs for two full years from the date of purchase. After that, you will receive a reminder email and can renew for ₹999 for another two years. All your entries, progress, and data are always preserved — renewal simply extends your access. We wanted to be upfront about this rather than promise something indefinite.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">I am outside India. Can I still purchase?<span class="faq-icon">+</span></button>
-        <div class="faq-a">Yes. We accept international cards through Razorpay. The price is shown in Indian Rupees (₹2,499 ≈ $29 USD) and your bank will convert automatically. No phone number is required at checkout — just your name and email.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- NEWSLETTER -->
-
-<section id="newsletter">
-  <div class="newsletter-inner">
-    <div class="eyebrow" style="justify-content:center">Stay connected</div>
-    <h2 class="section-title reveal" style="text-align:center;margin-bottom:14px">Gentle letters on<br><em>growth and reflection.</em></h2>
-    <p class="newsletter-body reveal">Occasional writing on psychology, self-compassion, and the kind of inner work that happens slowly. No noise, just depth. Be the first to know when new things launch.</p>
-    <div class="newsletter-card reveal">
-      <p>Enter your email to hear from Shreya directly at hello@inklingsjournal.com</p>
-      <div class="newsletter-row">
-        <input type="email" class="newsletter-input" id="sub-email" placeholder="your@email.com">
-        <button class="newsletter-btn" id="sub-btn" onclick="subscribeEmail()">Subscribe</button>
-      </div>
-      <div class="newsletter-note" id="sub-note">You will receive a confirmation from hello@inklingsjournal.com. No spam, ever.</div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-
-<footer>
-  <div class="footer-top">
-    <div class="footer-brand">
-      <span class="footer-logo">Inklings <em>Journal</em></span>
-      <span class="footer-tagline">A companion for your inner world</span>
-      <p class="footer-desc">A mental health brand creating tools for emotional growth and self-understanding, curated by a clinical psychologist.</p>
-    </div>
-    <div>
-      <div class="footer-col-title">Explore</div>
-      <div class="footer-links">
-        <a href="#what">About</a>
-        <a href="#inside">The Journal</a>
-        <a href="#story">Our Story</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#faq">FAQ</a>
-      </div>
-    </div>
-    <div>
-      <div class="footer-col-title">Account</div>
-      <div class="footer-links">
-        <a href="/DigitalJournal/Login.html">Login to Journal</a>
-        <a href="./Purchase.html">Get the Journal</a>
-        <a href="mailto:hello@inklingsjournal.com">hello@inklingsjournal.com</a>
-      </div>
-    </div>
-    <div>
-      <div class="footer-col-title">Follow</div>
-      <div class="social-row">
-        <a href="https://www.instagram.com/inklingsjournal" target="_blank" class="social-icon" aria-label="Instagram">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-        </a>
-        <a href="https://pin.it/DZt3FsSl6" target="_blank" class="social-icon" aria-label="Pinterest">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.78-.17-1.98.03-2.83.19-.77 1.27-5.18 1.27-5.18s-.32-.65-.32-1.6c0-1.5.87-2.62 1.95-2.62.92 0 1.37.69 1.37 1.52 0 .93-.59 2.31-.9 3.59-.25 1.07.54 1.95 1.59 1.95 1.9 0 3.18-2.42 3.18-5.29 0-2.18-1.47-3.71-3.58-3.71-2.44 0-3.87 1.83-3.87 3.72 0 .74.28 1.52.64 1.95.07.08.08.16.06.24-.07.27-.21.86-.24.98-.04.16-.13.19-.29.11-1.08-.5-1.75-2.09-1.75-3.36 0-2.72 1.97-5.22 5.69-5.22 2.99 0 5.31 2.13 5.31 4.97 0 2.97-1.87 5.35-4.46 5.35-.87 0-1.69-.45-1.97-1l-.54 2.01c-.19.75-.72 1.69-1.08 2.26.81.25 1.67.39 2.56.39 5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
-        </a>
-        <a href="mailto:hello@inklingsjournal.com" class="social-icon" aria-label="Email">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
-        </a>
-      </div>
-    </div>
-  </div>
-  <div class="footer-divider"></div>
-  <div class="footer-bottom">
-    <span>&copy; 2026 Inklings Journal. All rights reserved.</span>
-    <span>Built with care by a clinical psychologist.</span>
-  </div>
-</footer>
-
-<button id="btt" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+</div>
+<button class="submit-btn" id="loginBtn" onclick="login()">
+  <span class="btn-text">Access My Journal</span>
+  <div class="spinner"></div>
 </button>
+<div class="divider-or"><span>don't have access yet?</span></div>
+<!-- FIXED: now points to Purchase.html, not old Razorpay hosted link -->
+<a class="buy-btn" href="./Purchase.html">
+  ✦ Get Inklings Journal <span class="price-pill">₹2,499</span>
+</a>
+<p class="help-row">Purchased but no email? <a href="mailto:hello@inklingsjournal.com">Contact support</a></p>
+```
+
+  </div>
+
+  <!-- SUCCESS VIEW -->
+
+  <div class="view" id="viewSuccess">
+    <div class="success-icon">✦</div>
+    <h2 class="success-title">You're <em>in.</em></h2>
+    <div class="success-name" id="successName"></div>
+    <p class="success-sub">Your journal is ready. Take your time, move at your own pace, and write honestly.</p>
+    <a class="open-btn" href="./Code.html" id="openBtn">Open My Journal →</a>
+    <a class="back-link" href="https://www.inklingsjournal.com">← Back to inklingsjournal.com</a>
+  </div>
+</div>
 
 <script>
+const SUPABASE_URL  = "https://vqpyeebiornuymohbicz.supabase.co";
+const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZxcHllZWJpb3JudXltb2hiaWN6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0MTU1NDcsImV4cCI6MjA5MDk5MTU0N30.7XFzJu3JVJxE-GW4qsqKVbRkjq-KZIi1BUqcNtETKKM";
+const SESSION_KEY   = "inklings_session";
+const SESSION_HOURS = 24;
 
-
-// Nav scroll
-var navbar = document.getElementById('navbar');
-window.addEventListener('scroll', function() {
-  navbar.classList.toggle('scrolled', window.scrollY > 24);
-  document.getElementById('btt').classList.toggle('visible', window.scrollY > 400);
-});
-
-// Mobile menu
-function toggleMenu() { document.getElementById('mobile-menu').classList.toggle('open'); }
-document.addEventListener('click', function(e) {
-  if (!e.target.closest('#hamburger') && !e.target.closest('#mobile-menu'))
-    document.getElementById('mobile-menu').classList.remove('open');
-});
-
-// FAQ
-function toggleFaq(btn) {
-  var item = btn.closest('.faq-item');
-  var isOpen = item.classList.contains('open');
-  document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
-  if (!isOpen) item.classList.add('open');
+function saveSession(email, name) {
+  sessionStorage.setItem(SESSION_KEY, JSON.stringify({
+    email, name, expiry: Date.now() + SESSION_HOURS * 3600000
+  }));
+}
+function getSession() {
+  try {
+    const s = JSON.parse(sessionStorage.getItem(SESSION_KEY) || 'null');
+    if (!s || Date.now() > s.expiry) { sessionStorage.removeItem(SESSION_KEY); return null; }
+    return s;
+  } catch { return null; }
 }
 
-// Scroll reveal
-var observer = new IntersectionObserver(function(entries) {
-  entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
-document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
-
-function revealVisible() {
-  document.querySelectorAll('.reveal').forEach(function(el) {
-    if (!el.classList.contains('visible')) {
-      var r = el.getBoundingClientRect();
-      if (r.top < window.innerHeight + 80) el.classList.add('visible');
-    }
-  });
-}
-window.addEventListener('load', revealVisible);
-window.addEventListener('resize', revealVisible);
-
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(function(a) {
-  a.addEventListener('click', function(e) {
-    var target = document.querySelector(a.getAttribute('href'));
-    if (!target) return;
-    e.preventDefault();
-    window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 76, behavior: 'smooth' });
-  });
+window.addEventListener('load', () => {
+  const s = getSession();
+  if (s) { showSuccess(s.name, s.email); return; }
+  const email = new URLSearchParams(window.location.search).get('e');
+  if (email) document.getElementById('emailInput').value = email;
 });
 
-// Scroll to section by id (used by hero card parts)
-function scrollToSection(id) {
-  var el = document.getElementById(id);
-  if (!el) return;
-  window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 76, behavior: 'smooth' });
-}
+async function login() {
+  const emailEl = document.getElementById('emailInput');
+  const passEl  = document.getElementById('passkeyInput');
+  const btn     = document.getElementById('loginBtn');
 
-// Newsletter subscribe — saves to Supabase and sends confirmation via Resend
-async function subscribeEmail() {
-  var email = document.getElementById('sub-email').value.trim().toLowerCase();
-  var btn   = document.getElementById('sub-btn');
-  var note  = document.getElementById('sub-note');
+  const email   = emailEl.value.trim().toLowerCase();
+  const passkey = passEl.value.trim();
 
-  if (!email || !email.includes('@')) {
-    note.textContent = 'Please enter a valid email address.';
-    note.style.color = '#c0614a';
-    return;
-  }
+  emailEl.classList.remove('error');
+  passEl.classList.remove('error');
+  document.getElementById('errorBanner').classList.remove('show');
+  document.getElementById('expiredBanner').classList.remove('show');
+
+  if (!email)   { showFieldError(emailEl, "Please enter your email address."); return; }
+  if (!passkey) { showFieldError(passEl,  "Please enter your passkey."); return; }
 
   btn.disabled = true;
-  btn.textContent = 'Subscribing...';
+  btn.classList.add('loading');
 
   try {
-    var formData = new FormData();
-    formData.append('EMAIL', email);
-    formData.append('email_address_check', '');
-    formData.append('locale', 'en');
-
-    await fetch('https://394eccff.sibforms.com/serve/MUIFAPVsgryVuIIuDtQhJVUjDtbkvGVNKIa-1Cd6YH7qC6Ro4wLhyXxEmvnbIZxvnwXIHWwsg3gUG9xzXdupBBTmwz10Dd7uUyf5rd0zasHrHYE1Uioc3GnbpWvxvjxdgKK5_RGbqIE23-RHa9_ywRISHvq_A8cYxvpxN5rx3C45AqETZ2tuSfzXGgH9V6Cp4SeyAXz4IFEbqSNgqA==', {
-      method: 'POST',
-      body: formData,
-      mode: 'no-cors'
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/validate_login`, {
+      method:  "POST",
+      mode:    "cors",
+      headers: {
+        "Content-Type":  "application/json",
+        "apikey":        SUPABASE_ANON,
+        "Authorization": `Bearer ${SUPABASE_ANON}`,
+        "Accept":        "application/json"
+      },
+      body: JSON.stringify({ p_email: email, p_passkey: passkey })
     });
 
-    document.getElementById('sub-email').value = '';
-    note.textContent = 'Almost there. Check your inbox to confirm your subscription.';
-    note.style.color = '#6e8060';
-    btn.textContent = 'Check your inbox';
-    btn.style.background = '#6e8060';
+    const text = await res.text();
+    let data;
+    try { data = JSON.parse(text); } catch(e) {
+      throw new Error("Unexpected response from server.");
+    }
+
+    btn.disabled = false;
+    btn.classList.remove('loading');
+
+    if (data && data.success) {
+      saveSession(email, data.name || "");
+      showSuccess(data.name || "", email);
+    } else if (data && data.message === 'expired') {
+      // Show the dedicated expiry banner, not the generic error
+      document.getElementById('expiredBanner').classList.add('show');
+    } else {
+      emailEl.classList.add('error');
+      passEl.classList.add('error');
+      showBannerError((data && data.message) ? data.message : "Incorrect email or passkey.");
+    }
 
   } catch(err) {
-    note.textContent = 'Something went wrong. Please write to hello@inklingsjournal.com.';
-    note.style.color = '#c0614a';
     btn.disabled = false;
-    btn.textContent = 'Subscribe';
+    btn.classList.remove('loading');
+    showBannerError("Connection error. Please check your internet and try again.");
   }
 }
 
-
+function showFieldError(el, msg) { el.classList.add('error'); showBannerError(msg); el.focus(); }
+function showBannerError(msg) {
+  document.getElementById('errorText').textContent = msg;
+  document.getElementById('errorBanner').classList.add('show');
+}
+function showSuccess(name, email) {
+  document.getElementById('viewLogin').classList.remove('active');
+  document.getElementById('viewSuccess').classList.add('active');
+  if (name) document.getElementById('successName').textContent = name;
+  document.getElementById('openBtn').href = `./Code.html?e=${encodeURIComponent(email)}`;
+}
+function toggleEye() {
+  const inp = document.getElementById('passkeyInput');
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+  document.getElementById('eyeIcon').innerHTML = inp.type === 'text'
+    ? '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>'
+    : '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+}
 </script>
 
 </body>
