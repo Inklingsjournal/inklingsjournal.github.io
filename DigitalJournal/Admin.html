@@ -798,30 +798,29 @@ async function addCustomer() {
       return;
     }
 
-    // 2. Insert customer directly
-    const accessExpiresAt = new Date();
-    accessExpiresAt.setFullYear(accessExpiresAt.getFullYear() + 2);
-
-    const insert = await sbFetch('customers', {
-      method: 'POST',
-      body: JSON.stringify({
-        email,
-        name,
-        passkey,
-        active: true,
-        access_expires_at: accessExpiresAt.toISOString()
-      })
+     // 2. Create customer via RPC — generates passkey, sets 2yr expiry
+    const create = await sbRpc('create_customer', {
+      p_email:      email,
+      p_name:       name,
+      p_order_id:   'ADMIN-MANUAL',
+      p_payment_id: 'ADMIN-MANUAL',
+      p_amount:     0
     });
-    if (!insert.ok) {
-      showToast('Failed: ' + JSON.stringify(insert.data), 'error');
+    if (!create.ok || !create.data?.success) {
+      showToast('Failed: ' + JSON.stringify(create.data), 'error');
       btn.disabled = false; btn.classList.remove('loading');
       return;
     }
 
+    // Use the passkey returned by the DB (may differ from displayed one)
+    const actualPasskey = create.data.passkey;
+
+
 
     // 4. Send welcome email via Resend
     try {
-      await sendWelcomeEmail(name, email, passkey);
+    await sendWelcomeEmail(name, email, actualPasskey);
+
     } catch(emailErr) {
       // Customer was created — just flag the email issue
       showToast('Customer added but email failed: ' + emailErr.message, 'error');
