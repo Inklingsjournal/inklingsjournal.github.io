@@ -798,30 +798,24 @@ async function addCustomer() {
       return;
     }
 
-    // 2. Insert customer
+    // 2. Insert customer directly
     const accessExpiresAt = new Date();
     accessExpiresAt.setFullYear(accessExpiresAt.getFullYear() + 2);
 
     const insert = await sbFetch('customers', {
       method: 'POST',
       body: JSON.stringify({
-        email, name, passkey,
+        email,
+        name,
+        passkey,
         active: true,
         access_expires_at: accessExpiresAt.toISOString()
       })
     });
     if (!insert.ok) {
-      showToast('Step 2 failed: ' + JSON.stringify(insert.data), 'error');
+      showToast('Failed: ' + JSON.stringify(insert.data), 'error');
       btn.disabled = false; btn.classList.remove('loading');
       return;
-    }
-    const customer = insert.data[0];
-
-        // 3. Grant core template access
-    const tmpl = await sbRpc('grant_template_access', { p_email: email, p_template_slug: 'core' });
-    if (!tmpl.ok) {
-      console.warn('Template grant failed (non-critical):', JSON.stringify(tmpl.data));
-      // Continue anyway — customer is created, template can be granted manually
     }
 
 
