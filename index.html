@@ -5,33 +5,33 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Inklings Journal, A Companion for Your Inner World</title>
-<meta name="description" content="A guided digital journal built by a clinical psychologist. Three interconnected practices: deep self-reflection, daily mindfulness, and intentional planning. One-time purchase, lifetime access.">
+<meta name="description" content="A guided digital journal built by a clinical psychologist. Three interconnected practices: deep self-reflection, daily mindfulness, and intentional planning. One-time purchase, 2 years of full access.">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&amp;family=Jost:wght@300;400;500&amp;display=swap" rel="stylesheet">
 <style>
 
 /* TOKENS */
 :root {
---cream: #f4efe6;
---parchment: #ece4d0;
---parchment-dark: #ddd4be;
---sage: #6e8060;
---sage-light: #9aaf8c;
---sage-pale: #ccd9c4;
---sage-dark: #445c38;
---sage-deep: #304228;
---warm-brown: #5e4e38;
---warm-mid: #7a6550;
---ink: #1e1e1c;
---ink-mid: #3a3a36;
---ink-light: #646460;
---ink-faint: #8a8a84;
---line: #ccc4b4;
---line-light: #e2dcd0;
---white: #faf7f2;
---gold: #a8844a;
---gold-light: #e8d8b0;
---gold-pale: #f4edd8;
---footer: #1c1a14;
+–cream: #f4efe6;
+–parchment: #ece4d0;
+–parchment-dark: #ddd4be;
+–sage: #6e8060;
+–sage-light: #9aaf8c;
+–sage-pale: #ccd9c4;
+–sage-dark: #445c38;
+–sage-deep: #304228;
+–warm-brown: #5e4e38;
+–warm-mid: #7a6550;
+–ink: #1e1e1c;
+–ink-mid: #3a3a36;
+–ink-light: #646460;
+–ink-faint: #8a8a84;
+–line: #ccc4b4;
+–line-light: #e2dcd0;
+–white: #faf7f2;
+–gold: #a8844a;
+–gold-light: #e8d8b0;
+–gold-pale: #f4edd8;
+–footer: #1c1a14;
 }
 
 /* RESET */
@@ -39,8 +39,8 @@
 html { scroll-behavior: smooth; font-size: 16px; }
 body {
 font-family: ‘Jost’, sans-serif;
-background: var(--cream);
-color: var(--ink);
+background: var(–cream);
+color: var(–ink);
 font-weight: 300;
 overflow-x: hidden;
 -webkit-font-smoothing: antialiased;
@@ -51,7 +51,7 @@ button { cursor: pointer; font-family: inherit; }
 
 /* SCROLLBAR */
 ::-webkit-scrollbar { width: 3px; }
-::-webkit-scrollbar-thumb { background: var(--line); border-radius: 2px; }
+::-webkit-scrollbar-thumb { background: var(–line); border-radius: 2px; }
 
 /* UTILITY */
 .serif { font-family: ‘Cormorant Garamond’, serif; }
@@ -60,13 +60,13 @@ font-size: 9px;
 letter-spacing: .28em;
 text-transform: uppercase;
 font-weight: 500;
-color: var(--sage);
+color: var(–sage);
 display: flex;
 align-items: center;
 gap: 10px;
 margin-bottom: 16px;
 }
-.eyebrow::before { content: ‘’; width: 20px; height: 1px; background: var(--sage-pale); flex-shrink: 0; display: inline-block; }
+.eyebrow::before { content: ‘’; width: 20px; height: 1px; background: var(–sage-pale); flex-shrink: 0; display: inline-block; }
 
 /* REVEAL */
 .reveal {
@@ -95,52 +95,52 @@ transition: background .4s, border-color .4s, backdrop-filter .4s;
 nav.scrolled {
 background: rgba(244,239,230,.96);
 backdrop-filter: blur(16px);
-border-bottom: 1px solid var(--line-light);
+border-bottom: 1px solid var(–line-light);
 }
 .nav-logo { text-decoration: none; display: flex; flex-direction: column; gap: 1px; }
 .nav-logo-main {
 font-family: ‘Cormorant Garamond’, serif;
 font-size: 20px;
 font-weight: 400;
-color: var(--sage-dark);
+color: var(–sage-dark);
 line-height: 1;
 letter-spacing: .01em;
 }
-.nav-logo-main em { font-style: italic; color: var(--gold); }
+.nav-logo-main em { font-style: italic; color: var(–gold); }
 .nav-logo-tag {
 font-size: 8px;
 letter-spacing: .2em;
 text-transform: uppercase;
-color: var(--sage-light);
+color: var(–sage-light);
 font-weight: 400;
 }
 .nav-links { display: flex; list-style: none; gap: 36px; }
 .nav-links a {
 font-size: 11px;
 font-weight: 400;
-color: var(--ink-light);
+color: var(–ink-light);
 letter-spacing: .1em;
 text-transform: uppercase;
 transition: color .2s;
 }
-.nav-links a:hover { color: var(--sage-dark); }
+.nav-links a:hover { color: var(–sage-dark); }
 .nav-actions { display: flex; align-items: center; gap: 10px; }
 .nav-login {
 padding: 8px 18px;
-border: 1px solid var(--line);
+border: 1px solid var(–line);
 border-radius: 24px;
 background: transparent;
 font-size: 11px;
 font-weight: 400;
-color: var(--ink-mid);
+color: var(–ink-mid);
 letter-spacing: .06em;
 transition: all .2s;
 }
-.nav-login:hover { border-color: var(--sage); color: var(--sage-dark); }
+.nav-login:hover { border-color: var(–sage); color: var(–sage-dark); }
 .nav-cta {
 padding: 9px 22px;
 border-radius: 24px;
-background: var(--sage-dark);
+background: var(–sage-dark);
 border: none;
 font-size: 11px;
 font-weight: 500;
@@ -150,7 +150,7 @@ text-transform: uppercase;
 transition: all .2s;
 display: inline-block;
 }
-.nav-cta:hover { background: var(--ink); transform: translateY(-1px); }
+.nav-cta:hover { background: var(–ink); transform: translateY(-1px); }
 .hamburger {
 display: none;
 flex-direction: column;
@@ -159,13 +159,13 @@ background: none;
 border: none;
 padding: 4px;
 }
-.hamburger span { width: 22px; height: 1.5px; background: var(--ink); display: block; transition: all .3s; }
+.hamburger span { width: 22px; height: 1.5px; background: var(–ink); display: block; transition: all .3s; }
 .mobile-menu {
 display: none;
 position: fixed;
 top: 68px; left: 0; right: 0;
-background: var(--white);
-border-bottom: 1px solid var(--line-light);
+background: var(–white);
+border-bottom: 1px solid var(–line-light);
 padding: 28px 32px;
 flex-direction: column;
 gap: 20px;
@@ -175,11 +175,11 @@ box-shadow: 0 12px 32px rgba(30,30,28,.08);
 .mobile-menu.open { display: flex; }
 .mobile-menu a {
 font-size: 13px;
-color: var(--ink-mid);
+color: var(–ink-mid);
 letter-spacing: .08em;
 text-transform: uppercase;
 padding: 6px 0;
-border-bottom: 1px solid var(--line-light);
+border-bottom: 1px solid var(–line-light);
 font-weight: 400;
 }
 .mobile-menu a:last-child { border-bottom: none; }
@@ -218,30 +218,30 @@ display: inline-flex;
 align-items: center;
 gap: 8px;
 background: rgba(250,247,242,.85);
-border: 1px solid var(--line-light);
+border: 1px solid var(–line-light);
 border-radius: 24px;
 padding: 6px 14px 6px 10px;
 font-size: 9px;
 letter-spacing: .18em;
 text-transform: uppercase;
-color: var(--sage);
+color: var(–sage);
 font-weight: 500;
 margin-bottom: 28px;
 }
-.hero-pill-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--sage); }
+.hero-pill-dot { width: 5px; height: 5px; border-radius: 50%; background: var(–sage); }
 .hero-title {
 font-family: ‘Cormorant Garamond’, serif;
 font-size: clamp(54px, 7vw, 88px);
 font-weight: 300;
 line-height: 1.02;
-color: var(--ink);
+color: var(–ink);
 letter-spacing: -.02em;
 margin-bottom: 28px;
 }
-.hero-title em { font-style: italic; color: var(--sage-dark); }
+.hero-title em { font-style: italic; color: var(–sage-dark); }
 .hero-desc {
 font-size: 15.5px;
-color: var(--ink-mid);
+color: var(–ink-mid);
 line-height: 1.9;
 font-weight: 300;
 max-width: 460px;
@@ -253,7 +253,7 @@ display: inline-flex;
 align-items: center;
 gap: 8px;
 padding: 14px 28px;
-background: var(--sage-dark);
+background: var(–sage-dark);
 color: white;
 border: none;
 border-radius: 32px;
@@ -263,15 +263,15 @@ letter-spacing: .09em;
 text-transform: uppercase;
 transition: all .25s;
 }
-.btn-primary:hover { background: var(--ink); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(30,30,28,.15); }
+.btn-primary:hover { background: var(–ink); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(30,30,28,.15); }
 .btn-outline {
 display: inline-flex;
 align-items: center;
 gap: 8px;
 padding: 13px 26px;
 background: transparent;
-color: var(--sage-dark);
-border: 1.5px solid var(--sage);
+color: var(–sage-dark);
+border: 1.5px solid var(–sage);
 border-radius: 32px;
 font-size: 12px;
 font-weight: 500;
@@ -279,52 +279,52 @@ letter-spacing: .09em;
 text-transform: uppercase;
 transition: all .25s;
 }
-.btn-outline:hover { background: var(--sage-dark); color: white; }
+.btn-outline:hover { background: var(–sage-dark); color: white; }
 
 /* Hero card */
 .hero-visual { animation: heroIn .9s .18s cubic-bezier(.4,0,.2,1) both; }
 .hero-card {
-background: var(--white);
-border: 1px solid var(--line-light);
+background: var(–white);
+border: 1px solid var(–line-light);
 border-radius: 22px;
 padding: 32px;
 box-shadow: 0 24px 64px rgba(30,30,28,.1), 0 4px 16px rgba(30,30,28,.05);
 }
-.hc-label { font-size: 8px; letter-spacing: .2em; text-transform: uppercase; color: var(--sage-light); margin-bottom: 6px; font-weight: 500; }
-.hc-headline { font-family: ‘Cormorant Garamond’, serif; font-size: 18px; color: var(--sage-dark); margin-bottom: 18px; font-weight: 400; }
-.hc-parts { border: 1px solid var(--line-light); border-radius: 12px; overflow: hidden; margin-bottom: 18px; }
+.hc-label { font-size: 8px; letter-spacing: .2em; text-transform: uppercase; color: var(–sage-light); margin-bottom: 6px; font-weight: 500; }
+.hc-headline { font-family: ‘Cormorant Garamond’, serif; font-size: 18px; color: var(–sage-dark); margin-bottom: 18px; font-weight: 400; }
+.hc-parts { border: 1px solid var(–line-light); border-radius: 12px; overflow: hidden; margin-bottom: 18px; }
 .hc-part {
 display: flex;
 align-items: center;
 gap: 14px;
 padding: 13px 16px;
-border-bottom: 1px solid var(--line-light);
+border-bottom: 1px solid var(–line-light);
 transition: background .2s;
 }
 .hc-part:last-child { border-bottom: none; }
-.hc-part:hover { background: var(--cream); cursor: pointer; }
+.hc-part:hover { background: var(–cream); cursor: pointer; }
 .hc-part-arr { transition: transform .2s, color .2s; }
-.hc-part:hover .hc-part-arr { transform: translateX(3px); color: var(--sage); }
-.hc-part-num { font-family: ‘Cormorant Garamond’, serif; font-size: 18px; color: var(--sage-pale); width: 20px; flex-shrink: 0; }
+.hc-part:hover .hc-part-arr { transform: translateX(3px); color: var(–sage); }
+.hc-part-num { font-family: ‘Cormorant Garamond’, serif; font-size: 18px; color: var(–sage-pale); width: 20px; flex-shrink: 0; }
 .hc-part-info { flex: 1; }
-.hc-part-tag { font-size: 7.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--sage-light); font-weight: 500; margin-bottom: 1px; }
-.hc-part-name { font-size: 13px; color: var(--ink-mid); font-weight: 300; }
-.hc-part-arr { font-size: 10px; color: var(--line); }
+.hc-part-tag { font-size: 7.5px; letter-spacing: .14em; text-transform: uppercase; color: var(–sage-light); font-weight: 500; margin-bottom: 1px; }
+.hc-part-name { font-size: 13px; color: var(–ink-mid); font-weight: 300; }
+.hc-part-arr { font-size: 10px; color: var(–line); }
 .hc-badge {
 display: flex;
 align-items: center;
 justify-content: space-between;
 padding: 10px 14px;
-background: var(--cream);
+background: var(–cream);
 border-radius: 10px;
 font-size: 10px;
-color: var(--ink-faint);
+color: var(–ink-faint);
 font-weight: 300;
 }
 .hc-price {
 font-family: ‘Cormorant Garamond’, serif;
 font-size: 16px;
-color: var(--warm-brown);
+color: var(–warm-brown);
 font-weight: 400;
 }
 
@@ -335,15 +335,15 @@ section { padding: 100px 56px; }
 font-family: ‘Cormorant Garamond’, serif;
 font-size: clamp(36px, 4.5vw, 54px);
 font-weight: 300;
-color: var(--ink);
+color: var(–ink);
 line-height: 1.1;
 letter-spacing: -.01em;
 margin-bottom: 16px;
 }
-.section-title em { font-style: italic; color: var(--sage-dark); }
+.section-title em { font-style: italic; color: var(–sage-dark); }
 .section-lead {
 font-size: 16px;
-color: var(--ink-mid);
+color: var(–ink-mid);
 line-height: 1.85;
 font-weight: 300;
 max-width: 520px;
@@ -351,7 +351,7 @@ max-width: 520px;
 
 /* WHAT IS THIS */
 #what {
-background: var(--parchment);
+background: var(–parchment);
 position: relative;
 overflow: hidden;
 padding: 100px 56px;
@@ -376,17 +376,17 @@ align-items: start;
 }
 .what-body {
 font-size: 16px;
-color: var(--ink-mid);
+color: var(–ink-mid);
 line-height: 2;
 font-weight: 300;
 }
 .what-body p { margin-bottom: 18px; }
 .what-body p:last-child { margin-bottom: 0; }
-.what-body strong { color: var(--ink); font-weight: 500; }
+.what-body strong { color: var(–ink); font-weight: 500; }
 .what-cards { display: flex; flex-direction: column; gap: 16px; }
 .what-card {
-background: var(--white);
-border: 1px solid var(--line-light);
+background: var(–white);
+border: 1px solid var(–line-light);
 border-radius: 16px;
 padding: 22px 24px;
 position: relative;
@@ -397,65 +397,65 @@ content: ‘’;
 position: absolute;
 top: 0; left: 0;
 width: 3px; height: 100%;
-background: var(--sage-pale);
+background: var(–sage-pale);
 }
 .what-card-num {
 font-family: ‘Cormorant Garamond’, serif;
 font-size: 28px;
-color: var(--sage-pale);
+color: var(–sage-pale);
 line-height: 1;
 margin-bottom: 8px;
 }
-.what-card-title { font-size: 14px; font-weight: 500; color: var(--sage-dark); margin-bottom: 5px; }
-.what-card-desc { font-size: 13px; color: var(--ink-light); line-height: 1.75; font-weight: 300; }
+.what-card-title { font-size: 14px; font-weight: 500; color: var(–sage-dark); margin-bottom: 5px; }
+.what-card-desc { font-size: 13px; color: var(–ink-light); line-height: 1.75; font-weight: 300; }
 
 /* What text title override */
 .what-text .section-title { margin-bottom: 24px; }
 
 /* INSIDE */
-#inside { background: var(--cream); }
+#inside { background: var(–cream); }
 .inside-header { text-align: center; margin-bottom: 64px; }
 .inside-header .section-lead { margin: 0 auto; text-align: center; }
-.inside-parts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--line-light); border-radius: 20px; overflow: hidden; margin-bottom: 56px; }
+.inside-parts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(–line-light); border-radius: 20px; overflow: hidden; margin-bottom: 56px; }
 .inside-part {
-background: var(--white);
+background: var(–white);
 padding: 40px 36px;
 transition: background .2s;
 }
-.inside-part:hover { background: var(--gold-pale); }
+.inside-part:hover { background: var(–gold-pale); }
 .ip-num {
 font-family: ‘Cormorant Garamond’, serif;
 font-size: 56px;
 font-weight: 300;
-color: var(--sage-pale);
+color: var(–sage-pale);
 line-height: 1;
 margin-bottom: 18px;
 }
-.ip-tag { font-size: 8px; letter-spacing: .24em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 10px; }
+.ip-tag { font-size: 8px; letter-spacing: .24em; text-transform: uppercase; color: var(–sage); font-weight: 500; margin-bottom: 10px; }
 .ip-title {
 font-family: ‘Cormorant Garamond’, serif;
 font-size: 24px;
 font-weight: 400;
-color: var(--ink);
+color: var(–ink);
 margin-bottom: 14px;
 line-height: 1.2;
 }
-.ip-title em { font-style: italic; color: var(--sage-dark); }
-.ip-desc { font-size: 14px; color: var(--ink-light); line-height: 1.8; font-weight: 300; margin-bottom: 20px; }
+.ip-title em { font-style: italic; color: var(–sage-dark); }
+.ip-desc { font-size: 14px; color: var(–ink-light); line-height: 1.8; font-weight: 300; margin-bottom: 20px; }
 .ip-prompts { display: flex; flex-direction: column; gap: 8px; }
 .ip-prompt {
 display: flex;
 align-items: flex-start;
 gap: 10px;
 font-size: 12.5px;
-color: var(--ink-mid);
+color: var(–ink-mid);
 line-height: 1.6;
 font-weight: 300;
 }
 .ip-prompt-dot {
 width: 4px; height: 4px;
 border-radius: 50%;
-background: var(--sage-light);
+background: var(–sage-light);
 flex-shrink: 0;
 margin-top: 8px;
 }
@@ -465,14 +465,14 @@ grid-template-columns: repeat(4, 1fr);
 gap: 16px;
 }
 .ie-card {
-background: var(--parchment);
+background: var(–parchment);
 border-radius: 14px;
 padding: 20px 20px;
-border: 1px solid var(--parchment-dark);
+border: 1px solid var(–parchment-dark);
 }
-.ie-icon { width: 36px; height: 36px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; background: var(--sage-pale); border-radius: 10px; padding: 8px; }
-.ie-title { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 5px; }
-.ie-desc { font-size: 12px; color: var(--ink-light); line-height: 1.65; font-weight: 300; }
+.ie-icon { width: 36px; height: 36px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; background: var(–sage-pale); border-radius: 10px; padding: 8px; }
+.ie-title { font-size: 13px; font-weight: 500; color: var(–ink); margin-bottom: 5px; }
+.ie-desc { font-size: 12px; color: var(–ink-light); line-height: 1.65; font-weight: 300; }
 
 /* STORY */
 #story { padding: 0; }
@@ -495,70 +495,70 @@ pointer-events: none;
 z-index: 0;
 }
 .story-col-inner { position: relative; z-index: 1; }
-.story-col.brand { background: var(--parchment); border-right: 1px solid var(--parchment-dark); }
-.story-col.founder { background: var(--white); }
+.story-col.brand { background: var(–parchment); border-right: 1px solid var(–parchment-dark); }
+.story-col.founder { background: var(–white); }
 .story-col-eyebrow { font-size: 8.5px; letter-spacing: .22em; text-transform: uppercase; font-weight: 500; margin-bottom: 18px; display: flex; align-items: center; gap: 9px; }
-.story-col.brand .story-col-eyebrow { color: var(--sage); }
-.story-col.brand .story-col-eyebrow::before { content: ‘’; width: 18px; height: 1px; background: var(--sage); }
-.story-col.founder .story-col-eyebrow { color: var(--gold); }
-.story-col.founder .story-col-eyebrow::before { content: ‘’; width: 18px; height: 1px; background: var(--gold); }
+.story-col.brand .story-col-eyebrow { color: var(–sage); }
+.story-col.brand .story-col-eyebrow::before { content: ‘’; width: 18px; height: 1px; background: var(–sage); }
+.story-col.founder .story-col-eyebrow { color: var(–gold); }
+.story-col.founder .story-col-eyebrow::before { content: ‘’; width: 18px; height: 1px; background: var(–gold); }
 .story-col-title {
 font-family: ‘Cormorant Garamond’, serif;
 font-size: clamp(28px, 3vw, 40px);
 font-weight: 400;
-color: var(--ink);
+color: var(–ink);
 line-height: 1.12;
 margin-bottom: 28px;
 letter-spacing: -.01em;
 }
-.story-col-title em { font-style: italic; color: var(--sage-dark); }
-.story-col.founder .story-col-title em { color: var(--warm-brown); }
-.story-col-body { font-size: 15px; color: var(--ink-mid); line-height: 2; font-weight: 300; }
+.story-col-title em { font-style: italic; color: var(–sage-dark); }
+.story-col.founder .story-col-title em { color: var(–warm-brown); }
+.story-col-body { font-size: 15px; color: var(–ink-mid); line-height: 2; font-weight: 300; }
 .story-col-body p { margin-bottom: 20px; }
 .story-col-body p:last-child { margin-bottom: 0; }
-.story-col-body strong { color: var(--ink); font-weight: 500; }
-.story-sig { margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--parchment-dark); }
+.story-col-body strong { color: var(–ink); font-weight: 500; }
+.story-sig { margin-top: 36px; padding-top: 24px; border-top: 1px solid var(–parchment-dark); }
 .story-sig-quote {
 font-family: ‘Cormorant Garamond’, serif;
 font-size: 16px;
 font-style: italic;
-color: var(--warm-brown);
+color: var(–warm-brown);
 line-height: 1.65;
 margin-bottom: 10px;
 }
-.story-sig-name { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--sage); font-weight: 500; }
+.story-sig-name { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(–sage); font-weight: 500; }
 .story-connect {
 display: inline-flex;
 align-items: center;
 gap: 10px;
 margin-top: 32px;
 padding: 9px 18px;
-background: var(--gold-pale);
-border: 1px solid var(--gold-light);
+background: var(–gold-pale);
+border: 1px solid var(–gold-light);
 border-radius: 24px;
 font-size: 11px;
 letter-spacing: .1em;
 text-transform: uppercase;
-color: var(--warm-brown);
+color: var(–warm-brown);
 font-weight: 500;
 transition: all .2s;
 }
-.story-connect:hover { background: var(--gold-light); }
+.story-connect:hover { background: var(–gold-light); }
 
 /* HOW IT WORKS */
-#how { background: var(--white); }
+#how { background: var(–white); }
 .how-header { margin-bottom: 60px; }
 .how-steps {
 display: grid;
 grid-template-columns: repeat(4, 1fr);
 gap: 2px;
-background: var(--line-light);
+background: var(–line-light);
 border-radius: 20px;
 overflow: hidden;
 margin-bottom: 48px;
 }
 .how-step {
-background: var(--white);
+background: var(–white);
 padding: 36px 30px;
 position: relative;
 }
@@ -570,32 +570,32 @@ height: 2px;
 background: transparent;
 transition: background .2s;
 }
-.how-step:hover::before { background: var(--sage-pale); }
+.how-step:hover::before { background: var(–sage-pale); }
 .how-num {
 font-family: ‘Cormorant Garamond’, serif;
 font-size: 48px;
 font-weight: 300;
-color: var(--sage-pale);
+color: var(–sage-pale);
 line-height: 1;
 margin-bottom: 16px;
 }
-.how-title { font-family: ‘Cormorant Garamond’, serif; font-size: 20px; font-weight: 400; color: var(--sage-dark); margin-bottom: 10px; }
-.how-desc { font-size: 14px; color: var(--ink-light); line-height: 1.8; font-weight: 300; }
+.how-title { font-family: ‘Cormorant Garamond’, serif; font-size: 20px; font-weight: 400; color: var(–sage-dark); margin-bottom: 10px; }
+.how-desc { font-size: 14px; color: var(–ink-light); line-height: 1.8; font-weight: 300; }
 .how-note {
-background: var(--parchment);
+background: var(–parchment);
 border-radius: 14px;
 padding: 22px 28px;
-border: 1px solid var(--parchment-dark);
+border: 1px solid var(–parchment-dark);
 display: flex;
 align-items: center;
 gap: 20px;
 }
-.how-note-icon { width: 44px; height: 44px; background: var(--sage-pale); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.how-note-text { font-size: 14px; color: var(--ink-mid); line-height: 1.75; font-weight: 300; }
-.how-note-text strong { color: var(--ink); font-weight: 500; }
+.how-note-icon { width: 44px; height: 44px; background: var(–sage-pale); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.how-note-text { font-size: 14px; color: var(–ink-mid); line-height: 1.75; font-weight: 300; }
+.how-note-text strong { color: var(–ink); font-weight: 500; }
 
 /* PRICING */
-#pricing { background: var(--cream); position: relative; }
+#pricing { background: var(–cream); position: relative; }
 .pricing-inner {
 max-width: 900px;
 margin: 0 auto;
@@ -612,14 +612,14 @@ display: flex;
 align-items: flex-start;
 gap: 12px;
 font-size: 14.5px;
-color: var(--ink-mid);
+color: var(–ink-mid);
 line-height: 1.55;
 font-weight: 300;
 }
 .pricing-check-mark {
 width: 18px; height: 18px;
 border-radius: 50%;
-background: var(--sage-pale);
+background: var(–sage-pale);
 display: flex;
 align-items: center;
 justify-content: center;
@@ -628,16 +628,16 @@ margin-top: 2px;
 }
 .pricing-check-mark svg { display: block; }
 .pricing-card {
-background: var(--white);
-border: 1px solid var(--line-light);
+background: var(–white);
+border: 1px solid var(–line-light);
 border-radius: 22px;
 overflow: hidden;
 box-shadow: 0 16px 48px rgba(30,30,28,.09);
 }
 .pricing-card-top {
 padding: 36px 36px 28px;
-border-bottom: 1px solid var(--line-light);
-background: var(--parchment);
+border-bottom: 1px solid var(–line-light);
+background: var(–parchment);
 position: relative;
 overflow: hidden;
 }
@@ -646,44 +646,44 @@ content: ‘’;
 position: absolute;
 top: 0; left: 0; right: 0;
 height: 3px;
-background: linear-gradient(90deg, var(--sage-light), var(--gold), var(--sage-light));
+background: linear-gradient(90deg, var(–sage-light), var(–gold), var(–sage-light));
 }
-.pricing-type { font-size: 8.5px; letter-spacing: .22em; text-transform: uppercase; color: var(--sage); font-weight: 500; margin-bottom: 14px; }
+.pricing-type { font-size: 8.5px; letter-spacing: .22em; text-transform: uppercase; color: var(–sage); font-weight: 500; margin-bottom: 14px; }
 .pricing-name {
 font-family: ‘Cormorant Garamond’, serif;
 font-size: 28px;
 font-weight: 400;
-color: var(--ink);
+color: var(–ink);
 margin-bottom: 6px;
 }
-.pricing-name em { font-style: italic; color: var(--sage-dark); }
-.pricing-tagline { font-size: 13.5px; color: var(--ink-light); line-height: 1.7; font-weight: 300; }
+.pricing-name em { font-style: italic; color: var(–sage-dark); }
+.pricing-tagline { font-size: 13.5px; color: var(–ink-light); line-height: 1.7; font-weight: 300; }
 .pricing-card-body { padding: 28px 36px; }
 .pricing-amount { display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px; }
-.pricing-currency { font-size: 18px; color: var(--warm-brown); font-weight: 400; }
+.pricing-currency { font-size: 18px; color: var(–warm-brown); font-weight: 400; }
 .pricing-number {
 font-family: ‘Cormorant Garamond’, serif;
 font-size: 52px;
 font-weight: 300;
-color: var(--ink);
+color: var(–ink);
 line-height: 1;
 }
-.pricing-sub { font-size: 12px; color: var(--ink-faint); margin-bottom: 28px; font-weight: 300; }
+.pricing-sub { font-size: 12px; color: var(–ink-faint); margin-bottom: 28px; font-weight: 300; }
 .pricing-features { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
 .pricing-feature {
 display: flex;
 align-items: center;
 gap: 10px;
 font-size: 13.5px;
-color: var(--ink-mid);
+color: var(–ink-mid);
 font-weight: 300;
 }
-.pf-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--sage); flex-shrink: 0; }
+.pf-dot { width: 4px; height: 4px; border-radius: 50%; background: var(–sage); flex-shrink: 0; }
 .pricing-cta {
 display: block;
 width: 100%;
 padding: 15px;
-background: var(--sage-dark);
+background: var(–sage-dark);
 color: white;
 border: none;
 border-radius: 14px;
@@ -694,18 +694,18 @@ text-transform: uppercase;
 text-align: center;
 transition: all .2s;
 }
-.pricing-cta:hover { background: var(--ink); transform: translateY(-1px); }
+.pricing-cta:hover { background: var(–ink); transform: translateY(-1px); }
 .pricing-reassure {
 text-align: center;
 font-size: 11.5px;
-color: var(--ink-faint);
+color: var(–ink-faint);
 margin-top: 12px;
 font-weight: 300;
 }
 
 /* QUOTE BAND */
 #quote-band {
-background: var(--sage-dark);
+background: var(–sage-dark);
 padding: 72px 56px;
 text-align: center;
 }
@@ -730,11 +730,11 @@ margin-bottom: 24px;
 .quote-attr { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.4); font-weight: 400; }
 
 /* FAQ */
-#faq { background: var(--parchment); }
+#faq { background: var(–parchment); }
 .faq-inner { max-width: 720px; margin: 0 auto; }
 .faq-header { margin-bottom: 48px; }
 .faq-list { display: flex; flex-direction: column; }
-.faq-item { border-bottom: 1px solid var(--parchment-dark); }
+.faq-item { border-bottom: 1px solid var(–parchment-dark); }
 .faq-q {
 width: 100%;
 background: none;
@@ -744,7 +744,7 @@ padding: 22px 0;
 font-family: ‘Jost’, sans-serif;
 font-size: 15px;
 font-weight: 400;
-color: var(--ink);
+color: var(–ink);
 display: flex;
 align-items: center;
 justify-content: space-between;
@@ -753,27 +753,27 @@ transition: color .2s;
 cursor: pointer;
 line-height: 1.5;
 }
-.faq-q:hover { color: var(--sage-dark); }
+.faq-q:hover { color: var(–sage-dark); }
 .faq-icon {
 width: 24px; height: 24px;
 border-radius: 50%;
-border: 1px solid var(--line);
+border: 1px solid var(–line);
 display: flex;
 align-items: center;
 justify-content: center;
 flex-shrink: 0;
 font-size: 16px;
-color: var(--sage);
+color: var(–sage);
 transition: all .25s;
 line-height: 1;
 }
-.faq-item.open .faq-icon { background: var(--sage-dark); color: white; border-color: var(--sage-dark); transform: rotate(45deg); }
+.faq-item.open .faq-icon { background: var(–sage-dark); color: white; border-color: var(–sage-dark); transform: rotate(45deg); }
 .faq-a {
 max-height: 0;
 overflow: hidden;
 transition: max-height .38s ease, padding .38s ease;
 font-size: 14.5px;
-color: var(--ink-mid);
+color: var(–ink-mid);
 line-height: 1.85;
 font-weight: 300;
 }
@@ -781,7 +781,7 @@ font-weight: 300;
 
 /* NEWSLETTER */
 #newsletter {
-background: var(--cream);
+background: var(–cream);
 position: relative;
 overflow: hidden;
 }
@@ -803,7 +803,7 @@ z-index: 1;
 .newsletter-inner .section-title { margin-bottom: 14px; }
 .newsletter-body {
 font-size: 15.5px;
-color: var(--ink-mid);
+color: var(–ink-mid);
 line-height: 1.85;
 font-weight: 300;
 margin-bottom: 36px;
@@ -812,32 +812,32 @@ margin-left: auto;
 margin-right: auto;
 }
 .newsletter-card {
-background: var(--white);
-border: 1px solid var(--line-light);
+background: var(–white);
+border: 1px solid var(–line-light);
 border-radius: 18px;
 padding: 32px;
 }
-.newsletter-card p { font-size: 13px; color: var(--ink-faint); margin-bottom: 16px; font-weight: 300; }
+.newsletter-card p { font-size: 13px; color: var(–ink-faint); margin-bottom: 16px; font-weight: 300; }
 .newsletter-row { display: flex; gap: 10px; flex-wrap: wrap; }
 .newsletter-input {
 flex: 1;
 min-width: 180px;
 padding: 13px 20px;
-background: var(--cream);
-border: 1px solid var(--line);
+background: var(–cream);
+border: 1px solid var(–line);
 border-radius: 32px;
 font-family: ‘Jost’, sans-serif;
 font-size: 14px;
 font-weight: 300;
-color: var(--ink);
+color: var(–ink);
 outline: none;
 transition: border-color .2s;
 }
-.newsletter-input::placeholder { color: var(--line); }
-.newsletter-input:focus { border-color: var(--sage); }
+.newsletter-input::placeholder { color: var(–line); }
+.newsletter-input:focus { border-color: var(–sage); }
 .newsletter-btn {
 padding: 13px 26px;
-background: var(--sage-dark);
+background: var(–sage-dark);
 color: white;
 border: none;
 border-radius: 32px;
@@ -849,11 +849,11 @@ text-transform: uppercase;
 transition: all .2s;
 white-space: nowrap;
 }
-.newsletter-btn:hover { background: var(--ink); }
-.newsletter-note { font-size: 11px; color: var(--ink-faint); margin-top: 12px; font-weight: 300; }
+.newsletter-btn:hover { background: var(–ink); }
+.newsletter-note { font-size: 11px; color: var(–ink-faint); margin-top: 12px; font-weight: 300; }
 
 /* FOOTER */
-footer { background: var(--footer); padding: 56px 56px 36px; }
+footer { background: var(–footer); padding: 56px 56px 36px; }
 .footer-top {
 display: grid;
 grid-template-columns: 1.4fr 1fr 1fr 1fr;
@@ -864,17 +864,17 @@ margin-bottom: 48px;
 font-family: ‘Cormorant Garamond’, serif;
 font-size: 20px;
 font-weight: 400;
-color: var(--cream);
+color: var(–cream);
 display: block;
 margin-bottom: 3px;
 }
-.footer-logo em { font-style: italic; color: var(--gold); }
+.footer-logo em { font-style: italic; color: var(–gold); }
 .footer-tagline { font-size: 8.5px; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.28); margin-bottom: 14px; display: block; }
 .footer-desc { font-size: 12.5px; color: rgba(255,255,255,.36); line-height: 1.75; font-weight: 300; }
 .footer-col-title { font-size: 8.5px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.26); margin-bottom: 16px; font-weight: 500; }
 .footer-links { display: flex; flex-direction: column; gap: 10px; }
 .footer-links a { font-size: 13px; color: rgba(255,255,255,.46); transition: color .2s; }
-.footer-links a:hover { color: var(--cream); }
+.footer-links a:hover { color: var(–cream); }
 .social-row { display: flex; gap: 10px; margin-top: 4px; }
 .social-icon {
 width: 38px; height: 38px;
@@ -886,7 +886,7 @@ justify-content: center;
 color: rgba(255,255,255,.46);
 transition: all .2s;
 }
-.social-icon:hover { border-color: var(--gold); color: var(--gold); background: rgba(168,132,74,.1); }
+.social-icon:hover { border-color: var(–gold); color: var(–gold); background: rgba(168,132,74,.1); }
 .footer-divider { height: 1px; background: rgba(255,255,255,.07); margin-bottom: 22px; }
 .footer-bottom {
 display: flex;
@@ -904,8 +904,8 @@ position: fixed;
 bottom: 32px; right: 32px;
 width: 44px; height: 44px;
 border-radius: 50%;
-background: var(--white);
-border: 1px solid var(--line-light);
+background: var(–white);
+border: 1px solid var(–line-light);
 box-shadow: 0 4px 16px rgba(30,30,28,.1);
 display: flex;
 align-items: center;
@@ -918,9 +918,9 @@ transition: opacity .3s, transform .3s, background .2s;
 z-index: 80;
 }
 #btt.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
-#btt:hover { background: var(--sage-dark); border-color: var(--sage-dark); }
+#btt:hover { background: var(–sage-dark); border-color: var(–sage-dark); }
 #btt:hover svg { stroke: white; }
-#btt svg { stroke: var(--sage-dark); transition: stroke .2s; }
+#btt svg { stroke: var(–sage-dark); transition: stroke .2s; }
 
 /* RESPONSIVE */
 @media (max-width: 960px) {
@@ -939,7 +939,7 @@ footer { padding: 48px 28px 28px; }
 .what-inner { grid-template-columns: 1fr; gap: 48px; }
 .story-split { grid-template-columns: 1fr; }
 .story-col { padding: 64px 28px; }
-.story-col.brand { border-right: none; border-bottom: 1px solid var(--parchment-dark); }
+.story-col.brand { border-right: none; border-bottom: 1px solid var(–parchment-dark); }
 .inside-parts { grid-template-columns: 1fr; }
 .inside-extras { grid-template-columns: 1fr 1fr; }
 .how-steps { grid-template-columns: 1fr 1fr; }
@@ -977,7 +977,7 @@ footer { padding: 48px 28px 28px; }
   </ul>
   <div class="nav-actions">
     <a href="/DigitalJournal/Login.html" class="nav-login">Login</a>
-    <a href="https://rzp.io/rzp/Inklingsjournal" target="_blank" class="nav-cta">Get the Journal</a>
+    <a href="./Purchase.html" class="nav-cta">Get the Journal</a>
   </div>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
@@ -991,7 +991,7 @@ footer { padding: 48px 28px 28px; }
   <a href="#pricing" onclick="toggleMenu()">Pricing</a>
   <a href="#faq" onclick="toggleMenu()">FAQ</a>
   <a href="/DigitalJournal/Login.html" onclick="toggleMenu()">Login</a>
-  <a href="https://rzp.io/rzp/Inklingsjournal" target="_blank" onclick="toggleMenu()">Get the Journal</a>
+  <a href="./Purchase.html" onclick="toggleMenu()">Get the Journal</a>
 </div>
 
 <!-- HERO -->
@@ -1007,7 +1007,7 @@ footer { padding: 48px 28px 28px; }
       <h1 class="hero-title">Your inner<br>world, <em>in words.</em></h1>
       <p class="hero-desc">You have probably thought about understanding yourself better. The patterns you repeat, the feelings you can't quite name, the version of yourself you keep meaning to become.<br><br>This journal gives you a structured, private space to actually do that work. Guided by psychological principles. Built by a practising clinical psychologist.</p>
       <div class="hero-actions">
-        <a href="https://rzp.io/rzp/Inklingsjournal" target="_blank" class="btn-primary">
+        <a href="./Purchase.html" class="btn-primary">
           Get the Journal
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
@@ -1046,7 +1046,7 @@ footer { padding: 48px 28px 28px; }
         </div>
         <div class="hc-badge">
           <span>iPhone &middot; iPad &middot; Android &middot; Any browser</span>
-          <span class="hc-price">Rs 1,499 once</span>
+          <span class="hc-price">₹2,499 · 2 years</span>
         </div>
       </div>
     </div>
@@ -1079,7 +1079,7 @@ footer { padding: 48px 28px 28px; }
       <div class="what-card reveal reveal-d3">
         <div class="what-card-num">03</div>
         <div class="what-card-title">One purchase, carried everywhere</div>
-        <div class="what-card-desc">Pay once and the journal is yours without expiry. Pick it up on a difficult day, return to a section months later, track your moods daily or occasionally. It works around your life, not the other way around.</div>
+        <div class="what-card-desc">Pay once and the journal is yours for two full years. Pick it up on a difficult day, return to a section months later, track your moods daily or occasionally. It works around your life, not the other way around.</div>
       </div>
     </div>
   </div>
@@ -1264,7 +1264,7 @@ footer { padding: 48px 28px 28px; }
       <div class="how-step reveal">
         <div class="how-num">01</div>
         <div class="how-title">Purchase once</div>
-        <div class="how-desc">Pay once and it is yours. No subscriptions, no renewals, no expiry. The journal is yours for as long as you want it.</div>
+        <div class="how-desc">Pay once and get two full years of access. Your passkey is linked to your account — use it from any device, any time, for the duration of your access.</div>
       </div>
       <div class="how-step reveal reveal-d1">
         <div class="how-num">02</div>
@@ -1299,8 +1299,8 @@ footer { padding: 48px 28px 28px; }
   <div class="pricing-inner">
     <div class="pricing-left reveal">
       <div class="eyebrow">Pricing</div>
-      <h2 class="section-title">One price.<br><em>Lifetime access.</em></h2>
-      <p class="section-lead" style="margin-bottom:36px">No tiers. No upsells. No monthly fees. Everything in the journal is yours from day one.</p>
+      <h2 class="section-title">One price.<br><em>Two years of access.</em></h2>
+      <p class="section-lead" style="margin-bottom:36px">No tiers. No upsells. No monthly fees. Everything in the journal is yours from day one, for two full years. Renew at ₹999 after that.</p>
       <div class="pricing-check-list">
         <div class="pricing-check">
           <div class="pricing-check-mark"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="#6e8060" stroke-width="2"><polyline points="2,6 5,9 10,3"/></svg></div>
@@ -1341,10 +1341,10 @@ footer { padding: 48px 28px 28px; }
         </div>
         <div class="pricing-card-body">
           <div class="pricing-amount">
-            <span class="pricing-currency">Rs</span>
-            <span class="pricing-number">1,499</span>
+            <span class="pricing-currency">₹</span>
+            <span class="pricing-number">2,499</span>
           </div>
-          <div class="pricing-sub">One-time payment &middot; Lifetime access</div>
+          <div class="pricing-sub">One-time payment · 2 years of full access · ~₹104/month</div>
           <div class="pricing-features">
             <div class="pricing-feature"><span class="pf-dot"></span>30+ guided exercises across 3 parts</div>
             <div class="pricing-feature"><span class="pf-dot"></span>Inner child, attachment, compassion exercises</div>
@@ -1353,8 +1353,8 @@ footer { padding: 48px 28px 28px; }
             <div class="pricing-feature"><span class="pf-dot"></span>12 Inner Roles + Circle of Control exercises</div>
             <div class="pricing-feature"><span class="pf-dot"></span>Secure cloud storage across all your devices</div>
           </div>
-          <a href="https://rzp.io/rzp/Inklingsjournal" target="_blank" class="pricing-cta">Get the Journal</a>
-          <div class="pricing-reassure">No account needed until after purchase &middot; Passkey sent by email</div>
+          <a href="./Purchase.html" class="pricing-cta">Get the Journal</a>
+          <div class="pricing-reassure">No phone number needed · Passkey sent by email · International cards accepted</div>
         </div>
       </div>
     </div>
@@ -1382,11 +1382,11 @@ footer { padding: 48px 28px 28px; }
     <div class="faq-list">
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">How do I access the journal after purchasing?<span class="faq-icon">+</span></button>
-        <div class="faq-a">After your payment is confirmed on Razorpay, you will receive a unique passkey at your email address. Use that passkey along with your email to log in at inklingsjournal.com. Your account is linked securely so you can access it from any device at any time.</div>
+        <div class="faq-a">After your payment is confirmed, your passkey is automatically generated and sent to your email address. Use that passkey along with your email to log in at inklingsjournal.com. Your account is linked securely so you can access it from any device at any time.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Is this really a one-time payment?<span class="faq-icon">+</span></button>
-        <div class="faq-a">Yes, completely. Pay once and the journal is yours. No monthly fees, no renewals, no surprises. If we add new features to the core journal in future, existing members will get them automatically at no extra cost.</div>
+        <div class="faq-a">Yes. You pay ₹2,499 once and get two full years of access — no monthly fees, no surprises during that time. After two years, you can renew for ₹999 for another two years. Your entries and all your data are always preserved, whether you renew or not.</div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">What devices does it work on?<span class="faq-icon">+</span></button>
@@ -1409,8 +1409,12 @@ footer { padding: 48px 28px 28px; }
         <div class="faq-a">The journal starts with Part I specifically for this reason: it teaches you to ground yourself before going anywhere deeper. Each section that touches on heavier themes includes a reminder to pause and return to those grounding tools if you need to. That said, if you are in crisis or experiencing significant mental health difficulties, please reach out to a professional alongside using the journal.</div>
       </div>
       <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What happens after 2 years?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Your access runs for two full years from the date of purchase. After that, you will receive a reminder email and can renew for ₹999 for another two years. All your entries, progress, and data are always preserved — renewal simply extends your access. We wanted to be upfront about this rather than promise something indefinite.</div>
+      </div>
+      <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">I am outside India. Can I still purchase?<span class="faq-icon">+</span></button>
-        <div class="faq-a">Yes. The Razorpay checkout adjusts currency automatically based on your location. You can pay in your local currency using an international card.</div>
+        <div class="faq-a">Yes. We accept international cards through Razorpay. The price is shown in Indian Rupees (₹2,499 ≈ $29 USD) and your bank will convert automatically. No phone number is required at checkout — just your name and email.</div>
       </div>
     </div>
   </div>
@@ -1457,7 +1461,7 @@ footer { padding: 48px 28px 28px; }
       <div class="footer-col-title">Account</div>
       <div class="footer-links">
         <a href="/DigitalJournal/Login.html">Login to Journal</a>
-        <a href="https://rzp.io/rzp/Inklingsjournal" target="_blank">Get the Journal</a>
+        <a href="./Purchase.html">Get the Journal</a>
         <a href="mailto:hello@inklingsjournal.com">hello@inklingsjournal.com</a>
       </div>
     </div>
