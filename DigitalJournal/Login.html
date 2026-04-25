@@ -84,7 +84,14 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);min-
 
 ```
 <!-- Expired access banner (shown instead of error banner when access has lapsed) -->
-<div class="expired-banner" id="expiredBanner">
+    <div class="expired-banner" id="expiredBanner" style="display:none;background:rgba(107,92,71,.07);border:1px solid rgba(107,92,71,.2);border-radius:10px;padding:18px 20px;margin-bottom:16px;text-align:center;">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--warm-brown);margin-bottom:6px;">Your access has <em>ended.</em></div>
+      <div style="font-size:12px;color:var(--ink-light);line-height:1.7;font-weight:300;margin-bottom:14px;">Your 2-year access has expired. Renew for ₹999 and keep all your entries — nothing is lost.</div>
+      <a href="./Purchase.html" style="display:block;width:100%;background:var(--warm-brown);color:white;padding:12px;border-radius:10px;font-family:'Jost',sans-serif;font-size:12px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;text-align:center;">Renew for ₹999 →</a>
+    </div>
+
+    
+    <div class="expired-banner" id="expiredBanner">
   <div class="expired-title">Your access has <em>ended.</em></div>
   <div class="expired-sub">Your 2-year access has expired. Renew for ₹999 and keep all your entries — nothing is lost.</div>
   <a class="renew-btn" href="./Purchase.html">Renew for ₹999 →</a>
@@ -131,6 +138,7 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);min-
     <div class="success-name" id="successName"></div>
     <p class="success-sub">Your journal is ready. Take your time, move at your own pace, and write honestly.</p>
     <a class="open-btn" href="./Code.html" id="openBtn">Open My Journal →</a>
+    <div id="expiryNote" style="display:none;font-size:11px;color:var(--ink-light);text-align:center;margin-top:10px;font-weight:300;"></div>
     <a class="back-link" href="https://www.inklingsjournal.com">← Back to inklingsjournal.com</a>
   </div>
 </div>
@@ -141,11 +149,12 @@ const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFz
 const SESSION_KEY   = "inklings_session";
 const SESSION_HOURS = 24;
 
-function saveSession(email, name) {
+function saveSession(email, name, expiresAt) {
   sessionStorage.setItem(SESSION_KEY, JSON.stringify({
-    email, name, expiry: Date.now() + SESSION_HOURS * 3600000
+    email, name, expiresAt, expiry: Date.now() + SESSION_HOURS * 3600000
   }));
 }
+
 function getSession() {
   try {
     const s = JSON.parse(sessionStorage.getItem(SESSION_KEY) || 'null');
@@ -202,17 +211,17 @@ async function login() {
     btn.disabled = false;
     btn.classList.remove('loading');
 
-    if (data && data.success) {
-      saveSession(email, data.name || "");
+        if (data && data.success) {
+      saveSession(email, data.name || "", data.expires_at || "");
       showSuccess(data.name || "", email);
     } else if (data && data.message === 'expired') {
-      // Show the dedicated expiry banner, not the generic error
       document.getElementById('expiredBanner').classList.add('show');
     } else {
       emailEl.classList.add('error');
       passEl.classList.add('error');
       showBannerError((data && data.message) ? data.message : "Incorrect email or passkey.");
     }
+
 
   } catch(err) {
     btn.disabled = false;
@@ -231,7 +240,16 @@ function showSuccess(name, email) {
   document.getElementById('viewSuccess').classList.add('active');
   if (name) document.getElementById('successName').textContent = name;
   document.getElementById('openBtn').href = `./Code.html?e=${encodeURIComponent(email)}`;
+
+  const s = getSession();
+  if (s && s.expiresAt) {
+    const d = new Date(s.expiresAt);
+    const formatted = d.toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' });
+    const note = document.getElementById('expiryNote');
+    if (note) { note.textContent = 'Access valid until ' + formatted; note.style.display = 'block'; }
+  }
 }
+
 function toggleEye() {
   const inp = document.getElementById('passkeyInput');
   inp.type = inp.type === 'password' ? 'text' : 'password';
