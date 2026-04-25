@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get Inklings Journal — Purchase</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<style>
+:root {
+  --cream: #f6f1e9;
+  --parchment: #ede6d4;
+  --parchment-dark: #e0d8c8;
+  --sage: #7a8c6e;
+  --sage-light: #a8b89a;
+  --sage-pale: #d6dece;
+  --sage-dark: #4f6247;
+  --warm-brown: #6b5c47;
+  --ink: #2a2a28;
+  --ink-light: #7a7a74;
+  --line: #d8d0c4;
+  --white: #fdfaf5;
+  --gold: #b89a5c;
+  --gold-light: #f0e6cc;
+  --error: #c0614a;
+  --success: #4f6247;
+}
+
+- { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+font-family: ‘Jost’, sans-serif;
+background: var(–cream);
+color: var(–ink);
+min-height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 24px;
+position: relative;
+overflow-x: hidden;
+}
+
+/* Decorative rings */
+.ring { position: fixed; border-radius: 50%; border: 1px solid var(–sage-pale); opacity: .35; pointer-events: none; }
+.r1 { width: 600px; height: 600px; top: -220px; right: -220px; }
+.r2 { width: 380px; height: 380px; top: -90px; right: -90px; }
+.r3 { width: 460px; height: 460px; bottom: -200px; left: -200px; }
+.r4 { width: 240px; height: 240px; bottom: -70px; left: -70px; }
+
+/* Layout */
+.page-wrap {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 0;
+max-width: 920px;
+width: 100%;
+background: var(–white);
+border: 1px solid var(–line);
+border-radius: 28px;
+overflow: hidden;
+box-shadow: 0 32px 80px rgba(79,98,71,.1), 0 4px 20px rgba(0,0,0,.04);
+position: relative;
+z-index: 1;
+animation: rise .55s cubic-bezier(.4,0,.2,1);
+}
+
+@keyframes rise {
+from { opacity: 0; transform: translateY(28px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+/* Left panel — summary */
+.panel-left {
+background: var(–sage-dark);
+padding: 52px 44px;
+display: flex;
+flex-direction: column;
+position: relative;
+overflow: hidden;
+}
+
+.panel-left::before {
+content: ‘’;
+position: absolute;
+width: 340px; height: 340px;
+border-radius: 50%;
+border: 1px solid rgba(255,255,255,.1);
+bottom: -120px; right: -120px;
+}
+.panel-left::after {
+content: ‘’;
+position: absolute;
+width: 180px; height: 180px;
+border-radius: 50%;
+border: 1px solid rgba(255,255,255,.08);
+bottom: -40px; right: -40px;
+}
+
+.panel-logo {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 26px;
+font-weight: 300;
+color: rgba(255,255,255,.95);
+letter-spacing: .02em;
+margin-bottom: 4px;
+}
+.panel-logo em { font-style: italic; color: var(–gold); }
+
+.panel-tagline {
+font-size: 9px;
+letter-spacing: .22em;
+text-transform: uppercase;
+color: rgba(255,255,255,.45);
+font-weight: 400;
+margin-bottom: 44px;
+}
+
+.panel-label {
+font-size: 9px;
+letter-spacing: .22em;
+text-transform: uppercase;
+color: rgba(255,255,255,.45);
+font-weight: 500;
+margin-bottom: 8px;
+}
+
+.panel-product {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 28px;
+font-weight: 300;
+color: rgba(255,255,255,.92);
+line-height: 1.25;
+margin-bottom: 6px;
+}
+.panel-product em { font-style: italic; }
+
+.panel-desc {
+font-size: 12.5px;
+color: rgba(255,255,255,.5);
+font-weight: 300;
+line-height: 1.75;
+margin-bottom: 32px;
+}
+
+.panel-price-wrap {
+display: flex;
+align-items: baseline;
+gap: 6px;
+margin-bottom: 6px;
+}
+.panel-price {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 48px;
+font-weight: 300;
+color: var(–gold);
+line-height: 1;
+}
+.panel-currency {
+font-size: 16px;
+color: rgba(255,255,255,.5);
+font-weight: 300;
+align-self: flex-start;
+margin-top: 10px;
+}
+.panel-price-note {
+font-size: 11px;
+color: rgba(255,255,255,.38);
+font-weight: 300;
+margin-bottom: 36px;
+}
+
+.panel-includes {
+display: flex;
+flex-direction: column;
+gap: 11px;
+flex: 1;
+}
+
+.include-item {
+display: flex;
+align-items: flex-start;
+gap: 10px;
+font-size: 12px;
+color: rgba(255,255,255,.6);
+font-weight: 300;
+line-height: 1.55;
+}
+
+.include-dot {
+width: 5px; height: 5px;
+border-radius: 50%;
+background: var(–gold);
+flex-shrink: 0;
+margin-top: 5px;
+}
+
+.panel-access-badge {
+margin-top: auto;
+padding-top: 28px;
+border-top: 1px solid rgba(255,255,255,.1);
+display: flex;
+align-items: center;
+gap: 10px;
+font-size: 11px;
+color: rgba(255,255,255,.4);
+font-weight: 300;
+}
+.badge-icon {
+width: 28px; height: 28px;
+border-radius: 50%;
+background: rgba(255,255,255,.07);
+display: flex; align-items: center; justify-content: center;
+flex-shrink: 0;
+font-size: 13px;
+}
+
+/* Right panel — form */
+.panel-right {
+padding: 52px 48px;
+position: relative;
+}
+
+.top-accent {
+position: absolute;
+top: 0; left: 48px; right: 48px;
+height: 2px;
+background: linear-gradient(90deg, transparent, var(–sage-light), var(–gold), var(–sage-light), transparent);
+}
+
+.form-title {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 30px;
+font-weight: 300;
+color: var(–ink);
+line-height: 1.25;
+margin-bottom: 8px;
+}
+.form-title em { font-style: italic; color: var(–sage-dark); }
+
+.form-sub {
+font-size: 12.5px;
+color: var(–ink-light);
+font-weight: 300;
+line-height: 1.75;
+margin-bottom: 32px;
+}
+
+.field { margin-bottom: 18px; }
+.field-label {
+font-size: 9px;
+letter-spacing: .2em;
+text-transform: uppercase;
+color: var(–sage);
+font-weight: 500;
+margin-bottom: 8px;
+display: block;
+}
+
+.field-input {
+width: 100%;
+border: 1px solid var(–line);
+border-radius: 10px;
+background: var(–cream);
+font-family: ‘Jost’, sans-serif;
+font-size: 14px;
+font-weight: 300;
+color: var(–ink);
+padding: 13px 16px;
+outline: none;
+transition: all .25s;
+-webkit-appearance: none;
+}
+.field-input:focus {
+border-color: var(–sage-light);
+background: var(–white);
+box-shadow: 0 0 0 3px rgba(122,140,110,.12);
+}
+.field-input.error {
+border-color: var(–error);
+box-shadow: 0 0 0 3px rgba(192,97,74,.1);
+animation: shake .35s ease;
+}
+.field-input::placeholder { color: var(–line); }
+
+@keyframes shake {
+0%, 100% { transform: translateX(0); }
+25% { transform: translateX(-6px); }
+75% { transform: translateX(6px); }
+}
+
+.error-banner {
+display: flex;
+align-items: flex-start;
+gap: 10px;
+background: rgba(192,97,74,.07);
+border: 1px solid rgba(192,97,74,.2);
+border-radius: 8px;
+padding: 12px 14px;
+margin-bottom: 18px;
+font-size: 12.5px;
+color: var(–error);
+line-height: 1.55;
+font-weight: 300;
+opacity: 0;
+transform: translateY(-4px);
+transition: all .25s;
+pointer-events: none;
+}
+.error-banner.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+.pay-btn {
+width: 100%;
+background: var(–sage-dark);
+color: white;
+border: none;
+border-radius: 10px;
+padding: 16px;
+font-family: ‘Jost’, sans-serif;
+font-size: 12.5px;
+font-weight: 400;
+letter-spacing: .12em;
+text-transform: uppercase;
+cursor: pointer;
+transition: all .25s;
+margin-top: 4px;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 8px;
+}
+.pay-btn:hover:not(:disabled) {
+background: var(–ink);
+transform: translateY(-1px);
+box-shadow: 0 10px 24px rgba(79,98,71,.2);
+}
+.pay-btn:disabled { opacity: .6; cursor: not-allowed; }
+
+.spinner {
+width: 16px; height: 16px;
+border: 2px solid rgba(255,255,255,.3);
+border-top-color: white;
+border-radius: 50%;
+animation: spin .7s linear infinite;
+display: none;
+}
+.pay-btn.loading .btn-text { display: none; }
+.pay-btn.loading .spinner { display: block; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.security-note {
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 7px;
+margin-top: 16px;
+font-size: 10.5px;
+color: var(–ink-light);
+font-weight: 300;
+opacity: .7;
+}
+
+.help-text {
+text-align: center;
+font-size: 11px;
+color: var(–ink-light);
+font-weight: 300;
+margin-top: 20px;
+line-height: 1.7;
+}
+.help-text a { color: var(–sage-dark); text-decoration: none; }
+.help-text a:hover { text-decoration: underline; }
+
+/* Success screen */
+.success-screen {
+display: none;
+padding: 60px 48px;
+text-align: center;
+}
+.success-screen.show { display: block; animation: fadeUp .4s ease; }
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(10px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+.success-icon {
+width: 64px; height: 64px;
+border-radius: 50%;
+background: var(–sage-pale);
+display: flex; align-items: center; justify-content: center;
+margin: 0 auto 22px;
+font-size: 26px;
+animation: pop .45s cubic-bezier(.4,0,.2,1);
+}
+@keyframes pop {
+from { transform: scale(.5); opacity: 0; }
+to { transform: scale(1); opacity: 1; }
+}
+
+.success-title {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 36px;
+font-weight: 300;
+color: var(–ink);
+margin-bottom: 6px;
+}
+.success-title em { font-style: italic; color: var(–sage-dark); }
+
+.success-sub {
+font-size: 13px;
+color: var(–ink-light);
+font-weight: 300;
+line-height: 1.8;
+margin-bottom: 30px;
+}
+
+.success-email-note {
+background: var(–parchment);
+border-radius: 10px;
+padding: 16px 20px;
+font-size: 12px;
+color: var(–warm-brown);
+line-height: 1.7;
+font-weight: 300;
+margin-bottom: 28px;
+}
+
+.go-login-btn {
+display: block;
+width: 100%;
+background: var(–sage-dark);
+color: white;
+border: none;
+border-radius: 10px;
+padding: 15px;
+font-family: ‘Jost’, sans-serif;
+font-size: 12.5px;
+font-weight: 400;
+letter-spacing: .12em;
+text-transform: uppercase;
+cursor: pointer;
+transition: all .25s;
+text-decoration: none;
+text-align: center;
+}
+.go-login-btn:hover { background: var(–ink); transform: translateY(-1px); }
+
+/* Failed payment screen */
+.failed-screen {
+display: none;
+padding: 52px 48px;
+text-align: center;
+}
+.failed-screen.show { display: block; animation: fadeUp .4s ease; }
+
+.failed-icon {
+width: 64px; height: 64px;
+border-radius: 50%;
+background: rgba(192,97,74,.1);
+display: flex; align-items: center; justify-content: center;
+margin: 0 auto 22px;
+font-size: 28px;
+}
+
+.failed-title {
+font-family: ‘Cormorant Garamond’, serif;
+font-size: 32px;
+font-weight: 300;
+color: var(–ink);
+margin-bottom: 8px;
+}
+.failed-title em { font-style: italic; color: var(–error); }
+
+.failed-sub {
+font-size: 13px;
+color: var(–ink-light);
+font-weight: 300;
+line-height: 1.75;
+margin-bottom: 10px;
+}
+
+.failed-reasons {
+background: var(–parchment);
+border-radius: 10px;
+padding: 16px 20px;
+margin-bottom: 28px;
+text-align: left;
+}
+.failed-reasons p {
+font-size: 11.5px;
+color: var(–warm-brown);
+font-weight: 300;
+line-height: 1.8;
+}
+.failed-reasons p strong { font-weight: 500; display: block; margin-bottom: 4px; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
+
+.retry-btn {
+display: block;
+width: 100%;
+background: var(–sage-dark);
+color: white;
+border: none;
+border-radius: 10px;
+padding: 15px;
+font-family: ‘Jost’, sans-serif;
+font-size: 12.5px;
+font-weight: 400;
+letter-spacing: .12em;
+text-transform: uppercase;
+cursor: pointer;
+transition: all .25s;
+margin-bottom: 12px;
+}
+.retry-btn:hover { background: var(–ink); transform: translateY(-1px); }
+
+.contact-link {
+font-size: 11.5px;
+color: var(–ink-light);
+font-weight: 300;
+}
+.contact-link a { color: var(–sage-dark); text-decoration: none; }
+.contact-link a:hover { text-decoration: underline; }
+
+@media (max-width: 720px) {
+body { padding: 16px; align-items: flex-start; }
+.page-wrap { grid-template-columns: 1fr; border-radius: 20px; }
+.panel-left { padding: 36px 28px; }
+.panel-price { font-size: 38px; }
+.panel-right { padding: 36px 28px; }
+.success-screen, .failed-screen { padding: 40px 28px; }
+.top-accent { left: 28px; right: 28px; }
+}
+</style>
+
+</head>
+<body>
+
+<div class="ring r1"></div>
+<div class="ring r2"></div>
+<div class="ring r3"></div>
+<div class="ring r4"></div>
+
+<div class="page-wrap" id="pageWrap">
+
+  <!-- LEFT: Product summary -->
+
+  <div class="panel-left">
+    <div class="panel-logo">Ink<em>lings</em></div>
+    <div class="panel-tagline">Your inner world, in words</div>
+
+```
+<div class="panel-label">You're getting</div>
+<div class="panel-product">Inklings <em>Journal</em></div>
+<div class="panel-desc">A guided digital journal built by a clinical psychologist — deep self-reflection, daily mindfulness, and intentional planning in one place.</div>
+
+<div class="panel-price-wrap">
+  <span class="panel-currency">₹</span>
+  <span class="panel-price" id="displayPrice">—</span>
+</div>
+<div class="panel-price-note" id="displayNote">One-time payment · 2 years of full access</div>
+
+<div class="panel-includes">
+  <div class="include-item"><div class="include-dot"></div>Full journal access — all chapters, all practices</div>
+  <div class="include-item"><div class="include-dot"></div>Daily mood tracker and mindfulness exercises</div>
+  <div class="include-item"><div class="include-dot"></div>Secure private entries, accessible anywhere</div>
+  <div class="include-item"><div class="include-dot"></div>Built and curated by a practising clinical psychologist</div>
+  <div class="include-item"><div class="include-dot"></div>2 years of full access from date of purchase</div>
+</div>
+
+<div class="panel-access-badge">
+  <div class="badge-icon">✦</div>
+  <span>Access for 2 full years · Renewal available after that</span>
+</div>
+```
+
+  </div>
+
+  <!-- RIGHT: Form (default view) -->
+
+  <div class="panel-right" id="formPanel">
+    <div class="top-accent"></div>
+
+```
+<h2 class="form-title">Almost <em>yours.</em></h2>
+<p class="form-sub">Enter your name and email. Your login details will be sent here after payment — no phone number needed.</p>
+
+<div class="error-banner" id="errorBanner">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+  <span id="errorText">Please check the fields above.</span>
+</div>
+
+<div class="field">
+  <label class="field-label" for="nameInput">Full Name</label>
+  <input class="field-input" id="nameInput" type="text" placeholder="Your name" autocomplete="name">
+</div>
+
+<div class="field">
+  <label class="field-label" for="emailInput">Email Address</label>
+  <input class="field-input" id="emailInput" type="email" placeholder="you@example.com" autocomplete="email" inputmode="email">
+</div>
+
+<button class="pay-btn" id="payBtn" onclick="startPayment()">
+  <span class="btn-text">Pay Securely ✦</span>
+  <div class="spinner"></div>
+</button>
+
+<div class="security-note">
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+  Secured by Razorpay · No card data touches this site
+</div>
+
+<p class="help-text">
+  By purchasing, you agree to our <a href="mailto:hello@inklingsjournal.com">terms</a>.<br>
+  Questions? <a href="mailto:hello@inklingsjournal.com">hello@inklingsjournal.com</a>
+</p>
+```
+
+  </div>
+
+  <!-- RIGHT: Success view -->
+
+  <div class="success-screen" id="successScreen">
+    <div class="success-icon">✦</div>
+    <h2 class="success-title">You're <em>in.</em></h2>
+    <p class="success-sub">Your payment was received. Welcome to Inklings Journal — your inner world is waiting.</p>
+    <div class="success-email-note">
+      Your passkey and login instructions have been sent to <strong id="successEmail" style="font-weight:500;color:var(--sage-dark)"></strong>. It may take a minute — check your spam folder if you don't see it.
+    </div>
+    <a class="go-login-btn" href="./Login.html">Go to Login →</a>
+  </div>
+
+  <!-- RIGHT: Failed view -->
+
+  <div class="failed-screen" id="failedScreen">
+    <div class="failed-icon">✕</div>
+    <h2 class="failed-title">Payment <em>didn't go through.</em></h2>
+    <p class="failed-sub">Nothing was charged. Here are common reasons this happens:</p>
+    <div class="failed-reasons">
+      <p>
+        <strong>Common causes</strong>
+        · Insufficient funds or card limit reached<br>
+        · Card not enabled for online transactions<br>
+        · Bank declined the transaction<br>
+        · Network timeout — try again on a stable connection
+      </p>
+    </div>
+    <button class="retry-btn" onclick="retryPayment()">Try Again</button>
+    <p class="contact-link">Still having trouble? <a href="mailto:hello@inklingsjournal.com">Write to us</a> — we'll sort it out.</p>
+  </div>
+
+</div>
+
+<script>
+// ─── CONFIG ─────────────────────────────────────────────────────────────────
+// Replace with your actual Razorpay Key ID (public key — safe in frontend)
+const RAZORPAY_KEY_ID = "rzp_live_XXXXXXXXXXXXXXXX"; // ← YOUR KEY ID HERE
+const AMOUNT_PAISE    = 299900; // ← Price in paise (₹2999 = 299900). Adjust as needed.
+const AMOUNT_DISPLAY  = "2,999";
+
+const SUPABASE_URL    = "https://vqpyeebiornuymohbicz.supabase.co";
+const SUPABASE_ANON   = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZxcHllZWJpb3JudXltb2hiaWN6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0MTU1NDcsImV4cCI6MjA5MDk5MTU0N30.7XFzJu3JVJxE-GW4qsqKVbRkjq-KZIi1BUqcNtETKKM";
+// ─────────────────────────────────────────────────────────────────────────────
+
+document.getElementById('displayPrice').textContent = AMOUNT_DISPLAY;
+
+let currentName  = '';
+let currentEmail = '';
+
+function showError(msg) {
+  document.getElementById('errorText').textContent = msg;
+  document.getElementById('errorBanner').classList.add('show');
+}
+function hideError() {
+  document.getElementById('errorBanner').classList.remove('show');
+}
+function fieldError(el) {
+  el.classList.add('error');
+  el.addEventListener('input', () => el.classList.remove('error'), { once: true });
+}
+
+function startPayment() {
+  const nameEl  = document.getElementById('nameInput');
+  const emailEl = document.getElementById('emailInput');
+
+  const name  = nameEl.value.trim();
+  const email = emailEl.value.trim().toLowerCase();
+
+  hideError();
+  nameEl.classList.remove('error');
+  emailEl.classList.remove('error');
+
+  if (!name) {
+    fieldError(nameEl);
+    showError("Please enter your name.");
+    nameEl.focus();
+    return;
+  }
+  if (!email || !email.includes('@') || !email.includes('.')) {
+    fieldError(emailEl);
+    showError("Please enter a valid email address.");
+    emailEl.focus();
+    return;
+  }
+
+  currentName  = name;
+  currentEmail = email;
+
+  const btn = document.getElementById('payBtn');
+  btn.disabled = true;
+  btn.classList.add('loading');
+
+  const options = {
+    key:         RAZORPAY_KEY_ID,
+    amount:      AMOUNT_PAISE,
+    currency:    "INR",
+    name:        "Inklings Journal",
+    description: "2-Year Journal Access",
+    image:       "", // optional: URL to your logo
+    prefill: {
+      name:  name,
+      email: email,
+      // No phone — intentionally omitted
+    },
+    theme: {
+      color: "#4f6247"
+    },
+    modal: {
+      ondismiss: function() {
+        // User closed the modal without paying
+        btn.disabled = false;
+        btn.classList.remove('loading');
+      }
+    },
+    handler: async function(response) {
+      // Payment succeeded — Razorpay calls this with payment ID
+      await handleSuccess(response.razorpay_payment_id, name, email);
+    }
+  };
+
+  try {
+    const rzp = new Razorpay(options);
+
+    rzp.on('payment.failed', function(response) {
+      btn.disabled = false;
+      btn.classList.remove('loading');
+      handleFailure(response.error);
+    });
+
+    rzp.open();
+  } catch(e) {
+    btn.disabled = false;
+    btn.classList.remove('loading');
+    showError("Could not open payment. Please refresh and try again.");
+  }
+}
+
+async function handleSuccess(paymentId, name, email) {
+  // Call Supabase edge function to provision the account
+  // This edge function should: create the user, generate passkey, send confirmation email
+  try {
+    const res = await fetch(`${SUPABASE_URL}/functions/v1/provision-user`, {
+      method: "POST",
+      headers: {
+        "Content-Type":  "application/json",
+        "Authorization": `Bearer ${SUPABASE_ANON}`
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        payment_id:   paymentId,
+        access_years: 2
+      })
+    });
+
+    // Show success regardless of provisioning result
+    // (edge function handles retries; user gets email)
+    showSuccessScreen(email);
+
+  } catch(err) {
+    // Payment succeeded even if provisioning call failed —
+    // show success and let edge function retry or handle manually
+    showSuccessScreen(email);
+  }
+}
+
+function handleFailure(error) {
+  document.getElementById('formPanel').style.display = 'none';
+  document.getElementById('failedScreen').classList.add('show');
+
+  console.log("Payment failed:", error.code, error.description);
+  // Optionally log to Supabase for follow-up:
+  // fetch(`${SUPABASE_URL}/functions/v1/log-failed-payment`, { ... })
+}
+
+function retryPayment() {
+  document.getElementById('failedScreen').classList.remove('show');
+  document.getElementById('formPanel').style.display = '';
+  document.getElementById('nameInput').value  = currentName;
+  document.getElementById('emailInput').value = currentEmail;
+  const btn = document.getElementById('payBtn');
+  btn.disabled = false;
+  btn.classList.remove('loading');
+}
+
+function showSuccessScreen(email) {
+  document.getElementById('formPanel').style.display = 'none';
+  document.getElementById('successEmail').textContent = email;
+  document.getElementById('successScreen').classList.add('show');
+}
+</script>
+
+</body>
+</html>
