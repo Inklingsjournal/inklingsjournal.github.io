@@ -650,15 +650,33 @@ body { padding: 16px; align-items: flex-start; }
 <script>
 // ─── CONFIG ─────────────────────────────────────────────────────────────────
 // Replace with your actual Razorpay Key ID (public key — safe in frontend)
-const RAZORPAY_KEY_ID = "rzp_live_Se7HPJHpSVwSht"; // ← YOUR KEY ID HERE
-const AMOUNT_PAISE    = 249900; // ← Price in paise (₹2999 = 299900). Adjust as needed.
-const AMOUNT_DISPLAY  = "2,499";
+const RAZORPAY_KEY_ID  = "rzp_live_Se7HPJHpSVwSht";
+const AMOUNT_PAISE     = 249900;  // ₹2,499 new purchase
+const AMOUNT_DISPLAY   = "2,499";
+const RENEWAL_PAISE    = 99900;   // ₹999 renewal
+const RENEWAL_DISPLAY  = "999";
 
 const SUPABASE_URL    = "https://vqpyeebiornuymohbicz.supabase.co";
 const SUPABASE_ANON   = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZxcHllZWJpb3JudXltb2hiaWN6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0MTU1NDcsImV4cCI6MjA5MDk5MTU0N30.7XFzJu3JVJxE-GW4qsqKVbRkjq-KZIi1BUqcNtETKKM";
 // ─────────────────────────────────────────────────────────────────────────────
 
-document.getElementById('displayPrice').textContent = AMOUNT_DISPLAY;
+// Detect renewal from URL parameter
+const isRenewal = new URLSearchParams(window.location.search).get('renewal') === 'true';
+
+if (isRenewal) {
+  // Left panel — price and badge
+  document.getElementById('displayPrice').textContent = RENEWAL_DISPLAY;
+  document.getElementById('displayNote').textContent  = 'One-time renewal · 2 more years of access';
+  document.querySelector('.panel-access-badge span').textContent = 'Extends your current access by 2 years · Entries preserved';
+
+  // Right panel — heading and subtext
+  document.querySelector('.form-title').innerHTML = 'Welcome <em>back.</em>';
+  document.querySelector('.form-sub').textContent = 'Enter your name and email to renew. Your passkey and all your entries stay exactly as they are.';
+
+} else {
+  document.getElementById('displayPrice').textContent = AMOUNT_DISPLAY;
+}
+
 
 let currentName  = '';
 let currentEmail = '';
@@ -706,12 +724,13 @@ function startPayment() {
   btn.disabled = true;
   btn.classList.add('loading');
 
-  const options = {
+    const options = {
     key:         RAZORPAY_KEY_ID,
-    amount:      AMOUNT_PAISE,
+    amount:      isRenewal ? RENEWAL_PAISE : AMOUNT_PAISE,
     currency:    "INR",
     name:        "Inklings Journal",
-    description: "2-Year Journal Access",
+    description: isRenewal ? "2-Year Renewal" : "2-Year Journal Access",
+
     image:       "", // optional: URL to your logo
     prefill: {
       name:  name,
