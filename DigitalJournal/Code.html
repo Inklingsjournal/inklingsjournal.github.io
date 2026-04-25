@@ -2752,23 +2752,6 @@ async function buildRolesTable() {
 }
 
 
-    // Show tooltip buttons only on phones, not tablets/desktop
-  const isPhone = /iPhone|Android/i.test(navigator.userAgent) && window.screen.width <= 430;
-  if (isPhone) {
-    document.querySelectorAll('.role-tooltip-btn').forEach(btn => {
-      btn.style.display = 'inline-flex';
-    });
-  }
-
-  
-  // Close tooltips when clicking outside
-  document.addEventListener('click', e => {
-    if (!e.target.classList.contains('role-tooltip-btn')) {
-      document.querySelectorAll('.role-tooltip-popup.visible').forEach(p => p.classList.remove('visible'));
-    }
-  });
-}
-
 function toggleTooltip(e, id) {
   e.stopPropagation();
   const popup = document.getElementById(id);
