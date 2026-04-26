@@ -1285,13 +1285,7 @@ z-index: 40;
 
 <div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
 
-  <div id="expiryBanner" style="display:none;position:fixed;top:0;left:0;right:0;z-index:200;background:var(--parchment);border-bottom:1px solid var(--line);padding:10px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:12.5px;color:var(--warm-brown);font-weight:300;">
-  <span id="expiryBannerText"></span>
-  <div style="display:flex;align-items:center;gap:12px;flex-shrink:0;">
-    <a href="/DigitalJournal/Purchase.html?renewal=true" style="background:var(--warm-brown);color:white;padding:6px 16px;border-radius:20px;font-size:11px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;">Renew ₹999</a>
-    <button onclick="document.getElementById('expiryBanner').style.display='none'" style="background:none;border:none;cursor:pointer;color:var(--ink-light);font-size:18px;line-height:1;">×</button>
-  </div>
-</div>
+
 
 
 <!-- ══ SIDEBAR ══ -->
@@ -2402,19 +2396,7 @@ async function initCustomer() {
     if (!error && data) CUSTOMER_ID = data;
     dbg('CUSTOMER_ID set to: ' + CUSTOMER_ID);
 
-    // ── Expiry banner check ──
-    if (session.expiresAt) {
-      const msLeft = new Date(session.expiresAt) - new Date();
-      const daysLeft = Math.floor(msLeft / (1000 * 60 * 60 * 24));
-      if (daysLeft <= 30 && daysLeft > 0) {
-        const banner = document.getElementById('expiry-banner');
-        const text   = document.getElementById('expiry-banner-text');
-        if (banner && text) {
-          text.textContent = 'Your access expires in ' + daysLeft + ' day' + (daysLeft === 1 ? '' : 's') + '. Renew now to keep all your entries.';
-          banner.style.display = 'flex';
-        }
-      }
-    }
+  
 
   } catch(e) { dbg('initCustomer error: ' + e.message); }
 }
