@@ -773,48 +773,27 @@ function startPayment() {
 }
 
   async function handleSuccess(paymentId, name, email) {
-    // 1. Provision user account
-    try {
-      await fetch(`${SUPABASE_URL}/functions/v1/provision-user`, {
-        method: "POST",
-        headers: {
-          "Content-Type":  "application/json",
-          "Authorization": `Bearer ${SUPABASE_ANON}`
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          payment_id:   paymentId,
-          access_years: 2
-        })
-      });
-    } catch(err) {
-      console.log('Provision error:', err);
-    }
-
-    // 2. Email Shreya with customer details from the form
-    // This is independent of Razorpay — captures exactly what customer typed
-    try {
-      await fetch(`${SUPABASE_URL}/functions/v1/resend-email`, {
-        method: "POST",
-        headers: {
-          "Content-Type":  "application/json",
-          "Authorization": `Bearer ${SUPABASE_ANON}`
-        },
-        body: JSON.stringify({
-          is_admin_notification: true,
-          is_renewal:            isRenewal,
-          customer_name:         name,
-          customer_email:        email,
-          payment_id:            paymentId
-        })
-      });
-    } catch(err) {
-      console.log('Notification error:', err);
-    }
-
-    showSuccessScreen(email);
+  try {
+    await fetch(`${SUPABASE_URL}/functions/v1/resend-email`, {
+      method: "POST",
+      headers: {
+        "Content-Type":  "application/json",
+        "Authorization": `Bearer ${SUPABASE_ANON}`
+      },
+      body: JSON.stringify({
+        is_admin_notification: true,
+        is_renewal:            isRenewal,
+        customer_name:         name,
+        customer_email:        email,
+        payment_id:            paymentId
+      })
+    });
+  } catch(err) {
+    console.log('Notification error:', err.message);
   }
+  showSuccessScreen(email);
+}
+
 
 
 function handleFailure(error) {
