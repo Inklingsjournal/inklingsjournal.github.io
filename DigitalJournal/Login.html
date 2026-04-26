@@ -140,9 +140,13 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);min-
     <h2 class="success-title">You're <em>in.</em></h2>
     <div class="success-name" id="successName"></div>
     <p class="success-sub">Your journal is ready. Take your time, move at your own pace, and write honestly.</p>
-    <a class="open-btn" href="./Code.html" id="openBtn">Open My Journal →</a>
-    <div id="expiryNote" style="display:none;font-size:11px;color:var(--ink-light);text-align:center;margin-top:10px;font-weight:300;"></div>
+     <a class="open-btn" href="./Code.html" id="openBtn">Open My Journal →</a>
+    <div id="expiryNote" style="display:none;background:rgba(107,92,71,.06);border:1px solid rgba(107,92,71,.15);border-radius:10px;padding:14px 16px;margin-top:14px;text-align:center;">
+      <div style="font-size:12px;color:var(--warm-brown);font-weight:300;line-height:1.7;" id="expiryNoteText"></div>
+      <a id="renewLink" href="./Purchase.html?renewal=true" style="display:inline-block;margin-top:10px;font-size:11px;color:var(--sage-dark);font-weight:400;text-decoration:underline;">Renew for ₹999 →</a>
+    </div>
     <a class="back-link" href="https://www.inklingsjournal.com">← Back to inklingsjournal.com</a>
+
   </div>
 </div>
 
@@ -244,13 +248,28 @@ function showSuccess(name, email) {
   if (name) document.getElementById('successName').textContent = name;
   document.getElementById('openBtn').href = `./Code.html?e=${encodeURIComponent(email)}`;
 
-  const s = getSession();
+    const s = getSession();
   if (s && s.expiresAt) {
     const d = new Date(s.expiresAt);
+    const msLeft = d - new Date();
+    const daysLeft = Math.floor(msLeft / (1000 * 60 * 60 * 24));
     const formatted = d.toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' });
     const note = document.getElementById('expiryNote');
-    if (note) { note.textContent = 'Access valid until ' + formatted; note.style.display = 'block'; }
+    const noteText = document.getElementById('expiryNoteText');
+    const renewLink = document.getElementById('renewLink');
+    if (note && noteText) {
+      if (daysLeft <= 60 && daysLeft > 0) {
+        noteText.textContent = `Your access expires in ${daysLeft} day${daysLeft === 1 ? '' : 's'} (${formatted}). Renew now to keep all your entries.`;
+        note.style.display = 'block';
+        if (renewLink) renewLink.style.display = 'inline-block';
+      } else if (daysLeft > 60) {
+        noteText.textContent = `Access valid until ${formatted}`;
+        note.style.display = 'block';
+        if (renewLink) renewLink.style.display = 'none';
+      }
+    }
   }
+
 }
 
 function toggleEye() {
