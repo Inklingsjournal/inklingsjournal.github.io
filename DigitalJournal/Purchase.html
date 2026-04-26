@@ -772,34 +772,50 @@ function startPayment() {
   }
 }
 
-async function handleSuccess(paymentId, name, email) {
-  // Call Supabase edge function to provision the account
-  // This edge function should: create the user, generate passkey, send confirmation email
-  try {
-    const res = await fetch(`${SUPABASE_URL}/functions/v1/provision-user`, {
-      method: "POST",
-      headers: {
-        "Content-Type":  "application/json",
-        "Authorization": `Bearer ${SUPABASE_ANON}`
-      },
-      body: JSON.stringify({
-        name,
-        email,
-        payment_id:   paymentId,
-        access_years: 2
-      })
-    });
+  async function handleSuccess(paymentId, name, email) {
+    // 1. Provision user account
+    try {
+      await fetch(`${SUPABASE_URL}/functions/v1/provision-user`, {
+        method: "POST",
+        headers: {
+          "Content-Type":  "application/json",
+          "Authorization": `Bearer ${SUPABASE_ANON}`
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          payment_id:   paymentId,
+          access_years: 2
+        })
+      });
+    } catch(err) {
+      console.log('Provision error:', err);
+    }
 
-    // Show success regardless of provisioning result
-    // (edge function handles retries; user gets email)
-    showSuccessScreen(email);
+    // 2. Email Shreya with customer details from the form
+    // This is independent of Razorpay — captures exactly what customer typed
+    try {
+      await fetch(`${SUPABASE_URL}/functions/v1/resend-email`, {
+        method: "POST",
+        headers: {
+          "Content-Type":  "application/json",
+          "Authorization": `Bearer ${SUPABASE_ANON}`
+        },
+        body: JSON.stringify({
+          is_admin_notification: true,
+          is_renewal:            isRenewal,
+          customer_name:         name,
+          customer_email:        email,
+          payment_id:            paymentId
+        })
+      });
+    } catch(err) {
+      console.log('Notification error:', err);
+    }
 
-  } catch(err) {
-    // Payment succeeded even if provisioning call failed —
-    // show success and let edge function retry or handle manually
     showSuccessScreen(email);
   }
-}
+
 
 function handleFailure(error) {
   document.getElementById('formPanel').style.display = 'none';
