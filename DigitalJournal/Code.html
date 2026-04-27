@@ -2911,7 +2911,8 @@ const { data: entriesData } = await sb.from('daily_entries')
   .gte('entry_date', startDate)
   .lt('entry_date', endDate);
     if (entriesData) {
-      entriesData.forEach(r => entryDates.add(r.entry_date));
+      entriesData.forEach(r => entryDates.add(String(r.entry_date)));
+
       ct = entriesData.length;
     }
   } else {
