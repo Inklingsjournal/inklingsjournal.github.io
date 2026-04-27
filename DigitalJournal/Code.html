@@ -2899,11 +2899,17 @@ async function renderCal(type) {
   const entryDates = new Set();
   if (CUSTOMER_ID) {
     const monthStr = y + '-' + String(m+1).padStart(2,'0');
-    const { data: entriesData } = await sb.from('daily_entries')
-      .select('entry_date')
-      .eq('customer_id', CUSTOMER_ID)
-      .eq('entry_type', type)
-      .like('entry_date', monthStr + '%');
+    const startDate = y + '-' + String(m+1).padStart(2,'0') + '-01';
+const endDate   = m+1 === 12
+  ? (y+1) + '-01-01'
+  : y + '-' + String(m+2).padStart(2,'0') + '-01';
+
+const { data: entriesData } = await sb.from('daily_entries')
+  .select('entry_date')
+  .eq('customer_id', CUSTOMER_ID)
+  .eq('entry_type', type)
+  .gte('entry_date', startDate)
+  .lt('entry_date', endDate);
     if (entriesData) {
       entriesData.forEach(r => entryDates.add(r.entry_date));
       ct = entriesData.length;
