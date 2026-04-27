@@ -2914,7 +2914,10 @@ async function renderCal(type) {
     });
     ct = entryDates.size;
   }
-  document.getElementById(type + '-entry-ct').textContent = ct + (ct === 1 ? ' entry' : ' entries') + ' this month';
+  const monthStr2 = y + '-' + String(m+1).padStart(2,'0');
+const currentMonthCount = [...entryDates].filter(d => d.startsWith(monthStr2)).length;
+document.getElementById(type + '-entry-ct').textContent = currentMonthCount + (currentMonthCount === 1 ? ' entry' : ' entries') + ' this month';
+
 
   for (let i = offset-1; i >= 0; i--) grid.appendChild(makeCell(type, y, m-1, daysInPrev-i, today, true, entryDates));
   for (let d = 1; d <= daysInMonth; d++) grid.appendChild(makeCell(type, y, m, d, today, false, entryDates));
@@ -2938,7 +2941,7 @@ function makeCell(type, year, month, day, today, isOther, entryDates) {
     + (isFuture ? ' cal-future' : '')
     + (isToday ? ' cal-today' : '')
     + (isSel ? ' cal-sel' : '')
-    + (hasEntry && !isOther ? ' cal-has' : '');
+   + (hasEntry ? ' cal-has' : '');
   cell.innerHTML = '<span>' + day + '</span><div class="cal-dot"></div>';
   if (!isOther && !isFuture) {
     cell.addEventListener('click', () => { calSt[type].sel = ds; renderCal(type); openEntry(type, ds); });
