@@ -1460,7 +1460,7 @@ footer { padding: 48px 28px 28px; }
         <input type="email" class="newsletter-input" id="sub-email" placeholder="your@email.com">
         <button class="newsletter-btn" id="sub-btn" onclick="subscribeEmail()">Subscribe</button>
       </div>
-      <div class="newsletter-note" id="sub-note">You will receive a confirmation from hello@inklingsjournal.com. No spam, ever.</div>
+    <div class="newsletter-note" id="sub-note">Occasional writing on inner work. No noise, No spam.</div>
     </div>
   </div>
 </section>
@@ -1605,10 +1605,11 @@ async function subscribeEmail() {
     });
 
     document.getElementById('sub-email').value = '';
-    note.textContent = 'Almost there. Check your inbox to confirm your subscription.';
+        note.textContent = 'You\'re in the circle. Watch your inbox.';
     note.style.color = '#6e8060';
-    btn.textContent = 'Check your inbox';
-    btn.style.background = '#6e8060';
+    btn.textContent = 'You\'re subscribed ✦';
+    btn.style.background = '#445c38';
+
 
   } catch(err) {
     note.textContent = 'Something went wrong. Please write to hello@inklingsjournal.com.';
