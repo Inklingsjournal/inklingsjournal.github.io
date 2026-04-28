@@ -3615,24 +3615,23 @@ document.addEventListener('DOMContentLoaded', async () => {
   await renderCal('planner');
 
   // Streak init
-  if (CUSTOMER_ID) {
-    const { data } = await sb.from('streaks').select('days').eq('customer_id', CUSTOMER_ID).single();
-    if (data && data.days && data.days.length > 0) {
-      const streak = getConsecutiveStreak(data.days);
-      if (streak > 0) {
-        document.getElementById('streak-badge').style.display = 'inline-flex';
-        document.getElementById('streak-count').textContent = streak;
-      }
+    // Streak init — reads current streak without adding today's date
+  try {
+    let days = [];
+    if (CUSTOMER_ID) {
+      const { data } = await sb.from('streaks').select('days').eq('customer_id', CUSTOMER_ID).single();
+      days = (data && data.days) ? data.days : [];
+    } else {
+      const sd = JSON.parse(localStorage.getItem('inklings_streak') || '{"days":[]}');
+      days = sd.days || [];
     }
-  } else {
-    const sd = JSON.parse(localStorage.getItem('inklings_streak') || '{"days":[]}');
-    if (sd.days.length > 0) {
-      const streak = getConsecutiveStreak(sd.days);
-      if (streak > 0) {
-        document.getElementById('streak-badge').style.display = 'inline-flex';
-        document.getElementById('streak-count').textContent = streak;
-      }
+    const streak = getConsecutiveStreak(days);
+    if (streak > 0) {
+      document.getElementById('streak-badge').style.display = 'inline-flex';
+      document.getElementById('streak-count').textContent = streak;
     }
+  } catch(err) {
+    console.error('Streak init failed:', err);
   }
 
     document.getElementById('grp-roots').classList.add('open');
