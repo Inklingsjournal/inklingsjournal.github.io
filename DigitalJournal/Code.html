@@ -1426,7 +1426,7 @@ z-index: 40;
   <div class="page active" id="page-welcome">
     <div class="welcome-hero">
       <span class="welcome-leaf">✦</span>
-      <h1 class="page-title" style="font-size:46px;text-align:center">Your inner world,<br><em>in words.</em></h1>
+   <h1 class="page-title" style="font-size:46px;text-align:center">Welcome, <em id="welcome-name">to your inner world.</em></h1>
       <p class="welcome-sub">A guided space for self-reflection, mindfulness, and intentional living. Move through three interconnected parts at your own pace.</p>
     </div>
     <div class="welcome-cards">
@@ -1449,6 +1449,9 @@ z-index: 40;
         <div class="welcome-card-desc">Turn what you've learned into how you actually live, day by day.</div>
       </div>
     </div>
+    <div class="info-box" style="margin:24px 0;border-left:2px solid var(--sage-light);background:rgba(122,140,110,.06);text-align:left;">
+  <strong>A note before you begin.</strong> This journal invites honest reflection on your inner world. Some sections touch on difficult emotions, early memories, and parts of yourself that may feel tender. If anything brings up more than feels manageable, please pause and reach out to a mental health professional. This journal is a companion to self-understanding — not a replacement for professional care.
+</div>
     <div class="welcome-quote">This is not about fixing yourself. It is about understanding, honouring, and integrating the many parts of who you are.</div>
     <div style="text-align:center"><button class="start-btn" onclick="showPage('how-to-use',document.querySelector('[data-page=how-to-use]'))">Begin your journey →</button></div>
   </div>
@@ -3543,7 +3546,14 @@ function exportData() {
 
 // ══ INIT ══
 document.addEventListener('DOMContentLoaded', async () => {
-    await initCustomer();
+        await initCustomer();
+
+    // Personalise welcome page with user's name
+    const _session = JSON.parse(sessionStorage.getItem('inklings_session') || 'null');
+    if (_session && _session.name) {
+      const _nameEl = document.getElementById('welcome-name');
+      if (_nameEl) _nameEl.textContent = _session.name.split(' ')[0];
+    }
   await buildRolesTable();
   await buildCollage();
   await restoreCompleted();
