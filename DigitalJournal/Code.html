@@ -2418,8 +2418,7 @@ async function initCustomer() {
        if (!error && data) {
       CUSTOMER_ID = data;
 
-      // Warn user 5 minutes before session expires
-      const session = JSON.parse(sessionStorage.getItem('inklings_session') || 'null');
+           // Warn user 5 minutes before session expires
       if (session && session.expiry) {
         const msLeft = session.expiry - Date.now();
         if (msLeft > 0) {
@@ -2862,10 +2861,8 @@ function triggerSave() {
     }
   } catch(e) {}
 
-  saveTimer = setTimeout(() => {
-    saveStaticData();
-    dot.className = 'save-dot';
-    lbl.textContent = 'All saved';
+    saveTimer = setTimeout(async () => {
+    await saveStaticData();
   }, 600);
 }
 
