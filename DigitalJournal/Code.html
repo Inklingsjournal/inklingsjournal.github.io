@@ -2377,6 +2377,20 @@ z-index: 40;
 
 <script>
 
+ // ══ SESSION GUARD ══
+(function() {
+  try {
+    const s = JSON.parse(sessionStorage.getItem('inklings_session') || 'null');
+    if (!s || !s.email || Date.now() > s.expiry) {
+      sessionStorage.removeItem('inklings_session');
+      window.location.href = './Login.html';
+    }
+  } catch(e) {
+    window.location.href = './Login.html';
+  }
+})();
+ 
+
 // ══ SUPABASE SETUP ══
 const SUPABASE_URL  = "https://vqpyeebiornuymohbicz.supabase.co";
 const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZxcHllZWJpb3JudXltb2hiaWN6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0MTU1NDcsImV4cCI6MjA5MDk5MTU0N30.7XFzJu3JVJxE-GW4qsqKVbRkjq-KZIi1BUqcNtETKKM";
