@@ -2592,9 +2592,9 @@ function toggleGroup(id) {
 }
 
 function toggleSidebar() {
-  const sb = document.getElementById('sidebar');
+  const sidebarEl = document.getElementById('sidebar');
   const ov = document.getElementById('overlay');
-  sb.classList.toggle('open');
+  sidebarEl.classList.toggle('open');
   ov.classList.toggle('active');
 }
 
@@ -3073,17 +3073,23 @@ async function openEntry(type, ds) {
   dateEl.innerHTML = d + ' <span>' + MONTHS[m-1] + '</span> ' + y;
   let saved = null;
 if (CUSTOMER_ID) {
-  const { data } = await sb.from('daily_entries')
-    .select('content')
-    .eq('customer_id', CUSTOMER_ID)
-    .eq('entry_type', type)
-    .eq('entry_date', ds)
-    .single();
-  if (data) saved = JSON.stringify(data.content);
+  try {
+    const { data } = await sb.from('daily_entries')
+      .select('content')
+      .eq('customer_id', CUSTOMER_ID)
+      .eq('entry_type', type)
+      .eq('entry_date', ds)
+      .single();
+    if (data) saved = JSON.stringify(data.content);
+  } catch(err) {
+    // Fall back to localStorage
+    saved = localStorage.getItem(type + '_' + ds);
+  }
+  // If Supabase returned nothing, check localStorage
+  if (!saved) saved = localStorage.getItem(type + '_' + ds);
 } else {
   saved = localStorage.getItem(type + '_' + ds);
 }
-
   const badge = document.getElementById(type === 'mood' ? 'm-entry-badge' : 'p-entry-badge');
   badge.textContent = saved ? '✦ Existing entry' : '✦ New entry';
   badge.className = 'entry-badge ' + (saved ? 'exist-e' : 'new-e');
@@ -3244,9 +3250,9 @@ function attachDailySave(type, ds) {
     el.addEventListener('input', () => {
       dot.className = 'save-ind saving'; lbl.textContent = 'Saving…';
       clearTimeout(dTimers[type]);
-      dTimers[type] = setTimeout(() => {
-        if (type === 'mood') saveMoodEntry(ds);
-        if (type === 'planner') savePlannerEntry(ds);
+            dTimers[type] = setTimeout(async () => {
+        if (type === 'mood') await saveMoodEntry(ds);
+        if (type === 'planner') await savePlannerEntry(ds);
         dot.className = 'save-ind'; lbl.textContent = 'All saved';
       }, 600);
     });
