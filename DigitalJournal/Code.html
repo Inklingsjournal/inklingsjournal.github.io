@@ -3235,9 +3235,11 @@ function getConsecutiveStreak(days) {
   // streak must include today or yesterday to be active
   if (!sorted.includes(today) && !sorted.includes(yStr)) return 0;
   let streak = 1;
-  for (let i = sorted.length - 1; i > 0; i--) {
-    const a = new Date(sorted[i]), b = new Date(sorted[i-1]);
-    const diff = (a - b) / (1000 * 60 * 60 * 24);
+    for (let i = sorted.length - 1; i > 0; i--) {
+    // Use string arithmetic to avoid timezone issues
+    const a = new Date(sorted[i] + 'T12:00:00');
+    const b = new Date(sorted[i-1] + 'T12:00:00');
+    const diff = Math.round((a - b) / (1000 * 60 * 60 * 24));
     if (diff === 1) streak++; else break;
   }
   return streak;
