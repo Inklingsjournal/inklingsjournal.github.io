@@ -2406,8 +2406,23 @@ async function initCustomer() {
     if (!session || !session.email) { dbg('No session email'); return; }
     const { data, error } = await sb.rpc('get_customer_id', { p_email: session.email });
     dbg('RPC result: ' + JSON.stringify(data) + ' error: ' + JSON.stringify(error));
-    if (!error && data) CUSTOMER_ID = data;
+       if (!error && data) {
+      CUSTOMER_ID = data;
+
+      // Warn user 5 minutes before session expires
+      const session = JSON.parse(sessionStorage.getItem('inklings_session') || 'null');
+      if (session && session.expiry) {
+        const msLeft = session.expiry - Date.now();
+        if (msLeft > 0) {
+          setTimeout(() => {
+            const lbl = document.getElementById('save-label');
+            if (lbl) lbl.textContent = 'Session ending soon — please save and refresh';
+          }, Math.max(0, msLeft - 5 * 60 * 1000));
+        }
+      }
+    }
     dbg('CUSTOMER_ID set to: ' + CUSTOMER_ID);
+
 
   
 
@@ -2835,13 +2850,60 @@ function triggerSave() {
   }, 600);
 }
 
+let _saveFailCount = 0;
+let _syncRetryTimer = null;
+
 async function saveStaticData() {
   if (!CUSTOMER_ID) { saveStaticDataLocal(); return; }
+
+  // Always save locally first as instant backup
+  saveStaticDataLocal();
+
   const rows = [];
   document.querySelectorAll('textarea[id], input[type=text][id], input[id].g-inp, input[id].ca-inp, input[id].ec-body-inp, input[id].zone-input, input[id].fd-inp, input[id].intent-inp, input[id].ks-inp, input[id].name-inp, input[id].mood-inp').forEach(el => {
     if (el.id) rows.push({ customer_id: CUSTOMER_ID, field_id: el.id, content: el.value });
   });
-  await sb.from('journal_entries').upsert(rows, { onConflict: 'customer_id,field_id' });
+
+  try {
+    const { error } = await sb.from('journal_entries')
+      .upsert(rows, { onConflict: 'customer_id,field_id' });
+    if (error) throw error;
+
+    // Success — reset and clear any warning
+    _saveFailCount = 0;
+    clearTimeout(_syncRetryTimer);
+    const lbl = document.getElementById('save-label');
+    const dot = document.getElementById('save-dot');
+    if (lbl) lbl.textContent = 'All saved';
+    if (dot) dot.className = 'save-dot';
+
+  } catch(err) {
+    _saveFailCount++;
+    console.error('Save failed:', err);
+
+    if (_saveFailCount >= 3) {
+      const lbl = document.getElementById('save-label');
+      if (lbl) lbl.textContent = 'Writing saved on this device';
+    }
+
+    // Silent retry in 30 seconds
+    clearTimeout(_syncRetryTimer);
+    _syncRetryTimer = setTimeout(async () => {
+      try {
+        const { error } = await sb.from('journal_entries')
+          .upsert(rows, { onConflict: 'customer_id,field_id' });
+        if (!error) {
+          _saveFailCount = 0;
+          const lbl = document.getElementById('save-label');
+          const dot = document.getElementById('save-dot');
+          if (lbl) lbl.textContent = 'All saved';
+          if (dot) dot.className = 'save-dot';
+        }
+      } catch(e) {
+        // Still failing — data safe in localStorage
+      }
+    }, 30000);
+  }
 }
 
 function saveStaticDataLocal() {
