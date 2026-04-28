@@ -2653,17 +2653,23 @@ if (CUSTOMER_ID) {
 async function restoreCompleted() {
   let completedIds = [];
   if (CUSTOMER_ID) {
-    const { data } = await sb.from('completed_sections')
-      .select('section_id')
-      .eq('customer_id', CUSTOMER_ID);
-    if (data) {
-      completedIds = data.map(r => r.section_id);
-      // Sync to localStorage so updateProgress() always reads the right count
-      localStorage.setItem('inklings_completed', JSON.stringify(completedIds));
+    try {
+      const { data, error } = await sb.from('completed_sections')
+        .select('section_id')
+        .eq('customer_id', CUSTOMER_ID);
+      if (error) throw error;
+      if (data) {
+        completedIds = data.map(r => r.section_id);
+        localStorage.setItem('inklings_completed', JSON.stringify(completedIds));
+      }
+    } catch(err) {
+      console.error('Failed to load completed sections:', err);
+      completedIds = JSON.parse(localStorage.getItem('inklings_completed') || '[]');
     }
   } else {
     completedIds = JSON.parse(localStorage.getItem('inklings_completed') || '[]');
   }
+
   completedIds.forEach(id => {
     const bar = document.getElementById('complete-' + id);
     if (bar) {
@@ -3286,16 +3292,26 @@ async function updateStreak() {
   const t = todayStr();
   let days = [];
   if (CUSTOMER_ID) {
-    const { data } = await sb.from('streaks').select('days').eq('customer_id', CUSTOMER_ID).single();
-    days = (data && data.days) ? data.days : [];
-    if (!days.includes(t)) days.push(t);
-    await sb.from('streaks').upsert({ customer_id: CUSTOMER_ID, days }, { onConflict: 'customer_id' });
+    try {
+      const { data, error } = await sb.from('streaks').select('days').eq('customer_id', CUSTOMER_ID).single();
+      if (error) throw error;
+      days = (data && data.days) ? data.days : [];
+      if (!days.includes(t)) days.push(t);
+      await sb.from('streaks').upsert({ customer_id: CUSTOMER_ID, days }, { onConflict: 'customer_id' });
+    } catch(err) {
+      console.error('Streak update failed:', err);
+      const sd = JSON.parse(localStorage.getItem('inklings_streak') || '{"days":[]}');
+      days = sd.days;
+      if (!days.includes(t)) days.push(t);
+      localStorage.setItem('inklings_streak', JSON.stringify({ days }));
+    }
   } else {
     const sd = JSON.parse(localStorage.getItem('inklings_streak') || '{"days":[]}');
     days = sd.days;
     if (!days.includes(t)) days.push(t);
     localStorage.setItem('inklings_streak', JSON.stringify({ days }));
   }
+
   const streak = getConsecutiveStreak(days);
   const badge = document.getElementById('streak-badge');
   if (streak > 0) {
