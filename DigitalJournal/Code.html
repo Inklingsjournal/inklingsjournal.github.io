@@ -2843,12 +2843,23 @@ function triggerSave() {
   dot.className = 'save-dot saving';
   lbl.textContent = 'Saving…';
   clearTimeout(saveTimer);
+
+  // Extend session on every save — active users never expire
+  try {
+    const s = JSON.parse(sessionStorage.getItem('inklings_session') || 'null');
+    if (s) {
+      s.expiry = Date.now() + 24 * 3600000;
+      sessionStorage.setItem('inklings_session', JSON.stringify(s));
+    }
+  } catch(e) {}
+
   saveTimer = setTimeout(() => {
     saveStaticData();
     dot.className = 'save-dot';
     lbl.textContent = 'All saved';
   }, 600);
 }
+
 
 let _saveFailCount = 0;
 let _syncRetryTimer = null;
