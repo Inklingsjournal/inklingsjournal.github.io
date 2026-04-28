@@ -3574,17 +3574,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-  document.getElementById('grp-roots').classList.add('open');
-});
+    document.getElementById('grp-roots').classList.add('open');
 
   // Set closing letter date
-document.addEventListener('DOMContentLoaded', () => {
-  const el = document.getElementById('closing-letter-date');
-  if (el) {
-    const d = new Date();
-    el.textContent = d.toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' });
+  const dateEl = document.getElementById('closing-letter-date');
+  if (dateEl) {
+    dateEl.textContent = new Date().toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' });
   }
 });
+
+
+ 
 
   
 </script>
