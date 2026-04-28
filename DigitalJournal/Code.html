@@ -2632,8 +2632,11 @@ if (CUSTOMER_ID) {
   sb.from('completed_sections').upsert(
     { customer_id: CUSTOMER_ID, section_id: id },
     { onConflict: 'customer_id,section_id' }
-  );
+  ).then(({ error }) => {
+    if (error) console.error('Failed to save completion:', error);
+  });
 }
+
 
   updateProgress();
   updateStreak();
@@ -2933,16 +2936,23 @@ function saveStaticDataLocal() {
 
 async function loadStaticData() {
   if (!CUSTOMER_ID) { loadStaticDataLocal(); return; }
-  const { data, error } = await sb.from('journal_entries')
-    .select('field_id, content')
-    .eq('customer_id', CUSTOMER_ID);
-  if (data) {
-    data.forEach(({ field_id, content }) => {
-      const el = document.getElementById(field_id);
-      if (el && el.type !== 'checkbox') el.value = content || '';
-    });
+  try {
+    const { data, error } = await sb.from('journal_entries')
+      .select('field_id, content')
+      .eq('customer_id', CUSTOMER_ID);
+    if (error) throw error;
+    if (data) {
+      data.forEach(({ field_id, content }) => {
+        const el = document.getElementById(field_id);
+        if (el && el.type !== 'checkbox') el.value = content || '';
+      });
+    }
+  } catch(err) {
+    console.error('Load failed, falling back to localStorage:', err);
+    loadStaticDataLocal();
   }
 }
+
 
 function loadStaticDataLocal() {
   const data = JSON.parse(localStorage.getItem('inklings_static') || '{}');
@@ -3139,17 +3149,25 @@ function getMoodData() {
 }
 
 async function saveMoodEntry(ds) {
+  // Always save locally first as backup
+  localStorage.setItem('mood_' + ds, JSON.stringify(getMoodData()));
+
   if (CUSTOMER_ID) {
-    await sb.from('daily_entries').upsert(
-      { customer_id: CUSTOMER_ID, entry_type: 'mood', entry_date: ds, content: getMoodData() },
-      { onConflict: 'customer_id,entry_type,entry_date' }
-    );
-  } else {
-    localStorage.setItem('mood_' + ds, JSON.stringify(getMoodData()));
+    try {
+      const { error } = await sb.from('daily_entries').upsert(
+        { customer_id: CUSTOMER_ID, entry_type: 'mood', entry_date: ds, content: getMoodData() },
+        { onConflict: 'customer_id,entry_type,entry_date' }
+      );
+      if (error) throw error;
+    } catch(err) {
+      console.error('Mood save failed:', err);
+      // Data safe in localStorage — will show on this device
+    }
   }
   renderCal('mood');
   updateStreak();
 }
+
 
 // ── PLANNER ──
 function loadPlannerEntry(ds, savedJson) {
@@ -3197,17 +3215,24 @@ function getPlannerData() {
 }
 
 async function savePlannerEntry(ds) {
+  // Always save locally first as backup
+  localStorage.setItem('planner_' + ds, JSON.stringify(getPlannerData()));
+
   if (CUSTOMER_ID) {
-    await sb.from('daily_entries').upsert(
-      { customer_id: CUSTOMER_ID, entry_type: 'planner', entry_date: ds, content: getPlannerData() },
-      { onConflict: 'customer_id,entry_type,entry_date' }
-    );
-  } else {
-    localStorage.setItem('planner_' + ds, JSON.stringify(getPlannerData()));
+    try {
+      const { error } = await sb.from('daily_entries').upsert(
+        { customer_id: CUSTOMER_ID, entry_type: 'planner', entry_date: ds, content: getPlannerData() },
+        { onConflict: 'customer_id,entry_type,entry_date' }
+      );
+      if (error) throw error;
+    } catch(err) {
+      console.error('Planner save failed:', err);
+    }
   }
   renderCal('planner');
   updateStreak();
 }
+
 
 // ── DAILY SAVE ──
 const dTimers = {};
