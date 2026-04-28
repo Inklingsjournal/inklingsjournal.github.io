@@ -742,9 +742,15 @@ background: var(--white);
 border: 1px solid var(--line-light);
 border-radius: 10px;
 padding: 13px 15px;
+cursor: pointer;
+transition: transform .2s, box-shadow .2s;
 }
+.wyd-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(79,98,71,.12); }
+
 .wyd-num { font-family: ‘Cormorant Garamond’, serif; font-size: 24px; color: var(--sage-pale); line-height: 1; margin-bottom: 6px; }
 .wyd-text { font-size: 11.5px; color: var(--ink-mid); line-height: 1.65; font-weight: 300; }
+
+
 
 /* ── ROLES TABLE ── */
 .roles-table { width: 100%; border-collapse: collapse; margin-top: 6px; }
@@ -1484,10 +1490,10 @@ z-index: 40;
     <div class="divider"></div>
     <div class="chapter-banner"><p>This part takes about <strong>30–45 minutes</strong> in one sitting, or spread it across a few days. You can return to any exercise in this part any time you feel overwhelmed.</p></div>
     <div class="what-youll-do">
-      <div class="wyd-card"><div class="wyd-num">1</div><div class="wyd-text"><strong>Ground yourself first.</strong> A simple sense-based exercise to bring you into the present moment.</div></div>
-      <div class="wyd-card"><div class="wyd-num">2</div><div class="wyd-text"><strong>Check in honestly.</strong> Notice what emotions you're carrying, without judgement.</div></div>
-      <div class="wyd-card"><div class="wyd-num">3</div><div class="wyd-text"><strong>Find your safe place.</strong> Build an inner anchor you can return to whenever you need it.</div></div>
-      <div class="wyd-card"><div class="wyd-num">4</div><div class="wyd-text"><strong>Meet your compassionate voice.</strong> Create an inner figure who is always in your corner.</div></div>
+    <div class="wyd-card" onclick="showPage('grounding',document.querySelector('[data-page=grounding]'))" style="cursor:pointer"><div class="wyd-num">1</div><div class="wyd-text"><strong>Ground yourself first.</strong> A simple sense-based exercise to bring you into the present moment.</div></div>
+<div class="wyd-card" onclick="showPage('emotion-compass',document.querySelector('[data-page=emotion-compass]'))" style="cursor:pointer"><div class="wyd-num">2</div><div class="wyd-text"><strong>Check in honestly.</strong> Notice what emotions you're carrying, without judgement.</div></div>
+<div class="wyd-card" onclick="showPage('emotional-collage',document.querySelector('[data-page=emotional-collage]'))" style="cursor:pointer"><div class="wyd-num">3</div><div class="wyd-text"><strong>Find your safe place.</strong> Build an inner anchor you can return to whenever you need it.</div></div>
+<div class="wyd-card" onclick="showPage('compassion-figure',document.querySelector('[data-page=compassion-figure]'))" style="cursor:pointer"><div class="wyd-num">4</div><div class="wyd-text"><strong>Meet your compassionate voice.</strong> Create an inner figure who is always in your corner.</div></div>
     </div>
     <div style="text-align:center;margin-top:10px"><button class="start-btn" onclick="showPage('grounding',document.querySelector('[data-page=grounding]'))">Start Part I →</button></div>
   </div>
@@ -1619,10 +1625,10 @@ z-index: 40;
     <div class="divider"></div>
     <div class="chapter-banner"><p>If anything feels too heavy, <strong>pause</strong>. Return to your grounding exercise. Come back when you're ready. There's no deadline here.</p></div>
     <div class="what-youll-do" style="margin-top:18px">
-      <div class="wyd-card"><div class="wyd-num">→</div><div class="wyd-text"><strong>Where you came from.</strong> Your early years, your family, and the moments that shaped you.</div></div>
-      <div class="wyd-card"><div class="wyd-num">→</div><div class="wyd-text"><strong>Who you are now.</strong> Your life today, your energy, your roles, and the parts of yourself you're still learning.</div></div>
-      <div class="wyd-card"><div class="wyd-num">→</div><div class="wyd-text"><strong>What you're carrying.</strong> The unsaid things, the inner critic, and your relationship with your younger self.</div></div>
-      <div class="wyd-card"><div class="wyd-num">→</div><div class="wyd-text"><strong>What you want.</strong> Your dreams, your fears, and what you actually want your life to look like.</div></div>
+   <div class="wyd-card" onclick="showPage('ch1-early',document.querySelector('[data-page=ch1-early]'))" style="cursor:pointer"><div class="wyd-num">→</div><div class="wyd-text"><strong>Where you came from.</strong> Your early years, your family, and the moments that shaped you.</div></div>
+<div class="wyd-card" onclick="showPage('ch2-today',document.querySelector('[data-page=ch2-today]'))" style="cursor:pointer"><div class="wyd-num">→</div><div class="wyd-text"><strong>Who you are now.</strong> Your life today, your energy, your roles, and the parts of yourself you're still learning.</div></div>
+<div class="wyd-card" onclick="showPage('ch6-offload',document.querySelector('[data-page=ch6-offload]'))" style="cursor:pointer"><div class="wyd-num">→</div><div class="wyd-text"><strong>What you're carrying.</strong> The unsaid things, the inner critic, and your relationship with your younger self.</div></div>
+<div class="wyd-card" onclick="showPage('ch4-dreams',document.querySelector('[data-page=ch4-dreams]'))" style="cursor:pointer"><div class="wyd-num">→</div><div class="wyd-text"><strong>What you want.</strong> Your dreams, your fears, and what you actually want your life to look like.</div></div>
     </div>
     <div style="text-align:center;margin-top:14px"><button class="start-btn" onclick="showPage('ch1-early',document.querySelector('[data-page=ch1-early]'))">Begin Part II →</button></div>
   </div>
@@ -2063,9 +2069,9 @@ z-index: 40;
     <div class="divider"></div>
     <div class="chapter-banner"><p>The mood journal and daily planner are designed to be used <strong>every day</strong>. Even two or three minutes of honest check-in builds something meaningful over time.</p></div>
     <div class="what-youll-do" style="margin-top:18px">
-      <div class="wyd-card"><div class="wyd-num">→</div><div class="wyd-text"><strong>What's in my hands.</strong> Identify what you can and can't control, and make one clear decision.</div></div>
-      <div class="wyd-card"><div class="wyd-num">→</div><div class="wyd-text"><strong>Big &amp; small intentions.</strong> Set meaningful goals and the tiny daily steps that lead there.</div></div>
-      <div class="wyd-card"><div class="wyd-num">→</div><div class="wyd-text"><strong>Daily journals.</strong> Track your mood, practise gratitude, and plan your day with intention.</div></div>
+    <div class="wyd-card" onclick="showPage('circle-control',document.querySelector('[data-page=circle-control]'))" style="cursor:pointer"><div class="wyd-num">→</div><div class="wyd-text"><strong>What's in my hands.</strong> Identify what you can and can't control, and make one clear decision.</div></div>
+<div class="wyd-card" onclick="showPage('big-small',document.querySelector('[data-page=big-small]'))" style="cursor:pointer"><div class="wyd-num">→</div><div class="wyd-text"><strong>Big &amp; small intentions.</strong> Set meaningful goals and the tiny daily steps that lead there.</div></div>
+<div class="wyd-card" onclick="showPage('mood-journal',document.querySelector('[data-page=mood-journal]'))" style="cursor:pointer"><div class="wyd-num">→</div><div class="wyd-text"><strong>Daily journals.</strong> Track your mood, practise gratitude, and plan your day with intention.</div></div>
     </div>
     <div style="text-align:center;margin-top:14px"><button class="start-btn" onclick="showPage('circle-control',document.querySelector('[data-page=circle-control]'))">Begin Part III →</button></div>
   </div>
