@@ -931,7 +931,9 @@ function renderTable(customers) {
               <button class="action-btn" onclick="openAddonModal('${c.id}','${esc(c.name)}','${esc(c.email)}')">Add-ons</button>
               <button class="action-btn" onclick="copyPasskey('${esc(c.passkey)}','${esc(c.email)}')">Copy login</button>
 <button class="action-btn" onclick="resendCredentials('${esc(c.name)}','${esc(c.email)}','${esc(c.passkey)}')">Resend email</button>
+<button class="action-btn" style="color:#c0614a;border-color:#c0614a" onclick="resetPasskey('${c.id}','${esc(c.name)}','${esc(c.email)}')">Reset passkey</button>
 <button class="action-btn danger" onclick="deleteCustomer('${c.id}','${esc(c.name)}')">Delete</button>
+
 
             </td>
           </tr>
@@ -1070,6 +1072,41 @@ window.addEventListener('load', () => {
     if (e.key === 'Enter') adminLogin();
   });
 });
+async function resetPasskey(customerId, name, email) {
+  if (!confirm(`Reset passkey for ${email}?\n\nA new passkey will be generated and emailed to them automatically. Their old passkey will stop working immediately.`)) return;
+
+  try {
+    // Generate new passkey
+    const newPasskey = generatePasskey();
+
+    // Update in Supabase
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/customers?id=eq.${customerId}`, {
+      method: 'PATCH',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({ passkey: newPasskey })
+    });
+
+    if (!res.ok) throw new Error('Failed to update passkey in database');
+
+    // Send new welcome email
+    await sendWelcomeEmail(name, email, newPasskey);
+
+    showToast(`✦ New passkey sent to ${email}`, 'success');
+
+    // Refresh list
+    loadCustomers();
+
+  } catch(err) {
+    showToast('Reset failed: ' + err.message, 'error');
+  }
+}
+
+
 </script>
 
 </body>
