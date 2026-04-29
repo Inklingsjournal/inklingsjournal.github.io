@@ -1780,10 +1780,26 @@ z-index: 40;
     <p class="page-intro">We all show up differently in different parts of life. Rate how strongly each role resonates with you right now — 1 (not at all) to 5 (very strongly).</p>
     <div class="divider"></div>
     <table class="roles-table"><thead><tr><th>Role</th><th>What it means</th><th>How much it's you</th></tr></thead><tbody id="roles-tbody"></tbody></table>
-    <div class="prompt-block" style="margin-top:24px">
+        <div class="prompt-block" style="margin-top:24px">
       <p class="prompt-q">Which role resonates most right now? Is it helping you or holding you back in any way?</p>
       <textarea class="journal-area" id="ch3-und1" rows="5"></textarea>
     </div>
+
+    <div class="prompt-block">
+      <p class="prompt-q">Which role did you learn to play early in life — perhaps to survive, to be loved, or to belong? Do you still need it in the same way?</p>
+      <textarea class="journal-area" id="ch3-und2" rows="5"></textarea>
+    </div>
+
+    <div class="prompt-block">
+      <p class="prompt-q">Is there a role you rated low but secretly wish you could inhabit more fully? What gets in the way?</p>
+      <textarea class="journal-area" id="ch3-und3" rows="5"></textarea>
+    </div>
+
+    <div class="prompt-block">
+      <p class="prompt-q">Which role do others seem to need from you most — and how does that feel? Does it match who you actually are?</p>
+      <textarea class="journal-area" id="ch3-und4" rows="5"></textarea>
+    </div>
+
     <div class="complete-bar" id="complete-ch3-roles"><span class="complete-bar-text">Mark complete when you're ready</span><button class="complete-btn" onclick="markComplete('ch3-roles')">Mark complete</button></div>
   </div>
 
@@ -3364,7 +3380,12 @@ function exportData() {
     // Joys
     'ch2-joy1':'A moment of genuine joy','ch2-joy2':'Small things that feel good',
     // Roles
-    'ch3-und1':'The role that resonates most',
+    "ch3-und1":"The role that resonates most",
+    "ch3-und2":"The role learned early in life",
+    "ch3-und3":"The role I wish I could inhabit",
+    "ch3-und4":"The role others need from me",
+
+
     // Ideal self
     'ch3-ide1':'Qualities I see in myself','ch3-ide2':'Becoming that version',
     // Shadow
