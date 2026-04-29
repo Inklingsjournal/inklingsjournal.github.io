@@ -895,7 +895,7 @@ async function loadStats() {
   const { data: addons } = await sbFetch('customer_templates?select=id,template_id');
   const { data: coreTemplate } = await sbFetch('templates?select=id&slug=eq.core');
   const coreId = coreTemplate && coreTemplate[0] ? coreTemplate[0].id : null;
-  const addonCount = (addons||[]).filter(a => a.template_id !== coreId).length;
+  const addonCount = Array.isArray(addons) ? addons.filter(a => a.template_id !== coreId).length : 0;
 
   document.getElementById('stat-total').textContent = all.length;
   document.getElementById('stat-this-month').textContent = thisMonth.length;
