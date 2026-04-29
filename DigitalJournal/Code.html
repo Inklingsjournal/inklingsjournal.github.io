@@ -1554,6 +1554,10 @@ z-index: 40;
   <p class="prompt-q">Is this feeling familiar? Have you felt it many times before, in different situations? If so, when do you first remember feeling this way?</p>
   <textarea class="journal-area" id="ec-q5" rows="5" placeholder="This feeling feels old because..."></textarea>
 </div>
+    <div class="prompt-block">
+  <p class="prompt-q">Despite these difficult emotions, what are the constants in your life that bring some form of stability — people, places, practices, or parts of yourself that remain steady?</p>
+  <textarea class="journal-area" id="ec-q6" rows="5" placeholder="What holds, even when things feel heavy..."></textarea>
+</div>
     <div class="complete-bar" id="complete-emotion-compass"><span class="complete-bar-text">Mark complete when you're ready</span><button class="complete-btn" onclick="markComplete('emotion-compass')">Mark complete</button></div>
   </div>
 
@@ -3406,7 +3410,7 @@ function exportData() {
     // Emotion compass
     'ec-q1':'Emotions lately','ec-b1':'','ec-b2':'','ec-b3':'','ec-b4':'',
     'ec-q3':'What I need','ec-q4':'What I would say to a friend', 
-    'ec-q5':'When I first felt this way',
+    'ec-q5':'When I first felt this way', 'ec-q6':'Constants that bring stability',
     // Safe place
     'col-q1':'My safe place','col-q2':'Bringing safety into daily life',
     // Compassionate voice
