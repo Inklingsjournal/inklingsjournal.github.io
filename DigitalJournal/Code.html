@@ -1459,7 +1459,7 @@ z-index: 40;
   <strong>A note before you begin.</strong> This journal invites honest reflection on your inner world. Some sections touch on difficult emotions, early memories, and parts of yourself that may feel tender. If anything brings up more than feels manageable, please pause and reach out to a mental health professional. This journal is a companion to self-understanding, not a replacement for professional care.
 </div>
     <div class="welcome-quote">This is not about fixing yourself. It is about understanding, honouring, and integrating the many parts of who you are.</div>
-    <div style="text-align:center"><button class="start-btn" onclick="showPage('how-to-use',document.querySelector('[data-page=how-to-use]'))">Begin your journey →</button></div>
+  <div style="text-align:center"><button class="start-btn" id="journey-btn" onclick="showPage('how-to-use',document.querySelector('[data-page=how-to-use]'))">Begin your journey →</button></div>
   </div>
 
   <!-- ══ HOW TO USE ══ -->
@@ -3594,6 +3594,56 @@ function exportData() {
   };
 }
 
+  function getNextPage(completedIds) {
+  const ORDER = [
+    'how-to-use',
+    'grounding',
+    'emotion-compass',
+    'emotional-collage',
+    'compassion-figure',
+    'part1-pause',
+    'part2-intro',
+    'ch1-early',
+    'ch1-family',
+    'ch1-moments',
+    'ch1-pause',
+    'ch2-today',
+    'ch2-fills',
+    'ch2-joys',
+    'ch3-roles',
+    'ch3-ideal',
+    'ch3-shadow',
+    'ch2-pause',
+    'ch6-offload',
+    'ch6-critic',
+    'ch6-child',
+    'ch6-letter-younger',
+    'ch6-attachment',
+    'ch6-pause',
+    'ch4-dreams',
+    'ch4-vision',
+    'ch4-success',
+    'ch4-legacy',
+    'ch4-pause',
+    'ch5-insights',
+    'ch5-final',
+    'part3-intro',
+    'circle-control',
+    'big-small',
+    'mood-journal',
+    'intention-planner',
+    'closing'
+  ];
+
+  let lastIndex = -1;
+  ORDER.forEach((page, i) => {
+    if (completedIds.includes(page)) lastIndex = i;
+  });
+
+  if (lastIndex === -1 || lastIndex >= ORDER.length - 1) return 'how-to-use';
+  return ORDER[lastIndex + 1];
+}
+
 // ══ INIT ══
 document.addEventListener('DOMContentLoaded', async () => {
   await initCustomer();
@@ -3635,6 +3685,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
     document.getElementById('grp-roots').classList.add('open');
+
+    // Continue journey button
+  const _completed = JSON.parse(localStorage.getItem('inklings_completed') || '[]');
+  const _journeyBtn = document.getElementById('journey-btn');
+  if (_journeyBtn && _completed.length > 0) {
+    const _nextPage = getNextPage(_completed);
+    _journeyBtn.textContent = 'Continue your journey →';
+    _journeyBtn.onclick = () => showPage(_nextPage, document.querySelector('[data-page=' + _nextPage + ']'));
+  }
 
   // Set closing letter date
   const dateEl = document.getElementById('closing-letter-date');
