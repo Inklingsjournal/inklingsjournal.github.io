@@ -307,28 +307,29 @@ async function sendForgotPasskey() {
   msg.style.color = '#6e8060';
   msg.textContent = 'Checking your account…';
 
-  try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/customers?email=eq.${encodeURIComponent(email)}&select=name,passkey,access_expires_at`, {
-      headers: {
-        'apikey': SUPABASE_ANON,
-        'Authorization': 'Bearer ' + SUPABASE_ANON
+      try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/get_passkey_for_email`, {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_ANON,
+          'Authorization': 'Bearer ' + SUPABASE_ANON,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ p_email: email })
+      });
+      const customer = await res.json();
+
+      if (!customer || !customer.found) {
+        msg.textContent = 'If this email is registered, your passkey has been sent.';
+        return;
       }
-    });
-    const data = await res.json();
 
-    // Always show same message — don't reveal if email exists
-    if (!data || data.length === 0) {
-      msg.textContent = 'If this email is registered, your passkey has been sent.';
-      return;
-    }
+      if (customer.expired) {
+        msg.style.color = '#c0614a';
+        msg.textContent = 'Your access has expired. Please renew to continue.';
+        return;
+      }
 
-    const customer = data[0];
-
-    if (new Date(customer.access_expires_at) < new Date()) {
-      msg.style.color = '#c0614a';
-      msg.textContent = 'Your access has expired. Please renew to continue.';
-      return;
-    }
 
     await fetch(`${SUPABASE_URL}/functions/v1/resend-email`, {
       method: 'POST',
