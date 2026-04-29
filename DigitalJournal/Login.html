@@ -294,9 +294,21 @@ function toggleEye() {
 }
 
 async function sendForgotPasskey() {
-  const email = document.getElementById('forgotEmail').value.trim().toLowerCase();
-  const msg   = document.getElementById('forgot-msg');
+  const lastSent = localStorage.getItem('inklings_forgot_sent');
+  const now = Date.now();
+  const oneDayMs = 24 * 60 * 60 * 1000;
+
+  const msg = document.getElementById('forgot-msg');
   msg.style.display = 'block';
+
+  if (lastSent && (now - parseInt(lastSent)) < oneDayMs) {
+    const hoursLeft = Math.ceil((oneDayMs - (now - parseInt(lastSent))) / 3600000);
+    msg.style.color = '#c0614a';
+    msg.textContent = `Your passkey was already sent. You can request again in ${hoursLeft} hour${hoursLeft === 1 ? '' : 's'}, or write to hello@inklingsjournal.com`;
+    return;
+  }
+
+  const email = document.getElementById('forgotEmail').value.trim().toLowerCase();
 
   if (!email || !email.includes('@')) {
     msg.style.color = '#c0614a';
@@ -307,29 +319,30 @@ async function sendForgotPasskey() {
   msg.style.color = '#6e8060';
   msg.textContent = 'Checking your account…';
 
-      try {
-      const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/get_passkey_for_email`, {
-        method: 'POST',
-        headers: {
-          'apikey': SUPABASE_ANON,
-          'Authorization': 'Bearer ' + SUPABASE_ANON,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ p_email: email })
-      });
-      const customer = await res.json();
+  localStorage.setItem('inklings_forgot_sent', now.toString());
 
-      if (!customer || !customer.found) {
-        msg.textContent = 'If this email is registered, your passkey has been sent.';
-        return;
-      }
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/get_passkey_for_email`, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_ANON,
+        'Authorization': 'Bearer ' + SUPABASE_ANON,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ p_email: email })
+    });
+    const customer = await res.json();
 
-      if (customer.expired) {
-        msg.style.color = '#c0614a';
-        msg.textContent = 'Your access has expired. Please renew to continue.';
-        return;
-      }
+    if (!customer || !customer.found) {
+      msg.textContent = 'If this email is registered, your passkey has been sent.';
+      return;
+    }
 
+    if (customer.expired) {
+      msg.style.color = '#c0614a';
+      msg.textContent = 'Your access has expired. Please renew to continue.';
+      return;
+    }
 
     await fetch(`${SUPABASE_URL}/functions/v1/resend-email`, {
       method: 'POST',
