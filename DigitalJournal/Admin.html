@@ -876,8 +876,9 @@ async function loadCustomers() {
 }
 
 async function loadStats() {
-  const { data: all } = await sbFetch('customers?select=id,created_at');
-  if (!all) return;
+  try {
+    const { data: all } = await sbFetch('customers?select=id,created_at');
+    if (!all) return;
   
   const now = new Date();
   const thisMonth = all.filter(c => {
@@ -899,7 +900,10 @@ async function loadStats() {
   document.getElementById('stat-total').textContent = all.length;
   document.getElementById('stat-this-month').textContent = thisMonth.length;
   document.getElementById('stat-active').textContent = uniqueActive;
-  document.getElementById('stat-addons').textContent = addonCount;
+      document.getElementById('stat-addons').textContent = addonCount;
+  } catch(err) {
+    console.error('loadStats failed:', err);
+  }
 }
 
 function renderTable(customers) {
