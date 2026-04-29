@@ -2960,7 +2960,7 @@ async function saveStaticData() {
   saveStaticDataLocal();
 
   const rows = [];
-  document.querySelectorAll('textarea[id], input[type=text][id], input[id].g-inp, input[id].ca-inp, input[id].ec-body-inp, input[id].zone-input, input[id].fd-inp, input[id].intent-inp, input[id].ks-inp, input[id].name-inp, input[id].mood-inp').forEach(el => {
+  document.querySelectorAll('textarea[id], input[type=text][id], input[id].g-inp, input[id].ca-inp, input[id].ec-body-inp, input[id].zone-input, input[id].fd-inp, input[id].intent-inp, input[id].ks-inp, input[id].name-inp, input[id].mood-inp, input[type=checkbox][id^=ch6-care]').forEach(el => {
     if (el.id) rows.push({ customer_id: CUSTOMER_ID, field_id: el.id, content: el.value });
   });
 
@@ -3008,9 +3008,13 @@ async function saveStaticData() {
 
 function saveStaticDataLocal() {
   const data = {};
-  document.querySelectorAll('textarea[id], input[type=text][id], input[id].g-inp, input[id].ca-inp, input[id].ec-body-inp, input[id].zone-input, input[id].fd-inp, input[id].intent-inp, input[id].ks-inp, input[id].name-inp, input[id].mood-inp').forEach(el => {
-    if (el.id) data[el.id] = el.value;
+    document.querySelectorAll('textarea[id], input[type=text][id]...').forEach(el => {
+    if (el.id) {
+      const content = el.type === 'checkbox' ? (el.checked ? 'true' : 'false') : el.value;
+      rows.push({ customer_id: CUSTOMER_ID, field_id: el.id, content });
+    }
   });
+
   localStorage.setItem('inklings_static', JSON.stringify(data));
 }
 
@@ -3021,10 +3025,12 @@ async function loadStaticData() {
       .select('field_id, content')
       .eq('customer_id', CUSTOMER_ID);
     if (error) throw error;
-    if (data) {
+        if (data) {
       data.forEach(({ field_id, content }) => {
         const el = document.getElementById(field_id);
-        if (el && el.type !== 'checkbox') el.value = content || '';
+        if (!el) return;
+        if (el.type === 'checkbox') el.checked = content === 'true';
+        else el.value = content || '';
       });
     }
   } catch(err) {
@@ -3200,7 +3206,7 @@ function closeEntry(type) {
 // ── MOOD ──
 function loadMoodEntry(ds, savedJson) {
   const data = savedJson ? JSON.parse(savedJson) : {};
-  ['m-feeling','m-thoughts','m-elevate','m-grat1','m-grat2','m-grat3','m-affirmation','m-remember'].forEach(id => {
+  ['m-feeling','m-thoughts','m-trigger','m-elevate','m-grat1','m-grat2','m-grat3','m-affirmation','m-remember'].forEach(id => {
     const key = id.replace('m-', '');
     const el = document.getElementById(id);
     if (el) el.value = data[key] || '';
@@ -3225,6 +3231,7 @@ function getMoodData() {
     feeling: document.getElementById('m-feeling').value,
     intensity: document.getElementById('m-intensity').querySelectorAll('.int-dot.on').length,
     thoughts: document.getElementById('m-thoughts').value,
+    trigger: document.getElementById('m-trigger') ? document.getElementById('m-trigger').value : '',
     elevate: document.getElementById('m-elevate').value,
     grat1: document.getElementById('m-grat1').value,
     grat2: document.getElementById('m-grat2').value,
@@ -3512,7 +3519,7 @@ function exportData() {
 
   const SECTIONS = [
     { heading: 'Part I · Grounding', ids: ['g-see1','g-see2','g-see3','g-see4','g-see5','g-tou1','g-tou2','g-tou3','g-tou4','g-hea1','g-hea2','g-hea3','g-sme1','g-sme2','g-tas1','g-after'] },
-    { heading: 'Part I · How I Am, Really', ids: ['ec-q1','ec-b1','ec-b2','ec-b3','ec-b4','ec-q3','ec-q4'] },
+    { heading: 'Part I · How I Am, Really', ids: ['ec-q1','ec-b1','ec-b2','ec-b3','ec-b4','ec-q3','ec-q4','ec-q5','ec-q6'] },
     { heading: 'Part I · My Safe Place', ids: ['col-q1','col-q2'] },
     { heading: 'Part I · My Compassionate Voice', ids: ['ch6-com-name','ch6-com1','ch6-lp1'] },
     { heading: 'Part I · Reflection', ids: ['p1-pause1','p1-pause2'] },
@@ -3522,12 +3529,12 @@ function exportData() {
     { heading: 'Part II · My Life Today', ids: ['ch2-tod1','ch2-tod2'] },
     { heading: 'Part II · What Fills and Drains Me', ids: ['f1','f2','f3','f4','f5','d1','d2','d3','d4','d5','ch2-fills-q'] },
     { heading: 'Part II · Small Joys', ids: ['ch2-joy1','ch2-joy2'] },
-    { heading: 'Part II · The Roles I Play', ids: ['ch3-und1'] },
+    { heading: 'Part II · The Roles I Play', ids: ['ch3-und1','ch3-und2','ch3-und3','ch3-und4'] },
     { heading: 'Part II · A Version I Admire', ids: ['ch3-ide1','ch3-ide2'] },
     { heading: 'Part II · The Part That Is Hard to Show', ids: ['ch3-sha2','ch3-sha-reply','ch2-pause1'] },
     { heading: 'Part II · What I Needed to Say', ids: ['ch6-off1'] },
     { heading: 'Part II · The Voice in My Head', ids: ['ch6-cri1','ch6-cri2'] },
-    { heading: 'Part II · My Younger Self', ids: ['ch6-chi1','ch6-chi2'] },
+    { heading: 'Part II · My Younger Self', ids: ['ch6-chi1','ch6-chi2','ch6-chi3','ch6-chi4','ch6-care1-text','ch6-care2-text','ch6-care3-text','ch6-care4-text','ch6-care5-text'] },
     { heading: 'Part II · A Letter to the Child I Was', ids: ['ch6-ly1'] },
     { heading: 'Part II · How I Love and Let People In', ids: ['ch6-att1','ch6-att2','ch6-att3','ch6-att4','ch6-att5','ch6-att6','ch6-pause1'] },
     { heading: 'Part II · Dreams', ids: ['ch4-dre1','ch4-dre2'] },
