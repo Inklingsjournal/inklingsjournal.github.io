@@ -2367,13 +2367,11 @@ z-index: 40;
     <div class="mood-box"><div class="mood-lbl">Today I feel</div><input class="mood-inp" id="m-feeling" placeholder="Name the feeling..."><div style="margin-top:11px"><div class="mood-lbl">Intensity</div><div class="int-dots" id="m-intensity"></div><div class="int-labels"><span>Mild</span><span>Moderate</span><span>Intense</span></div></div></div>
     <div class="mood-box"><div class="mood-lbl">What's on my mind</div><textarea class="aff-ta" id="m-thoughts" style="min-height:78px;border:none;background:transparent;font-family:Jost,sans-serif;font-size:12px;font-weight:300;color:var(--ink);resize:none;outline:none;width:100%" placeholder="Free write anything..."></textarea></div>
   </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
-    <div style="background:var(--cream);border-radius:10px;padding:14px 16px;">
-      <div style="font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);font-weight:500;margin-bottom:8px;">What triggered this feeling?</div>
-      <input class="mood-inp" id="m-trigger" placeholder="A situation, a person, a thought..." style="background:transparent;border:none;border-bottom:1px solid var(--line);border-radius:0;padding:4px 0;width:100%;">
-    </div>
-    <div style="background:var(--cream);border-radius:10px;padding:14px 16px;">
-      <div style="font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);font-weight:500;margin-bottom:8px;">What would help me feel better?</div>
+     <div class="prompt-block">
+  <p style="font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);font-weight:500;margin-bottom:9px">What triggered this feeling?</p>
+  <input class="mood-inp" id="m-trigger" placeholder="A situation, a person, a thought...">
+</div>
+  <div class="prompt-block"><p style="font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);font-weight:500;margin-bottom:9px">What would help me feel a little better today?</p><textarea class="journal-area" id="m-elevate" rows="3" placeholder="One small thing..."></textarea></div>
       <textarea class="journal-area" id="m-elevate" rows="2" placeholder="One small thing..." style="background:transparent;border:none;border-bottom:1px solid var(--line);border-radius:0;padding:4px 0;resize:none;width:100%;min-height:auto;"></textarea>
     </div>
   </div>
