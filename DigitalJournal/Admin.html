@@ -903,7 +903,10 @@ async function loadStats() {
       document.getElementById('stat-addons').textContent = addonCount;
   } catch(err) {
     console.error('loadStats failed:', err);
+    document.getElementById('stat-total').textContent = 'ERR';
+    showToast('Stats error: ' + err.message, 'error');
   }
+
 }
 
 function renderTable(customers) {
