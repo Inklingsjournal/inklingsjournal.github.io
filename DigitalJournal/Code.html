@@ -3014,8 +3014,12 @@ function saveStaticDataLocal() {
   document.querySelectorAll('textarea[id], input[type=text][id], input[id].g-inp, input[id].ca-inp, input[id].ec-body-inp, input[id].zone-input, input[id].fd-inp, input[id].intent-inp, input[id].ks-inp, input[id].name-inp, input[id].mood-inp').forEach(el => {
     if (el.id) data[el.id] = el.value;
   });
+  document.querySelectorAll('input[type=checkbox][id^=ch6-care]').forEach(el => {
+    if (el.id) data[el.id] = el.checked ? 'true' : 'false';
+  });
   localStorage.setItem('inklings_static', JSON.stringify(data));
 }
+
 
 async function loadStaticData() {
   if (!CUSTOMER_ID) { loadStaticDataLocal(); return; }
@@ -3057,6 +3061,7 @@ function attachStaticSave() {
     el.addEventListener('change', triggerSave);
   });
 }
+
 
 
 // ══ CALENDAR ══
@@ -3527,7 +3532,7 @@ function exportData() {
     { heading: 'Part I · How I Am, Really', ids: ['ec-q1','ec-b1','ec-b2','ec-b3','ec-b4','ec-q3','ec-q4','ec-q5','ec-q6'] },
     { heading: 'Part I · My Safe Place', ids: ['col-q1','col-q2'] },
     { heading: 'Part I · My Compassionate Voice', ids: ['ch6-com-name','ch6-com1','ch6-lp1'] },
-    { heading: 'Part I · Reflection', ids: ['p1-pause1','p1-pause2'] },
+    { heading: 'Part I · Reflection', ids: ['p1-pause1'] },
     { heading: 'Part II · Early Impressions', ids: ['ch1-q1','ch1-q2'] },
     { heading: 'Part II · Family and Love', ids: ['ch1-fam1','ch1-fam2'] },
     { heading: 'Part II · A Moment That Stayed', ids: ['ch1-mom1','ch1-mom2','ch1-pause1'] },
