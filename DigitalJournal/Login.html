@@ -128,7 +128,23 @@ body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);min-
 <a class="buy-btn" href="./Purchase.html"> 
   ✦ Get Inklings Journal <span class="price-pill"></span>
 </a>
-<p class="help-row">Purchased but no email? <a href="mailto:hello@inklingsjournal.com">Contact support</a></p>
+<p class="help-row">Forgot your passkey? <a href="#" onclick="showForgotForm();return false;">Send it to my email</a></p>
+<div id="forgot-panel" style="display:none;margin-top:16px;">
+  <div class="field-label">Your email address</div>
+  <input class="field-input" id="forgotEmail" type="email" placeholder="you@example.com">
+  <button class="submit-btn" style="margin-top:12px;width:100%" onclick="sendForgotPasskey()">Send my passkey →</button>
+  <p id="forgot-msg" style="text-align:center;font-size:13px;margin-top:12px;color:#6e8060;display:none"></p>
+</div>
+<p class="help-row">Forgot your passkey? <a href="#" onclick="showForgotForm();return false;">Send it to my email</a></p>
+<div id="forgot-panel" style="display:none;margin-top:16px;">
+  <div class="field-label">Your email address</div>
+  <input class="field-input" id="forgotEmail" type="email" placeholder="you@example.com">
+  <button class="submit-btn" style="margin-top:12px;width:100%" onclick="sendForgotPasskey()">Send my passkey →</button>
+  <p id="forgot-msg" style="text-align:center;font-size:13px;margin-top:12px;color:#6e8060;display:none"></p>
+</div>
+<p class="help-row" style="margin-top:8px;">Purchased but no email? <a href="mailto:hello@inklingsjournal.com">Contact support</a></p>
+
+
 ```
 
   </div>
@@ -279,6 +295,69 @@ function toggleEye() {
     ? '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>'
     : '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
 }
+  function showForgotForm() {
+  const panel = document.getElementById('forgot-panel');
+  panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+}
+
+async function sendForgotPasskey() {
+  const email = document.getElementById('forgotEmail').value.trim().toLowerCase();
+  const msg   = document.getElementById('forgot-msg');
+  msg.style.display = 'block';
+
+  if (!email || !email.includes('@')) {
+    msg.style.color = '#c0614a';
+    msg.textContent = 'Please enter a valid email address.';
+    return;
+  }
+
+  msg.style.color = '#6e8060';
+  msg.textContent = 'Checking your account…';
+
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/customers?email=eq.${encodeURIComponent(email)}&select=name,passkey,access_expires_at`, {
+      headers: {
+        'apikey': SUPABASE_ANON,
+        'Authorization': 'Bearer ' + SUPABASE_ANON
+      }
+    });
+    const data = await res.json();
+
+    // Always show same message — don't reveal if email exists
+    if (!data || data.length === 0) {
+      msg.textContent = 'If this email is registered, your passkey has been sent.';
+      return;
+    }
+
+    const customer = data[0];
+
+    if (new Date(customer.access_expires_at) < new Date()) {
+      msg.style.color = '#c0614a';
+      msg.textContent = 'Your access has expired. Please renew to continue.';
+      return;
+    }
+
+    await fetch(`${SUPABASE_URL}/functions/v1/resend-email`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + SUPABASE_ANON
+      },
+      body: JSON.stringify({
+        name:    customer.name,
+        email:   email,
+        passkey: customer.passkey
+      })
+    });
+
+    msg.textContent = 'If this email is registered, your passkey has been sent.';
+
+  } catch(err) {
+    msg.style.color = '#c0614a';
+    msg.textContent = 'Something went wrong. Please write to hello@inklingsjournal.com';
+  }
+}
+
 </script>
 
 </body>
