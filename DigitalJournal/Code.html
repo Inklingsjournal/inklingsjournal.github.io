@@ -3053,7 +3053,11 @@ function attachStaticSave() {
   document.querySelectorAll('textarea, input[type=text], input.g-inp, input.ca-inp, input.ec-body-inp, input.zone-input, input.fd-inp, input.intent-inp, input.ks-inp, input.name-inp, input.mood-inp').forEach(el => {
     el.addEventListener('input', triggerSave);
   });
+  document.querySelectorAll('input[type=checkbox][id^=ch6-care]').forEach(el => {
+    el.addEventListener('change', triggerSave);
+  });
 }
+
 
 // ══ CALENDAR ══
 const calSt = {
