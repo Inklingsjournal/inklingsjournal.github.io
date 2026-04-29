@@ -1895,16 +1895,62 @@ z-index: 40;
     <p class="page-intro">Within you lives a younger version of yourself, still carrying some of the fears, hopes, and needs that never quite got met.</p>
     <div class="info-box"><strong>Go gently.</strong> Take three slow breaths before you begin. Pause any time you need to. Your compassionate voice from Part I is always there for you.</div>
     <div class="divider"></div>
+
     <div class="prompt-block">
       <p class="prompt-q">Close your eyes and picture yourself as a child, around 5 to 10 years old. Describe what you see. What are they wearing? Where are they? How do they look?</p>
       <textarea class="journal-area" id="ch6-chi1" rows="5"></textarea>
     </div>
+
     <div class="prompt-block">
       <p class="prompt-q">Write in that child's voice. What could they never quite say out loud?<br><em>I need… &nbsp; I feel… &nbsp; I wish…</em></p>
       <textarea class="journal-area" id="ch6-chi2" rows="6" placeholder="I need... I feel... I wish..."></textarea>
     </div>
+
+    <div class="prompt-block">
+      <p class="prompt-q">Write a short message to your child self, offering them comfort and support as a loving parent would.</p>
+      <textarea class="journal-area" id="ch6-chi3" rows="6"></textarea>
+    </div>
+
+    <div class="prompt-block">
+      <p class="prompt-q">How do they react hearing this message? What are they feeling now?</p>
+      <textarea class="journal-area" id="ch6-chi4" rows="5"></textarea>
+    </div>
+
+    <div class="prompt-block">
+      <p class="prompt-q">Write small things you will do as an adult to care for your child self daily.</p>
+      <div class="info-box" style="font-size:13px;margin-bottom:16px;font-style:italic;">e.g., Speaking kind affirmations, Setting a boundary to protect yourself</div>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:8px;">
+        <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink-mid);">
+          <input type="checkbox" id="ch6-care1" style="width:16px;height:16px;accent-color:var(--sage-dark);flex-shrink:0;">
+          <span style="min-width:140px;">Affirmations</span>
+          <input type="text" id="ch6-care1-text" class="ca-inp" placeholder="What will you say to yourself..." style="flex:1;border:none;border-bottom:1px solid var(--line);background:transparent;padding:4px 0;font-size:13px;font-family:inherit;outline:none;">
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink-mid);">
+          <input type="checkbox" id="ch6-care2" style="width:16px;height:16px;accent-color:var(--sage-dark);flex-shrink:0;">
+          <span style="min-width:140px;">Validation</span>
+          <input type="text" id="ch6-care2-text" class="ca-inp" placeholder="How will you validate yourself..." style="flex:1;border:none;border-bottom:1px solid var(--line);background:transparent;padding:4px 0;font-size:13px;font-family:inherit;outline:none;">
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink-mid);">
+          <input type="checkbox" id="ch6-care3" style="width:16px;height:16px;accent-color:var(--sage-dark);flex-shrink:0;">
+          <span style="min-width:140px;">Appreciation</span>
+          <input type="text" id="ch6-care3-text" class="ca-inp" placeholder="What will you appreciate about yourself..." style="flex:1;border:none;border-bottom:1px solid var(--line);background:transparent;padding:4px 0;font-size:13px;font-family:inherit;outline:none;">
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink-mid);">
+          <input type="checkbox" id="ch6-care4" style="width:16px;height:16px;accent-color:var(--sage-dark);flex-shrink:0;">
+          <span style="min-width:140px;">Set boundaries</span>
+          <input type="text" id="ch6-care4-text" class="ca-inp" placeholder="What boundary will you set..." style="flex:1;border:none;border-bottom:1px solid var(--line);background:transparent;padding:4px 0;font-size:13px;font-family:inherit;outline:none;">
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink-mid);">
+          <input type="checkbox" id="ch6-care5" style="width:16px;height:16px;accent-color:var(--sage-dark);flex-shrink:0;">
+          <span style="min-width:140px;">Joyful / soothing activity</span>
+          <input type="text" id="ch6-care5-text" class="ca-inp" placeholder="What will bring you joy or calm..." style="flex:1;border:none;border-bottom:1px solid var(--line);background:transparent;padding:4px 0;font-size:13px;font-family:inherit;outline:none;">
+        </label>
+      </div>
+    </div>
+
     <div class="complete-bar" id="complete-ch6-child"><span class="complete-bar-text">Mark complete when you're ready</span><button class="complete-btn" onclick="markComplete('ch6-child')">Mark complete</button></div>
   </div>
+
 
   <!-- ══ LETTER TO CHILD ══ -->
 
@@ -3398,6 +3444,14 @@ function exportData() {
     'ch6-cri1':'The critical voice','ch6-cri2':'A kinder perspective',
     // Child
     'ch6-chi1':'My younger self','ch6-chi2':'What they could never say',
+    'ch6-chi3':'Message to my child self',
+    'ch6-chi4':'How my child self reacts',
+    'ch6-care1-text':'Affirmations',
+    'ch6-care2-text':'Validation',
+    'ch6-care3-text':'Appreciation',
+    'ch6-care4-text':'Set boundaries',
+    'ch6-care5-text':'Joyful activity',
+
     // Letter
     'ch6-ly1':'Letter to the child I was',
     // Attachment
