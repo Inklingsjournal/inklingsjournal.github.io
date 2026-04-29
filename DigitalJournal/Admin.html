@@ -870,7 +870,7 @@ async function sendWelcomeEmail(name, email, passkey) {
 let allCustomers = [];
 
 async function loadCustomers() {
-  const { data } = await sbFetch('customers?select=id,email,name,passkey,created_at&order=created_at.desc');
+ const { data } = await sbFetch('customers?select=id,email,name,passkey,created_at,is_active&order=created_at.desc');
   allCustomers = data || [];
   renderTable(allCustomers);
 }
@@ -932,7 +932,11 @@ function renderTable(customers) {
               <button class="action-btn" onclick="copyPasskey('${esc(c.passkey)}','${esc(c.email)}')">Copy login</button>
 <button class="action-btn" onclick="resendCredentials('${esc(c.name)}','${esc(c.email)}','${esc(c.passkey)}')">Resend email</button>
 <button class="action-btn" style="color:#c0614a;border-color:#c0614a" onclick="resetPasskey('${c.id}','${esc(c.name)}','${esc(c.email)}')">Reset passkey</button>
-<button class="action-btn danger" onclick="deleteCustomer('${c.id}','${esc(c.name)}')">Delete</button>
+${c.is_active === false
+  ? `<button class="action-btn" style="color:#6e8060;border-color:#6e8060" onclick="restoreCustomer('${c.id}','${esc(c.name)}')">Restore</button>`
+  : `<button class="action-btn danger" onclick="deleteCustomer('${c.id}','${esc(c.name)}')">Deactivate</button>`
+}
+
 
 
             </td>
@@ -994,23 +998,49 @@ async function grantAddon(slug, templateName) {
   openAddonModal(currentCustomerId, data[0].name, data[0].email);
 }
 
-function closeAddonModal() {
-  document.getElementById('addonModal').classList.remove('active');
-  currentCustomerId = null;
+async function deleteCustomer(customerId, name) {
+  if (!confirm(`Deactivate ${name}?\n\nThey will lose access but their journal data is preserved. You can restore them anytime.`)) return;
+
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/customers?id=eq.${customerId}`, {
+      method: 'PATCH',
+      headers: {
+        'apikey': SUPABASE_ANON,
+        'Authorization': 'Bearer ' + SUPABASE_ANON,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({ is_active: false })
+    });
+
+    if (!res.ok) throw new Error('Failed to deactivate customer');
+
+    showToast(`${name} deactivated — data preserved`, 'success');
+    loadCustomers();
+
+  } catch(err) {
+    showToast('Failed: ' + err.message, 'error');
+  }
 }
 
-  async function deleteCustomer(id, name) {
-  if (!confirm('Delete ' + name + '? This permanently removes all their data.')) return;
-  const { ok } = await sbFetch('customers?id=eq.' + id, {
-    method: 'DELETE',
-    headers: { 'Prefer': 'return=minimal' }
-  });
-  if (ok) {
-    showToast(name + ' deleted', 'success');
-    await loadCustomers();
-    await loadStats();
-  } else {
-    showToast('Delete failed', 'error');
+async function restoreCustomer(customerId, name) {
+  if (!confirm(`Restore access for ${name}?`)) return;
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/customers?id=eq.${customerId}`, {
+      method: 'PATCH',
+      headers: {
+        'apikey': SUPABASE_ANON,
+        'Authorization': 'Bearer ' + SUPABASE_ANON,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({ is_active: true })
+    });
+    if (!res.ok) throw new Error('Failed to restore customer');
+    showToast(`${name} restored successfully`, 'success');
+    loadCustomers();
+  } catch(err) {
+    showToast('Failed: ' + err.message, 'error');
   }
 }
 
