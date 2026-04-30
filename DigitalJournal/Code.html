@@ -2780,17 +2780,11 @@ async function buildRolesTable() {
       .single();
     if (data && data.ratings) saved = data.ratings;
 
-    // One-time migration from localStorage if Supabase is empty
+        // Fall back to localStorage only if Supabase has no data
     if (Object.keys(saved).length === 0) {
-      const local = JSON.parse(localStorage.getItem('inklings_roles') || '{}');
-      if (Object.keys(local).length > 0) {
-        saved = local;
-        await sb.from('role_ratings').upsert(
-          { customer_id: CUSTOMER_ID, ratings: local },
-          { onConflict: 'customer_id' }
-        );
-      }
+      saved = {};
     }
+
   } else {
     saved = JSON.parse(localStorage.getItem('inklings_roles') || '{}');
   }
@@ -2814,35 +2808,39 @@ async function buildRolesTable() {
     tbody.appendChild(tr);
   });
 
-  tbody.addEventListener('click', async e => {
+      tbody.addEventListener('click', async e => {
     if (e.target.classList.contains('star')) {
       const ri = parseInt(e.target.dataset.ri);
       const s  = parseInt(e.target.dataset.s);
 
+      // If clicking the only filled star, clear to 0
+      const currentFilled = document.querySelectorAll(`#stars-${ri} .star.filled`).length;
+      const newVal = (currentFilled === 1 && s === 1) ? 0 : s;
+
       // Update UI immediately
       document.querySelectorAll(`#stars-${ri} .star`).forEach((st, i) => {
-        st.classList.toggle('filled', i < s);
+        st.classList.toggle('filled', i < newVal);
       });
 
       if (CUSTOMER_ID) {
-        // Load current ratings, update, save back as one JSON object
         const { data } = await sb.from('role_ratings')
           .select('ratings')
           .eq('customer_id', CUSTOMER_ID)
           .single();
         const current = (data && data.ratings) ? data.ratings : {};
-        current[ri] = s;
+        current[ri] = newVal;
         await sb.from('role_ratings').upsert(
           { customer_id: CUSTOMER_ID, ratings: current },
           { onConflict: 'customer_id' }
         );
       } else {
         const saved2 = JSON.parse(localStorage.getItem('inklings_roles') || '{}');
-        saved2[ri] = s;
+        saved2[ri] = newVal;
         localStorage.setItem('inklings_roles', JSON.stringify(saved2));
       }
     }
   });
+
 
   // Close tooltips when clicking outside
   document.addEventListener('click', e => {
@@ -2876,17 +2874,10 @@ async function buildCollage() {
       .single();
     if (data && data.words) saved = data.words;
 
-    // One-time migration from localStorage if Supabase is empty
     if (saved.length === 0) {
-      const local = JSON.parse(localStorage.getItem('inklings_collage') || '[]');
-      if (local.length > 0) {
-        saved = local;
-        await sb.from('collage_selections').upsert(
-          { customer_id: CUSTOMER_ID, words: local },
-          { onConflict: 'customer_id' }
-        );
-      }
+      saved = [];
     }
+
   } else {
     saved = JSON.parse(localStorage.getItem('inklings_collage') || '[]');
   }
