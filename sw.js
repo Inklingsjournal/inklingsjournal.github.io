@@ -1,16 +1,6 @@
-const CACHE = 'inklings-v1';
-const ASSETS = [
-  '/DigitalJournal/Login.html',
-  '/DigitalJournal/Code.html'
-];
-
-self.addEventListener('install', e => {
-  e.waitUntil(
-    caches.open(CACHE).then(c => c.addAll(ASSETS))
-  );
-});
-
 self.addEventListener('fetch', e => {
+  // Network first — always get fresh content
+  // Only fall back to cache if offline
   e.respondWith(
     fetch(e.request).catch(() => caches.match(e.request))
   );
