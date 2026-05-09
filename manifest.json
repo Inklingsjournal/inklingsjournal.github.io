@@ -1,0 +1,22 @@
+{
+  "name": "Inklings Journal",
+  "short_name": "Inklings",
+  "description": "A guided digital journal by a Clinical Psychologist",
+  "start_url": "/DigitalJournal/Login.html",
+  "display": "standalone",
+  "background_color": "#f4efe6",
+  "theme_color": "#4f6247",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/Logo.jpeg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "/Logo.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}
